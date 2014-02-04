@@ -10,7 +10,7 @@ $(document).ready(function() {
 	.css('width', winwidth * 0.8 + logoconst + 'px')
 	.css('height', winwidth * 0.8 + 'px')
 	.css('left', winwidth * 0.1 + - logoconst/2 +'px')
-	.css('top', winwidth * 0.1 + 'px');
+	.css('top', '0px');
   $('.button.explore')
     .css('width', winwidth + 'px')
     .css('top', winheight * 0.78 + 'px');
