@@ -13,6 +13,7 @@ function splitbackground(h, stripcolor, imgsrc) {
     .css('width', winwidth + 'px')
 	.css('z-index', -2)
 	// .css('background-color', '#f5deb3'); // wheat
+	// .css('background-color', 'rgb(210, 243, 253)');  // light blue
 	.css('background-color', '#afd2dd'); // blue
 	
   if(imgsrc) {
@@ -36,5 +37,6 @@ function splitbackground(h, stripcolor, imgsrc) {
 	.css('top', $('.background.tophalf').height() + 'px')
 	.css('left', '0')
 	.css('width', winwidth + 'px')
+	.css('border-top', 'solid 1px #ccc')
 	.css('box-shadow', '0px 1px 4px rgba(0,0,0,0.24)');
 }

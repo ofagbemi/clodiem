@@ -21,9 +21,9 @@
     </svg>
     -->
     
-    <div class="content_wrap">
-	  <div class="content centered" style="padding: 22px;">
-	    <span style="text-transform: lowercase;">c l O d i e m</span>
+    <div class="content_wrap landing">
+	  <div class="content centered">
+	    <span style="text-transform: lowercase;"><a href="/">c l o d i e m</a></span>
 	  </div>
     </div>
     
@@ -54,10 +54,13 @@ font-weight: 400;">Posted by KATHY B.
     <script type="text/javascript" src="/js/rendercontent.js"></script>
     <script type="text/javascript" src="/js/rendertopbar.js"></script>
     <script>
-      $(document).ready(function() {
+      function setSizes() {
         splitbackground(0.30, 'white');
         renderlanding(0.30);
-        // rendertopbar();
+      }
+      window.resize = setSizes;
+      $(document).ready(function() {
+        setSizes();
       });
     </script>
   </body>

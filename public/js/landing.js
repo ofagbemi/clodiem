@@ -19,10 +19,13 @@ function renderlanding(paddingtop) {
     .css('left', (winwidth - $('.button.explore').width())/2 + 'px');
     
   var middlestripheight = 28;
-  var contentTop = winheight * paddingtop - $('content_wrap').height()/2 - middlestripheight/2;
+  //var contentTop = winheight * paddingtop - $('.content_wrap').height()/2 - middlestripheight/2;
+  var contentTop = winheight * paddingtop - $('.content_wrap').height() - 1;
+  // - 1 for border
   $('.content_wrap')
     .css('width', $('.button_wrap').width() + 'px')
     //.css('min-height', winheight - 2*contentTop + 'px')
     .css('top', contentTop + 'px')
-    .css('left', (winwidth - $('.content_wrap').width())/2 + 'px');
+    .css('left', (winwidth - $('.content_wrap').width())/2 + 'px')
+    .css('border-bottom', 'solid 1px #ccc');
 };
