@@ -4,7 +4,6 @@
   <head>
     <!--global stylesheet-->
     <link rel="stylesheet" href="/css/global.css">
-    
     <meta content="width=device-width,initial-scale=1.0" name="viewport">
     
     <style>
@@ -13,15 +12,17 @@
     </style>
   </head>
   <body>
+    <!--
     <svg class ="big_logo" style="position: absolute" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
       <g id="Captions">
 	    <path class="whitesnake_fill thin_stroke" d="M98.515,70.74c-2.191-2.74-6.083-3.926-13.946-8.02c-4.234-2.441-15.79-6.824-20.771-12.552   c-5.24-9.212-11.017-10.683-13.046-10.942v-1.859c0-1.722,0.044-1.772,0.775-2.617c0.428-0.494,1.075-1.242,1.948-2.56   c0.857-1.296,1.154-2.619,0.881-3.933c-0.468-2.249-2.48-3.579-2.565-3.634c-0.046-0.029-0.094-0.055-0.144-0.077   c-4.739-2.075-7.622,0.767-8.708,1.836l-0.2,0.195c-0.364,0.343-0.579,0.465-0.657,0.502c-0.437,0.032-0.817,0.351-0.907,0.801   c-0.108,0.542,0.243,1.068,0.784,1.177c0.586,0.121,1.309-0.228,2.153-1.026l0.231-0.225c1.041-1.026,2.973-2.931,6.417-1.464   c0.497,0.35,2.766,2.146,1.046,4.744c-0.801,1.21-1.374,1.872-1.792,2.354c-1.04,1.201-1.263,1.671-1.263,3.926v1.938   c-2.365,0.436-7.687,2.318-12.548,10.864c-4.981,5.728-16.537,10.111-20.771,12.552C7.568,66.814,3.677,68,1.485,70.74   c-2.192,2.739-1.395,5.03-1.096,5.379c0.238,0.278,1.739-0.257,4.066-1.336h91.089c2.327,1.079,3.826,1.614,4.065,1.336   C99.909,75.771,100.707,73.479,98.515,70.74z M50,49.421c0,0,27.386,16.15,41.476,23.362H8.524C22.614,65.571,50,49.421,50,49.421z   "/>
       </g>
       <g id="Your_Icon"></g>
     </svg>
+    -->
     
     <div class="content_wrap">
-	  <div class="content centered"">
+	  <div class="content centered" style="padding: 22px;">
 	    <span style="text-transform: lowercase;">c l O d i e m</span>
 	  </div>
     </div>
@@ -35,12 +36,23 @@
       <span>E X P L O R E</span>
     </div>
     
+    <!--
     <div class="attributions" style="text-align: center; font-size: 6px; position: absolute; bottom: 4px; left: 4px;">
       <p style="margin: 0">Clothes Hanger by Terone Ward from The Noun Project</p>
     </div>
+    -->
+     <!--jQuery-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/splitbackground.js"></script>
+    <script type="text/javascript" src="/js/landing.js"></script>
+    <script type="text/javascript" src="/js/rendercontent.js"></script>
+    <script type="text/javascript" src="/js/rendertopbar.js"></script>
+    <script>
+      $(document).ready(function() {
+        splitbackground(0.5, '/images/testimages/diptych.jpg');
+        rendercontent(0.5);
+        rendertopbar();
+      });
+    </script>
   </body>
-  <!--jQuery-->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script type="text/javascript" src="/js/splitbackground.js"></script>
-  <script type="text/javascript" src="/js/landing.js"></script>
 </html>

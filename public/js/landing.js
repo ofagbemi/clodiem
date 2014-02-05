@@ -14,12 +14,4 @@ $(document).ready(function() {
   $('.button.explore')
     .css('width', winwidth + 'px')
     .css('top', winheight * 0.78 + 'px');
-  var middlestripheight = 28;
-  var contentSide = 20;
-  var contentTop = (winheight - $('.content_wrap').height())/2 + middlestripheight/2;
-  $('.content_wrap')
-	.css('width', winwidth - 2*contentSide + 'px')
-	//.css('min-height', winheight - 2*contentTop + 'px')
-	.css('top', contentTop + 'px')
-	.css('left', contentSide + 'px');
 });

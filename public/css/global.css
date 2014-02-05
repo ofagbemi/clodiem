@@ -1,5 +1,5 @@
 html {
-  font-family: 'Light', 'Helvetica Neue', sans-serif;
+  font-family: 'Helvetica Neue', sans-serif;
 }
 body {
   margin: 0 auto;
@@ -7,8 +7,14 @@ body {
   background: #f5f5f5;
   /*background: #efefef;*/
 }
-h1 {
+h1, h2, p{
   margin: 0;
+}
+a {
+  color: black;
+}
+.clear {
+  clear: both;
 }
 
 /* General */
@@ -19,7 +25,7 @@ h1 {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.24);
 }
 .content {
-  padding: 22px;
+  /* padding: 22px; */
 }
 .button {
   padding: 11px;
@@ -34,7 +40,7 @@ h1 {
 	text-align: center;
 	text-transform: uppercase;
 	color: black;
-	background: rgb(255, 214, 139);
+	background: #ffd68b;
 	/* box-shadow: 1px 1px 1px rgba(0,0,0,0.24); */
 	border-top: dashed 1px #6B522D;
 	border-bottom: dashed 1px #333;
@@ -50,4 +56,89 @@ h1 {
 .thin_stroke {
   stroke: #444;
   stroke-width: 0.3px;
+}
+#topbar {
+  height: 43px;
+  z-index: 11;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+}
+
+/* post styles */
+.posts {
+  padding-top: 11px;
+}
+.post {
+  background: white;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.24);
+  margin-bottom: 16px;
+}
+.post_header {
+  padding: 7px 11px;
+}
+.post_header .title {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 200;
+  font-size: 40px;
+}
+.post_header .sub {
+  padding-left: 4px;
+}
+.post_header .sub .user_attribution {
+  text-transform: uppercase;
+}
+.post_header .sub .post_stats {
+  font-size: 12px;
+  color: #888;
+}
+.post_img {
+  width: 100%;
+  border-top: solid 1px #bbb;
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.2);
+}
+.post_caption {
+  padding: 14px;
+  border-left: solid 1px #ccc;
+  border-right: solid 1px #ccc;
+}
+.post_tags {
+  background: #ffd68b;
+  min-height: 48px;
+  padding: 14px;
+  border-top: solid 1px #bbb;
+}
+.post_tags span.tag {
+  color: black;
+  text-transform: uppercase;
+}
+.post_interact {
+  height: 48px;
+  background-color: #afd2dd;
+  border-top: solid 1px #bbb;
+}
+.post_interact span {
+  display: inline-block;
+  height: 48px;
+  width: 48px;
+  background-size: 24px 24px;
+  background-position: center;
+  background-repeat: no-repeat;
+  float: right;
+}
+.post_interact .like_button {
+  background-image: url('../images/icons/black_heart/black_heart.svg');
+}
+.post_interact .add_button {
+  background-image: url('../images/icons/plus/plus.svg');
+}
+.likes {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  background-image: url('../images/icons/heart/heart.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 0px 2px;
 }
