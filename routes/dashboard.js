@@ -16,7 +16,7 @@ exports.view = function(req, res) {
         'comments': '4 comments',
         'likes': '19',
         'time': '28 minutes ago',
-        'caption': 'Took the car out for a drive with some friends out to the hills. Thought this look\'d do.',
+        'caption': 'Took the car out to the hills with a couple of friends. Thought this look\'d do!',
         'img': 'http://i.istockimg.com/file_thumbview_approve/19744739/2/stock-photo-19744739-male-fashion-model-sitting-in-classic-sports-car.jpg'
       }
     ]

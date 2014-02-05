@@ -28,19 +28,23 @@
     </div>
     
     <div class="button_wrap">
-	  <div class="button">Sign In</div>
-	  <div class="button">Create an Account</div>
+	  <div class="button"><a href="/aisle">Sign In</a></div>
+	  <div class="button"><a href="/aisle">Create an Account</a></div>
 	</div>
     
     <div class="button explore">
-      <span>E X P L O R E</span>
+      <a href="/aisle">E X P L O R E</a>
     </div>
     
-    <!--
-    <div class="attributions" style="text-align: center; font-size: 6px; position: absolute; bottom: 4px; left: 4px;">
-      <p style="margin: 0">Clothes Hanger by Terone Ward from The Noun Project</p>
-    </div>
-    -->
+    <span style="position: absolute;
+top: 168px;
+left: 102px;
+text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.57);
+color: white;
+font-size: 13px;
+font-weight: 400;">Posted by KATHY B.
+    
+    </span>
      <!--jQuery-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="/js/splitbackground.js"></script>
@@ -49,8 +53,8 @@
     <script type="text/javascript" src="/js/rendertopbar.js"></script>
     <script>
       $(document).ready(function() {
-        splitbackground(0.36, '#ffd68b', '/images/testimages/diptych.jpg');
-        rendercontent(0.36);
+        splitbackground(0.36, 'white', '/images/testimages/diptych.jpg');
+        renderlanding(0.36);
         // rendertopbar();
       });
     </script>

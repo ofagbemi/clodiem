@@ -4,7 +4,8 @@ html {
 body {
   margin: 0 auto;
   width: auto;
-  background: #f5f5f5;
+  background: white;
+  /* background: #f5f5f5; */
   font-weight: 200;
   /*background: #efefef;*/
 }
@@ -41,6 +42,7 @@ a {
     position: absolute;
 	text-align: center;
 	font-size: 16px;
+	background: orange;
 	/* text-transform: uppercase; */
 	/* color: black; */
 	/* background: #ffd68b; */
@@ -48,6 +50,10 @@ a {
 	/* border-top: dashed 1px #6B522D; */
 	/* border-bottom: dashed 1px #333;*/
 	padding: 24px 0;
+  }
+  .button a {
+    color: white;
+    text-decoration: none;
   }
 
 .centered {
@@ -66,7 +72,9 @@ a {
   position: fixed;
   top: 0;
   left: 0;
-  background: #000;
+  background-color: white;
+  border-bottom: solid 1px #ddd;
+  /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.24); */
 }
 
 /* post styles */
@@ -79,42 +87,42 @@ a {
   margin-bottom: 16px;
 }
 .post_header {
-  padding: 7px 11px;
+  padding: 11px 18px 4px 18px;
 }
 .post_header .title {
   font-family: 'Helvetica Neue', sans-serif;
   font-weight: 200;
-  font-size: 29px;
+  font-size: 20px;
+  margin-bottom: 8px;
 }
 .post_header .sub {
   padding-left: 4px;
+  font-size: 9px;
 }
 .post_header .sub .user_attribution {
   text-transform: uppercase;
+  font-size: 12px;
 }
 .post_header .sub .post_stats {
-  font-size: 12px;
+  font-size: 9px;
   color: #888;
 }
 .post_img {
   width: 100%;
-  border-top: solid 1px #bbb;
   box-shadow: 0px 1px 2px rgba(0,0,0,0.2);
 }
 .post_caption {
   padding: 14px;
-  border-left: solid 1px #ccc;
-  border-right: solid 1px #ccc;
 }
 .post_caption p {
   border-left: solid 4px #afd2dd;
-  padding-left: 4px;
+  padding-left: 6px;
+  font-size: 12px;
 }
 .post_tags {
   background: #ffd68b;
   min-height: 48px;
   padding: 14px;
-  border-top: solid 1px #bbb;
 }
 .post_tags span.tag {
   color: black;
@@ -123,7 +131,6 @@ a {
 .post_interact {
   height: 48px;
   background-color: #afd2dd;
-  border-top: solid 1px #bbb;
 }
 .post_interact span {
   display: inline-block;

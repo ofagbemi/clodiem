@@ -1,4 +1,4 @@
-$(document).ready(function() {
+function renderlanding(paddingtop) {
   var winwidth = window.innerWidth;
   var winheight = window.innerHeight;
   var logoconst = 4;  // to show edges on hanger logo
@@ -17,4 +17,12 @@ $(document).ready(function() {
     .css('width', $('.button_wrap').width() + 'px')
     .css('top', winheight * 0.5 + 8 + $('.button_wrap').height() + 'px')
     .css('left', (winwidth - $('.button.explore').width())/2 + 'px');
-});
+    
+  var middlestripheight = 28;
+  var contentTop = winheight * paddingtop - $('content_wrap').height()/2 - middlestripheight/2;
+  $('.content_wrap')
+    .css('width', $('.button_wrap').width() + 'px')
+    //.css('min-height', winheight - 2*contentTop + 'px')
+    .css('top', contentTop + 'px')
+    .css('left', (winwidth - $('.content_wrap').width())/2 + 'px');
+};
