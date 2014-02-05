@@ -89,8 +89,12 @@ a {
 }
 .post {
   background: white;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.24);
+  /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.24); */
   margin-bottom: 16px;
+  border-radius: 0 8px 0 8px;
+  border: solid 1px #ccc;
+  border-bottom: none;
+  border-left: none;
 }
 .post_header {
   padding: 11px 18px 4px 18px;
@@ -113,9 +117,24 @@ a {
   font-size: 9px;
   color: #888;
 }
-.post_img {
+.post_stage {
+  position: relative;
+}
+.post_stage .post_img {
   width: 100%;
   box-shadow: 0px 1px 2px rgba(0,0,0,0.2);
+}
+.post_stage .marker {
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 20px;
+  background: black;
+  color: white;
+  position: absolute;
+  display: block;
+  opacity: 0.7;
 }
 .post_caption {
   padding: 14px;
@@ -126,23 +145,25 @@ a {
   font-size: 12px;
 }
 .post_tags {
-  background: #ffd68b;
-  min-height: 48px;
+  background: #f1f1f1;
+  border-bottom: solid 1px #aaa;
   padding: 14px;
+  font-size: x-small;
 }
 .post_tags span.tag {
   color: black;
   text-transform: uppercase;
 }
 .post_interact {
-  height: 48px;
+  height: 36px;
   background-color: #afd2dd;
+  border-radius: 0 0 0 8px;
 }
 .post_interact span {
   display: inline-block;
-  height: 48px;
-  width: 48px;
-  background-size: 24px 24px;
+  height: 36px;
+  width: 36px;
+  background-size: 18px 18px;
   background-position: center;
   background-repeat: no-repeat;
   float: right;
@@ -152,6 +173,7 @@ a {
 }
 .post_interact .add_button {
   background-image: url('../images/icons/plus/plus.svg');
+  border-left: solid 1px #333;
 }
 .likes {
   display: inline-block;

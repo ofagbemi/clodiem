@@ -14,7 +14,8 @@ function splitbackground(h, stripcolor, imgsrc) {
 	.css('z-index', -2)
 	// .css('background-color', '#f5deb3'); // wheat
 	// .css('background-color', 'rgb(210, 243, 253)');  // light blue
-	.css('background-color', '#afd2dd'); // blue
+	// .css('background-color', '#afd2dd'); // blue
+	.css('background-color', '#f7f7f7');
 	
   if(imgsrc) {
     var marginconst = 8;
