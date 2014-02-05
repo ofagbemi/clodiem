@@ -7,23 +7,23 @@
   <body>
     <div class="content">
 	  <div class="posts">
-	  
+	  {{#each posts}}
 		<div class="post">
 		  <div class="post_header">
-			<h2 class="title">TITLE // title</h2>
+			<h2 class="title">{{title}}</h2>
 			<div class="sub">
-			  <span class="user_attribution">by <a href="#">user</a></span>
+			  <span class="user_attribution">by <a href="#">{{user}}</a></span>
 			  <span>//</span>
 			  <span class="post_stats">
-				<a href="#">8 comments</a> · 
-				<a href="#">11</a> <a><span class="likes"></span></a> · 
-				<a href="#">4 hours ago</a>
+				<a href="#">{{comments}}</a> · 
+				<a href="#">{{likes}}</a> <a><span class="likes"></span></a> · 
+				<a href="#">{{time}}</a>
 			  </span>
 		    </div>
 		  </div>
-		  <img class="post_img" src="http://i.istockimg.com/file_thumbview_approve/21076093/2/stock-photo-21076093-happy-summer-girl.jpg">
+		  <img class="post_img" src="{{img}}">
 		  <div class="post_caption">
-	        <p>Wow.</p>
+		    <p>{{caption}}</p>
 		  </div>
 		  <div class="post_tags">
 		    <span style="font-weight: bold;">TAGS</span>
@@ -39,8 +39,9 @@
 	        <div class="clear"></div>
 		  </div>
 		</div>
+	  {{/each}}
 		
-		
+		<!--
 		<div class="post">
 		  <div class="post_header">
 			<h2 class="title">TITLE // title</h2>
@@ -73,7 +74,7 @@
 		  </div>
 		</div>
 	  </div>
-		
+		-->
 		
 	  </div>
     </div>
