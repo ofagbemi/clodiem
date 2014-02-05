@@ -1,4 +1,4 @@
-function splitbackground(h, imgsrc) {
+function splitbackground(h, stripcolor, imgsrc) {
   var html = '<div class="background tophalf"></div><div class="background middlestrip"></div>';
   $('body').append(html);
   var winheight = window.innerHeight;
@@ -12,7 +12,7 @@ function splitbackground(h, imgsrc) {
 	.css('background-color', '#afd2dd'); // blue
 	
   if(imgsrc) {
-    var marginconst = 80;
+    var marginconst = 8;
     var imgstyle = 'min-width: ' + (winwidth + (marginconst * 2)) + 'px;' +
                    'min-height: ' + (winheight * h + (marginconst * 2)) + 'px;' +
                    'margin-left: ' + (-marginconst) + 'px;' +
@@ -27,5 +27,5 @@ function splitbackground(h, imgsrc) {
   $('.background.middlestrip')
 	.css('z-index', -1)
 	.css('height', middlestripheight + 'px')
-	.css('background-color', 'white');
+	.css('background-color', stripcolor);
 }

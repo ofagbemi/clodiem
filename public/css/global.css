@@ -35,16 +35,18 @@ a {
   display: inline-block;
   font-size: 12px;
   text-transform: uppercase;
+  text-align: center;
 }
   .button.explore {
     position: absolute;
 	text-align: center;
-	text-transform: uppercase;
-	color: black;
-	background: #ffd68b;
+	font-size: 16px;
+	/* text-transform: uppercase; */
+	/* color: black; */
+	/* background: #ffd68b; */
 	/* box-shadow: 1px 1px 1px rgba(0,0,0,0.24); */
-	border-top: dashed 1px #6B522D;
-	border-bottom: dashed 1px #333;
+	/* border-top: dashed 1px #6B522D; */
+	/* border-bottom: dashed 1px #333;*/
 	padding: 24px 0;
   }
 
