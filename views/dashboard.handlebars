@@ -34,11 +34,9 @@
 		  </div>
 		  <div class="post_tags">
 		    <span style="font-weight: bold;">TAGS</span>
-		    <span class="tag"><a href="#">hip</a>,</span>
-		    <span class="tag"><a href="#">fun</a>,</span>
-		    <span class="tag"><a href="#">sleek</a>,</span>
-		    <span class="tag"><a href="#">out</a>,</span>
-		    <span class="tag"><a href="#">dress</a></span>
+		    {{#each tags}}
+		    <span class="tag"><a href="#">{{tag}}</a></span>
+		    {{/each}}
 		  </div>
 		  <div class="post_interact">
 		    <span class="add_button"></span>

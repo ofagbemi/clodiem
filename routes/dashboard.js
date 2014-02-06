@@ -25,6 +25,14 @@ exports.view = function(req, res) {
             'x': 0.67,
             'y': 0.89
           }
+        ],
+        'tags': [
+          {'tag': 'hip'},
+          {'tag': 'fun'},
+          {'tag': 'spunky'},
+          {'tag': 'tied-up'},
+          {'tag': 'fresh'},
+          {'tag': 'super'}
         ]
       },
       {

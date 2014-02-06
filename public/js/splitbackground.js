@@ -34,6 +34,7 @@ function splitbackground(h, stripcolor, imgsrc) {
       );
   }
   
+  /*
   $('.background.middlestrip')
 	.css('z-index', -1)
 	.css('height', middlestripheight + 'px')
@@ -45,4 +46,5 @@ function splitbackground(h, stripcolor, imgsrc) {
 	.css('border-top', 'solid 1px #ccc')
 	.css('border-bottom', 'solid 1px #ccc')
 	// .css('box-shadow', '0px 2px 2px rgba(0,0,0,0.24)');
+   */
 }

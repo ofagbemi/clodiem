@@ -26,6 +26,6 @@ function renderlanding(paddingtop) {
     .css('width', $('.button_wrap').width() + 'px')
     //.css('min-height', winheight - 2*contentTop + 'px')
     .css('top', contentTop + 'px')
-    .css('left', (winwidth - $('.content_wrap').width())/2 + 'px')
-    .css('border-bottom', 'solid 1px #ccc');
+    .css('left', (winwidth - $('.content_wrap').width())/2 + 'px');
+    /* .css('border-bottom', 'solid 1px #ccc'); */
 };

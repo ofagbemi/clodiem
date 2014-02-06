@@ -185,3 +185,25 @@ a {
   background-repeat: no-repeat;
   background-position: 0px 2px;
 }
+
+/* search */
+.searchwrap {
+  border-top: solid 1px #ccc;
+  border-bottom: solid 1px #ccc;
+  position: absolute;
+}
+#searchbox {
+  border: none;
+  float: left;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-weight: 100;
+  font-size: larger;
+  outline: none;
+}
+#searchbox_label {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-image: url('../images/icons/search/search.svg');
+  background-size: contain;
+  float: left;
+}
