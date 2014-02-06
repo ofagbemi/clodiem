@@ -2,6 +2,7 @@ exports.view = function(req, res) {
   var posts = {
     'posts': [
       {
+        'id': '1',
         'title': 'Looooooookin\' CHIC',
         'user': 'Anna B.',
         'comments': '17 comments',
@@ -36,6 +37,7 @@ exports.view = function(req, res) {
         ]
       },
       {
+        'id': '2',
         'title': 'Summer drive',
         'user': 'Kendrick.',
         'comments': '4 comments',
