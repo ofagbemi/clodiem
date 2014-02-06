@@ -199,6 +199,8 @@ a {
   font-weight: 100;
   font-size: larger;
   outline: none;
+  margin: 0;
+  padding: 0;
 }
 #searchbox_label {
   display: inline-block;
