@@ -1,12 +1,16 @@
 function splitbackground(h, stripcolor, imgsrc) {
+  $('.background.tophalf').remove();
+  $('.background.middlestrip').remove();
+  
   var html = '<div class="background tophalf"></div><div class="background middlestrip"></div>';
   $('body').append(html);
   var winheight = window.innerHeight;
   var winwidth = window.innerWidth;
   var middlestripheight = 28;
   
+  
   $('.background.tophalf')
-	.css('height', (winheight - $('.background.middlestrip').height()) * h + 'px')
+	.css('height', (winheight * h + 'px'))
 	.css('position', 'absolute')
     .css('top', '0px')
     .css('left', '0px')
@@ -14,8 +18,8 @@ function splitbackground(h, stripcolor, imgsrc) {
 	.css('z-index', -2)
 	// .css('background-color', '#f5deb3'); // wheat
 	// .css('background-color', 'rgb(210, 243, 253)');  // light blue
-	// .css('background-color', '#afd2dd'); // blue
-	.css('background-color', '#f7f7f7');
+	.css('background-color', '#afd2dd'); // blue
+	// .css('background-color', '#f7f7f7');
 	
   if(imgsrc) {
     var marginconst = 8;
@@ -39,5 +43,6 @@ function splitbackground(h, stripcolor, imgsrc) {
 	.css('left', '0')
 	.css('width', winwidth + 'px')
 	.css('border-top', 'solid 1px #ccc')
-	.css('box-shadow', '0px 1px 4px rgba(0,0,0,0.24)');
+	.css('border-bottom', 'solid 1px #ccc')
+	// .css('box-shadow', '0px 2px 2px rgba(0,0,0,0.24)');
 }

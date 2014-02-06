@@ -20,7 +20,7 @@ function renderlanding(paddingtop) {
     
   var middlestripheight = 28;
   //var contentTop = winheight * paddingtop - $('.content_wrap').height()/2 - middlestripheight/2;
-  var contentTop = winheight * paddingtop - $('.content_wrap').height() - 1;
+  var contentTop = winheight * paddingtop - $('.content_wrap').height() - 1;//- $('.content_wrap').height();
   // - 1 for border
   $('.content_wrap')
     .css('width', $('.button_wrap').width() + 'px')
