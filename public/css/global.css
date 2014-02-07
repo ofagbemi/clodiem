@@ -28,13 +28,13 @@ a {
   z-index: 1;
   position: absolute;
   /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.24); */
-  border-radius: 20px 20px 0 0;
-  border: solid 1px #505050;
+  border-radius: 8px 8px 0 0;
+  border: solid 1px #3d3d3d;
   border-bottom: none;
-  background: #3d3c3c;
   font-size: small;
+  background-color: rgba(0, 0, 0, 0.16);
   /* background: black; */
-  background: white;
+  /* background: white; */
   
 }
 .content_wrap.landing .content{
@@ -42,12 +42,18 @@ a {
 }
 .content_wrap.landing .content a {
   text-decoration: none;
-  color: black;
+  color: white;
 }
 .tophalf {
   background-image: linear-gradient(to bottom,
+                                    rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)),
+                                    url("http://subtlepatterns.com/patterns/binding_dark.png");
+  /* background-image: url("http://subtlepatterns.com/patterns/binding_dark.png"); */
+  /*
+  background-image: linear-gradient(to bottom,
                                     rgba(0, 0, 0, 0.76), rgba(0, 0, 0, 0.8)),
                                     url("http://subtlepatterns.com/patterns/sprinkles.png");
+  */
 }
 .button {
   padding: 11px;
