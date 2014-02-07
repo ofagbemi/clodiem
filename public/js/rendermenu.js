@@ -1,8 +1,10 @@
-function buildmenu() {
+function buildmenu(username) {
   var winheight = window.innerHeight;
   var winwidth = window.innerWidth;
   var menu = $('<div id="menu"></div>');
   var closemenubutton = $('<a href="#" class="close_menu_button">x</a>');
+  var profilelink = $('<a href="/user?username=' + username + '">My profile</a>');
+  var makepostlink = $('<a href="/createpost">Make a Post</a>');
   menu
     .css('display', 'none')
     .css('position', 'fixed')
@@ -11,7 +13,9 @@ function buildmenu() {
     .css('max-width', '300px')
     .css('width', 0.8 * winwidth + 'px')
     .css('height', winheight + 'px')
-    .append(closemenubutton);
+    .append(closemenubutton)
+    .append(profilelink)
+    .append(makepostlink);
     
   $('#menu').remove();
   $('body').append(menu);
