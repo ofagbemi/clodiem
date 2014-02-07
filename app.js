@@ -16,7 +16,7 @@ var profile = require('./routes/profile');
 var search = require('./routes/search');
 var following = require('./routes/following');
 var followers = require('./routes/followers');
-var outfits = require('./routes/outfits');
+var outfits = require('./routes/closet');
 var createpost = require('./routes/createpost');
 // Example route
 // var user = require('./routes/user');
@@ -53,7 +53,7 @@ app.get('/user', profile.view);
 app.get('/search', search.view);
 app.get('/following', following.view);
 app.get('/followers', followers.view);
-app.get('/outfits', outfits.view);
+app.get('/closet', outfits.view);
 app.get('/createpost', createpost.view);
 // Example route
 // app.get('/users', user.list);
