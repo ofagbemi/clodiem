@@ -33,7 +33,8 @@ function rendersearchbar(h, barheight, barwidth) {
     .css('height', height - 8 + 'px')
     .attr('id', 'searchbox')
     .attr('placeholder', 'Search')
-    .attr('name', 'q');
+    .attr('name', 'q')
+    .attr('type', 'search');
   
   $('.search')
     .css('height', height - 8 + 'px')
