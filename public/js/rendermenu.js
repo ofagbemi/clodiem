@@ -5,6 +5,7 @@ function buildmenu(username) {
   var closemenubutton = $('<a href="#" class="close_menu_button">x</a>');
   var profilelink = $('<a href="/user?username=' + username + '">My profile</a>');
   var makepostlink = $('<a href="/createpost">Make a Post</a>');
+  var logoutlink = $('<a href="/">Log out</a>');
   menu
     .css('display', 'none')
     .css('position', 'fixed')
@@ -15,7 +16,8 @@ function buildmenu(username) {
     .css('height', winheight + 'px')
     .append(closemenubutton)
     .append(profilelink)
-    .append(makepostlink);
+    .append(makepostlink)
+    .append(logoutlink);
     
   $('#menu').remove();
   $('body').append(menu);
