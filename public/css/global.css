@@ -26,12 +26,14 @@ a {
 .content_wrap.landing {
   z-index: 1;
   position: absolute;
-  background: white;
+  /* background: white; */
   /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.24); */
   border-radius: 8px 8px 0 0;
-  border: solid 1px #AAA;
+  border: solid 1px #505050;
   border-bottom: none;
-  background: black;
+  background: #3d3c3c;
+  font-size: 12px;
+  /* background: black; */
 }
 .content_wrap.landing .content{
    padding: 22px 22px 18px 22px;
@@ -42,17 +44,17 @@ a {
 }
 .button {
   padding: 11px;
-  background: black;
+  background: #3d3c3c;
   color: white;
   display: inline-block;
-  font-size: 12px;
+  font-size: small;
   text-transform: uppercase;
   text-align: center;
 }
   .button.explore {
     position: absolute;
 	text-align: center;
-	font-size: 16px;
+	font-size: medium;
 	background: orange;
 	/* text-transform: uppercase; */
 	/* color: black; */
