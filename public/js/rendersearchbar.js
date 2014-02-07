@@ -1,5 +1,5 @@
 function rendersearchbar(h, barheight, barwidth) {
-  $('.searchwrap').remove();
+  $('#searchform').remove();
   var winwidth = window.innerWidth;
   var winheight = window.innerHeight;
   
@@ -11,7 +11,7 @@ function rendersearchbar(h, barheight, barwidth) {
   
   var form = $('<form id="searchform" method="get" action="search"></form>');
   var inner = $('<div class="searchwrap"><div class="search"></div></div>');
-  $('form').append(inner);
+  $(form).append(inner);
   $('body').append(form);
   $('.searchwrap')
     .css('top', winheight * h + 'px')
