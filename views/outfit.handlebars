@@ -72,6 +72,7 @@
     <script src="/js/rendersearchbar.js"></script>
     <script src="/js/rendertopbar.js"></script>
     <script src="/js/splitbackground.js"></script>
+    <script src="/js/likebuttons.js"></script>
     <script>
       function setSizes() {
         rendertopbar(true);
@@ -81,6 +82,7 @@
       window.resize = setSizes;
       $(document).ready(function() {
         setSizes();
+        activatelikebuttons();
       });
       $(window).load(function() {
         setSizes();
