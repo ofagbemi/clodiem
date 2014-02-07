@@ -1,46 +1,67 @@
 <!doctype html>
 <html>
   <head>
+    <title>clodiem</title>
     <link rel="stylesheet" href="/css/global.css">
     <meta content="width=device-width,initial-scale=1.0" name="viewport">
   </head>
   
   <body>
     <div class="content">
-	  <div class="post">
-		<div class="post_header">
-		  <h2 class="title">{{title}}</h2>
-		  <div class="sub">
-			<span class="user_attribution">by <a href="/{{userid}}">{{user}}</a></span>
-			<span>//</span>
-			<span class="post_stats">
-			  <a href="#">{{comments}}</a> · 
-			  <a href="#">{{likes}}</a> <a><span class="likes"></span></a> · 
-			  <a href="#">{{time}}</a>
-			</span>
+      <div class="posts">
+		<div class="post">
+		  <div class="post_header">
+			<h2 class="title">{{title}}</h2>
+			<div class="sub">
+			  <span class="user_attribution">by <a href="/user?username={{username}}">{{username}}</a></span>
+			  <span>//</span>
+			  <span class="post_stats">
+				<a href="#">{{numcomments}}</a> · 
+				<a href="#">{{likes}}</a> <a><span class="likes"></span></a> · 
+				<a href="#">{{time}}</a>
+			  </span>
+			</div>
+		  </div>
+		  <div class="post_stage">
+			{{#each items}}
+			  <a class="marker" x="{{x}}" y="{{y}}">
+				{{@index}}
+			  </a>
+			{{/each}}
+			<img class="post_img" src="{{img}}">
+		  </div>
+		  <div class="post_caption">
+			<p>{{caption}}</p>
+		  </div>
+		  <div class="post_tags">
+			<span style="font-weight: bold;">TAGS</span>
+			{{#each tags}}
+			<span class="tag"><a href="#">{{tag}}</a></span>
+			{{/each}}
+		  </div>
+		  <div class="post_interact">
+			<span class="add_button"></span>
+			<span class="like_button"></span>
+			<div class="clear"></div>
 		  </div>
 		</div>
-		<div class="post_stage">
-		  {{#each items}}
-			<div class="marker" x="{{x}}" y="{{y}}">
-			  {{@index}}
+		
+		<div class="post post_comments">
+		  <div class="comments">
+		  
+		  
+			{{#each comments}}
+			<div class="post_comment">
+			  <img class="profpic" src="{{photo}}">
+			  <div class="comment_body">
+			    <a class="user_attribution" href="/user?username={{username}}">{{username}}</a>
+			    <a class="time" href="#">{{time}}</a>
+			    <p class="comment">{{comment}}</p>
+			  </div>
+			  <div class="clear"></div>
 			</div>
-		  {{/each}}
-		  <img class="post_img" src="{{img}}">
-		</div>
-		<div class="post_caption">
-		  <p>{{caption}}</p>
-		</div>
-		<div class="post_tags">
-		  <span style="font-weight: bold;">TAGS</span>
-		  {{#each tags}}
-		  <span class="tag"><a href="#">{{tag}}</a></span>
-		  {{/each}}
-		</div>
-		<div class="post_interact">
-		  <span class="add_button"></span>
-		  <span class="like_button"></span>
-		  <div class="clear"></div>
+			{{/each}}
+		  </div>
 		</div>
 	  </div>
     </div>
@@ -52,7 +73,7 @@
     <script>
       function setSizes() {
         rendertopbar(true);
-        renderposts();
+        renderpost();
       }
       window.resize = setSizes;
       $(document).ready(function() {

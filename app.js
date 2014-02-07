@@ -7,10 +7,13 @@ var http = require('http');
 var path = require('path');
 var handlebars = require('express3-handlebars')
 
-var index = require('./routes/index');
 var landing = require('./routes/landing');
 var dashboard = require('./routes/dashboard');
 var outfit = require('./routes/outfit');
+var login = require('./routes/login');
+var register = require('./routes/register');
+var profile = require('./routes/profile');
+var search = require('./routes/search');
 // Example route
 // var user = require('./routes/user');
 
@@ -40,6 +43,10 @@ if ('development' == app.get('env')) {
 app.get('/', landing.view);
 app.get('/aisle', dashboard.view);
 app.get('/outfit', outfit.view);
+app.get('/login', login.view);
+app.get('/register', register.view);
+app.get('/user', profile.view);
+app.get('/search', search.view);
 // Example route
 // app.get('/users', user.list);
 

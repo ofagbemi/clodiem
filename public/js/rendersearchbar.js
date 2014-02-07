@@ -1,16 +1,18 @@
-function rendersearchbar(h, barheight) {
+function rendersearchbar(h, barheight, barwidth) {
   $('.searchwrap').remove();
   var winwidth = window.innerWidth;
   var winheight = window.innerHeight;
   
   var height = barheight;
-  if(!barheight) height = 40;
+  var width = barwidth;
+  if(!height) height = 40;
+  if(!width) width = winwidth;
   
   $('body').append('<div class="searchwrap"><div class="search"></div></div>');
   $('.searchwrap')
     .css('top', winheight * h + 'px')
     .css('max-height', height + 'px')
-    .css('width', winwidth + 'px')
+    .css('width', width + 'px')
     .css('overflow', 'hidden');
 
   var label = $('<label></label>');
@@ -22,9 +24,6 @@ function rendersearchbar(h, barheight) {
     .attr('id', 'searchbox_label')
     .attr('for', 'searchbox');
     
-  // <label style="height: ' + (height - 8) + 'px; width: ' + (height) + 'px;" id="searchbox_label" for="searchbox"></label>';
-  
-  // var input = '<input style="height: ' + (height - 8) + 'px;" id="searchbox" placeholder="Search">';
   var input = $('<input></input>');
   input
     .css('height', height - 8 + 'px')
@@ -33,7 +32,7 @@ function rendersearchbar(h, barheight) {
   
   $('.search')
     .css('height', height - 8 + 'px')
-    .css('padding', '4px ' + winwidth * 0.1 + 'px')
+    .css('padding', '4px ' + width * 0.1 + 'px')
     .append(label)
     .append(input)
     .append('<div class="clear"></div>');

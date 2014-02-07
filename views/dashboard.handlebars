@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
   <head>
+    <title>clodiem</title>
     <link rel="stylesheet" href="/css/global.css">
     <meta content="width=device-width,initial-scale=1.0" name="viewport">
   </head>
@@ -13,20 +14,20 @@
 		  <div class="post_header">
 			<h2 class="title"><a href="/outfit?id={{id}}">{{title}}</a></h2>
 			<div class="sub">
-			  <span class="user_attribution">by <a href="/{{userid}}">{{user}}</a></span>
+			  <span class="user_attribution">by <a href="/user?username={{username}}">{{username}}</a></span>
 			  <span>//</span>
 			  <span class="post_stats">
-				<a href="#">{{comments}}</a> · 
-				<a href="#">{{likes}}</a> <a><span class="likes"></span></a> · 
-				<a href="#">{{time}}</a>
+				<a href="/outfit?id={{id}}">{{numcomments}}</a> · 
+				<a href="/outfit?id={{id}}">{{likes}}</a> <a><span class="likes"></span></a> · 
+				<a href="/outfit?id={{id}}">{{time}}</a>
 			  </span>
 		    </div>
 		  </div>
 		  <div class="post_stage">
 		    {{#each items}}
-		      <div class="marker" x="{{x}}" y="{{y}}">
+		      <a class="marker" x="{{x}}" y="{{y}}">
 		        {{@index}}
-		      </div>
+		      </a>
 		    {{/each}}
 		    <img class="post_img" src="{{img}}">
 		  </div>
@@ -36,7 +37,7 @@
 		  <div class="post_tags">
 		    <span style="font-weight: bold;">TAGS</span>
 		    {{#each tags}}
-		    <span class="tag"><a href="#">{{tag}}</a></span>
+		    <span class="tag"><a href="/search?q={{tag}}">{{tag}}</a></span>
 		    {{/each}}
 		  </div>
 		  <div class="post_interact">
@@ -52,11 +53,14 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="/js/renderposts.js"></script>
     <script src="/js/rendertopbar.js"></script>
+    <script src="/js/rendersearchbar.js"></script>
     <script src="/js/splitbackground.js"></script>
+    <script src="/js/rendermenu.js"></script>
     <script>
       function setSizes() {
         rendertopbar(true);
         renderposts();
+        buildmenu();
       }
       window.resize = setSizes;
       $(document).ready(function() {
