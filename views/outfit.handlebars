@@ -68,6 +68,7 @@
     
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="/js/renderposts.js"></script>
+    <script src="/js/rendermenu.js"></script>
     <script src="/js/rendersearchbar.js"></script>
     <script src="/js/rendertopbar.js"></script>
     <script src="/js/splitbackground.js"></script>
@@ -75,7 +76,7 @@
       function setSizes() {
         rendertopbar(true);
         renderpost();
-        buildmenu({{username}});
+        buildmenu('{{username}}');
       }
       window.resize = setSizes;
       $(document).ready(function() {
