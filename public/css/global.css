@@ -9,8 +9,11 @@ body {
   font-weight: 200;
   background: #efefef;
 }
-h1, h2, p{
+h1, h2, p, form{
   margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
 }
 a {
   color: black;

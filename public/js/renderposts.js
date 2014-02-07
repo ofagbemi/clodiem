@@ -39,6 +39,6 @@ function renderpost() {
 // bind click listeners
 function bindpostclicklisteners() {
   $('.marker').click(function() {
-    alert('hi');
+    
   });
 }
