@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
+
 html {
   font-family: 'Helvetica Neue', sans-serif;
 }
@@ -63,13 +65,14 @@ a {
   font-size: small;
   text-transform: uppercase;
   text-align: center;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  font-weight: 400;
 }
   .button.explore {
     position: absolute;
 	text-align: center;
 	font-size: medium;
 	padding: 24px 0;
-	font-weight: 400;
 	background-image: linear-gradient(to bottom,
                                     rgba(61, 73, 87, 0.88), rgba(61, 73, 87, 1)),
                                     url("http://subtlepatterns.com/patterns/binding_dark.png");
@@ -134,10 +137,13 @@ a {
   padding: 11px 18px 4px 18px;
 }
 .post_header .title {
-  font-family: 'Helvetica Neue', sans-serif;
-  font-weight: 200;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  font-weight: 100;
   font-size: 20px;
   margin-bottom: 8px;
+}
+.post_header .title a {
+  text-decoration: none;
 }
 .post_header .sub {
   padding-left: 4px;

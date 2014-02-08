@@ -29,3 +29,7 @@ function renderlanding(paddingtop) {
     .css('left', (winwidth - $('.content_wrap').width())/2 + 'px');
     /* .css('border-bottom', 'solid 1px #ccc'); */
 };
+
+function renderabout() {
+  
+}
