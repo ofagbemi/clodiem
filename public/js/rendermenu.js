@@ -1,6 +1,8 @@
+var menuwidth = 0;
 function buildmenu(username) {
   var winheight = window.innerHeight;
   var winwidth = window.innerWidth;
+  menuwidth = 0.8 * winwidth;
   var menu = $('<div id="menu"></div>');
   var closemenubutton = $('<a href="#" class="close_menu_button">x</a>');
   var profilelink = $('<a href="/user?username=' + username + '">My profile</a>');
@@ -12,7 +14,8 @@ function buildmenu(username) {
     .css('top', '0px')
     .css('left', '0px')
     .css('max-width', '300px')
-    .css('width', 0.8 * winwidth + 'px')
+    .css('width', menuwidth + 'px')
+    .css('margin-left', -menuwidth + 'px')
     .css('height', winheight + 'px')
     .append(closemenubutton)
     .append(profilelink)
@@ -27,9 +30,16 @@ function buildmenu(username) {
 
 function showmenu() {
   $('#menu').show();
+  $('#menu').animate({
+    marginLeft: '0px'
+  });
 }
 function hidemenu() {
-  $('#menu').hide();
+  $('#menu').animate({
+    marginLeft: -menuwidth + 'px'
+  }, function(){
+    $('#menu').hide();
+  });
 }
 
 function bindlisteners() {
@@ -38,4 +48,5 @@ function bindlisteners() {
     e.preventDefault();
     hidemenu();
   });
+  
 }

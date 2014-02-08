@@ -68,15 +68,18 @@ a {
     position: absolute;
 	text-align: center;
 	font-size: medium;
-	background: orange;
+	padding: 24px 0;
+	font-weight: 400;
+	background-image: linear-gradient(to bottom,
+                                    rgba(61, 73, 87, 0.88), rgba(61, 73, 87, 1)),
+                                    url("http://subtlepatterns.com/patterns/binding_dark.png");
+    /* background: orange; */
 	/* text-transform: uppercase; */
 	/* color: black; */
 	/* background: #ffd68b; */
 	/* box-shadow: 1px 1px 1px rgba(0,0,0,0.24); */
 	/* border-top: dashed 1px #6B522D; */
 	/* border-bottom: dashed 1px #333;*/
-	padding: 24px 0;
-	font-weight: 400;
   }
   .button a {
     color: white;
@@ -102,6 +105,16 @@ a {
   background-color: white;
   border-bottom: solid 1px #ddd;
   /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.24); */
+}
+#topbar .menu_button {
+  display: inline-block;
+  height: 43px;
+  width: 43px;
+  background-image: url('../images/icons/menu/menu.png');
+  background-size: 26px 22px;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: transparent;
 }
 
 /* post styles */

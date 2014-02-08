@@ -37,7 +37,11 @@ function bindclicklisteners() {
 	$('.searchwrap')
 	  // .css('width', winwidth * 0.6 + 'px')
 	  .css('right', '8px')
-	  .css('border', 'none');
+	  .css('border', 'none')
+	  .css('width', '0px')
+	  .animate({
+	    width: winwidth * 0.6 + 'px'
+	  }, 200);
   });
   
   $('#topbar .close_search_button').click(function(e) {
@@ -45,9 +49,13 @@ function bindclicklisteners() {
 	$('#topbar .close_search_button').hide();
 	$('#topbar .search_button').show();
 	$('#topbar .searchwrap')
-	  .hide()
-	  .remove();
-	
+	  .animate({
+	    width: '0px'
+	  }, 200, function(){
+	      $(this)
+	        .hide()
+	        .remove();
+	  });
   });
   
   $('#topbar .menu_button').click(function(e) {
