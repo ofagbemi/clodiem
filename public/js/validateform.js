@@ -26,21 +26,27 @@ function stagevalidator() {
   });
 }
 
-$('form.validate input').keypress(function() {
+$('form.validate input').keyup(function() {
   $(this).parent().find('.validatemarker').remove();
   var validatemarker = $('<span style="background-size:contain;"class="validatemarker"></span>');
-  var valid =  true;  // make request here
+  var valid = ($(this).val() != '');  // make request here
   if(valid) {
     validatemarker
       .css('background-image', 'url("/images/icons/checkmark/checkmark.svg")');
   }
   
+  var checksize = $(this).outerHeight() - 2;
+  $(this).css('z-index', '0');
   validatemarker
-    .css('height', $(this).height() - 2 + 'px')
-    .css('width', $(this).height() - 2 + 'px')
-    .css('top', '1px')
-    .css('right', '1px')
+    .css('height', checksize + 'px')
+    .css('width', checksize - 2 + 'px')
+    .css('position', 'absolute')
+    .css('top', '2px')
+    .css('right', '4px')
     .css('z-index', '1')
-    .css('display', 'inline-block');
+    .css('display', 'inline-block')
+    .css('background-size', (checksize - 2) + 'px ' + (checksize - 2) + 'px')
+    .css('background-position', 'center')
+    .css('background-repeat', 'no-repeat');
   $(this).parent().append(validatemarker);
 });
