@@ -149,21 +149,21 @@ div.top.padded.wrap {
 }
 
 /* login / register */
-.loginwrap {
+.loginwrap, .registerwrap {
   background: white;
   padding: 24px;
 }
-.loginwrap .loginform {
+.loginwrap .loginform, .registerwrap .registerform {
   margin-bottom: 8px;
 }
-.loginwrap input.login, input.register {
+.loginwrap input.login, .registerwrap input.register {
   font-size: medium;
   font-family: 'Helvetica Neue', sans-serif;
   font-weight: 300;
   width: 100%;
   margin-bottom: 8px;
 }
-.login_message {
+.login_message, .register_message {
   margin-top: 8px;
 }
 

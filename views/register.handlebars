@@ -6,7 +6,51 @@
     <meta content="width=device-width,initial-scale=1.0" name="viewport">
   </head>
   <body>
-    <h1>Create an Account</h1>
-    <a href="/aisle">Click here</a>
+  
+    <div class="content_wrap landing">
+	  <div class="content centered">
+	    <span style="text-transform: lowercase;"><a href="/">c l o d i e m</a></span>
+	  </div>
+    </div>
+    <div class="side top padded wrap">
+      <div class="registerwrap">
+        <form class="registerform validate" method="get" action="register">
+          <div class="validatewrap">
+            <input class="padded register" name="username" placeholder="Username">
+          </div>
+          <div class="validatewrap">
+            <input class="padded register" name="email" placeholder="Email" type="email">
+          </div>
+          <div class="validatewrap">
+            <input class="padded register" name="password" placeholder="Password" type="password">
+          </div>
+          <div class="validatewrap">
+            <input class="padded register" name="password" placeholder="Verify password" type="password">
+          </div>
+        </form>
+        <div class="button big"><a href="/aisle">Sign up</a></div>
+        <div class="register_message">Already have an account? <a href="/login">Click here to log in</a>.</div>
+      </div>
+    </div>
   </body>
+  
+  <script src="/js/jquery-1.11.0.js"></script>
+  <script type="text/javascript" src="/js/splitbackground.js"></script>
+  <script type="text/javascript" src="/js/landing.js"></script>
+  <script type="text/javascript" src="/js/validateform.js"></script>
+  <script>
+	function setSizes() {
+	  splitbackground(0.30, '#3c3d3d');
+	  renderlanding(0.30);
+	  $('body')
+	    .css('margin-top', 0.30 * window.innerHeight + 'px');
+	}
+	window.resize = setSizes;
+	$(document).ready(function() {
+	  setSizes();
+	});
+	$(window).load(function() {
+	  setSizes();
+    });
+  </script>
 </html>
