@@ -6,7 +6,40 @@
     <meta content="width=device-width,initial-scale=1.0" name="viewport">
   </head>
   <body>
-    <h1>Sign in</h1>
-    <a href="/aisle">Click here</a>
+  
+    <div class="content_wrap landing">
+	  <div class="content centered">
+	    <span style="text-transform: lowercase;"><a href="/">c l o d i e m</a></span>
+	  </div>
+    </div>
+    <div class="side top padded wrap">
+      <div class="loginwrap">
+        <form class="loginform" method="get" action="login">
+          <input class="padded login" name="username" placeholder="Username">
+          <input class="padded login" name="password" placeholder="Password" type="password">
+        </form>
+        <div class="button big"><a href="/aisle">Log in</a></div>
+        <div class="login_message">Don't have an account? <a href="/register">Click here to register</a>.</div>
+      </div>
+    </div>
   </body>
+  
+  <script src="/js/jquery-1.11.0.js"></script>
+  <script type="text/javascript" src="/js/splitbackground.js"></script>
+  <script type="text/javascript" src="/js/landing.js"></script>
+  <script>
+	function setSizes() {
+	  splitbackground(0.30, '#3c3d3d');
+	  renderlanding(0.30);
+	  $('body')
+	    .css('margin-top', 0.30 * window.innerHeight + 'px');
+	}
+	window.resize = setSizes;
+	$(document).ready(function() {
+	  setSizes();
+	});
+	$(window).load(function() {
+	  setSizes();
+    });
+  </script>
 </html>

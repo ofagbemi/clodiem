@@ -30,19 +30,19 @@ function rendersearchbar(h, barheight, barwidth) {
     
   var input = $('<input></input>');
   input
-    .css('height', height - 8 + 'px')
     .attr('id', 'searchbox')
     .attr('placeholder', 'Search')
     .attr('name', 'q')
     .attr('type', 'search');
   
   $('.search')
-    .css('height', height - 8 + 'px')
+    .css('height', height + 'px')
     .css('padding', '4px ' + width * 0.1 + 'px')
     .append(label)
     .append(input)
     .append('<div class="clear"></div>');
     
   $('#searchbox')
+    .css('padding-top', '5px')
     .css('width', ($('.search').width() - $('#searchbox_label').width()) + 'px');
 }

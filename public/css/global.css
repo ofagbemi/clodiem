@@ -1,4 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700,800);
+@import url(http://fonts.googleapis.com/css?family=Varela+Round);
 
 html {
   font-family: 'Helvetica Neue', sans-serif;
@@ -10,7 +12,6 @@ body {
   /* background: #f5f5f5; */
   font-weight: 200;
   background: #efefef;
-  background-image: url("http://subtlepatterns.com/patterns/sos.png");
 }
 h1, h2, p, form{
   margin: 0;
@@ -19,10 +20,29 @@ h1, h2, p, form{
   outline: none;
 }
 a {
-  color: black;
+  color: #679ae5;
+  text-decoration: none;
 }
 .clear {
   clear: both;
+}
+input.padded {
+  padding: 4px 6px;
+}
+div, input {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+div.side.padded.wrap {
+  padding-left: 24px;
+  padding-right: 24px;
+  box-sizing: border-box;
+}
+div.top.padded.wrap {
+  padding-top: 24px;
+  box-sizing border-box;
 }
 
 /* General */
@@ -35,6 +55,7 @@ a {
   border-bottom: none;
   font-size: small;
   background-color: rgba(0, 0, 0, 0.16);
+  font-family: 'Varela Round';
   /* background: black; */
   /* background: white; */
   
@@ -57,24 +78,35 @@ a {
                                     url("http://subtlepatterns.com/patterns/sprinkles.png");
   */
 }
+.button_wrap {
+  /* background-color: #3d3c3c; */
+}
 .button {
   padding: 11px;
   background: #3d3c3c;
-  color: white;
+  color: black;
   display: inline-block;
   font-size: small;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   text-align: center;
-  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
   font-weight: 400;
+  display: inline-block;
+  /*
+  border-radius: 4px;
+  border: 1px solid rgba(35,31,32,.88);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.4);
+   */
 }
-  .button.explore {
-    position: absolute;
-	text-align: center;
+.button a {
+  color: white;
+  text-decoration: none;
+}
+  .big.button {
+    display: block;
 	font-size: medium;
-	padding: 24px 0;
+	padding: 17px 0;
 	background-image: linear-gradient(to bottom,
-                                    rgba(61, 73, 87, 0.88), rgba(61, 73, 87, 1)),
+                                    rgba(61, 73, 87, 0.50), rgba(61, 73, 87, 0.57)),
                                     url("http://subtlepatterns.com/patterns/binding_dark.png");
     /* background: orange; */
 	/* text-transform: uppercase; */
@@ -83,10 +115,6 @@ a {
 	/* box-shadow: 1px 1px 1px rgba(0,0,0,0.24); */
 	/* border-top: dashed 1px #6B522D; */
 	/* border-bottom: dashed 1px #333;*/
-  }
-  .button a {
-    color: white;
-    text-decoration: none;
   }
 
 .centered {
@@ -120,6 +148,25 @@ a {
   color: transparent;
 }
 
+/* login / register */
+.loginwrap {
+  background: white;
+  padding: 24px;
+}
+.loginwrap .loginform {
+  margin-bottom: 8px;
+}
+.loginwrap input.login, input.register {
+  font-size: medium;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 300;
+  width: 100%;
+  margin-bottom: 8px;
+}
+.login_message {
+  margin-top: 8px;
+}
+
 /* post styles */
 .posts {
   padding-top: 11px;
@@ -128,10 +175,12 @@ a {
   background: white;
   /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.24); */
   margin-bottom: 16px;
-  border-radius: 0 8px 0 8px;
+  border-radius: 0 0 0 8px;
+  /*
   border: solid 1px #ccc;
   border-bottom: none;
   border-left: none;
+  */
 }
 .post_header {
   padding: 11px 18px 4px 18px;

@@ -15,6 +15,7 @@ function renderlanding(paddingtop) {
    */
   $('.button.explore')
     .css('width', $('.button_wrap').width() + 'px')
+    .css('position', 'absolute')
     .css('top', winheight * 0.5 + 8 + $('.button_wrap').height() + 'px')
     .css('left', (winwidth - $('.button.explore').width())/2 + 'px');
     
@@ -23,8 +24,8 @@ function renderlanding(paddingtop) {
   var contentTop = winheight * paddingtop - $('.content_wrap').height() - 1;//- $('.content_wrap').height();
   // - 1 for border
   $('.content_wrap')
-    .css('width', $('.button_wrap').width() + 'px')
-    //.css('min-height', winheight - 2*contentTop + 'px')
+    .css('width', 0.7 * winwidth + 'px')
+    .css('max-width', '400px')
     .css('top', contentTop + 'px')
     .css('left', (winwidth - $('.content_wrap').width())/2 + 'px');
     /* .css('border-bottom', 'solid 1px #ccc'); */
