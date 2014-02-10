@@ -16,7 +16,9 @@ function rendertopbar(withpadding) {
     .append(closesearchbutton)
     .append(searchbutton);
   $('#topbar').remove();
-  $('body').append(topbar);
+  $('body')
+    .append(topbar)
+    .css('margin-top', $('#topbar').height() + 'px');
   if(withpadding) {
     $('.content')
       .css('margin-top', $('#topbar').height() + 'px');

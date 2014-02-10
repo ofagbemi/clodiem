@@ -2,14 +2,137 @@
 <html>
   <head>
     <title>clodiem</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
     <link rel="stylesheet" href="/css/global.css">
     <meta content="width=device-width,initial-scale=1.0" name="viewport">
   </head>
   <body>
+    <div class="profile_header">
+      <img src="http://lorempixel.com/100/100/people" class="profpic">
+      <div class="profile_header_body">
+        <h2>{{username}}</h2>
+        <p>{{description}}</p>
+        <div class="button_wrap">
+		  <div class="button"><a>Follow</a></div>
+		  <div class="button"><a>Message</a></div>
+	    </div>
+	  </div>
+      <div class="clear"></div>
+    </div>
+    <div class="profile_stats">
+      <div class="display">
+		<h3>{{followers.length}}</h3>
+		<p>Followers</p>
+	  </div>
+	  <div class="display">
+		<h3>{{following.length}}</h3>
+		<p>Following</p>
+	  </div>
+	  <div class="display">
+		<h3>{{posts.length}}</h3>
+		<p>Posts</p>
+	  </div>
+	  <div class="clear"></div>
+	</div>
+	
+	<div class="content">
+	  <div class="closet">
+		<div class="profile_category" style="">
+		  <h3>{{username}}'s Closet</h3>
+		  <div class="button_wrap">
+			<div class="button active">
+			  <a href="#">Styles</a>
+			</div>
+			<div class="button inactive">
+			  <a href="#">Posts</a>
+			</div>
+			<div class="button inactive">
+			  <a href="#">Followers</a>
+			</div>
+			<div class="button inactive">
+			  <a href="#">Following</a>
+			</div>
+		  </div>
+		</div>
+		<div class="items">
+		  {{#each styles}}
+		    <div class="item_wrapper"><img src="{{img}}"></div>
+		  {{/each}}
+        </div>
+	
+	<!--
+	  <div class="posts">
+	  {{#each posts}}
+	  <div class="post">
+		<div class="post_header">
+		  <h2 class="title"><a href="/outfit?id={{id}}">{{title}}</a></h2>
+		  <div class="sub">
+			<span class="user_attribution">by <a href="/user?username={{username}}">{{username}}</a></span>
+			<span>//</span>
+			<span class="post_stats">
+			  <span>{{numcomments}}</span> · 
+			  <span>{{likes}}</span> <span class="likes"></span>
+			  <span>{{time}}</span>
+			</span>
+		  </div>
+		</div>
+		<div class="post_stage">
+		  {{#each items}}
+			<a class="marker" x="{{x}}" y="{{y}}">
+			  {{@index}}
+			</a>
+		  {{/each}}
+		  <img class="post_img" src="{{img}}">
+		</div>
+		<div class="post_caption">
+		  <p>{{caption}}</p>
+		</div>
+		<div class="post_tags">
+		  <span style="font-weight: bold;">TAGS</span>
+		  {{#each tags}}
+		  <span class="tag"><a href="/search?q={{tag}}">{{tag}}</a></span>
+		  {{/each}}
+		</div>
+		<div class="post_interact">
+		  <span class="comment_button"></span>
+		  <span class="like_button"></span>
+		  <div class="clear"></div>
+		</div>
+	  </div>
+	
+	  {{/each}}
+	
+	  </div>
+	-->
+	</div>
+	
+    <!--
     <h1>{{username}}'s Profile</h1>
     <a href="/aisle">Go back</a>
     <a href="/closet?username={{username}}">Closet</a><br>
     <a href="/following?username={{username}}">Following</a><br>
     <a href="/followers?username={{username}}">Followers</a>
+    -->
   </body>
+  
+  <script src="/js/jquery-1.11.0.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/rendertopbar.js"></script>
+  <script src="/js/renderposts.js"></script>
+  <script>
+	function setSizes() {
+	  rendertopbar(true);
+	  renderposts();
+	}
+	$(window).resize(function() {
+	  setSizes();
+	});
+	$(document).ready(function() {
+	  setSizes();
+	});
+	$(window).load(function() {
+	  setSizes();
+    });
+  </script>
 </html>

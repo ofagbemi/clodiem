@@ -1,5 +1,54 @@
 {
   "username": "Me",
+  "users": {
+    "_comment": "users keys will be replaced with user id's. names in following and followers",
+    "_comment": "lists will be replaced with user id's as well",
+    "Kyle":
+      {
+        "username": "Kyle",
+        "description": "I'm a fan of everything"
+      },
+    "Em9":
+      {
+        "username": "Em9"
+      },
+    "Lola":
+      {
+        "username": "Lola",
+        "description": "Kid is nice!"
+      },
+    "Anna B.":
+      {
+        "username": "Anna B.",
+        "description": "Chic!",
+        "post_ids": ["1"],
+        "posts": [],
+        "styles":
+          [
+            {
+              "name": "CHIC",
+              "items": ["1"],
+              "img": "http://lorempixel.com/300/400/people"
+            }
+          ],
+        "following": [
+          "Kendrick.",
+          "Kyle",
+          "Em9"
+        ],
+        "followers": [
+          "Kyle",
+          "Lola",
+          "Em9"
+        ]
+      },
+    "Kendrick.":
+      {
+        "username": "Kendrick.",
+        "description": "I'm rich"
+      }
+  },
+  
   "posts": {
 	"1":
 	  {

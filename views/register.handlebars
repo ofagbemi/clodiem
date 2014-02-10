@@ -45,7 +45,9 @@
 	  $('body')
 	    .css('margin-top', 0.30 * window.innerHeight + 'px');
 	}
-	window.resize = setSizes;
+	$(window).resize(function() {
+	  setSizes();
+	});
 	$(document).ready(function() {
 	  setSizes();
 	});

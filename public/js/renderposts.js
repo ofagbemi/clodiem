@@ -12,10 +12,7 @@ function placemarkers() {
 }
 
 function alignposts() {
-  $('.posts')
-    .css('margin-left', (winwidth * (1.0 - portion)/2) + 'px');
-  $('.post')
-    .css('width', winwidth * portion);
+
 }
 
 function renderposts() {

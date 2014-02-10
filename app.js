@@ -5,7 +5,9 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-var handlebars = require('express3-handlebars')
+var handlebars = require('express3-handlebars');
+var partials = require('express-partials');
+
 
 var landing = require('./routes/landing');
 var dashboard = require('./routes/dashboard');
@@ -18,10 +20,10 @@ var following = require('./routes/following');
 var followers = require('./routes/followers');
 var outfits = require('./routes/closet');
 var createpost = require('./routes/createpost');
-// Example route
-// var user = require('./routes/user');
 
 var app = express();
+
+app.use(partials());
 
 // all environments
 app.set('port', process.env.PORT || 3000);

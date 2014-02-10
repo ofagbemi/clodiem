@@ -47,7 +47,9 @@
         renderlanding(0.30);
         rendersearchbar(0.30);
       }
-      window.resize = setSizes;
+      $(window).resize(function() {
+        setSizes();
+      });
       $(document).ready(function() {
         setSizes();
       });

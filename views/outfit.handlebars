@@ -82,7 +82,9 @@
         renderpost();
         buildmenu('{{username}}');
       }
-      window.resize = setSizes;
+      $(window).resize(function() {
+        setSizes();
+      });
       $(document).ready(function() {
         setSizes();
         activatelikebuttons();
