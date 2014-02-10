@@ -49,6 +49,26 @@ div.top.padded.wrap {
   box-sizing border-box;
 }
 
+/* animations */
+@-webkit-keyframes bounce {
+  0%, 100% {
+    margin-top: 0px;
+    margin-bottom: 4px;
+  }
+  50% {
+    margin-top: 4px;
+    margin-bottom: 0px;
+  }
+}
+
+.bouncing {
+  -webkit-animation: bounce 1.4s infinite;
+  -moz-animation: bounce 1.4s infinite;
+  -o-animation: bounce 1.4s infinite;
+  animation: bounce 1.4s infinite;
+}
+
+
 /* General */
 .inline-block {
   display: inline-block;
@@ -159,13 +179,23 @@ div.top.padded.wrap {
   display: inline-block;
   height: 43px;
   width: 43px;
-  background-image: url('../images/icons/menu/menu.png');
-  background-size: 26px 22px;
+  background-image: url('../images/icons/menu/menu.svg');
+  background-size: 28px 22px;
   background-position: center;
   background-repeat: no-repeat;
   color: transparent;
 }
-
+#topbar .search_button, #topbar .close_search_button {
+  display: inline-block;
+  height: 43px;
+  width: 43px;
+  background-image: url('../images/icons/search/search.svg');
+  background-size: 28px 28px;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: transparent;
+  float: right;
+}
 /* login / register */
 .loginwrap, .registerwrap {
   background: white;

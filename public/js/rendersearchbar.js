@@ -14,6 +14,7 @@ function rendersearchbar(h, barheight, barwidth) {
   $(wrap).append(form);
   $('body').append(wrap);
   $('.searchwrap')
+    .css('position', 'absolute')
     .css('top', winheight * h + 'px')
     .css('max-height', height + 'px')
     .css('width', width + 'px')

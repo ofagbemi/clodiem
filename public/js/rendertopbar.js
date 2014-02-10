@@ -31,19 +31,18 @@ function rendertopbar(withpadding) {
 function bindclicklisteners() {
   // bind click listeners
   $('#topbar .search_button').click(function(e) {
+    var winheight = window.innerHeight;
 	e.preventDefault();
 	$('#topbar .search_button').hide();
 	$('#topbar .close_search_button').show();
-	rendersearchbar(0, $('#topbar').height() - 1, winwidth * 0.6);
+	rendersearchbar($('#topbar').height()/winheight, $('#topbar').height() - 1, winwidth);
+	$('.searchwrap').hide();
 	$('#topbar').append($('.searchwrap'));
 	$('.searchwrap')
-	  // .css('width', winwidth * 0.6 + 'px')
-	  .css('right', '8px')
-	  .css('border', 'none')
-	  .css('width', '0px')
-	  .animate({
-	    width: winwidth * 0.6 + 'px'
-	  }, 200);
+	  .slideDown(200);
+	$('body').animate({
+	  'margin-top': $('.searchwrap').height() + $('#topbar').height() + 'px'
+	});
   });
   
   $('#topbar .close_search_button').click(function(e) {
@@ -51,13 +50,11 @@ function bindclicklisteners() {
 	$('#topbar .close_search_button').hide();
 	$('#topbar .search_button').show();
 	$('#topbar .searchwrap')
-	  .animate({
-	    width: '0px'
-	  }, 200, function(){
-	      $(this)
-	        .hide()
-	        .remove();
-	  });
+	  .slideUp(200);
+	$('body').animate({
+	  'margin-top': $('#topbar').height() + 'px'
+	});
+	
   });
   
   $('#topbar .menu_button').click(function(e) {
