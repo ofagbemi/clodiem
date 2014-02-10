@@ -42,76 +42,89 @@
 		  <h3>{{username}}'s Closet</h3>
 		  <div class="button_wrap">
 			<div class="button active">
-			  <a href="#">Styles</a>
+			  <a class="styles_button" href="#">Styles</a>
 			</div>
 			<div class="button inactive">
-			  <a href="#">Posts</a>
+			  <a class="posts_button" href="#">Posts</a>
 			</div>
 			<div class="button inactive">
-			  <a href="#">Followers</a>
+			  <a class="follower_button" href="#">Followers</a>
 			</div>
 			<div class="button inactive">
-			  <a href="#">Following</a>
+			  <a class="following_button" href="#">Following</a>
 			</div>
 		  </div>
 		  
-		  <div class="items">
-		  {{#each styles}}
-		    <div class="item_wrapper">
-		      <img src="{{img}}">
-		      <div class="item_label">
-		        {{name}}
-		      </div>
-		    </div>
-		    
-		  {{/each}}
-          </div>
+		  
+		  <div class="items styles">
+			{{#each styles}}
+			  <div class="item_wrapper">
+				<img src="{{img}}">
+				<div class="item_label">
+				  {{name}}
+				</div>
+			  </div>
+			{{/each}}
+			</div>
+		  <div class="items posts" style="display:none;">
+			
+			
+			
+			{{#each posts}}
+			  <div class="post">
+				<div class="post_header">
+				  <h2 class="title"><a href="/outfit?id={{id}}">{{title}}</a></h2>
+				  <div class="sub">
+					<span class="user_attribution">by <a href="/user?username={{username}}">{{username}}</a></span>
+					<span>//</span>
+					<span class="post_stats">
+					  <span>{{numcomments}}</span> · 
+					  <span>{{likes}}</span> <span class="likes"></span>
+					  <span>{{time}}</span>
+					</span>
+				  </div>
+				</div>
+				<div class="post_stage">
+				  {{#each items}}
+					<a class="marker" x="{{x}}" y="{{y}}">
+					  {{@index}}
+					</a>
+				  {{/each}}
+				  <img class="post_img" src="{{img}}">
+				</div>
+				<div class="post_caption">
+				  <p>{{caption}}</p>
+				</div>
+				<div class="post_tags">
+				  <span style="font-weight: bold;">TAGS</span>
+				  {{#each tags}}
+				  <span class="tag"><a href="/search?q={{tag}}">{{tag}}</a></span>
+				  {{/each}}
+				</div>
+				<div class="post_interact">
+				  <span class="comment_button"></span>
+				  <span class="like_button"></span>
+				  <div class="clear"></div>
+				</div>
+			  </div>
+	
+	        {{/each}}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</div>
         
 		</div>
-	<!--
-	  <div class="posts">
-	  {{#each posts}}
-	  <div class="post">
-		<div class="post_header">
-		  <h2 class="title"><a href="/outfit?id={{id}}">{{title}}</a></h2>
-		  <div class="sub">
-			<span class="user_attribution">by <a href="/user?username={{username}}">{{username}}</a></span>
-			<span>//</span>
-			<span class="post_stats">
-			  <span>{{numcomments}}</span> · 
-			  <span>{{likes}}</span> <span class="likes"></span>
-			  <span>{{time}}</span>
-			</span>
-		  </div>
-		</div>
-		<div class="post_stage">
-		  {{#each items}}
-			<a class="marker" x="{{x}}" y="{{y}}">
-			  {{@index}}
-			</a>
-		  {{/each}}
-		  <img class="post_img" src="{{img}}">
-		</div>
-		<div class="post_caption">
-		  <p>{{caption}}</p>
-		</div>
-		<div class="post_tags">
-		  <span style="font-weight: bold;">TAGS</span>
-		  {{#each tags}}
-		  <span class="tag"><a href="/search?q={{tag}}">{{tag}}</a></span>
-		  {{/each}}
-		</div>
-		<div class="post_interact">
-		  <span class="comment_button"></span>
-		  <span class="like_button"></span>
-		  <div class="clear"></div>
-		</div>
 	  </div>
-	
-	  {{/each}}
-	
-	  </div>
-	-->
 	</div>
 	
     <!--
@@ -127,6 +140,7 @@
   <script src="/js/bootstrap.js"></script>
   <script src="/js/rendertopbar.js"></script>
   <script src="/js/renderposts.js"></script>
+  <script src="/js/renderprofile.js"></script>
   <script>
 	function setSizes() {
 	  rendertopbar(true);

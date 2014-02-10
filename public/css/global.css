@@ -60,7 +60,36 @@ div.top.padded.wrap {
     margin-bottom: 0px;
   }
 }
-
+@-moz-keyframes bounce {
+  0%, 100% {
+    margin-top: 0px;
+    margin-bottom: -4px;
+  }
+  50% {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+}
+@-o-keyframes bounce {
+  0%, 100% {
+    margin-top: 0px;
+    margin-bottom: 4px;
+  }
+  50% {
+    margin-top: 4px;
+    margin-bottom: 0px;
+  }
+}
+@keyframes bounce {
+  0%, 100% {
+    margin-top: 0px;
+    margin-bottom: 4px;
+  }
+  50% {
+    margin-top: 4px;
+    margin-bottom: 0px;
+  }
+}
 .bouncing {
   -webkit-animation: bounce 1.4s infinite;
   -moz-animation: bounce 1.4s infinite;
@@ -307,20 +336,27 @@ div.top.padded.wrap {
   font-size: x-small;
 }
 /* post styles */
-.posts {
+.content .posts {
   padding-top: 11px;
+}
+.closet .items.posts {
+  padding-top: 0px;
 }
 .post {
   background: white;
   /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.24); */
   margin-bottom: 16px;
-  border-radius: 0 0 0 8px;
-  /*
-  border: solid 1px #ccc;
-  border-bottom: none;
-  border-left: none;
-  */
 }
+.closet .items.posts .post {
+  background: white;
+  border: solid 1px rgba(0,0,0,0.15);
+  /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.24); */
+  margin-bottom: 16px;
+}
+.closet .items.posts .post .post_interact {
+  border: none;
+}
+
 .post_header {
   padding: 11px 18px 4px 18px;
 }
@@ -384,8 +420,9 @@ div.top.padded.wrap {
 }
 .post_interact {
   height: 36px;
-  background-color: #afd2dd;
-  border-radius: 0 0 0 8px;
+  background-color: #FFFFFF;
+  border: solid 1px rgba(0, 0, 0, 0.15);
+  border-top: none;
 }
 .post_interact span {
   display: inline-block;
