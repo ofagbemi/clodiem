@@ -250,13 +250,16 @@ div.top.padded.wrap {
 .closet .closet_inner .button_wrap {
   margin-top: 11px;
 }
+.closet .closet_inner .button_wrap .button {
+  max-width: 25%;
+}
 .closet .items {
   margin-top: 11px;
 }
 .closet .items .item_wrapper {
   width: 32%;
   border: solid 1px black;
-  margin: 0 1px;
+  margin-right: 2px;
 }
 .closet .items .item_wrapper img {
   display: block;
