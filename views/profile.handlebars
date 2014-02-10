@@ -38,7 +38,7 @@
 	
 	<div class="content">
 	  <div class="closet">
-		<div class="profile_category" style="">
+		<div class="closet_inner">
 		  <h3>{{username}}'s Closet</h3>
 		  <div class="button_wrap">
 			<div class="button active">
@@ -54,13 +54,20 @@
 			  <a href="#">Following</a>
 			</div>
 		  </div>
-		</div>
-		<div class="items">
+		  
+		  <div class="items">
 		  {{#each styles}}
-		    <div class="item_wrapper"><img src="{{img}}"></div>
+		    <div class="item_wrapper">
+		      <img src="{{img}}">
+		      <div class="item_label">
+		        {{name}}
+		      </div>
+		    </div>
+		    
 		  {{/each}}
-        </div>
-	
+          </div>
+        
+		</div>
 	<!--
 	  <div class="posts">
 	  {{#each posts}}

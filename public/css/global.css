@@ -231,7 +231,7 @@ div.top.padded.wrap {
   margin-bottom: -29px;
 }
 .profile_stats .display h3 {
-  font-size: medium;
+  font-size: large;
   font-weight: 300;
 }
 .profile_stats .display p {
@@ -239,19 +239,40 @@ div.top.padded.wrap {
   font-size: smaller;
   text-transform: uppercase;
 }
-.closet h3{
-  font-size: medium;
-  font-weight: 300;
-}
-.profile_category {
+.closet .closet_inner {
   padding:11px;
   background:white;
 }
-.closet .items .item_wrapper {
-  width: 50%;
+.closet .closet_inner h3 {
+  font-size: medium;
+  font-weight: 300;
 }
-
-
+.closet .closet_inner .button_wrap {
+  margin-top: 11px;
+}
+.closet .items {
+  margin-top: 11px;
+}
+.closet .items .item_wrapper {
+  width: 32%;
+  border: solid 1px black;
+  margin: 0 1px;
+}
+.closet .items .item_wrapper img {
+  display: block;
+  width: 100%;
+}
+.closet .items .item_wrapper .item_label {
+  color: black;
+  background: white;
+  padding: 2px 0;
+  text-align: center;
+  font-weight: 100;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-top: solid 1px black;
+  font-size: x-small;
+}
 /* post styles */
 .posts {
   padding-top: 11px;
