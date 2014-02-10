@@ -22,15 +22,7 @@
         "username": "Anna B.",
         "description": "Chic!",
         "post_ids": ["1"],
-        "posts": [],
-        "styles":
-          [
-            {
-              "name": "CHIC",
-              "items": ["1"],
-              "img": "http://lorempixel.com/300/400/people"
-            }
-          ],
+        "style_ids": ["3"],
         "following": [
           "Kendrick.",
           "Kyle",
@@ -52,6 +44,7 @@
   "posts": {
 	"1":
 	  {
+	    "type": "outfit",
 	    "id": "1",
 		"title": "Looooooookin' CHIC",
 		"username": "Anna B.",
@@ -108,6 +101,7 @@
 	  },
 	"2":
 	  {
+	    "type": "outfit",
 	    "id": "2",
 		"title": "Summer drive",
 		"username": "Kendrick.",
@@ -116,6 +110,19 @@
 		"time": "28 minutes ago",
 		"caption": "Took the car out to the hills with a couple of friends. Thought this look'd do!",
 		"img": "http://i.istockimg.com/file_thumbview_approve/19744739/2/stock-photo-19744739-male-fashion-model-sitting-in-classic-sports-car.jpg"
-	  }
+	  },
+	"3":
+	  {
+	    "type": "style",
+	    "id": "3",
+        "title": "CHIC",
+        "username": "Anna B.",
+        "numcomments": "0 comments",
+        "likes": "0",
+        "time": "3 days ago",
+        "caption": "CHIC CHIC CHIC CHIC CHIC",
+        "items": ["1"],
+        "img": "http://lorempixel.com/300/400/people"
+      }
 	}
 }
