@@ -16,56 +16,66 @@ function renderprofile_clearcloset() {
   $('.button.active').removeClass('active').addClass('inactive');
 }
 function renderprofile_closetbindclicklisteners() {
-  $('.styles_button').click(function(e) {
-    e.preventDefault();
-    renderprofile_clearcloset();
-    $(this).parent()
-      .addClass('active')
-      .removeClass('inactive');
-    displays['styles'].show();
-  });
-  $('.posts_button').click(function(e) {
-    e.preventDefault();
-    renderprofile_clearcloset();
-    $(this).parent()
-      .addClass('active')
-      .removeClass('inactive');
-    displays['posts'].show();
-    
-    // call this to make sure that the markers are rendered properly, since
-    // they were hidden before
-    renderposts();
-  });
-  $('.followers_button').click(function(e) {
-    e.preventDefault();
-    renderprofile_clearcloset();
-    $(this).parent()
-      .addClass('active')
-      .removeClass('inactive');
-    displays['followers'].show();
-  });
-  $('.following_button').click(function(e) {
-    e.preventDefault();
-    renderprofile_clearcloset();
-    $(this).parent()
-      .addClass('active')
-      .removeClass('inactive');
-    displays['following'].show();
-  });
+  $('.styles_button')
+    .unbind('click')
+    .click(function(e) {
+	  e.preventDefault();
+	  renderprofile_clearcloset();
+	  $(this).parent()
+		.addClass('active')
+		.removeClass('inactive');
+	  displays['styles'].show();
+	});
+  $('.posts_button')
+    .unbind('click')
+    .click(function(e) {
+      e.preventDefault();
+	  renderprofile_clearcloset();
+	  $(this).parent()
+		.addClass('active')
+		.removeClass('inactive');
+	  displays['posts'].show();
+	
+	  // call this to make sure that the markers are rendered properly, since
+	  // they were hidden before
+	  renderposts();
+	});
+  $('.followers_button')
+    .unbind('click')
+    .click(function(e) {
+	  e.preventDefault();
+	  renderprofile_clearcloset();
+	  $(this).parent()
+		.addClass('active')
+		.removeClass('inactive');
+	  displays['followers'].show();
+	});
+  $('.following_button')
+    .unbind('click')
+    .click(function(e) {
+	  e.preventDefault();
+	  renderprofile_clearcloset();
+	  $(this).parent()
+		.addClass('active')
+		.removeClass('inactive');
+	  displays['following'].show();
+	});
 }
 function renderprofile_stylesbindclicklisteners() {
-  $('.item_wrapper_link').click(function(e) {
-    e.preventDefault();
-    renderprofile_clearcloset();
-    $('.styles_button').parent()
-      .addClass('active')
-      .removeClass('inactive');
-    var title = $(this).attr('title');
-    
-    $(".style_posts[title='" + title + "']").show();
-    displays['style_contents'].show();
-    // call this to make sure that the markers are rendered properly, since
-    // they were hidden before
-    renderposts();
-  });
+  $('.item_wrapper_link')
+    .unbind('click')
+    .click(function(e) {
+	  e.preventDefault();
+	  renderprofile_clearcloset();
+	  $('.styles_button').parent()
+		.addClass('active')
+		.removeClass('inactive');
+	  var title = $(this).attr('title');
+	
+	  $(".style_posts[title='" + title + "']").show();
+	  displays['style_contents'].show();
+	  // call this to make sure that the markers are rendered properly, since
+	  // they were hidden before
+	  renderposts();
+	});
 }
