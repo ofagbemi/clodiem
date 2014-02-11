@@ -1,5 +1,7 @@
 {
   "username": "Me",
+  "user_img": "http://lorempixel.com/100/100/people",
+  
   "_comment": "aisle_post_ids contains the post id's of posts that are currently on the user's aisle",
   "aisle_post_ids": ["1", "2"],
   "users": {

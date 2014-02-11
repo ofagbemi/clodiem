@@ -479,21 +479,23 @@ div.top.padded.wrap {
 .post_comments.post {
   border-radius: 0;
 }
-.post_comments .comments {
+.post_comments .comments_section {
   padding: 8px;
 }
-.post_comments .comments .post_comment {
+.post_comments .comments_section .comments .post_comment {
   margin-bottom: 8px;
 }
-.post_comments .comments .post_comment .time {
+.post_comments .comments_section .comments .post_comment .time {
   font-size: x-small;
 }
-.post_comments .comments .post_comment .comment {
+.post_comments .comments_section .comments .post_comment .comment {
   font-size: small;
 }
 .post_comment .profpic {
   float: left;
   margin-right: 4px;
+  width: 36px;
+  height: 36px;
 }
 .post_comment .comment_body {
   float: left;

@@ -11,59 +11,34 @@
   <body>
     <div class="content">
       <div class="posts">
-		<div class="post">
-		  <div class="post_header">
-			<h2 class="title">{{title}}</h2>
-			<div class="sub">
-			  <span class="user_attribution">by <a href="/user?username={{username}}">{{username}}</a></span>
-			  <span>//</span>
-			  <span class="post_stats">
-				<span>{{numcomments}}</span> · 
-				<span>{{likes}}</span> <span class="likes"></span>
-				<span>{{time}}</span>
-			  </span>
-			</div>
-		  </div>
-		  <div class="post_stage">
-			{{#each items}}
-			  <a class="marker" x="{{x}}" y="{{y}}">
-				{{@index}}
-			  </a>
-			{{/each}}
-			<img class="post_img" src="{{img}}">
-		  </div>
-		  <div class="post_caption">
-			<p>{{caption}}</p>
-		  </div>
-		  <div class="post_tags">
-			<span style="font-weight: bold;">TAGS</span>
-			{{#each tags}}
-			<span class="tag"><a href="#">{{tag}}</a></span>
-			{{/each}}
-		  </div>
-		  <div class="post_interact">
-			<span class="comment_button"></span>
-			<span class="like_button"></span>
-			<div class="clear"></div>
-		  </div>
-		</div>
-		
+        <!--Only one post in posts-->
+        {{#each posts}}
+		  {{> post}}
+		{{/each}}
 		<div class="post post_comments">
-		  <div class="comments">
-		    <textarea placeholder="ADD COMMENT..."
-		      style="width:100%;
-		      resize:none;
-		      outline:none;
-		      margin-bottom:4px;
-		      padding:6px;
-		      border:solid 1px #ddd;
-		      font-weight:300;"></textarea>
-		    <div class="button" style="float:right;margin-bottom:4px;"><a href="#">comment</a></div>
+		  <div class="comments_section">
+		    <div class="n">
+			  <textarea class="comment_box" placeholder="ADD COMMENT..."
+				style="width:100%;
+				resize:none;
+				outline:none;
+				margin-bottom:4px;
+				padding:6px;
+				border:solid 1px #ddd;
+				font-weight:300;"></textarea>
+			  <div class="button comment_button" style="float:right;margin-bottom:4px;">
+			    <a href="#">comment</a>
+			  </div>
+		    </div>
 		    <div class="clear"></div>
-		  
-			{{#each comments}}
-			  {{> comment}}
+		    <div class="comments">
+		    <!--Only one post in posts-->
+		    {{#each posts}}
+			  {{#each comments}}
+			    {{> comment}}
+			  {{/each}}
 			{{/each}}
+			</div>
 		  </div>
 		</div>
 	  </div>
@@ -77,10 +52,12 @@
     <script src="/js/splitbackground.js"></script>
     <script src="/js/likebuttons.js"></script>
     <script src="/js/commentbuttons.js"></script>
+    <script src="/js/comments.js"></script>
     <script>
       function setSizes() {
         rendertopbar(true);
         renderpost();
+        rendercomments('{{username}}', '{{user_img}}');
         buildmenu('{{username}}');
       }
       $(window).resize(function() {
