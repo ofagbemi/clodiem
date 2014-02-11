@@ -50,7 +50,16 @@
 		
 		<div class="post post_comments">
 		  <div class="comments">
-		  
+		    <textarea placeholder="ADD COMMENT..."
+		      style="width:100%;
+		      resize:none;
+		      outline:none;
+		      margin-bottom:4px;
+		      padding:6px;
+		      border:solid 1px #ddd;
+		      font-weight:300;"></textarea>
+		    <div class="button" style="float:right;margin-bottom:4px;"><a href="#">comment</a></div>
+		    <div class="clear"></div>
 		  
 			{{#each comments}}
 			  {{> comment}}

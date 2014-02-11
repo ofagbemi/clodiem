@@ -21,8 +21,9 @@ function renderpost() {
   placemarkers();
   bindclicklisteners();
   var totalwidth = $('.post_comment').width();
+  var marginRight = 4;
   $('.comment_body')
-    .css('width', totalwidth - ($('.profpic').width() + paddingLeft) + 'px');
+    .css('max-width', totalwidth - ($('.profpic').width() + marginRight) + 'px');
 }
 // bind click listeners
 function bindpostclicklisteners() {
