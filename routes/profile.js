@@ -13,10 +13,7 @@ exports.view = function(req, res) {
     for(var j=0;j<styles['items'].length;j++) {
       styles['posts'].push(data['posts'][u['post_ids'][j]]);
     }
-    
-    u['styles'].push(styles);
-    
+    u['styles'].push(styles); 
   }
-  
   res.render('profile', u);
 };

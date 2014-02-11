@@ -59,120 +59,30 @@
 		  <div class="items styles">
 			{{#each styles}}
 			  <div class="item_wrapper">
-				<img src="{{img}}">
-				<div class="item_label">{{title}}</div>
+			    <a class="item_wrapper_link" title="{{title}}" href="#">
+				  <img src="{{img}}">
+				  <div class="item_label">{{title}}</div>
+				</a>
 			  </div>
 			{{/each}}
 		  </div>
-		  <div class="style_contents" style="display:none;">
+		  <div class="style_contents items" style="display:none;">
 		    {{#each styles}}
-		        <div class="items style_posts" title="{{title}}" style="display:none;">
-				{{#each this_style_posts}}
-				
-				  <div class="post">
-				  <div class="post_header">
-					<h2 class="title"><a href="/outfit?id={{id}}">{{title}}</a></h2>
-					<div class="sub">
-					  <span class="user_attribution">by <a href="/user?username={{username}}">{{username}}</a></span>
-					  <span>//</span>
-					  <span class="post_stats">
-						<span>{{numcomments}}</span> · 
-						<span>{{likes}}</span> <span class="likes"></span>
-						<span>{{time}}</span>
-					  </span>
-					</div>
-				  </div>
-				  <div class="post_stage">
-					{{#each items}}
-					  <a class="marker" x="{{x}}" y="{{y}}">
-						{{@index}}
-					  </a>
-					{{/each}}
-					<img class="post_img" src="{{img}}">
-				  </div>
-				  <div class="post_caption">
-					<p>{{caption}}</p>
-				  </div>
-				  <div class="post_tags">
-					<span style="font-weight: bold;">TAGS</span>
-					{{#each tags}}
-					<span class="tag"><a href="/search?q={{tag}}">{{tag}}</a></span>
-					{{/each}}
-				  </div>
-				  <div class="post_interact">
-					<span class="comment_button"></span>
-					<span class="like_button"></span>
-					<div class="clear"></div>
-				  </div>
-				</div>
-				
-
-
-				</div>
-				{{/each}}
+		        <div class="style_posts" title="{{title}}" style="display:none;">
+		          <h3 class="style_header">{{title}} ({{posts.length}})</h3>
+				  {{#each posts}}
+				    {{> post}}
+				  {{/each}}
 				</div>
 			{{/each}}
-			
-			
-		  <div class="items posts" style="display:none;">
-			{{#each posts}}
-			  
-			  
-			  <div class="post">
-				<div class="post_header">
-				  <h2 class="title"><a href="/outfit?id={{id}}">{{title}}</a></h2>
-				  <div class="sub">
-					<span class="user_attribution">by <a href="/user?username={{username}}">{{username}}</a></span>
-					<span>//</span>
-					<span class="post_stats">
-					  <span>{{numcomments}}</span> · 
-					  <span>{{likes}}</span> <span class="likes"></span>
-					  <span>{{time}}</span>
-					</span>
-				  </div>
-				</div>
-				<div class="post_stage">
-				  {{#each items}}
-					<a class="marker" x="{{x}}" y="{{y}}">
-					  {{@index}}
-					</a>
-				  {{/each}}
-				  <img class="post_img" src="{{img}}">
-				</div>
-				<div class="post_caption">
-				  <p>{{caption}}</p>
-				</div>
-				<div class="post_tags">
-				  <span style="font-weight: bold;">TAGS</span>
-				  {{#each tags}}
-				  <span class="tag"><a href="/search?q={{tag}}">{{tag}}</a></span>
-				  {{/each}}
-				</div>
-				<div class="post_interact">
-				  <span class="comment_button"></span>
-				  <span class="like_button"></span>
-				  <div class="clear"></div>
-				</div>
-			  </div>
-	
-	        {{/each}}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			</div>
-		  <div class="items following" style="display:none;"></div>
-		  <div class="items followers" style="display:none;"></div>
-        
 		</div>
+		<div class="items posts" style="display:none;">
+		  {{#each posts}}
+	        {{> post}}
+	      {{/each}}
+		</div>
+		<div class="items following" style="display:none;"></div>
+		<div class="items followers" style="display:none;"></div>
 	  </div>
 	</div>
 	

@@ -1,5 +1,7 @@
 {
   "username": "Me",
+  "_comment": "aisle_post_ids contains the post id's of posts that are currently on the user's aisle",
+  "aisle_post_ids": ["1", "2"],
   "users": {
     "_comment": "users keys will be replaced with user id's. names in following and followers",
     "_comment": "lists will be replaced with user id's as well",
