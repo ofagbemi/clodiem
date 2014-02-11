@@ -27,10 +27,8 @@ function renderpost() {
   placemarkers();
   bindclicklisteners();
   var totalwidth = $('.post_comment').width();
-  var paddingLeft = 4;
   $('.comment_body')
-    .css('width', totalwidth - ($('.profpic').width() + paddingLeft) + 'px')
-    .css('padding-left', paddingLeft + 'px');
+    .css('width', totalwidth - ($('.profpic').width() + paddingLeft) + 'px');
 }
 
 // bind click listeners

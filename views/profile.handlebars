@@ -48,7 +48,7 @@
 			  <a class="posts_button" href="#">Posts</a>
 			</div>
 			<div class="button inactive">
-			  <a class="follower_button" href="#">Followers</a>
+			  <a class="followers_button" href="#">Followers</a>
 			</div>
 			<div class="button inactive">
 			  <a class="following_button" href="#">Following</a>
@@ -77,22 +77,25 @@
 			{{/each}}
 		</div>
 		<div class="items posts" style="display:none;">
+		  <h3 class="style_header">Posts ({{posts.length}})</h3>
 		  {{#each posts}}
 	        {{> post}}
 	      {{/each}}
 		</div>
-		<div class="items following" style="display:none;"></div>
-		<div class="items followers" style="display:none;"></div>
+		<div class="items following" style="display:none;">
+		  <h3 class="style_header">Following ({{posts.length}})</h3>
+		  {{#each followers}}
+		    {{> user}}
+		  {{/each}}
+		</div>
+		<div class="items followers" style="display:none;">
+		  <h3 class="style_header">Followers ({{posts.length}})</h3>
+		  {{#each following}}
+		    {{> user}}
+		  {{/each}}
+		</div>
 	  </div>
 	</div>
-	
-    <!--
-    <h1>{{username}}'s Profile</h1>
-    <a href="/aisle">Go back</a>
-    <a href="/closet?username={{username}}">Closet</a><br>
-    <a href="/following?username={{username}}">Following</a><br>
-    <a href="/followers?username={{username}}">Followers</a>
-    -->
   </body>
   
   <script src="/js/jquery-1.11.0.js"></script>

@@ -8,16 +8,27 @@
     "Kyle":
       {
         "username": "Kyle",
-        "description": "I'm a fan of everything"
+        "description": "I'm a fan of everything",
+        "following_ids": ["Anna B."],
+        "followers_ids": ["Anna B."],
+        "img": "http://lorempixel.com/64/64/people",
+        "location": "London"
       },
     "Em9":
       {
-        "username": "Em9"
+        "username": "Em9",
+        "following_ids": ["Anna B."],
+        "followers_ids": ["Anna B."],
+        "img": "http://lorempixel.com/64/64/people",
+        "location": "Lagos"
       },
     "Lola":
       {
         "username": "Lola",
-        "description": "Kid is nice!"
+        "description": "Kid is nice!",
+        "following_ids": ["Anna B."],
+        "img": "http://lorempixel.com/64/64/people",
+        "location": "Austin"
       },
     "Anna B.":
       {
@@ -25,21 +36,19 @@
         "description": "Chic!",
         "post_ids": ["1"],
         "style_ids": ["3"],
-        "following": [
-          "Kendrick.",
-          "Kyle",
-          "Em9"
-        ],
-        "followers": [
-          "Kyle",
-          "Lola",
-          "Em9"
-        ]
+        "following_ids": ["Kendrick.", "Kyle", "Em9"],
+        "followers_ids": ["Kyle", "Lola", "Em9"],
+        "img": "http://lorempixel.com/64/64/people",
+        "location": "Finland"
       },
     "Kendrick.":
       {
         "username": "Kendrick.",
-        "description": "I'm rich"
+        "description": "I'm rich",
+        "post_ids": ["2"],
+        "followers_ids": ["Anna B."],
+        "img": "http://lorempixel.com/64/64/people",
+        "location": "Westchester, NY"
       }
   },
   
@@ -85,19 +94,19 @@
 			"username": "Kyle",
 			"comment": "Wow, you look great! Love the glasses!",
 			"time": "2 minutes ago",
-			"photo": "http://lorempixel.com/36/36/people"
+			"img": "http://lorempixel.com/36/36/people"
 		  },
 		  {
 			"username": "Em9",
 			"comment": "Think I'm gonna take that shirt and add it to a style of my own!",
 			"time": "8 minutes ago",
-			"photo": "http://lorempixel.com/36/36/people"
+			"img": "http://lorempixel.com/36/36/people"
 		  },
 		  {
 			"username": "Lola",
 			"comment": "Kid is nice!",
 			"time": "11 minutes ago",
-			"photo": "http://lorempixel.com/36/36/people"
+			"img": "http://lorempixel.com/36/36/people"
 		  }
 		]
 	  },

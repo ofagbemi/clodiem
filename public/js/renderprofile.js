@@ -36,6 +36,22 @@ function renderprofile_closetbindclicklisteners() {
     // they were hidden before
     renderposts();
   });
+  $('.followers_button').click(function(e) {
+    e.preventDefault();
+    renderprofile_clearcloset();
+    $(this).parent()
+      .addClass('active')
+      .removeClass('inactive');
+    displays['followers'].show();
+  });
+  $('.following_button').click(function(e) {
+    e.preventDefault();
+    renderprofile_clearcloset();
+    $(this).parent()
+      .addClass('active')
+      .removeClass('inactive');
+    displays['following'].show();
+  });
 }
 function renderprofile_stylesbindclicklisteners() {
   $('.item_wrapper_link').click(function(e) {

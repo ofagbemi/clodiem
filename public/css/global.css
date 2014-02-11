@@ -13,7 +13,7 @@ body {
   font-weight: 300;
   background: #efefef;
 }
-h1, h2, h3, p, form{
+h1, h2, h3, h4, p, form{
   margin: 0;
   padding: 0;
   border: none;
@@ -335,6 +335,17 @@ div.top.padded.wrap {
   border-top: solid 1px black;
   font-size: x-small;
 }
+/* user display styles */
+.user {
+  padding: 8px 0;
+}
+.user .profpic {
+  float: left;
+  margin-right: 11px;
+}
+.user .user_body {
+  float: left;
+}
 /* post styles */
 .content .posts {
   padding-top: 11px;
@@ -342,14 +353,16 @@ div.top.padded.wrap {
 .closet .items.posts {
   padding-top: 0px;
 }
-.closet .style_posts .style_header {
+.closet h3.style_header {
   text-align: center;
-  font-size: 1.5em;
+  font-size: larger;
   margin-top: auto;
   margin-bottom: 8px;
   background: black;
   color: white;
   padding: 4px 0px;
+  text-transform: lowercase;
+  letter-spacing: 3px;
 }
 .post {
   background: white;
@@ -480,6 +493,7 @@ div.top.padded.wrap {
 }
 .post_comment .profpic {
   float: left;
+  margin-right: 4px;
 }
 .post_comment .comment_body {
   float: left;
