@@ -1,7 +1,4 @@
 var winwidth = window.innerWidth;
-var portion = 0.90;
-
-
 
 function placemarkers() {
   $('.post_stage .marker').each(function() {
@@ -10,17 +7,14 @@ function placemarkers() {
       .css('top', $(this).attr('y') * $(this).parent().height() + 'px');
     });
 }
-
 function alignposts() {
 
 }
-
 function renderposts() {
   alignposts();
   placemarkers();
   bindpostclicklisteners();
 }
-
 // renders comments and posts
 function renderpost() {
   alignposts();
@@ -30,7 +24,6 @@ function renderpost() {
   $('.comment_body')
     .css('width', totalwidth - ($('.profpic').width() + paddingLeft) + 'px');
 }
-
 // bind click listeners
 function bindpostclicklisteners() {
   $('.marker')
