@@ -48,51 +48,72 @@
 			  <a class="posts_button" href="#">Posts</a>
 			</div>
 			<div class="button inactive">
-			  <a class="followers_button" href="#">Followers</a>
+			  <a class="following_button" href="#">Following</a>
 			</div>
 			<div class="button inactive">
-			  <a class="following_button" href="#">Following</a>
+			  <a class="followers_button" href="#">Followers</a>
 			</div>
 		  </div>
 		  
 		  
 		  <div class="items styles">
-			{{#each styles}}
-			  <div class="item_wrapper">
-			    <a class="item_wrapper_link" title="{{title}}" href="#">
-				  <img src="{{img}}">
-				  <div class="item_label">{{title}}</div>
-				</a>
-			  </div>
-			{{/each}}
+		    {{#if styles.length}}
+		    
+			  {{#each styles}}
+			    <div class="item_wrapper">
+			      <a class="item_wrapper_link" title="{{title}}" href="#">
+				    <img src="{{img}}">
+				    <div class="item_label">{{title}}</div>
+				  </a>
+			    </div>
+			  {{/each}}
+			{{else}}
+			  <span>{{username}} hasn't created any styles yet</span>
+			{{/if}}
 		  </div>
-		  <div class="style_contents items" style="display:none;">
-		    {{#each styles}}
-		        <div class="style_posts" title="{{title}}" style="display:none;">
-		          <h3 class="style_header">{{title}} ({{posts.length}})</h3>
-				  {{#each posts}}
-				    {{> post}}
-				  {{/each}}
-				</div>
-			{{/each}}
+        <div class="style_contents items" style="display:none;">
+		  {{#each styles}}
+			<div class="style_posts" title="{{title}}" style="display:none;">
+			  <h3 class="style_header">{{title}} ({{posts.length}})</h3>
+			  {{#if styles.length}}
+				{{#each posts}}
+				  {{> post}}
+				{{/each}}
+			  {{else}}
+				<span>{{username}} hasn't put anything in this style yet</span>
+			 {{/if}}
+			</div>
+		  {{/each}}
 		</div>
 		<div class="items posts" style="display:none;">
-		  <h3 class="style_header">Posts ({{posts.length}})</h3>
-		  {{#each posts}}
-	        {{> post}}
-	      {{/each}}
+		  {{#if posts.length}}
+		    <h3 class="style_header">Posts ({{posts.length}})</h3>
+		    {{#each posts}}
+	          {{> post}}
+	        {{/each}}
+	      {{else}}
+	        <span>{{username}} hasn't made any posts yet</span>
+	      {{/if}}
 		</div>
 		<div class="items following" style="display:none;">
-		  <h3 class="style_header">Following ({{posts.length}})</h3>
-		  {{#each followers}}
-		    {{> user}}
-		  {{/each}}
+		  {{#if following.length}}
+			<h3 class="style_header">Following ({{following.length}})</h3>
+			{{#each following}}
+			  {{> user}}
+			{{/each}}
+		  {{else}}
+		    <span>{{username}} isn't following anyone yet</span>
+		  {{/if}}
 		</div>
 		<div class="items followers" style="display:none;">
-		  <h3 class="style_header">Followers ({{posts.length}})</h3>
-		  {{#each following}}
-		    {{> user}}
-		  {{/each}}
+		  {{#if followers.length}}
+		    <h3 class="style_header">Followers ({{followers.length}})</h3>
+		    {{#each followers}}
+		      {{> user}}
+		    {{/each}}
+		  {{else}}
+		    <span>{{username}} doesn't have any followers yet</span>
+		  {{/if}}
 		</div>
 	  </div>
 	</div>
