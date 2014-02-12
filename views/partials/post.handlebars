@@ -16,20 +16,32 @@
 	  <a class="marker" x="{{x}}" y="{{y}}" title="{{title}}">
 		{{@index}}
 	  </a>
-	  
 	  {{> item_stage}}
 	{{/each}}
+	{{#if img}}
 	<img class="post_img" src="{{img}}">
+	{{else}}
+	<div class="post_img" style="padding:40px;">
+	  <img style="width:100%;" src="/images/icons/pants2/pants2.svg">
+	  <img style="width:10%;float:right;" src="/images/icons/close/close.svg">
+	  <div class="clear"></div>
+	  <h2 style="text-align:center">NO IMAGE</h2>
+	</div>
+	{{/if}}
   </div>
+  {{#if caption}}
   <div class="post_caption">
 	<p>{{caption}}</p>
   </div>
+  {{/if}}
+  {{#if tags}}
   <div class="post_tags">
 	<span style="font-weight: bold;">TAGS</span>
 	{{#each tags}}
 	<span class="tag"><a href="/search?q={{tag}}">{{tag}}</a></span>
 	{{/each}}
   </div>
+  {{/if}}
   <div class="post_interact">
 	<span class="comment_button"></span>
 	<span class="like_button"></span>
