@@ -4,7 +4,7 @@ exports.view = function(req, res) {
   // enclose in a list to do {{#each posts}}
   ret['posts'] = [data['posts'][req.query.id]];
   ret['logged_in_username'] = data['logged_in_username'];
-  ret['logged_in_user_img'] = data['user_img'];
+  ret['logged_in_user_img'] = data['logged_in_user_img'];
   
   
   for(var i=0;i<ret['posts'].length;i++) {
