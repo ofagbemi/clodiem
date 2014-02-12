@@ -27,6 +27,7 @@ function comments_bindclicklistener(username, img) {
   $('.comment_button')
     .unbind('click')
     .click(function(e) {
+      $(this).unbind('click');
       e.preventDefault();
       var comment_val = $('.comment_box').val();
       if(comment_val) {
@@ -41,6 +42,7 @@ function comments_bindclicklistener(username, img) {
 		  renderpost();
         });
       }
+    
     });
   $('.comment_button a')
     .unbind('click')
