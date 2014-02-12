@@ -467,6 +467,7 @@ div.bottom.padded.wrap {
 }
 .post_stage .item_stage .header {
   margin-bottom: 11px;
+  margin-right: 24px; /* keep out of the way of the close button */
 }
 .post_stage .item_stage .header .title {
   display: inline-block;
