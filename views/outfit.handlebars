@@ -24,14 +24,14 @@
 			  </div>
 		    </div>
 		    <div class="clear"></div>
-		    <div class="comments">
 		    <!--Only one post in posts-->
 		    {{#each posts}}
+		    <div class="comments" postid="{{id}}">
 			  {{#each comments}}
 			    {{> comment}}
 			  {{/each}}
-			{{/each}}
 			</div>
+			{{/each}}
 		  </div>
 		</div>
 	  </div>

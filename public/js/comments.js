@@ -40,3 +40,6 @@ function comments_bindclicklistener(username, img) {
       }
     });
 }
+function submitcomment(post_id, username, img, comment_val) {
+  
+}
