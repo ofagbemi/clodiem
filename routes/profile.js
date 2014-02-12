@@ -9,12 +9,25 @@ exports.view = function(req, res) {
       u['posts'].push(post);
     }
   }
+  
+  // convert item ids into posts
+  for(var i=0;i<u['posts'].length;i++) {
+    var post = u['posts'][i];
+    post['items'] = [];
+    if(post['item_ids']) {
+      for(var j=0;j<post['item_ids'].length;j++) {
+        var item = data['posts'][post['item_ids'][j]];
+        post['items'].push(item);
+      }
+    }
+  }
+  
   u['styles'] = [];
   if(u['style_ids']) {
 	for(var i=0;i<u['style_ids'].length;i++) {
 	  var styles = data['posts'][u['style_ids'][i]];
 	  styles['posts'] = [];
-	  for(var j=0;j<styles['items'].length;j++) {
+	  for(var j=0;j<styles['item_ids'].length;j++) {
 		var style_post = data['posts'][u['post_ids'][j]];
 		styles['posts'].push(style_post);
 	  }

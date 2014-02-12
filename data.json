@@ -66,7 +66,7 @@
 		"time": "17 minutes ago",
 		"caption": "Found this and just had to share!",
 		"img": "http://i.istockimg.com/file_thumbview_approve/21076093/2/stock-photo-21076093-happy-summer-girl.jpg",
-		"items": ["4","5","6"],
+		"item_ids": ["4","5","6"],
 		"tags": [
 		  {"tag": "hip"},
 		  {"tag": "fun"},
@@ -118,7 +118,7 @@
         "likes": "0",
         "time": "3 days ago",
         "caption": "CHIC CHIC CHIC CHIC CHIC",
-        "items": ["1"],
+        "item_ids": ["1"],
         "img": "http://lorempixel.com/300/400/people"
       },
     "4":
