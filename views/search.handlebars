@@ -2,12 +2,55 @@
 <html>
   <head>
     <title>clodiem</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+
     <link rel="stylesheet" href="/css/global.css">
     <meta content="width=device-width,initial-scale=1.0" name="viewport">
   </head>
+
   <body>
     <h1>Results for {{query}}</h1>
-    <span>No results</span><br>
+    
+    
+    <div class="content">
+	  <div class="posts">
+	  {{#each posts}}
+		{{> post}}
+	  {{/each}}
+	  </div>
+    </div>
+    
     <a href="/aisle">Go back to aisle</a>
+
+    <script src="/js/jquery-1.11.0.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/renderposts.js"></script>
+    <script src="/js/rendertopbar.js"></script>
+    <script src="/js/rendersearchbar.js"></script>
+    <script src="/js/splitbackground.js"></script>
+    <script src="/js/rendermenu.js"></script>
+    <script src="/js/likebuttons.js"></script>
+    <script src="/js/commentbuttons.js"></script>
+    <script>
+      function setSizes() {
+        rendertopbar(true);
+        renderposts();
+        buildmenu('{{username}}');
+      }
+      $(window).resize(function() {
+         setSizes();
+       });
+      $(document).ready(function() {
+        setSizes();
+        activatelikebuttons();
+        activatecommentbuttons();
+      });
+      $(window).load(function() {
+        setSizes();
+      });
+    </script>
+
   </body>
 </html>

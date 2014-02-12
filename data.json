@@ -113,7 +113,12 @@
 		"likes": "19",
 		"time": "28 minutes ago",
 		"caption": "Took the car out to the hills with a couple of friends. Thought this look'd do!",
-		"img": "http://i.istockimg.com/file_thumbview_approve/19744739/2/stock-photo-19744739-male-fashion-model-sitting-in-classic-sports-car.jpg"
+		"img": "http://i.istockimg.com/file_thumbview_approve/19744739/2/stock-photo-19744739-male-fashion-model-sitting-in-classic-sports-car.jpg",
+        "tags": [
+            {"tag": "cool"},
+            {"tag": "fun"}
+        ]
+          
 	  },
 	"3":
 	  {
