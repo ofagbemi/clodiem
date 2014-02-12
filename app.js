@@ -21,7 +21,6 @@ var followers = require('./routes/followers');
 var outfits = require('./routes/closet');
 var createpost = require('./routes/createpost');
 var additem = require('./routes/additem');
-
 var app = express();
 
 app.use(partials());
@@ -52,6 +51,7 @@ app.get('/aisle', dashboard.view);
 app.get('/outfit', outfit.view);
 app.get('/login', login.view);
 app.get('/register', register.view);
+app.get('/registeruser', register.registeruser);
 app.get('/user', profile.view);
 app.get('/search', search.view);
 app.get('/following', following.view);

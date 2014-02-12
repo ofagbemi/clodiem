@@ -16,7 +16,7 @@
     </div>
     <div class="side top padded wrap">
       <div class="registerwrap">
-        <form class="registerform validate" method="get" action="register">
+        <form class="registerform validate" method="get" action="/registeruser">
           <div class="validatewrap">
             <input class="padded register" name="username" placeholder="Username">
           </div>
@@ -29,8 +29,8 @@
           <div class="validatewrap">
             <input class="padded register" name="password" placeholder="Verify password" type="password">
           </div>
+          <div id="register_button" class="button big"><a href="/aisle">Sign up</a></div>
         </form>
-        <div class="button big"><a href="/aisle">Sign up</a></div>
         <div class="register_message">Already have an account? <a href="/login">Click here to log in</a>.</div>
       </div>
     </div>
@@ -41,6 +41,7 @@
   <script type="text/javascript" src="/js/splitbackground.js"></script>
   <script type="text/javascript" src="/js/landing.js"></script>
   <script type="text/javascript" src="/js/validateform.js"></script>
+  <script type="text/javascript" src="/js/register.js"></script>
   <script>
 	function setSizes() {
 	  splitbackground(0.30, '#3c3d3d');
