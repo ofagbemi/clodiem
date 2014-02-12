@@ -13,20 +13,20 @@ function alignposts() {
 function renderposts() {
   alignposts();
   placemarkers();
-  bindpostclicklisteners();
+  renderposts_bindclicklisteners();
 }
 // renders comments and posts
 function renderpost() {
   alignposts();
   placemarkers();
-  bindclicklisteners();
+  renderposts_bindclicklisteners();
   var totalwidth = $('.post_comment').width();
   var marginRight = 4;
   $('.comment_body')
     .css('max-width', totalwidth - ($('.profpic').width() + marginRight) + 'px');
 }
 // bind click listeners
-function bindpostclicklisteners() {
+function renderposts_bindclicklisteners() {
   $('.marker')
     .unbind('click')
     .click(function(e) {
