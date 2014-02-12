@@ -29,7 +29,16 @@ function renderpost() {
 function bindpostclicklisteners() {
   $('.marker')
     .unbind('click')
+    .click(function(e) {
+      e.preventDefault();
+      var title = $(this).attr('title');
+      var item_stage = $(this).parent().find(".item_stage[title='" + title + "']");
+      item_stage.fadeIn(200);
+      // remember to look inside the parent of this marker
+    });
+  $('.post_stage .item_stage .close_button')
+    .unbind('click')
     .click(function() {
-      alert('You clicked on an item!');
+      $(this).parent().fadeOut();
     });
 }
