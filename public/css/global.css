@@ -33,6 +33,10 @@ textarea {
   border:solid 1px #ddd;
   padding:6px;
   font-weight:300;
+  border-radius:0;
+}
+input {
+  border-radius:0;
 }
 .clear {
   clear: both;
