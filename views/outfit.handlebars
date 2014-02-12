@@ -14,26 +14,24 @@
         <!--Only one post in posts-->
         {{#each posts}}
 		  {{> post}}
-		{{/each}}
-		<div class="post post_comments">
-		  <div class="comments_section">
-		    <div class="n">
-			  <textarea class="comment_box" placeholder="ADD COMMENT..."></textarea>
-			  <div class="button comment_button" style="float:right;margin-bottom:4px;">
-			    <a href="#">comment</a>
+		
+		  <div class="post post_comments">
+			<div class="comments_section">
+				<textarea class="comment_box" placeholder="ADD COMMENT..."></textarea>
+				<div postid="{{id}}" class="button comment_button" style="float:right;margin-bottom:4px;">
+				  <a postid="{{id}}" href="#">comment</a>
+				</div>
+			  <div class="clear"></div>
+			  <!--Only one post in posts-->
+			  <div class="comments" postid="{{id}}">
+				{{#each comments}}
+				  {{> comment}}
+				{{/each}}
 			  </div>
-		    </div>
-		    <div class="clear"></div>
-		    <!--Only one post in posts-->
-		    {{#each posts}}
-		    <div class="comments" postid="{{id}}">
-			  {{#each comments}}
-			    {{> comment}}
-			  {{/each}}
 			</div>
-			{{/each}}
 		  </div>
-		</div>
+		
+		{{/each}}
 	  </div>
     </div>
     

@@ -29,17 +29,39 @@ function comments_bindclicklistener(username, img) {
     .click(function(e) {
       e.preventDefault();
       var comment_val = $('.comment_box').val();
-      $('.comment_box').val('');
       if(comment_val) {
-        var comment_body = comments_buildcomment(username, img, comment_val);
-        comment_body.hide();
-        $('.comments').prepend(comment_body);
-        comment_body.slideDown();
-        // to make sure img is right width
-        renderpost();
+        var post_id = $(this).attr('postid');
+        comments_submitcomment(post_id, username, img, comment_val, function() {
+          $('.comment_box').val('');
+		  var comment_body = comments_buildcomment(username, img, comment_val);
+		  comment_body.hide();
+		  $('.comments').prepend(comment_body);
+		  comment_body.slideDown();
+		  // to make sure img is right width
+		  renderpost();
+        });
       }
     });
+  $('.comment_button a')
+    .unbind('click')
+    .click(function(e) {
+      e.preventDefault();
+      $(this).parent().trigger('click');
+    });
 }
-function submitcomment(post_id, username, img, comment_val) {
+function comments_submitcomment(post_id, username, img, comment_val, success) {
+  var data = {
+    'postid': post_id,
+    'username': username,
+    'comment': comment_val,
+    'time': (new Date()).toString(),
+    'img': img
+  };
   
+  $.ajax({
+    type: 'POST',
+    url: '/addcomment',
+    data: data,
+    success: success
+  });
 }
