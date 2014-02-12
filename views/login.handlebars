@@ -16,11 +16,11 @@
     </div>
     <div class="side top padded wrap">
       <div class="loginwrap">
-        <form class="loginform" method="get" action="login">
+        <form class="loginform" method="get" action="/loginuser">
           <input class="padded login" name="username" placeholder="Username">
           <input class="padded login" name="password" placeholder="Password" type="password">
         </form>
-        <div class="button big"><a href="/aisle">Log in</a></div>
+        <div id="login_button" class="button big"><a href="/aisle">Log in</a></div>
         <div class="login_message">Don't have an account? <a href="/register">Click here to register</a>.</div>
       </div>
     </div>
@@ -30,6 +30,7 @@
   <script src="/js/bootstrap.js"></script>
   <script type="text/javascript" src="/js/splitbackground.js"></script>
   <script type="text/javascript" src="/js/landing.js"></script>
+  <script type="text/javascript" src="/js/login.js"></script>
   <script>
 	function setSizes() {
 	  splitbackground(0.30, '#3c3d3d');

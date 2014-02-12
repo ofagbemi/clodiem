@@ -1,4 +1,6 @@
-var data = require("../data.json");
+var data = require('../data.json');
+var login = require('./login.js');
+var util = require('./util.js');
 
 exports.view = function(req, res) {
   res.render('register', {});
@@ -17,6 +19,8 @@ exports.registeruser = function(req, res) {
 
   data['users'][req.query.username] = user;
   
-  // redirect
+  // set this user as the logged in user
+  login.setcurrentuser(util.getuserid(user['username']));
+  
   res.redirect('/aisle');
 };
