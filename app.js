@@ -20,6 +20,7 @@ var following = require('./routes/following');
 var followers = require('./routes/followers');
 var outfits = require('./routes/closet');
 var createpost = require('./routes/createpost');
+var additem = require('./routes/additem');
 
 var app = express();
 
@@ -57,8 +58,7 @@ app.get('/following', following.view);
 app.get('/followers', followers.view);
 app.get('/closet', outfits.view);
 app.get('/createpost', createpost.view);
-// Example route
-// app.get('/users', user.list);
+app.get('/additem', additem.view);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

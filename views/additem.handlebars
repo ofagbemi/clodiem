@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+  <head>
+    <title>clodiem</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+  </head>
+  <body>
+    <div class="wrap padded top side bottom">
+      <form action="upload.htm" method="post" enctype="multipart/form-data">
+		<div class="createpost_stepwrap">
+		  <h1>Add an item</h1>
+		</div>
+		<div class="createpost_stepwrap">
+		  <!--input for picture-->
+		  <input class="img_upload" style="display:none;" type="file" accept="image/*" capture>
+		  
+		  <a class="img_upload" href="#" style="
+			display:block;
+			width:100%;
+			text-align:center;
+		  ">
+			<img src="/images/icons/camera/camera.svg" style="
+			  width:100%;
+			">
+			<div class="title lower button">
+			  <span style="color:white;" class="img_upload" href="#">
+				<div style="max-width:24%;float:left;">
+				  <img style="width:100%;"src="/images/icons/plus/whiteplus.svg">
+				</div>
+				<div style="float:left;text-align:left;width:70%;padding-left:11px;">Upload a photo</div>
+			  </span>
+			  <div class="clear"></div>
+			</div>
+		  </a>
+		</div>
+		<div class="createpost_stepwrap">
+		  <a class="title upper" href="#">
+			<img src="/images/icons/shirt/shirt.svg" style="float:right;width:23px;">
+			Add an item
+		  </a>
+		  <div>
+			<a class="createpost_addeditem">
+			  <div class="createpost_addediteminner">
+				<img src="/images/icons/plus/whiteplus.svg" style="width:100%;">
+			  </div>
+			</a>
+		  </div>
+		</div>
+		<div class="createpost_stepwrap">
+		  <!--This should send the focus to the textarea-->
+		  <a class="title upper" href="#">
+			<img src="/images/icons/tags/tags.svg" style="float:right;width:23px;">
+			Add tags
+		  </a>
+		  <textarea style="width:100%;" placeholder="ADD TAGS..."></textarea>
+		</div>
+		<div class="big button">
+		  <img src="/images/icons/hanger/whitehanger.svg" style="width:23px;margin-right:11px;margin-bottom:2px;">
+		  <a style="margin-right:34px;" href="#">POST</a>
+		</div>
+      </form>
+    </div>
+    
+  </body>
+  <script src="/js/jquery-1.11.0.js"></script>
+  <script src="/js/rendermenu.js"></script>
+  <script src="/js/rendersearchbar.js"></script>
+  <script src="/js/rendertopbar.js"></script>
+  <script src="/js/splitbackground.js"></script>
+  <script src="/js/createpost.js"></script>
+  <script>
+	function setSizes() {
+	  rendertopbar(true);
+	  buildmenu('{{username}}');
+	}
+	$(window).resize(function() {
+	  setSizes();
+	});
+	$(document).ready(function() {
+	  setSizes();
+	});
+	$(window).load(function() {
+	  setSizes();
+	});
+  </script>
+  
+</html>
