@@ -30,7 +30,7 @@
       function setSizes() {
         rendertopbar(true);
         renderposts();
-        buildmenu('{{logged_in_username}}');
+        buildmenu({{#if logged_in_user}}'{{logged_in_user.username}}'{{/if}});
       }
       $(window).resize(function() {
          setSizes();

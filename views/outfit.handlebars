@@ -50,8 +50,14 @@
       function setSizes() {
         rendertopbar(true);
         renderpost();
-        rendercomments('{{logged_in_username}}', '{{logged_in_user_img}}');
-        buildmenu('{{logged_in_username}}');
+        rendercomments(
+          {{#if logged_in_user}}
+            {{logged_in_user.username}},
+            {{logged_in_user.img}}
+          {{/if}});
+        
+        // rendercomments('{{logged_in_username}}', '{{logged_in_user_img}}');
+        buildmenu({{#if logged_in_user}}'{{logged_in_user.username}}'{{/if}});
       }
       $(window).resize(function() {
         setSizes();

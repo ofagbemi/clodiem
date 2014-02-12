@@ -1,7 +1,8 @@
-var data = require("../data.json");
+var data = require('../data.json');
+var util = require('./util.js');
 
 exports.view = function(req, res) {
-  var u = data['users'][req.query.username];
+  var u = data['users'][util.getuserid(req.query.username)];
   
   if(!u) {
     console.log('profile.js: The user \'' + req.query.username + '\' could not be found');
