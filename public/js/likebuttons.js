@@ -12,7 +12,6 @@ function activatelikebuttons() {
       $(this).attr('status', 'liked');
       $(this).css('background-image', "url('../images/icons/black_heart/red_heart.svg')");
     }
-    
     num_likes_div.html(num_likes);
   });
 }
