@@ -1,9 +1,10 @@
 var data = require('../data.json');
 exports.view = function(req, res) {
   var ret = {};
+  // enclose in a list to do {{#each posts}}
   ret['posts'] = [data['posts'][req.query.id]];
-  ret['username'] = data['username'];
-  ret['user_img'] = data['user_img'];
+  ret['logged_in_username'] = data['logged_in_username'];
+  ret['logged_in_user_img'] = data['user_img'];
   
   
   for(var i=0;i<ret['posts'].length;i++) {

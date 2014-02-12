@@ -36,7 +36,7 @@
 	  <div class="clear"></div>
 	</div>
 	
-	<div class="content">
+	<div class="content" style="margin-top:8px;">
 	  <div class="closet">
 		<div class="closet_inner">
 		  <h3>{{username}}'s Closet</h3>
@@ -75,7 +75,7 @@
 		  {{#each styles}}
 			<div class="style_posts" title="{{title}}" style="display:none;">
 			  <h3 class="style_header">{{title}} ({{posts.length}})</h3>
-			  {{#if styles.length}}
+			  {{#if posts.length}}
 				{{#each posts}}
 				  {{> post}}
 				{{/each}}
@@ -131,9 +131,9 @@
   <script src="/js/renderprofile.js"></script>
   <script>
 	function setSizes() {
-	  rendertopbar(true);
+	  rendertopbar();
 	  renderposts();
-	  buildmenu('{{username}}');
+	  buildmenu('{{logged_in_username}}');
 	}
 	$(window).resize(function() {
 	  setSizes();

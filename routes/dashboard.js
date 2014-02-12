@@ -2,6 +2,8 @@ var data = require("../data.json");
 
 exports.view = function(req, res) {
   var ret = {};
+  ret['logged_in_username'] = data['logged_in_username'];
+  ret['logged_in_user_img'] = data['logged_in_user_img'];
   ret['posts'] = [];
   for(var i=0;i<data['aisle_post_ids'].length;i++) {
     var post = data['posts'][data['aisle_post_ids'][i]];

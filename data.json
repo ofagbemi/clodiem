@@ -1,12 +1,16 @@
 {
-  "username": "Me",
-  "user_img": "http://lorempixel.com/100/100/people",
+  "logged_in_username": "Me",
+  "logged_in_user_img": "http://lorempixel.com/100/100/people",
   
   "_comment": "aisle_post_ids contains the post id's of posts that are currently on the user's aisle",
   "aisle_post_ids": ["1", "2"],
   "users": {
     "_comment": "users keys will be replaced with user id's. names in following and followers",
     "_comment": "lists will be replaced with user id's as well",
+    "Me":
+      {
+        "username": "Me"
+      },
     "Kyle":
       {
         "username": "Kyle",
