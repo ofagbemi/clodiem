@@ -40,6 +40,16 @@
 	<p>{{caption}}</p>
   </div>
   {{/if}}
+  {{#if price}}
+  <div class="post_caption">
+	<p>Price: {{price}}</p>
+  </div>
+  {{/if}}
+  {{#if purchase_link}}
+  <div class="post_caption">
+	<p><a href="{{purchase_link}}" target="_blank">Buy</a></p>
+  </div>
+  {{/if}}
   {{#if tags}}
   <div class="post_tags">
 	<span style="font-weight: bold;">TAGS</span>
