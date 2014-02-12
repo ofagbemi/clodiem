@@ -1,0 +1,25 @@
+<!--Item stage setup-->
+<div class="item_stage" title="{{title}}">
+  <div class="wrap padded top bottom side" style="overflow:auto;">
+    <div>
+      <div class="header">
+	    <h2 class="title"><a href="/outfit?id={{id}}">{{title}}</a></h2>
+	    <span>(<a class="see_more" href="/outfit?id={{id}}">Click to see more</a>)</span>
+	  </div>
+	  <div class="post_stats">
+		<span>{{numcomments}}</span>
+		 · <span class="num_likes">{{likes}}</span> <span class="likes white"></span>
+		 · <span>{{time}}</span>
+	  </div>
+	  {{#if retailer}}
+	  <h3>Sold by <span class="retailer">{{retailer}}</span></h3>
+	  {{/if}}
+	  {{#if price}}
+	  <span class="price">{{price}}</span>
+	  {{/if}}
+	  {{#if purchase_link}}
+	  <a class="purchase_link" target="_blank" href="{{purchase_link}}">Buy</a>
+	  {{/if}}
+	</div>
+  </div>
+</div>

@@ -443,6 +443,40 @@ div.bottom.padded.wrap {
   position:absolute;
   top:0;
   left:0;
+  display: none;
+}
+.post_stage .item_stage .header {
+  margin-bottom: 11px;
+}
+.post_stage .item_stage .header .title {
+  display: inline-block;
+}
+.post_stage .item_stage .header .title a{
+  color: white;
+}
+.post_stage .item_stage .header .see_more {
+  color: white;
+  text-decoration: underline;
+}
+.post_stage .item_stage .post_stats {
+  margin-bottom: 8px;
+}
+.post_stage .item_stage h3 {
+  font-weight: 300;
+}
+.post_stage .item_stage .retailer {
+  font-weight:400;
+  background: rgba(245, 255, 0, 0.9);
+  color: black;
+  text-decoration: none;
+}
+.post_stage .item_stage .price {
+  font-size: xx-large;
+}
+.post_stage .item_stage .purchase_link {
+  font-size: x-large;
+  color: white;
+  text-decoration: underline;
 }
 .post_caption {
   padding: 14px;
@@ -498,6 +532,9 @@ div.bottom.padded.wrap {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: 0px 2px;
+}
+.likes.white {
+  background-image: url('../images/icons/heart/whiteheart.svg');
 }
 .post_comments.post {
   border-radius: 0;
