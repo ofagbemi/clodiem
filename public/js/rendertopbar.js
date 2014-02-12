@@ -4,7 +4,7 @@ function rendertopbar(withpadding) {
   var topbar = $(html);
   
   var menubutton = '<a class="menu_button" href="#">Menu</a>';
-  var homebutton = '<a class="home_button" href="/aisle">Home</a>';
+  var homebutton = '<a class="home_button" href="/aisle">Clodiem</a>';
   var searchbutton = '<a class="search_button" href="#">Search</a>';
   var closesearchbutton = $('<a class="close_search_button" href="#">x</a>')
                             .css('display', 'none');
@@ -35,7 +35,7 @@ function bindclicklisteners() {
 	e.preventDefault();
 	$('#topbar .search_button').hide();
 	$('#topbar .close_search_button').show();
-	rendersearchbar($('#topbar').height()/winheight, $('#topbar').height() - 1, winwidth);
+	rendersearchbar($('#topbar').height()/winheight, $('#topbar').height() - 1, winwidth, true);
 	$('.searchwrap').hide();
 	$('#topbar').append($('.searchwrap'));
 	$('.searchwrap')

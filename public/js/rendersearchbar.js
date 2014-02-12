@@ -1,4 +1,4 @@
-function rendersearchbar(h, barheight, barwidth) {
+function rendersearchbar(h, barheight, barwidth, boxshadow) {
   $('.searchwrap').remove();
   var winwidth = window.innerWidth;
   var winheight = window.innerHeight;
@@ -19,6 +19,10 @@ function rendersearchbar(h, barheight, barwidth) {
     .css('max-height', height + 'px')
     .css('width', width + 'px')
     .css('overflow', 'hidden');
+  if(boxshadow) {
+    $('.searchwrap')
+      .css('box-shadow', '0px 1px 3px rgba(0,0,0,0.1)');
+  }
 
   var label = $('<label></label>');
   label
