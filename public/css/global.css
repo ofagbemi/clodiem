@@ -489,6 +489,7 @@ div.bottom.padded.wrap {
 }
 .post_caption {
   padding: 14px;
+  border-bottom: solid 1px #f1f1f1;
 }
 .post_caption p {
   /* border-left: solid 4px #afd2dd; */
