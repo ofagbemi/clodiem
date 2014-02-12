@@ -19,4 +19,4 @@ exports.registeruser = function(req, res) {
   
   // redirect
   res.redirect('/aisle');
-}
+};
