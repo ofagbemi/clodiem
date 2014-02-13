@@ -32,12 +32,21 @@
     <script src="/js/splitbackground.js"></script>
     <script src="/js/rendermenu.js"></script>
     <script src="/js/likebuttons.js"></script>
-    <script src="/js/commentbuttons.js"></script>
+    <script src="/js/comments.js"></script>
     <script>
       function setSizes() {
-        rendertopbar(true);
+        rendertopbar();
         renderposts();
         buildmenu('{{username}}');
+        rendercomments(
+          {{#if logged_in_user}}
+            true,
+            '{{logged_in_user.username}}',
+            '{{logged_in_user.img}}'
+          {{else}}
+            false
+          {{/if}}
+        );
       }
       $(window).resize(function() {
          setSizes();
@@ -45,7 +54,6 @@
       $(document).ready(function() {
         setSizes();
         activatelikebuttons();
-        activatecommentbuttons();
       });
       $(window).load(function() {
         setSizes();

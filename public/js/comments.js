@@ -1,5 +1,6 @@
-function rendercomments(username, img) {
-  comments_bindclicklistener(username, img);
+function rendercomments(_logged_in, username, img) {
+  logged_in = _logged_in;
+  comments_bindclicklistener(logged_in, username, img);
 }
 
 var comment_partial = '<div class="post_comment">\
@@ -23,12 +24,19 @@ function comments_buildcomment(username, img, comment) {
       .replace(/{{comment}}/g, comment)
     );
 }
-function comments_bindclicklistener(username, img) {
+function comments_not_logged_in() {
+  alert('You have to log in to do that');
+}
+
+function comments_bindclicklistener(logged_in, username, img) {
   $('.comment_button')
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
-      
+      if(!logged_in) {
+        comments_not_logged_in();
+        return;
+      }
       var post_id = $(this).attr('postid');
       var comment_val = $(".comment_box:visible[postid='" + post_id + "']").val();
       if(comment_val) {
