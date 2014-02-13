@@ -17,22 +17,31 @@
 		  <!--input for picture-->
 		  <input class="img_upload" style="display:none;" type="file" accept="image/*" capture>
 		  
+		  <a class="title upper" href="#">
+			<img src="/images/icons/camera/camera.svg" style="float:right;width:23px;">
+			Upload a photo
+		  </a>
+		  
+		  <div style="width:100%;" class="photo_stage">
+		    <img src="#" class="stage_image" style="display:none;width:100%;">
+		  </div>
 		  <a class="img_upload" href="#" style="
 			display:block;
 			width:100%;
 			text-align:center;
 		  ">
-			<img src="/images/icons/camera/camera.svg" style="width:52%;">
 			<div class="title lower button">
 			  <span style="color:white;" class="img_upload" href="#">
 				<div style="max-width:24%;float:left;">
 				  <img style="width:84%;"src="/images/icons/plus/whiteplus.svg">
 				</div>
-				<div style="float:left;text-align:left;width:70%;padding-left:11px;">Upload a photo</div>
+				<div style="float:left;text-align:left;width:70%;padding-left:11px;">Upload main photo</div>
 			  </span>
 			  <div class="clear"></div>
 			</div>
 		  </a>
+		  <p class="description">This photo is the main photo for the post. It's what 
+		  your followers will see on their aisles.</p>
 		</div>
 		<div class="createpost_stepwrap">
 		  <a class="title upper" href="#">
@@ -64,6 +73,57 @@
     
   </body>
   <script src="/js/jquery-1.11.0.js"></script>
+  <script src="/js/renderposts.js"></script>
+  <script src="/js/rendermenu.js"></script>
+  <script src="/js/rendersearchbar.js"></script>
+  <script src="/js/rendertopbar.js"></script>
+  <script src="/js/splitbackground.js"></script>
+  <script src="/js/likebuttons.js"></script>
+  <script src="/js/comments.js"></script>
+  <script src="/js/renderprofile.js"></script>
+  <script src="/js/follow.js"></script>
+  <script src="/js/createpost.js"></script>
+  <script>
+	function setSizes() {
+	  rendertopbar();
+	  renderposts();
+	  buildmenu(
+		  {{#if logged_in_user}}
+			true, '{{logged_in_user.username}}', '{{logged_in_user.img}}'
+		  {{else}}
+			false
+		  {{/if}}
+		);
+	  rendercomments(
+		  {{#if logged_in_user}}
+			true,
+			'{{logged_in_user.username}}',
+			'{{logged_in_user.img}}'
+		  {{else}}
+			false
+		  {{/if}}
+	  );
+	}
+	$(window).resize(function() {
+	  setSizes();
+	});
+	$(document).ready(function() {
+	  setSizes();
+	  activatelikebuttons({{#if logged_in_user}}true{{else}}false{{/if}});
+	  activatefollowbuttons(
+		{{#if logged_in_user}}
+		true, '{{logged_in_user.id}}'
+		{{else}}
+		false
+		{{/if}} 
+	  );
+	});
+	$(window).load(function() {
+	  setSizes();
+	});
+  </script>
+  <!--
+  <script src="/js/jquery-1.11.0.js"></script>
   <script src="/js/rendermenu.js"></script>
   <script src="/js/rendersearchbar.js"></script>
   <script src="/js/rendertopbar.js"></script>
@@ -83,6 +143,6 @@
 	$(window).load(function() {
 	  setSizes();
 	});
-  </script>
+  </script>-->
   
 </html>

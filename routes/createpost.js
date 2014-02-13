@@ -1,3 +1,7 @@
+var data = require('../data.json');
+
 exports.view = function(req, res) {
-  res.render('createpost', {});
+  var ret = {};
+  ret['logged_in_user'] = data['logged_in_user'];
+  res.render('createpost', ret);
 };
