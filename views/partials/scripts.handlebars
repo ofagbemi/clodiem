@@ -1,0 +1,49 @@
+<script src="/js/jquery-1.11.0.js"></script>
+<script src="/js/renderposts.js"></script>
+<script src="/js/rendermenu.js"></script>
+<script src="/js/rendersearchbar.js"></script>
+<script src="/js/rendertopbar.js"></script>
+<script src="/js/splitbackground.js"></script>
+<script src="/js/likebuttons.js"></script>
+<script src="/js/comments.js"></script>
+<script src="/js/renderprofile.js"></script>
+<script src="/js/follow.js"></script>
+<script>
+  function setSizes() {
+	rendertopbar();
+	renderposts();
+	buildmenu(
+		{{#if logged_in_user}}
+		  true, '{{logged_in_user.username}}', '{{logged_in_user.img}}'
+		{{else}}
+		  false
+		{{/if}}
+	  );
+	rendercomments(
+		{{#if logged_in_user}}
+		  true,
+		  '{{logged_in_user.username}}',
+		  '{{logged_in_user.img}}'
+		{{else}}
+		  false
+		{{/if}}
+	);
+  }
+  $(window).resize(function() {
+	setSizes();
+  });
+  $(document).ready(function() {
+	setSizes();
+	activatelikebuttons({{#if logged_in_user}}true{{else}}false{{/if}});
+	activatefollowbuttons(
+	  {{#if logged_in_user}}
+	  true, '{{logged_in_user.id}}'
+	  {{else}}
+	  false
+	  {{/if}} 
+	);
+  });
+  $(window).load(function() {
+	setSizes();
+  });
+</script>

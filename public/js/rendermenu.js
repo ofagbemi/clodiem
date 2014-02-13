@@ -44,13 +44,13 @@ function showmenu() {
   });
 }
 function hidemenu() {
+  $('#topbar').animate({
+    left: '0'
+  });
   $('#menu').animate({
     marginLeft: -menuwidth + 'px'
   }, function(){
     $('#menu').hide();
-  });
-  $('#topbar').animate({
-    left: '0'
   });
 }
 
