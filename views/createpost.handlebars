@@ -81,23 +81,31 @@
 			  <input class="padded" placeholder="Item title" type="text" name="title">
 			</div>
 			<div>
-			  <input class="padded" placeholder="Link to purchase" type="text" name="url">
+			  <input class="padded" placeholder="Retailer" type="text" name="retailer">
+			</div>
+			<div>
+			  <input class="padded" placeholder="Link to purchase" type="text" name="purchase_link">
 			</div>
 			<div>
 			  <select style="width:28%;float:left;">
-				<option name="usdollar">$</option>
-				<option name="pound">£</option>
-				<option name="euro">€</option>
-				<option name="yen">¥ (日本)</option>
-				<option name="yuan">¥ (中国)</option>
+				<option name="$">$</option>
+				<option name="£">£</option>
+				<option name="€">€</option>
+				<option name="JP¥">¥ (日本)</option>
+				<option name="CN¥">¥ (中国)</option>
 			  </select>
 			  <input class="padded" style="width:68%;float:right;" type="text" placeholder="Price" name="price">
 			  <div class="clear"></div>
-			  <textarea style="width:100%;" placeholder="ADD TAGS (comma separated)..."></textarea>
+			  <textarea class="tagbox" style="width:100%;" placeholder="ADD TAGS (comma separated)..."></textarea>
 			</div>
+		    <div class="uploaditem button" style="margin-top:8px;width:100%;">
+		      <a href="#">All done!</a>
+		    </div>
 		  </div>
 		  
-		  <div class="placed button" style="margin-top:8px;width:100%;display:none"><a href="#">Got it!</a></div>
+		  <div class="placed button" style="margin-top:8px;width:100%;display:none;">
+		    <a href="#">Got it!</a>
+		  </div>
 		</div>
 		<div class="createpost_stepwrap" style="display:none;">
 		  <!--This should send the focus to the textarea-->
@@ -105,7 +113,7 @@
 			<img src="/images/icons/tags/tags.svg" style="float:right;width:23px;">
 			Add tags
 		  </a>
-		  <textarea style="width:100%;" placeholder="ADD TAGS..."></textarea>
+		  <textarea class="tagbox" style="width:100%;" placeholder="ADD TAGS..."></textarea>
 		  <p class="description">Add tags to your post here, separated by commas. 
 		  Specifying appropriate tags will help other users discover the things 
 		  you post.</p>
@@ -164,6 +172,8 @@
 		false
 		{{/if}} 
 	  );
+	  
+	  createpost_start('{{logged_in_user.id}}');
 	});
 	$(window).load(function() {
 	  setSizes();

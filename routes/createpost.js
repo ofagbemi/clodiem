@@ -1,9 +1,14 @@
 var data = require('../data.json');
+var util = require('./util.js');
 
 exports.view = function(req, res) {
-  var ret = {};
-  ret['logged_in_user'] = data['logged_in_user'];
-  res.render('createpost', ret);
+  if(data['logged_in_user']) {
+	var ret = {};
+	ret['logged_in_user'] = data['logged_in_user'];
+	res.render('createpost', ret);
+  } else {
+    res.redirect('/login');
+  }
 };
 
 exports.createnewpost = function(req, res) {
@@ -25,13 +30,17 @@ exports.createnewpost = function(req, res) {
 	  'retailer': req.body.retailer,
 	  'purchase_link': req.body.purchase_link,
 	  'tags': req.body.tags,
-	  'item_ids': req.body.items
+	  'item_ids': req.body.item_ids
 	};
   
 	post['id'] = util.getpostid(post);
 	if(post['type'] == 'item') {
+	  if(!post['item_ids']) post['item_ids'] = [];
 	  post['item_ids'].push(post['id']);
 	}
+	
+	// add the post
+	data['posts'][post['id']] = post;
 	console.log('createpost.js: created post with id ' + post['id']);
 	
 	// return with id of item added

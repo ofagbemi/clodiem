@@ -1,3 +1,5 @@
+var sha1 = require('sha1');
+
 exports.getuserid = function(username) {
   return username;
 }
@@ -15,7 +17,7 @@ exports.contains = function(item, list) {
 exports.getpostid = function(post) {
   var str = post['type'].toString() + post['img'].toString() +
             post['time'].toString() + post['title'].toString();
-  return sha1(str);
+  return sha1(str).toString();
   
   /*
   'type': req.body.type,
