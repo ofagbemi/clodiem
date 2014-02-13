@@ -111,3 +111,28 @@ function createpost_placemarker(top, left, h, w) {
     .attr('y', top);
   marker.show();
 }
+
+function createpost_submitpost(type, userid, img, time, price, title, x, y,
+                               retailer, purchase_link, tags, item_ids, success) {
+  var data = {
+    'type': type,
+    'userid': userid,
+    'img': img,
+    'time': (new Date()).toString(),
+    'price': price,
+    'title': title,
+    'x': x,
+    'y': y,
+    'retailer': retailer,
+    'purchase_link': purchase_link,
+    'tags': tags,
+    'item_ids': item_ids
+  };
+  
+  $.ajax({
+    type: 'POST',
+    url: '/createnewpost',
+    data: data,
+    success: success
+  });
+}
