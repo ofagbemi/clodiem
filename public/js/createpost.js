@@ -1,7 +1,18 @@
-var userid = null;
+var createpost_userid = null;
+
+var createpost_addeditem_partial = '\
+<a class="createpost_addeditem">\
+  <div class="createpost_addediteminner" style="background:white;border:solid 1px rgba(0,0,0,0.15);">\
+	<img src="/images/icons/shirt/shirt.svg" style="width:100%;">\
+  </div>\
+  <div style="color:black;display:inline-block;width:100%:text-align:center;">{{title}}</div>\
+</a>'
+
+var createpost_addeditemiconheight = 40;
+var createpost_addeditemiconwidth = 40;
 
 function createpost_start(id) {
-  userid = id;
+  createpost_userid = id;
   createpost_bindclicklisteners();
   $('.createpost_stepwrap.1')
     .css('margin-top', window.innerHeight/2 - $('.1').outerHeight())
@@ -73,11 +84,17 @@ function createpost_bindclicklisteners() {
       var type = "item";
       var item_ids = [];
       
-      createpost_submitpost(type, userid, img, time, price,
+      createpost_submitpost(type, createpost_userid, img, time, price,
                             title, x, y, retailer, purchase_link,
                             tags, item_ids, function(result) {
         // callback
-        $('.createpost_additem').parent().prepend('<div>Hello</div>');
+        var addeditem = $(createpost_addeditem_partial.replace('{{title}}', title));
+        addeditem
+          .find('img')
+            .css('height', createpost_addeditemiconheight + 'px')
+            .css('width', createpost_addeditemiconwidth + 'px');
+        
+        $('.createpost_additem').parent().prepend(addeditem);
         createpost_hide(4);
         createpost_show(3);
         createpost_cleanupmarkitem();
@@ -88,6 +105,8 @@ function createpost_bindclicklisteners() {
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
+      createpost_addeditemiconheight = $('.createpost_additem img').height();
+      createpost_addeditemiconwidth = $('.createpost_additem img').width();
       createpost_hide(3);
       createpost_show(4);
     });
@@ -119,7 +138,7 @@ function createpost_bindclicklisteners() {
           .load(function() {
             $('.marker_field')
               .css('height', $('.photo_stage .stage_image').height() + 'px');
-              // slightly hack, get height from image loaded above
+              // slightly hacky, get height from image loaded above
           });
         
         createpost_show(3);

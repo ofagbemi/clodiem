@@ -615,6 +615,8 @@ div.bottom.padded.wrap {
 .createpost_addeditem, .createpost_additem {
   display:inline-block;
   max-width:23%;
+  float: left;
+  margin-right: 5px;
 }
 .createpost_addediteminner, .createpost_additeminner {
   display: inline-block;
