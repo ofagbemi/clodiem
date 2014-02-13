@@ -149,6 +149,7 @@
 	});
 	$(document).ready(function() {
 	  setSizes();
+	  activatelikebuttons({{#if logged_in_user}}true{{else}}false{{/if}});
 	});
 	$(window).load(function() {
 	  setSizes();
