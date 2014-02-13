@@ -1,5 +1,6 @@
 var data = require('../data.json');
 var util = require('./util.js');
+var follow = require('./follow.js');
 
 exports.view = function(req, res) {
   var u = data['users'][util.getuserid(req.query.username)];
@@ -11,6 +12,15 @@ exports.view = function(req, res) {
   
   if(data['logged_in_user']) {
     u['logged_in_user'] = data['logged_in_user'];
+    if(u['id'] && u['logged_in_user']) {
+      console.log(u['id'] + ' ' + u['logged_in_user']['id']);
+      u['isfollowing'] = follow.isfollowing(u['logged_in_user']['id'], u['id']);
+      console.log(u['isfollowing']);
+    } else {
+      console.log('no id');
+    }
+  } else {
+    console.log('hi');
   }
   
   u['posts'] = [];

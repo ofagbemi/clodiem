@@ -14,7 +14,15 @@
         <h2>{{username}}</h2>
         <p>{{description}}</p>
         <div class="button_wrap">
-		  <div class="button"><a>Follow</a></div>
+		  <div followedid="{{id}}" class="follow_button button {{#if isfollowing}}toggled{{/if}}">
+		    <a>
+		      {{#if isfollowing}}
+		      Following
+		      {{else}}
+		      Follow
+		      {{/if}}
+		    </a>
+		  </div>
 		  <div class="button"><a>Message</a></div>
 	    </div>
 	  </div>
@@ -128,6 +136,7 @@
   <script src="/js/likebuttons.js"></script>
   <script src="/js/comments.js"></script>
   <script src="/js/renderprofile.js"></script>
+  <script src="/js/follow.js"></script>
   <script>
 	function setSizes() {
 	  rendertopbar();
@@ -155,6 +164,13 @@
 	$(document).ready(function() {
 	  setSizes();
 	  activatelikebuttons({{#if logged_in_user}}true{{else}}false{{/if}});
+	  activatefollowbuttons(
+		{{#if logged_in_user}}
+		true, '{{logged_in_user.id}}'
+		{{else}}
+		false
+		{{/if}} 
+	  );
 	});
 	$(window).load(function() {
 	  setSizes();

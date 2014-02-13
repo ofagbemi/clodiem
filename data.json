@@ -9,12 +9,9 @@
   "users": {
     "_comment": "users keys will be replaced with user id's. names in following and followers",
     "_comment": "lists will be replaced with user id's as well",
-    "Me":
-      {
-        "username": "Me"
-      },
     "Kyle":
       {
+        "id": "Kyle",
         "username": "Kyle",
         "description": "I'm a fan of everything",
         "following_ids": ["Anna B."],
@@ -24,6 +21,7 @@
       },
     "Em9":
       {
+        "id": "Em9",
         "username": "Em9",
         "following_ids": ["Anna B."],
         "followers_ids": ["Anna B."],
@@ -32,6 +30,7 @@
       },
     "Lola":
       {
+        "id": "Lola",
         "username": "Lola",
         "description": "Kid is nice!",
         "following_ids": ["Anna B."],
@@ -40,6 +39,7 @@
       },
     "Anna B.":
       {
+        "id": "Anna B.",
         "username": "Anna B.",
         "description": "Chic!",
         "post_ids": ["1"],
@@ -51,6 +51,7 @@
       },
     "Kendrick.":
       {
+        "id": "Kendrick.",
         "username": "Kendrick.",
         "description": "I'm rich",
         "post_ids": ["2"],

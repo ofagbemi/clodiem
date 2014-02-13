@@ -203,6 +203,9 @@ div.bottom.padded.wrap {
   .button.inactive a {
     color: black;
   }
+  .button.toggled {
+    background-color: #36c4e7;
+  }
 
 .centered {
   text-align: center;

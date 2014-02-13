@@ -22,6 +22,7 @@ var outfits = require('./routes/closet');
 var createpost = require('./routes/createpost');
 var additem = require('./routes/additem');
 var comment = require('./routes/comment');
+var follow = require('./routes/follow');
 var app = express();
 
 app.use(partials());
@@ -62,8 +63,8 @@ app.get('/closet', outfits.view);
 app.get('/createpost', createpost.view);
 app.get('/additem', additem.view);
 
-
 app.post('/addcomment', comment.addcomment);
+app.post('/followuser', follow.followuser);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
