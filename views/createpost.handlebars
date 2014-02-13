@@ -10,14 +10,14 @@
   <body>
     <div class="wrap padded top side bottom">
       <form action="upload.htm" method="post" enctype="multipart/form-data">
-		<div class="createpost_stepwrap">
+		<div class="createpost_stepwrap 1" style="display: none">
 		  <h1>Create a post</h1>
 		</div>
-		<div class="createpost_stepwrap">
+		<div class="createpost_stepwrap 2" style="display:none;">
 		  <!--input for picture-->
 		  <input class="img_upload" style="display:none;" type="file" accept="image/*" capture>
 		  
-		  <a class="title upper" href="#">
+		  <a class="title upper">
 			<img src="/images/icons/camera/camera.svg" style="float:right;width:23px;">
 			Upload a photo
 		  </a>
@@ -43,14 +43,14 @@
 		  <p class="description">Upload the main photo for the post here. It's what 
 		  your followers will see on their aisles.</p>
 		</div>
-		<div class="createpost_stepwrap">
-		  <a class="title upper" href="#">
+		<div class="createpost_stepwrap 3" style="display:none;">
+		  <a class="title upper">
 			<img src="/images/icons/shirt/shirt.svg" style="float:right;width:23px;">
 			Add an item
 		  </a>
 		  <div>
-			<a class="createpost_addeditem">
-			  <div class="createpost_addediteminner">
+			<a class="createpost_additem">
+			  <div class="createpost_additeminner">
 				<img src="/images/icons/plus/whiteplus.svg" style="width:100%;">
 			  </div>
 			</a>
@@ -59,9 +59,49 @@
 		  items if you want. Adding items lets you share some useful info about 
 		  the stuff you're wearing, like where your followers can buy it.</p>
 		</div>
-		<div class="createpost_stepwrap">
+		<div class="createpost_stepwrap 4" style="display:none;">
+		  <a class="title upper">
+			<img src="/images/icons/binoculars/binoculars.svg" style="float:right;width:23px;">
+			Find this item
+		  </a>
+		  <div class="marker_field" style="width:100%;">
+			<img class="marker_field_img" src="#" style="width:100%">
+		  </div>
+		  <p class="description">Where in the post photo is the item you're adding? 
+		  Click on it.</p>
+		  
+		  <div class="getiteminfo" style="display:none">
+		    
+		    <a class="title upper">
+			  <img src="/images/icons/pencil/pencil.svg" style="float:right;width:23px;">
+			  Describe this item
+		    </a>
+		    <p class="description" style="margin-top:0;margin-bottom:8px;">Give it a name and fill in whatever else you'd like.</p>
+			<div>
+			  <input class="padded" placeholder="Item title" type="text" name="title">
+			</div>
+			<div>
+			  <input class="padded" placeholder="Link to purchase" type="text" name="url">
+			</div>
+			<div>
+			  <select style="width:28%;float:left;">
+				<option name="usdollar">$</option>
+				<option name="pound">£</option>
+				<option name="euro">€</option>
+				<option name="yen">¥ (日本)</option>
+				<option name="yuan">¥ (中国)</option>
+			  </select>
+			  <input class="padded" style="width:68%;float:right;" type="text" placeholder="Price" name="price">
+			  <div class="clear"></div>
+			  <textarea style="width:100%;" placeholder="ADD TAGS (comma separated)..."></textarea>
+			</div>
+		  </div>
+		  
+		  <div class="placed button" style="margin-top:8px;width:100%;display:none"><a href="#">Got it!</a></div>
+		</div>
+		<div class="createpost_stepwrap" style="display:none;">
 		  <!--This should send the focus to the textarea-->
-		  <a class="title upper" href="#">
+		  <a class="title upper">
 			<img src="/images/icons/tags/tags.svg" style="float:right;width:23px;">
 			Add tags
 		  </a>
@@ -70,18 +110,12 @@
 		  Specifying appropriate tags will help other users discover the things 
 		  you post.</p>
 		</div>
-		<div class="big button">
+		
+		<div class="big button" style="display:none;">
 		  <img src="/images/icons/hanger/whitehanger.svg" style="width:23px;">
 		  <a style="margin-right:34px;" href="#">POST</a>
 		</div>
       </form>
-    </div>
-    
-    
-    
-    <!--Test for marker placement-->
-    <div class="marker_field" style="width:100%;">
-      <img class="marker_field_img" src="#" style="width:100%">
     </div>
     
   </body>
