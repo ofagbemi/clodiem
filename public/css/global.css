@@ -525,7 +525,6 @@ div.bottom.padded.wrap {
   text-transform: uppercase;
 }
 .post_interact {
-  height: 36px;
   background-color: #FFFFFF;
   border: solid 1px rgba(0, 0, 0, 0.15);
   border-top: none;
@@ -539,7 +538,7 @@ div.bottom.padded.wrap {
   background-repeat: no-repeat;
   float: right;
 }
-.post_interact .comment_button {
+.post_interact .comment_show_button {
   background-image: url('../images/icons/comment/comment.svg');
   cursor: pointer;
 }
@@ -580,7 +579,7 @@ div.bottom.padded.wrap {
 .post_comments .comments_section {
   padding: 8px;
 }
-.post_comments .comments_section .comment_box {
+.post_comments .comments_section .comment_box, .post_interact .comment_box {
   width:100%;
   margin-bottom:4px;
 }
