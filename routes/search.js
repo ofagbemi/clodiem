@@ -12,7 +12,7 @@ exports.view = function(req, res) {
     for(var i=0; i < ids.length; i++) {
         if(d[ids[i]]['tags']) {
             for(var j=0; j< d[ids[i]]['tags'].length; j++){
-                if(d[ids[i]]['tags'][j]['tag'] === req.query.q){
+                if(d[ids[i]]['tags'][j]['tag'].toLowerCase() === req.query.q.toLowerCase()){
                     posts['posts'].push(d[ids[i]]);
                 }
             }
