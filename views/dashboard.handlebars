@@ -30,7 +30,13 @@
       function setSizes() {
         rendertopbar(true);
         renderposts();
-        buildmenu({{#if logged_in_user}}'{{logged_in_user.username}}'{{/if}});
+        buildmenu(
+          {{#if logged_in_user}}
+            true, '{{logged_in_user.username}}', '{{logged_in_user.img}}'
+          {{else}}
+            false
+          {{/if}}
+        );
         rendercomments(
           {{#if logged_in_user}}
             true,

@@ -671,8 +671,25 @@ div.bottom.padded.wrap {
   max-width: 300px;
   background-color: #3c3d3d;
   z-index: 18;
+  padding: 11px;
 }
 #menu a {
   color: white;
-  text-shadow: 1px 1px 2px #444;
+  /* text-shadow: 1px 1px 2px #444; */
+  display: block;
+  font-size: medium;
+  /* text-shadow: 1px 1px 1px black; */
+  border-bottom: solid 1px rgba(0,0,0,0.1);
+  padding: 4px 0;
+  /* text-align: right; */
+}
+#menu .close_menu_button {
+  height: 43px;
+  width: 43px;
+  background-image: url('../images/icons/menu/whitemenu.svg');
+  background-size: 28px 22px;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: transparent;
+  float: right;
 }

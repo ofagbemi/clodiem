@@ -9,8 +9,9 @@ exports.view = function(req, res) {
     u = {};
   }
   
-  u['logged_in_username'] = data['logged_in_username'];
-  u['logged_in_user_img'] = data['logged_in_user_img'];
+  if(data['logged_in_user']) {
+    u['logged_in_user'] = data['logged_in_user'];
+  }
   
   u['posts'] = [];
   if(u['post_ids']) {

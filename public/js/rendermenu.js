@@ -1,13 +1,13 @@
 var menuwidth = 0;
-function buildmenu(username) {
+function buildmenu(logged_in, username) {
   var winheight = window.innerHeight;
   var winwidth = window.innerWidth;
   menuwidth = 0.8 * winwidth;
   var menu = $('<div id="menu"></div>');
-  var closemenubutton = $('<a href="#" class="close_menu_button">x</a>');
   var profilelink = $('<a href="/user?username=' + username + '">My profile</a>');
   var makepostlink = $('<a href="/createpost">Make a Post</a>');
   var logoutlink = $('<a href="/">Log out</a>');
+  var loginlink = $('<a href="/login">Log in</a>');
   menu
     .css('display', 'none')
     .css('position', 'fixed')
@@ -17,21 +17,30 @@ function buildmenu(username) {
     .css('width', menuwidth + 'px')
     .css('margin-left', -menuwidth + 'px')
     .css('height', winheight + 'px')
-    .append(closemenubutton)
-    .append(profilelink)
-    .append(makepostlink)
-    .append(logoutlink);
     
+  if(logged_in) {
+	menu
+	  .append(profilelink)
+	  .append(makepostlink)
+	  .append(logoutlink);
+  } else {
+    menu
+      .append(loginlink);
+  }
+  
   $('#menu').remove();
   $('body').append(menu);
   
-  bindlisteners();
+  menu_bindlisteners();
 }
 
 function showmenu() {
   $('#menu').show();
   $('#menu').animate({
     marginLeft: '0px'
+  });
+  $('#topbar').animate({
+    left: $('#menu').outerWidth() + 'px'
   });
 }
 function hidemenu() {
@@ -40,13 +49,23 @@ function hidemenu() {
   }, function(){
     $('#menu').hide();
   });
+  $('#topbar').animate({
+    left: '0'
+  });
 }
 
-function bindlisteners() {
-  // bind click listeners
-  $('.close_menu_button').click(function(e) {
-    e.preventDefault();
-    hidemenu();
+function menu_bindlisteners() {
+  $('html')
+  .unbind('click')
+  .click(function(e) {
+    /*
+    var clicked = $(e.target);
+    var menu = $('#menu');
+    if(clicked != menu &&
+       menu.find(clicked).length == 0) {
+      hidemenu();
+    }
+    */
   });
   
 }

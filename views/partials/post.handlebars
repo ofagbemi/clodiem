@@ -6,7 +6,10 @@
 	  <span>//</span>
 	  <span class="post_stats">
 		<a style="color:inherit;font-size:inherit;"href="/outfit?id={{id}}">
-		  <span>{{numcomments}}</span>
+		  <span>
+		    <span class="num_comments">{{#if comments}}{{comments.length}}{{else}}0{{/if}}</span>
+		     comments
+		  </span>
 		</a>
 		· <a style="color:inherit;font-size:inherit;"href="/outfit?id={{id}}">
 		    <span class="num_likes">{{likes}}</span> <span class="likes"></span>

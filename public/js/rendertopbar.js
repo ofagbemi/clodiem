@@ -30,7 +30,9 @@ function rendertopbar(withpadding) {
   
 function bindclicklisteners() {
   // bind click listeners
-  $('#topbar .search_button').click(function(e) {
+  $('#topbar .search_button')
+    .unbind('click')
+    .click(function(e) {
     var winheight = window.innerHeight;
 	e.preventDefault();
 	$('#topbar .search_button').hide();
@@ -45,7 +47,9 @@ function bindclicklisteners() {
 	});
   });
   
-  $('#topbar .close_search_button').click(function(e) {
+  $('#topbar .close_search_button')
+    .unbind('click')
+    .click(function(e) {
 	e.preventDefault();
 	$('#topbar .close_search_button').hide();
 	$('#topbar .search_button').show();
@@ -57,8 +61,11 @@ function bindclicklisteners() {
 	
   });
   
-  $('#topbar .menu_button').click(function(e) {
+  $('#topbar .menu_button')
+    .unbind('click')
+    .click(function(e) {
 	e.preventDefault();
-	showmenu();
+	if($('#menu').is(':visible')) hidemenu();
+	else showmenu();
   });
 }
