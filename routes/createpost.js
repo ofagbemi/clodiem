@@ -19,7 +19,7 @@ exports.createnewpost = function(req, res) {
 	  'likes': 0,
 	  'time': req.body.time,
 	  'price': req.body.price,
-	  'title': req.body.title
+	  'title': req.body.title,
 	  'x': req.body.x,
 	  'y': req.body.y,
 	  'retailer': req.body.retailer,
