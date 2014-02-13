@@ -1,6 +1,14 @@
-function activatelikebuttons() {
+function likebuttons_not_logged_in() {
+  alert('You have to log in to do that');
+}
+
+function activatelikebuttons(logged_in) {
   $('.like_button').click(function(e) {
     e.preventDefault();
+    if(!logged_in) {
+      likebuttons_not_logged_in();
+      return;
+    }
     var num_likes_div = $(this).parent().parent().find('.num_likes');
     var num_likes = parseInt(num_likes_div.html());
     if($(this).attr('status') == 'liked') {
