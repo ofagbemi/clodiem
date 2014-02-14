@@ -251,7 +251,7 @@ div.bottom.padded.wrap {
   stroke: #444;
   stroke-width: 0.3px;
 }
-#topbar {
+#topbar, #topbar_back {
   height: 43px;
   z-index: 11;
   position: fixed;

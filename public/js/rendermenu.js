@@ -40,18 +40,18 @@ function showmenu() {
   $('#menu').show();
   $('#menu').animate({
     marginLeft: '0px'
-  });
+  }, 'linear');
   $('#topbar').animate({
     left: $('#menu').outerWidth() + 'px'
-  });
+  }, 'linear');
 }
 function hidemenu() {
   $('#topbar').animate({
     left: '0'
-  });
+  }, 'linear');
   $('#menu').animate({
     marginLeft: -menuwidth + 'px'
-  }, function(){
+  }, 'linear', function(){
     $('#menu').hide();
   });
 }

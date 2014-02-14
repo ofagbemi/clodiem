@@ -9,16 +9,25 @@ function rendertopbar(withpadding) {
   var closesearchbutton = $('<a class="close_search_button" href="#">x</a>')
                             .css('display', 'none');
   
-  
   topbar
     .append(menubutton)
     .append(homebutton)
     .append(closesearchbutton)
     .append(searchbutton);
   $('#topbar').remove();
+  
   $('body')
     .append(topbar)
     .css('margin-top', $('#topbar').height() + 'px');
+    
+  var topbar_back = $('<div id="topbar_back"></div>')
+    .css('position', 'absolute')
+    .css('z-index', '-1')
+    .css('width', winwidth + 'px');
+    
+  $('#topbar_back').remove();
+  $('body').append(topbar_back);
+    
   if(withpadding) {
     $('.content')
       .css('margin-top', $('#topbar').height() + 'px');
