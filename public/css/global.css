@@ -717,13 +717,15 @@ div.bottom.padded.wrap {
   padding: 4px 0;
   /* text-align: right; */
 }
-#menu .close_menu_button {
+#menu .settings_button {
   height: 43px;
   width: 43px;
-  background-image: url('../images/icons/menu/whitemenu.svg');
-  background-size: 28px 22px;
+  background-image: url('../images/icons/gear/whitegear.svg');
+  background-size: 28px 28px;
   background-position: center;
   background-repeat: no-repeat;
   color: transparent;
-  float: right;
+  position: absolute;
+  right:0;
+  top:0;
 }

@@ -8,6 +8,7 @@ function buildmenu(logged_in, userid) {
   var makepostlink = $('<a href="/createpost">Make a Post</a>');
   var logoutlink = $('<a href="/">Log out</a>');
   var loginlink = $('<a href="/login">Log in</a>');
+  var settingslink = $('<a class="settings_button" href="/settings"></a>');
   menu
     .css('display', 'none')
     .css('position', 'fixed')
@@ -20,6 +21,7 @@ function buildmenu(logged_in, userid) {
     
   if(logged_in) {
 	menu
+	  .append(settingslink)
 	  .append(profilelink)
 	  .append(makepostlink)
 	  .append(logoutlink);
