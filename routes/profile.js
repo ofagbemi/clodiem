@@ -3,10 +3,15 @@ var util = require('./util.js');
 var follow = require('./follow.js');
 
 exports.view = function(req, res) {
-  var u = data['users'][util.getuserid(req.query.username)];
+  var u = null;
+  if(req.query.id) u = data['users'][req.query.id];
+  else if(req.query.username) u = data['users'][util.getuserid(req.query.username)];
+  
+  // var u = data['users'][util.getuserid(req.query.username)];
   
   if(!u) {
-    console.log('profile.js: The user \'' + req.query.username + '\' could not be found');
+    console.log('profile.js: The user \'' + req.query.username + '\' ' +
+                '(id: ' + req.query.id + ') could not be found');
     u = {};
   }
   
@@ -20,7 +25,7 @@ exports.view = function(req, res) {
       console.log('no id');
     }
   } else {
-    console.log('hi');
+    console.log('profile.js: no user logged in');
   }
   
   u['posts'] = [];
