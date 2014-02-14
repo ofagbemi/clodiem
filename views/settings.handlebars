@@ -18,7 +18,10 @@
 			<input value="{{logged_in_user.location}}" class="padded" type="text" name="location" placeholder="Location">
 		  </div>
 		  <div>
-			<textarea value="{{logged_in_user.description}}" name="description" placeholder="Tell us a bit about yourself..."></textarea>
+			<textarea name="description" placeholder="Tell us a bit about yourself...">{{logged_in_user.description}}</textarea>
+		  </div>
+		  <div>
+			<input value="{{logged_in_user.img}}" class="padded" type="text" name="img" placeholder="Profile picture (URL)">
 		  </div>
 		  <div>
 			<input class="padded" type="password" placeholder="Password">

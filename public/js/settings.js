@@ -15,6 +15,7 @@ function settings_bindclicklisteners() {
       
       settings['location'] = $('input[name="location"]').val();
       settings['description'] = $('textarea[name="description"]').val();
+      settings['img'] = $('input[name="img"]').val();
       
       data['settings'] = settings;
       
