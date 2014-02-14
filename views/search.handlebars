@@ -39,7 +39,7 @@
         renderposts();
         buildmenu(
           {{#if logged_in_user}}
-            true, '{{logged_in_user.username}}', '{{logged_in_user.img}}'
+            true, '{{logged_in_user.id}}', '{{logged_in_user.img}}'
           {{else}}
             false
           {{/if}}

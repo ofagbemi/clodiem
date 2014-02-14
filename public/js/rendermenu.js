@@ -1,10 +1,10 @@
 var menuwidth = 0;
-function buildmenu(logged_in, username) {
+function buildmenu(logged_in, userid) {
   var winheight = window.innerHeight;
   var winwidth = window.innerWidth;
   menuwidth = 0.8 * winwidth;
   var menu = $('<div id="menu"></div>');
-  var profilelink = $('<a href="/user?username=' + username + '">My profile</a>');
+  var profilelink = $('<a href="/user?id=' + userid + '">My profile</a>');
   var makepostlink = $('<a href="/createpost">Make a Post</a>');
   var logoutlink = $('<a href="/">Log out</a>');
   var loginlink = $('<a href="/login">Log in</a>');

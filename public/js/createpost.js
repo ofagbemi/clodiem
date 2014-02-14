@@ -25,17 +25,19 @@ function createpost_start(id) {
       marginTop: '0px'
     }, 600,
       function() {
-        createpost_show(2);
+        createpost_show(2, true);
       });
 }
 function createpost_showpostbutton() {
   $('#post_button')
     .fadeIn(600);
 }
-function createpost_show(num) {
+function createpost_show(num, scroll) {
   $('.createpost_stepwrap.' + num)
     .fadeIn(600, function() {
-      createpost_scrollto(num);
+      if(scroll) {
+        createpost_scrollto(num);
+      }
     });
 }
 function createpost_hide(num) {
@@ -106,7 +108,8 @@ function createpost_bindclicklisteners() {
     
       var time = (new Date()).toString();
       
-      var img = '/images/icons/pants2/pants2.svg'; // TODO change this
+      // var img = '/images/icons/pants2/pants2.svg'; // TODO change this
+      var img = null;
       var x = $('.marker').attr('x');
       var y = $('.marker').attr('y');
       

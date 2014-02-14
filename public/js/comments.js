@@ -4,11 +4,11 @@ function rendercomments(_logged_in, username, img) {
 }
 
 var comment_partial = '<div class="post_comment">\
-  <a href="/user?username={{username}}">\
+  <a href="/user?id={{id}}">\
 	<img class="profpic" src="{{img}}">\
   </a>\
   <div class="comment_body">\
-	<a class="user_attribution" href="/user?username={{username}}">{{username}}</a>\
+	<a class="user_attribution" href="/user?id={{id}}">{{username}}</a>\
 	<span class="time">{{time}}</span>\
 	<p class="comment">{{comment}}</p>\
   </div>\

@@ -50,8 +50,6 @@ exports.createnewpost = function(req, res) {
 }
 
 exports.createnewpostfromitems = function(req, res) {
-  
-  var item_ids = [];
   if(data['users'][req.body.userid]) {
     var username = data['users'][req.body.userid]['username'];
     var post = req.body.post;
@@ -61,8 +59,13 @@ exports.createnewpostfromitems = function(req, res) {
 	post['likes'] = 0;
 	post['item_ids'] = [];
   
+    var item_ids = [];
 	for(var i=0;i<req.body.items.length;i++) {
 	  var item = req.body.items[i];
+	  
+	  item['comments'] = [];
+	  item['likes'] = 0;
+	  
 	  item['id'] = util.getpostid(item);
 	  if(item['type'] == 'item') {
 		if(!item['item_ids']) item['item_ids'] = [];
@@ -72,11 +75,9 @@ exports.createnewpostfromitems = function(req, res) {
 	  item_ids.push(item['id']);
 	  data['posts'][item['id']] = item;
 	  console.log('createpost.js: created item with id ' + item['id']);
-	  
-	  // add the item's id to the post
-	  post['item_ids'].push(item['id']);
 	}
 	
+	post['item_ids'] = item_ids;
 	post['id'] = util.getpostid(post)
 	
 	// add the post to posts and add the post id to the posting user's
@@ -85,6 +86,7 @@ exports.createnewpostfromitems = function(req, res) {
 	data['users'][req.body.userid]['post_ids'].unshift(post['id']);
 	
 	console.log('createpost.js: created post with id ' + post['id']);
+	console.log('createpost.js: post ' + post['id'] + ' has ' + post['item_ids'].length + ' items');
 	
 	// return with id of item added
 	var ret = {'postid': post['id']};
