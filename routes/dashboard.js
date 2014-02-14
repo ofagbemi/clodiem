@@ -1,6 +1,9 @@
 var data = require('../data.json');
 var util = require('./util.js');
 
+exports.addaislepostsfromlist = function(user, post_ids) {
+  user['aisle_post_ids'] = post_ids + user['aisle_post_ids'];
+}
 exports.addaisleposts = function(follower, followed) {
   follower['aisle_post_ids'] = followed['post_ids'] + follower['aisle_post_ids'];
 }
