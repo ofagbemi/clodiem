@@ -23,6 +23,7 @@ var createpost = require('./routes/createpost');
 var additem = require('./routes/additem');
 var comment = require('./routes/comment');
 var follow = require('./routes/follow');
+var settings = require('./routes/settings');
 var app = express();
 
 app.use(partials());
@@ -62,6 +63,7 @@ app.get('/followers', followers.view);
 app.get('/closet', outfits.view);
 app.get('/createpost', createpost.view);
 app.get('/additem', additem.view);
+app.get('/settings', settings.view);
 
 app.post('/addcomment', comment.addcomment);
 app.post('/followuser', follow.followuser);

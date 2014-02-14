@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+  <head>
+    <title>clodiem</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+  </head>
+  
+  <body>
+    <div class="content">
+    
+    <!--
+	  <div class="posts">
+	  {{#each posts}}
+		{{> post}}
+	  {{/each}}
+	  </div>
+	  -->
+    </div>
+    
+    <script src="/js/jquery-1.11.0.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/renderposts.js"></script>
+    <script src="/js/rendertopbar.js"></script>
+    <script src="/js/rendersearchbar.js"></script>
+    <script src="/js/splitbackground.js"></script>
+    <script src="/js/rendermenu.js"></script>
+    <script src="/js/likebuttons.js"></script>
+    <script src="/js/comments.js"></script>
+    <script>
+      function setSizes() {
+        rendertopbar(true);
+        renderposts();
+        buildmenu(
+          {{#if logged_in_user}}
+            true, '{{logged_in_user.id}}', '{{logged_in_user.img}}'
+          {{else}}
+            false
+          {{/if}}
+        );
+        rendercomments(
+          {{#if logged_in_user}}
+            true,
+            '{{logged_in_user.username}}',
+            '{{logged_in_user.img}}'
+          {{else}}
+            false
+          {{/if}}
+        );
+      }
+      $(window).resize(function() {
+         setSizes();
+       });
+      $(document).ready(function() {
+        setSizes();
+        activatelikebuttons({{#if logged_in_user}}true{{else}}false{{/if}});
+      });
+      $(window).load(function() {
+        setSizes();
+      });
+    </script>
+  </body>
+
+</html>
