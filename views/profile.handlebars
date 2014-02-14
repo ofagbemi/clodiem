@@ -107,9 +107,11 @@
 		<div class="items following" style="display:none;">
 		  {{#if following.length}}
 			<h3 class="style_header">Following ({{following.length}})</h3>
-			{{#each following}}
-			  {{> user}}
-			{{/each}}
+			<div class="user_list">
+			  {{#each following}}
+				{{> user}}
+			  {{/each}}
+			</div>
 		  {{else}}
 		    <span>{{username}} isn't following anyone yet</span>
 		  {{/if}}
@@ -117,9 +119,11 @@
 		<div class="items followers" style="display:none;">
 		  {{#if followers.length}}
 		    <h3 class="style_header">Followers ({{followers.length}})</h3>
-		    {{#each followers}}
-		      {{> user}}
-		    {{/each}}
+		    <div class="user_list">
+			  {{#each followers}}
+				{{> user}}
+			  {{/each}}
+		    </div>
 		  {{else}}
 		    <span>{{username}} doesn't have any followers yet</span>
 		  {{/if}}
