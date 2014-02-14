@@ -413,6 +413,9 @@ div.separate_header {
   font-size: x-small;
 }
 /* user display styles */
+.user_list .user{
+  margin-bottom: 8px
+}
 .user {
   /*padding: 8px 0;*/
 }
@@ -424,7 +427,7 @@ div.separate_header {
   float: left;
 }
 .user .user_body .user_link {
-
+  color: #333333;
 }
 /* post styles */
 .content .posts {
