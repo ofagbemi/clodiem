@@ -14,7 +14,7 @@
         "description": "I'm a fan of everything",
         "following_ids": ["Anna B."],
         "followers_ids": ["Anna B."],
-        "img": "http://lorempixel.com/64/64/people",
+        "img": "http://lorempixel.com/100/100/people",
         "location": "London",
         "recommended_user_ids": []
       },
@@ -24,7 +24,7 @@
         "username": "Em9",
         "following_ids": ["Anna B."],
         "followers_ids": ["Anna B."],
-        "img": "http://lorempixel.com/64/64/people",
+        "img": "http://lorempixel.com/100/100/people",
         "location": "Lagos",
         "recommended_user_ids": []
       },
@@ -34,7 +34,7 @@
         "username": "Lola",
         "description": "Kid is nice!",
         "following_ids": ["Anna B."],
-        "img": "http://lorempixel.com/64/64/people",
+        "img": "http://lorempixel.com/100/100/people",
         "location": "Austin",
         "recommended_user_ids": []
       },
@@ -47,7 +47,7 @@
         "style_ids": ["3"],
         "following_ids": ["Kendrick.", "Kyle", "Em9"],
         "followers_ids": ["Kyle", "Lola", "Em9"],
-        "img": "http://lorempixel.com/64/64/people",
+        "img": "http://lorempixel.com/100/100/people",
         "location": "Finland",
         "recommended_user_ids": []
       },
@@ -58,7 +58,7 @@
         "description": "I'm rich",
         "post_ids": ["2"],
         "followers_ids": ["Anna B."],
-        "img": "http://lorempixel.com/64/64/people",
+        "img": "http://lorempixel.com/100/100/people",
         "location": "Westchester, NY",
         "recommended_user_ids": []
       }
