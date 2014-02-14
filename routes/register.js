@@ -13,6 +13,7 @@ exports.registeruser = function(req, res) {
 	  "username": req.query.username,
 	  "email": req.query.email,
 	  "post_ids": [],
+	  "aisle_post_ids": [],
 	  "style_ids": [],
 	  "following_ids": [],
 	  "followers_ids": []

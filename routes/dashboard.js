@@ -1,11 +1,15 @@
 var data = require("../data.json");
 
+exports.addaisleposts = function(follower, followed) {
+  follower['aisle_post_ids'] = followed['post_ids'] + follower['aisle_post_ids'];
+}
+
 exports.view = function(req, res) {
   if(data['logged_in_user']) {
 	var ret = {};
 	ret['logged_in_user'] = data['logged_in_user'];
 	ret['posts'] = [];
-	for(var i=0;i<data['aisle_post_ids'].length;i++) {
+	for(var i=0;i<ret['logged_in_user']['aisle_post_ids'].length;i++) {
 	  var post = data['posts'][data['aisle_post_ids'][i]];
 	  ret['posts'].push(post);
 	}

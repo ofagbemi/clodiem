@@ -1,5 +1,6 @@
 var data = require('../data.json');
 var util = require('./util.js');
+var dashboard = require('./dashboard.js');
 
 exports.followuser = function(req, res) {
   var ret = {'follow': false};
@@ -11,6 +12,8 @@ exports.followuser = function(req, res) {
     follower['following_ids'].unshift(followed['id']);
     ret['follow'] = true;
     console.log('follow.js: ' + req.body.followeruserid + ' is following ' + req.body.followeduserid);
+    
+    dashboard.addaisleposts(follower, followed);
   } else {
     // if already following, unfollows
     var index = followed['followers_ids'].indexOf(req.body.followeruserid);
