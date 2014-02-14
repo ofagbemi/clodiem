@@ -1,15 +1,19 @@
 var createpost_userid = null;
-
+var createpost_addeditems = [];
 var createpost_addeditem_partial = '\
 <a class="createpost_addeditem">\
   <div class="createpost_addediteminner" style="background:white;border:solid 1px rgba(0,0,0,0.15);">\
 	<img src="/images/icons/shirt/shirt.svg" style="width:100%;">\
   </div>\
-  <div style="color:black;display:inline-block;width:100%:text-align:center;">{{title}}</div>\
+  <div style="color:black;display:inline-block;width:100%;text-align:center;">{{title}}</div>\
 </a>'
 
 var createpost_addeditemiconheight = 40;
 var createpost_addeditemiconwidth = 40;
+
+function createpost_redirecttopost(response) {
+  window.location.replace('/outfit?id=' + response['postid']);
+}
 
 function createpost_start(id) {
   createpost_userid = id;
@@ -24,7 +28,10 @@ function createpost_start(id) {
         createpost_show(2);
       });
 }
-
+function createpost_showpostbutton() {
+  $('#post_button')
+    .fadeIn(600);
+}
 function createpost_show(num) {
   $('.createpost_stepwrap.' + num)
     .fadeIn(600, function() {
@@ -41,6 +48,31 @@ function createpost_scrollto(num) {
   }, 1000);
 }
 function createpost_bindclicklisteners() {
+  $("input[name='post_title']")
+    .unbind('keyup')
+    .keyup(function(e) {
+      if($(this).val() != '') {
+        $('.img_upload_wrap').slideDown(600);
+      } else {
+        $('.img_upload_wrap').slideUp(600);
+      }
+    });
+  $('#post_button')
+    .unbind('click')
+    .click(function(e) {
+      e.preventDefault();
+      var img = '';
+      var time = (new Date()).toString();
+      var price = createpost_gettotalprice(createpost_addeditems);
+      var title = $("input[name='post_title']").val();
+      if(title == '') {
+        alert('You have to give this post a title');
+        return;
+      }
+      var tags = createpost_parsetags($('.tagbox.posttagbox').val());
+      createpost_submitpost(createpost_userid, img, time,
+                            price, title, tags, createpost_addeditems)
+    });
   $('.placed.button')
     .unbind('click')
     .click(function(e) {
@@ -78,12 +110,30 @@ function createpost_bindclicklisteners() {
       var x = $('.marker').attr('x');
       var y = $('.marker').attr('y');
       
-      alert($(this).parent().find('.tagbox').val());
+      alert($(this).parent().find('.tagbox.itemtagbox').val());
       var tags = createpost_parsetags($(this).parent().find('.tagbox').val());
       
       var type = "item";
       var item_ids = [];
       
+      createpost_pushitem(type, createpost_userid, img, time, price,
+                          title, x, y, retailer, purchase_link,
+                          tags, item_ids);
+      var addeditem = $(createpost_addeditem_partial.replace('{{title}}', title));
+	  addeditem
+		.find('img')
+		  .css('height', createpost_addeditemiconheight + 'px')
+		  .css('width', createpost_addeditemiconwidth + 'px');
+	  
+	  $('.createpost_additem').parent().prepend(addeditem);
+	  createpost_hide(4);
+	  createpost_show(3);
+	  createpost_cleanupmarkitem();
+	  
+	  createpost_show(5);
+	  createpost_showpostbutton();
+      
+      /*
       createpost_submitpost(type, createpost_userid, img, time, price,
                             title, x, y, retailer, purchase_link,
                             tags, item_ids, function(result) {
@@ -99,7 +149,7 @@ function createpost_bindclicklisteners() {
         createpost_show(3);
         createpost_cleanupmarkitem();
       });
-    
+      */
     });
   $('a.createpost_additem')
     .unbind('click')
@@ -180,6 +230,48 @@ function createpost_placemarker(top, left, h, w) {
   marker.show();
 }
 
+function createpost_pushitem(type, userid, img, time, price, title, x, y,
+                               retailer, purchase_link, tags, item_ids) {
+  var data = {
+    'type': type,
+    'userid': userid,
+    'img': img,
+    'time': (new Date()).toString(),
+    'price': price,
+    'title': title,
+    'x': x,
+    'y': y,
+    'retailer': retailer,
+    'purchase_link': purchase_link,
+    'tags': tags,
+    'item_ids': item_ids
+  };
+  
+  createpost_addeditems.push(data);
+}
+
+function createpost_submitpost(userid, img, time, price, title, tags, items) {
+  var post = {
+    'type': 'outfit',
+    'userid': createpost_userid,
+    'img': img,
+    'time': time,
+    'price': price,
+    'title': title,
+    'tags': tags
+  };
+  var data = {'items': items,
+              'userid': userid,
+              'post': post};
+  $.ajax({
+	type: 'POST',
+	url: '/createnewpostfromitems',
+	data: data,
+	success: createpost_redirecttopost
+  });
+}
+
+/*
 function createpost_submitpost(type, userid, img, time, price, title, x, y,
                                retailer, purchase_link, tags, item_ids, success) {
   var data = {
@@ -204,6 +296,7 @@ function createpost_submitpost(type, userid, img, time, price, title, x, y,
     success: success
   });
 }
+*/
 
 function createpost_parsetags(tagstr) {
   var tags = tagstr.split(',');
@@ -215,4 +308,12 @@ function createpost_parsetags(tagstr) {
 
 function createpost_cleanupmarkitem() {
 
+}
+
+function createpost_gettotalprice(items) {
+  var price = '';
+  for(var i=0;i<items.length;i++) {
+	price = price + ' + ' + items[i]['price'];
+  }
+  return $.trim(price);
 }

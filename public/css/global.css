@@ -664,7 +664,7 @@ div.bottom.padded.wrap {
 .createpost_stepwrap .getiteminfo {
   margin-top: 11px;
 }
-.createpost_stepwrap .getiteminfo input{
+.createpost_stepwrap .getiteminfo input, .getpostinfo input{
   font-size: medium;
   font-family: 'Helvetica Neue', sans-serif;
   font-weight: 300;

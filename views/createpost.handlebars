@@ -14,34 +14,44 @@
 		  <h1>Create a post</h1>
 		</div>
 		<div class="createpost_stepwrap 2" style="display:none;">
-		  <!--input for picture-->
-		  <input class="img_upload" style="display:none;" type="file" accept="image/*" capture>
+		  <div class="getpostinfo" style="margin-bottom:11px;">
+		    <a class="title upper">
+			  <img src="/images/icons/star/star.svg" style="float:right;width:23px;">
+			  Give your post a title
+		    </a>
 		  
-		  <a class="title upper">
-			<img src="/images/icons/camera/camera.svg" style="float:right;width:23px;">
-			Upload a photo
-		  </a>
-		  
-		  <div style="width:100%;" class="photo_stage">
-		    <img src="#" class="stage_image" style="display:none;width:100%;">
+		    <input class="padded" placeholder="Post title" name="post_title">
 		  </div>
-		  <a class="img_upload" href="#" style="
-			display:block;
-			width:100%;
-			text-align:center;
-		  ">
-			<div class="title lower button">
-			  <span style="color:white;" class="img_upload" href="#">
-				<div style="max-width:24%;float:left;">
-				  <img style="width:84%;"src="/images/icons/plus/whiteplus.svg">
-				</div>
-				<div style="float:left;text-align:left;width:70%;padding-left:11px;">Upload main photo</div>
-			  </span>
-			  <div class="clear"></div>
+		  <div class="img_upload_wrap" style="display:none;">
+			<!--input for picture-->
+			<input class="img_upload" style="display:none;" type="file" accept="image/*" capture>
+		  
+			<a class="title upper">
+			  <img src="/images/icons/camera/camera.svg" style="float:right;width:23px;">
+			  Upload a photo
+			</a>
+		  
+			<div style="width:100%;" class="photo_stage">
+			  <img src="#" class="stage_image" style="display:none;width:100%;">
 			</div>
-		  </a>
-		  <p class="description">Upload the main photo for the post here. It's what 
-		  your followers will see on their aisles.</p>
+			<a class="img_upload" href="#" style="
+			  display:block;
+			  width:100%;
+			  text-align:center;
+			">
+			  <div class="title lower button">
+				<span style="color:white;" class="img_upload" href="#">
+				  <div style="max-width:24%;float:left;">
+					<img style="width:84%;"src="/images/icons/plus/whiteplus.svg">
+				  </div>
+				  <div style="float:left;text-align:left;width:70%;padding-left:11px;">Upload main photo</div>
+				</span>
+				<div class="clear"></div>
+			  </div>
+			</a>
+			<p class="description">Upload the main photo for the post here. It's what 
+			your followers will see on their aisles.</p>
+		  </div>
 		</div>
 		<div class="createpost_stepwrap 3" style="display:none;">
 		  <a class="title upper">
@@ -97,7 +107,7 @@
 			  </select>
 			  <input class="padded" style="width:68%;float:right;" type="text" placeholder="Price" name="price">
 			  <div class="clear"></div>
-			  <textarea class="tagbox" style="width:100%;" placeholder="ADD TAGS (comma separated)..."></textarea>
+			  <textarea class="tagbox itemtagbox" style="width:100%;" placeholder="ADD TAGS (comma separated)..."></textarea>
 			</div>
 		    <div class="uploaditem button" style="margin-top:8px;width:100%;">
 		      <a href="#">All done!</a>
@@ -108,19 +118,19 @@
 		    <a href="#">Got it!</a>
 		  </div>
 		</div>
-		<div class="createpost_stepwrap" style="display:none;">
+		<div class="createpost_stepwrap 5" style="display:none;">
 		  <!--This should send the focus to the textarea-->
 		  <a class="title upper">
 			<img src="/images/icons/tags/tags.svg" style="float:right;width:23px;">
 			Add tags
 		  </a>
-		  <textarea class="tagbox" style="width:100%;" placeholder="ADD TAGS..."></textarea>
+		  <textarea class="tagbox posttagbox" style="width:100%;" placeholder="ADD TAGS..."></textarea>
 		  <p class="description">Add tags to your post here, separated by commas. 
 		  Specifying appropriate tags will help other users discover the things 
 		  you post.</p>
 		</div>
 		
-		<div class="big button" style="display:none;">
+		<div id="post_button" class="big button" style="display:none;">
 		  <img src="/images/icons/hanger/whitehanger.svg" style="width:23px;">
 		  <a style="margin-right:34px;" href="#">POST</a>
 		</div>
