@@ -9,9 +9,13 @@ exports.view = function(req, res) {
 	var ret = {};
 	ret['logged_in_user'] = data['logged_in_user'];
 	ret['posts'] = [];
-	for(var i=0;i<ret['logged_in_user']['aisle_post_ids'].length;i++) {
-	  var post = data['posts'][data['aisle_post_ids'][i]];
-	  ret['posts'].push(post);
+	if(ret['logged_in_user']['aisle_post_ids']) {
+	  for(var i=0;i<ret['logged_in_user']['aisle_post_ids'].length;i++) {
+		var post = data['posts'][data['aisle_post_ids'][i]];
+		ret['posts'].push(post);
+	  }
+	} else {
+	  ret['logged_in_user']['aisle_post_ids'] = [];
 	}
   
 	for(var i=0;i<ret['posts'].length;i++) {
