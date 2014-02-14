@@ -423,6 +423,10 @@ div.separate_header {
   float: left;
   margin-right: 8px;
 }
+.user img.profpic {
+  width: 64px;
+  height: 64px;
+}
 .user .user_body {
   float: left;
 }
