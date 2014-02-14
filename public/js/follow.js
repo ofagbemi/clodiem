@@ -32,11 +32,11 @@ function follow_bindclicklisteners(logged_in, followerid) {
       if(response['follow']) {
         button
           .addClass('toggled')
-          .html(button.html().replace(/follow/i, 'Following'));
+          .html(button.html().replace('Follow', 'Following'));
       } else {
         button
           .removeClass('toggled')
-          .html(button.html().replace(/following/i, 'Follow'));
+          .html(button.html().replace('Following', 'Follow'));
       }
     });
   });
