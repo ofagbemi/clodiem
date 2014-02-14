@@ -301,6 +301,12 @@ function createpost_submitpost(type, userid, img, time, price, title, x, y,
 }
 */
 
+/* createpost_parsetags(tagstr)
+ * --------------------
+ * Takes in a raw input string--whatever was typed into the
+ * tag box, and spits out an array of tag objects, i.e
+ * [{'tag': 'cool'}, {'tag': 'hip'}, ... ]
+ */
 function createpost_parsetags(tagstr) {
   var tags = tagstr.split(',');
   for(var i=0;i<tags.length;i++) {
@@ -309,6 +315,11 @@ function createpost_parsetags(tagstr) {
   return tags;
 }
 
+/* createpost_cleanupmarkitem()
+ * --------------------------
+ * Cleanup function that gets run after the mark item
+ * step. Clears the form and marker field out.
+ */
 function createpost_cleanupmarkitem() {
   $(".getiteminfo input[name='title']").val('');
   $(".getiteminfo input[name='retailer']").val('');
@@ -326,6 +337,11 @@ function createpost_cleanupmarkitem() {
   $('.placed.button').parent().find('.getiteminfo').hide();
 }
 
+/* createpost_gettotalprice(items)
+ * ------------------------
+ * Takes in a list of items and compiles their prices
+ * into a single returned string
+ */
 function createpost_gettotalprice(items) {
   var price = '';
   for(var i=0;i<items.length;i++) {
