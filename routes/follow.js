@@ -23,6 +23,8 @@ exports.followuser = function(req, res) {
     if(index2 > -1) follower['following_ids'].splice(index2, 1);
     ret['follow'] = false;
     console.log('follow.js: ' + req.body.followeruserid + ' is not following ' + req.body.followeduserid);
+    
+    dashboard.removeaisleposts(follower, followed);
   }
   
   //res.writeHead(200);

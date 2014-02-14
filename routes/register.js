@@ -16,7 +16,8 @@ exports.registeruser = function(req, res) {
 	  "aisle_post_ids": [],
 	  "style_ids": [],
 	  "following_ids": [],
-	  "followers_ids": []
+	  "followers_ids": [],
+	  "recommended_user_ids": ["Anna B."]
 	};
 
   data['users'][req.query.username] = user;

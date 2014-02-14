@@ -1,7 +1,14 @@
-var data = require("../data.json");
+var data = require('../data.json');
+var util = require('./util.js');
 
 exports.addaisleposts = function(follower, followed) {
   follower['aisle_post_ids'] = followed['post_ids'] + follower['aisle_post_ids'];
+}
+exports.removeaisleposts = function(follower, followed) {
+  follower['aisle_post_ids'] = 
+    follower['aisle_post_ids'].filter(function(elem) {
+      return !(util.contains(elem, followed['post_ids']));
+    });
 }
 
 exports.view = function(req, res) {
@@ -11,7 +18,7 @@ exports.view = function(req, res) {
 	ret['posts'] = [];
 	if(ret['logged_in_user']['aisle_post_ids']) {
 	  for(var i=0;i<ret['logged_in_user']['aisle_post_ids'].length;i++) {
-		var post = data['posts'][data['aisle_post_ids'][i]];
+		var post = data['posts'][ret['logged_in_user']['aisle_post_ids'][i]];
 		ret['posts'].push(post);
 	  }
 	} else {
@@ -28,6 +35,13 @@ exports.view = function(req, res) {
 		  post['items'].push(item);
 		}
 	  }
+	}
+	
+	// get recommended users
+	ret['logged_in_user']['recommended_users'] = [];
+	for(var i=0;i<ret['logged_in_user']['recommended_user_ids'].length;i++) {
+	  var r_user = data['users'][ret['logged_in_user']['recommended_user_ids'][i]];
+	  ret['logged_in_user']['recommended_users'].push(r_user);
 	}
 	
 	res.render('dashboard', ret);

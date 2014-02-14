@@ -4,8 +4,6 @@
   
   "logged_in_user": null,
   
-  "_comment": "aisle_post_ids contains the post id's of posts that are currently on the user's aisle",
-  "aisle_post_ids": ["1", "2"],
   "users": {
     "_comment": "users keys will be replaced with user id's. names in following and followers",
     "_comment": "lists will be replaced with user id's as well",
@@ -17,7 +15,8 @@
         "following_ids": ["Anna B."],
         "followers_ids": ["Anna B."],
         "img": "http://lorempixel.com/64/64/people",
-        "location": "London"
+        "location": "London",
+        "recommended_user_ids": []
       },
     "Em9":
       {
@@ -26,7 +25,8 @@
         "following_ids": ["Anna B."],
         "followers_ids": ["Anna B."],
         "img": "http://lorempixel.com/64/64/people",
-        "location": "Lagos"
+        "location": "Lagos",
+        "recommended_user_ids": []
       },
     "Lola":
       {
@@ -35,7 +35,8 @@
         "description": "Kid is nice!",
         "following_ids": ["Anna B."],
         "img": "http://lorempixel.com/64/64/people",
-        "location": "Austin"
+        "location": "Austin",
+        "recommended_user_ids": []
       },
     "Anna B.":
       {
@@ -47,7 +48,8 @@
         "following_ids": ["Kendrick.", "Kyle", "Em9"],
         "followers_ids": ["Kyle", "Lola", "Em9"],
         "img": "http://lorempixel.com/64/64/people",
-        "location": "Finland"
+        "location": "Finland",
+        "recommended_user_ids": []
       },
     "Kendrick.":
       {
@@ -57,7 +59,8 @@
         "post_ids": ["2"],
         "followers_ids": ["Anna B."],
         "img": "http://lorempixel.com/64/64/people",
-        "location": "Westchester, NY"
+        "location": "Westchester, NY",
+        "recommended_user_ids": []
       }
   },
   

@@ -11,15 +11,15 @@
   <body>
     <div class="content">
       {{#if posts.length}}
-		{{#each logged_in_user.users_to_follow}}
+        <div class="posts">
+		  {{#each posts}}
+			{{> post}}
+		  {{/each}}
+		</div>
+      {{else}}
+	    {{#each logged_in_user.recommended_users}}
 		  {{> user}}
 		{{/each}}
-      {{else}}
-	  <div class="posts">
-	  {{#each posts}}
-		{{> post}}
-	  {{/each}}
-	  </div>
 	  {{/if}}
     </div>
     

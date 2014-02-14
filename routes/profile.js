@@ -28,6 +28,13 @@ exports.view = function(req, res) {
     console.log('profile.js: no user logged in');
   }
   
+  // get recommended users
+  u['logged_in_user']['recommended_users'] = [];
+  for(var i=0;i<u['logged_in_user']['recommended_user_ids'].length;i++) {
+    var r_user = data['users'][u['logged_in_user']['recommended_user_ids'][i]];
+    u['logged_in_user']['recommended_users'].push(r_user);
+  }
+  
   u['posts'] = [];
   if(u['post_ids']) {
 	for(var i=0;i<u['post_ids'].length;i++) {
