@@ -414,14 +414,17 @@ div.separate_header {
 }
 /* user display styles */
 .user {
-  padding: 8px 0;
+  /*padding: 8px 0;*/
 }
-.user .profpic {
+.user a.profpic {
   float: left;
-  margin-right: 11px;
+  margin-right: 8px;
 }
 .user .user_body {
   float: left;
+}
+.user .user_body .user_link {
+
 }
 /* post styles */
 .content .posts {

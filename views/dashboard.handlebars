@@ -17,9 +17,17 @@
 		  {{/each}}
 		</div>
       {{else}}
-	    {{#each logged_in_user.recommended_users}}
-		  {{> user}}
-		{{/each}}
+        {{#unless logged_in_user.following_ids}}
+          <div class="separate_header" >
+            <h2 style="margin-bottom:11px;">Hey!</h2>
+            <p>It doesn't look like you're following anyone. How about checking out some of these users?</p>
+          </div>
+          <div class="separate_header">
+			{{#each logged_in_user.recommended_users}}
+			  {{> user}}
+			{{/each}}
+		  </div>
+		{{/unless}}
 	  {{/if}}
     </div>
     
