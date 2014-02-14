@@ -77,4 +77,14 @@ function bindclicklisteners() {
 	if($('#menu').is(':visible')) hidemenu();
 	else showmenu();
   });
+  
+  // if you need a link to show the searchbar in the topbar, just
+  // add the class 'show_searchbar_in_topbar' to it
+  $('.show_searchbar_in_topbar')
+    .unbind('click')
+    .click(function(e) {
+      e.preventDefault();
+      $('#topbar .search_button')
+        .trigger('click');
+    });
 }
