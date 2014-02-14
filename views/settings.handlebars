@@ -10,7 +10,25 @@
   
   <body>
     <div class="content">
-    
+      <div style="background:white;" class="top bottom side padded wrap">
+        <img class="spinning" style="float:right;width:23px;height:23px;" src="/images/icons/gear/gear.svg">
+        <h2 style="margin-bottom:11px;">Account settings</h2>
+		<form class="settings_form">
+		  <div>
+			<input value="{{logged_in_user.location}}" class="padded" type="text" name="location" placeholder="Location">
+		  </div>
+		  <div>
+			<textarea value="{{logged_in_user.description}}" name="description" placeholder="Tell us a bit about yourself..."></textarea>
+		  </div>
+		  <div>
+			<input class="padded" type="password" placeholder="Password">
+		  </div>
+		  <div>
+			<input class="padded" type="password" placeholder="Verify password">
+		  </div>
+		  <div class="change_settings button" style="margin-top:8px;width:100%;"><a href="#">Update account</a></div>
+		</form>
+      </div>
     <!--
 	  <div class="posts">
 	  {{#each posts}}
@@ -29,6 +47,7 @@
     <script src="/js/rendermenu.js"></script>
     <script src="/js/likebuttons.js"></script>
     <script src="/js/comments.js"></script>
+    <script src="/js/settings.js"></script>
     <script>
       function setSizes() {
         rendertopbar(true);
@@ -49,6 +68,9 @@
             false
           {{/if}}
         );
+        {{#if logged_in_user}}
+        settings_setup('{{logged_in_user.id}}');
+        {{/if}}
       }
       $(window).resize(function() {
          setSizes();

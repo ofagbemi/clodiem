@@ -9,8 +9,14 @@ $(document).ready(function() {
   
   renderprofile_closetbindclicklisteners();
   renderprofile_stylesbindclicklisteners();
+  
+  adjustheaderwidths();
 });
 
+function adjustheaderwidths() {
+  $('.profile_header_body')
+    .css('width', ($('.profile_header').width() - $('.profile_header .profpic').outerWidth(true)) + 'px');
+}
 function renderprofile_clearcloset() {
   $('.items').hide();
   $('.button.active').removeClass('active').addClass('inactive');

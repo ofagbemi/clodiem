@@ -9,3 +9,18 @@ exports.view = function(req, res) {
     res.redirect('/login');
   }
 }
+
+exports.setuser = function(req, res) {
+  var user = data['users'][req.body.userid];
+  if(user) {
+    for(var key in req.body.settings) {
+      user[key] = req.body.settings[key];
+    }
+    res.writeHead(200);
+    res.end();
+  } else {
+    console.log('setuser.js: the user with id ' + req.body.userid + ' could not be found');
+    res.writeHead(404);
+    res.end();
+  }
+};

@@ -31,15 +31,18 @@ a:hover {
   text-decoration: none;
 }
 textarea {
-  resize:none;
-  outline:none;
-  border:solid 1px #ddd;
-  padding:6px;
-  font-weight:300;
-  border-radius:0;
+  resize: none;
+  outline: none;
+  border: solid 1px rgba(0,0,0,0.15);
+  padding: 6px;
+  font-weight: 300;
+  border-radius: 0;
 }
 input {
   border-radius:0;
+  border: solid 1px rgba(0,0,0,0.15);
+  font-weight: 300;
+  outline: none;
 }
 .clear {
   clear: both;
@@ -115,7 +118,38 @@ div.bottom.padded.wrap {
   animation: bounce 1.4s infinite;
 }
 
-
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  } 50% {
+    -webkit-transform: rotate(180deg);
+  }
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-o-keyframes spin {
+  100% {
+    -o-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  } 50% {
+    transform: rotate(180deg);
+  }
+}
+.spinning {
+  -webkit-animation: spin 1.8s infinite;
+  -moz-animation: spin 1.8s infinite;
+  -o-animation: spin 1.8s infinite;
+  animation: spin 1.8s infinite;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+}
 /* General */
 .inline-block {
   display: inline-block;
@@ -285,8 +319,7 @@ div.bottom.padded.wrap {
   position: relative;
 }
 .profile_header .button_wrap {
-  position: absolute;
-  bottom: 8px;
+  float:right;
 }
 .profile_header .profpic {
   width: 100px;
@@ -297,6 +330,7 @@ div.bottom.padded.wrap {
 .profile_header .profile_header_body {
   display: inline-block;
   float: left;
+  min-height: 100px;
 }
 .profile_header_body {
   
@@ -448,7 +482,7 @@ div.bottom.padded.wrap {
   height: 28px;
   width: 28px;
   text-align: center;
-  line-height: 28px;
+  line-height: 24px;
   border-radius: 28px;
   background: black;
   color: white;
@@ -672,6 +706,12 @@ div.bottom.padded.wrap {
   margin-bottom: 8px;
   border: solid 1px rgba(0,0,0,0.1);
 }
+
+.settings_form input, .settings_form textarea{
+  width: 100%;
+  margin-bottom: 8px;
+}
+
 /* search */
 .searchwrap {
   border-top: solid 1px #ddd;
