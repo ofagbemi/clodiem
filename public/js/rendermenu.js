@@ -6,7 +6,7 @@ function buildmenu(logged_in, userid) {
   var menu = $('<div id="menu"></div>');
   var profilelink = $('<a href="/user?id=' + userid + '">My profile</a>');
   var makepostlink = $('<a href="/createpost">Make a Post</a>');
-  var logoutlink = $('<a href="/">Log out</a>');
+  var logoutlink = $('<a href="/logoutuser?id=' + userid + '">Log out</a>');
   var loginlink = $('<a href="/login">Log in</a>');
   var settingslink = $('<a class="settings_button" href="/settings"></a>');
   menu

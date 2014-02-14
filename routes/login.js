@@ -10,6 +10,11 @@ function setcurrentuser(userid) {
   data['logged_in_user'] = data['users'][userid];
 }
 
+function removecurrentuser() {
+  console.log('login.js: setting current user to null');
+  data['logged_in_user'] = null;
+}
+
 exports.setcurrentuser = setcurrentuser;
 
 exports.loginuser = function(req, res) {
@@ -21,3 +26,10 @@ exports.loginuser = function(req, res) {
   }
   console.log('login.js: login failed! User ' + userid + ' could not be found');
 };
+
+exports.logoutuser = function(req, res) {
+  if(data['logged_in_user'] && data['logged_in_user']['id'] == req.query.id) {
+    removecurrentuser();
+    res.redirect('/');
+  }
+}

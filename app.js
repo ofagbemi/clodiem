@@ -54,6 +54,7 @@ app.get('/aisle', dashboard.view);
 app.get('/outfit', outfit.view);
 app.get('/login', login.view);
 app.get('/loginuser', login.loginuser);
+app.get('/logoutuser', login.logoutuser);
 app.get('/register', register.view);
 app.get('/registeruser', register.registeruser);
 app.get('/user', profile.view);
