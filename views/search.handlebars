@@ -16,6 +16,11 @@
       <div class="separate_header">
 	    <img class="corner_icon" style="float:right;" src="/images/icons/search/search.svg">
 	    <h2>Results for "{{query}}"</h2>
+	    {{#if posts.length}}
+	    <div style="width:100%;text-align:center;margin-top:8px;">
+		  <a href="/">Go back{{#if logged_in_user}} to aisle{{/if}}</a>
+		</div>
+		{{/if}}
 	  </div>
 	  <div class="posts">
 	  {{#if posts.length}}
@@ -29,7 +34,7 @@
 		  <a class="show_searchbar_in_topbar" href="#">Click here to search for something else</a>
 		</div>
 		<div style="width:100%;text-align:center;margin-top:8px;">
-		  <a href="/aisle">Go back</a>
+		  <a href="/">Go back{{#if logged_in_user}} to aisle{{/if}}</a>
 		</div>
 	  </div>
 	  {{/if}}
