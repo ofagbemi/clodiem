@@ -310,7 +310,20 @@ function createpost_parsetags(tagstr) {
 }
 
 function createpost_cleanupmarkitem() {
-
+  $(".getiteminfo input[name='title']").val('');
+  $(".getiteminfo input[name='retailer']").val('');
+  $(".getiteminfo input[name='purchase_link']").val('');
+  $(".getiteminfo input[name='price']").val('');
+  // won't clear this: user probably wants to use the same currency
+  // $('.getiteminfo select :nth-child(0)').prop('selected', true);
+  
+  $('.tagbox.itemtagbox').val('');
+  $('.marker_field .marker')
+    .removeAttr('x')
+    .removeAttr('y')
+    .hide();
+    
+  $('.placed.button').parent().find('.getiteminfo').hide();
 }
 
 function createpost_gettotalprice(items) {
