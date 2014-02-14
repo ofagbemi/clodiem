@@ -17,7 +17,7 @@ exports.registeruser = function(req, res) {
 	  "style_ids": [],
 	  "following_ids": [],
 	  "followers_ids": [],
-	  "recommended_user_ids": ["Anna B."]
+	  "recommended_user_ids": ["Anna B.", "Kendrick."]
 	};
 
   data['users'][req.query.username] = user;
