@@ -1,4 +1,6 @@
 var winwidth = window.innerWidth;
+var renderposts_aislepostindex = 0;
+var renderposts_userid;
 
 function placemarkers() {
   $('.post_stage .marker').each(function() {
@@ -10,7 +12,8 @@ function placemarkers() {
 function alignposts() {
 
 }
-function renderposts() {
+function renderposts(userid) {
+  renderposts_userid = userid;
   alignposts();
   placemarkers();
   renderposts_bindclicklisteners();
@@ -41,4 +44,24 @@ function renderposts_bindclicklisteners() {
     .click(function() {
       $(this).parent().fadeOut();
     });
+}
+
+function renderposts_loadaisleposts(userid) {
+  renderposts_aislepostindex++;
+  var data = {
+    'num_posts': 4,
+    'index': renderposts_aislepostindex,
+    'userid': userid
+  };
+  
+  $.ajax({
+    type: 'GET',
+    url: '/getaisleposts',
+    data: data,
+    success: renderposts_rendernewaisleposts
+  });
+}
+
+function renderposts_rendernewaisleposts(response) {
+
 }

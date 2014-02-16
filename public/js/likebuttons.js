@@ -2,24 +2,52 @@ function likebuttons_not_logged_in() {
   alert('You have to log in to do that');
 }
 
-function activatelikebuttons(logged_in) {
+function activatelikebuttons(userid) {
   $('.like_button').click(function(e) {
     e.preventDefault();
-    if(!logged_in) {
+    if(!userid) {
       likebuttons_not_logged_in();
       return;
     }
-    var num_likes_div = $(this).parent().parent().find('.num_likes');
-    var num_likes = parseInt(num_likes_div.html());
+    
     if($(this).attr('status') == 'liked') {
-      num_likes--;
+      likebuttons_removelike(userid, $(this).attr('postid'));
       $(this).attr('status', '');
-      $(this).css('background-image', "url('../images/icons/black_heart/black_heart.svg')");
     } else {
-      num_likes++;
+      likebuttons_addlike(userid, $(this).attr('postid'));
       $(this).attr('status', 'liked');
-      $(this).css('background-image', "url('../images/icons/black_heart/red_heart.svg')");
     }
-    num_likes_div.html(num_likes);
+
   });
+}
+
+function likebuttons_addlike(userid, postid) {
+  var data = {
+    'userid': userid,
+    'postid': postid
+  };
+  $.ajax({
+    type: 'POST',
+    url: '/addlike',
+    data: data,
+    success: likebuttons_adjustpagelikes
+  });
+  console.log('here');
+}
+
+function likebuttons_removelike(userid, postid) {
+  var data = {
+    'userid': userid,
+    'postid': postid
+  };
+  $.ajax({
+    type: 'POST',
+    url: '/removelike',
+    data: data,
+    success: likebuttons_adjustpagelikes
+  });
+}
+
+function likebuttons_adjustpagelikes(response) {
+  var num_likes = parseInt(response['likes']);
 }

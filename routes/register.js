@@ -9,15 +9,16 @@ exports.view = function(req, res) {
 exports.registeruser = function(req, res) {
   var user =
 	{
-	  "id": util.getuserid(req.query.username),
-	  "username": req.query.username,
-	  "email": req.query.email,
-	  "post_ids": [],
-	  "aisle_post_ids": [],
-	  "style_ids": [],
-	  "following_ids": [],
-	  "followers_ids": [],
-	  "recommended_user_ids": ["Anna B.", "Kendrick."]
+	  'id': util.getuserid(req.query.username),
+	  'username': req.query.username,
+	  'email': req.query.email,
+	  'post_ids': [],
+	  'aisle_post_ids': [],
+	  'style_ids': [],
+	  'following_ids': [],
+	  'followers_ids': [],
+	  'recommended_user_ids': ['Anna B.', 'Kendrick.'],
+	  'liked_post_ids': []
 	};
 
   data['users'][req.query.username] = user;

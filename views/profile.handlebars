@@ -167,7 +167,7 @@
 	});
 	$(document).ready(function() {
 	  setSizes();
-	  activatelikebuttons({{#if logged_in_user}}true{{else}}false{{/if}});
+	  activatelikebuttons({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
 	  activatefollowbuttons(
 		{{#if logged_in_user}}
 		true, '{{logged_in_user.id}}'

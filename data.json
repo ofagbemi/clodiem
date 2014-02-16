@@ -1,9 +1,4 @@
-{
-  "logged_in_username": "Me",
-  "logged_in_user_img": "http://lorempixel.com/100/100/people",
-  
-  "logged_in_user": null,
-  
+{ 
   "users": {
     "_comment": "users keys will be replaced with user id's. names in following and followers",
     "_comment": "lists will be replaced with user id's as well",
@@ -16,7 +11,8 @@
         "followers_ids": ["Anna B."],
         "img": "http://lorempixel.com/100/100/people",
         "location": "London",
-        "recommended_user_ids": []
+        "recommended_user_ids": [],
+        "liked_post_ids": []
       },
     "Em9":
       {
@@ -26,7 +22,8 @@
         "followers_ids": ["Anna B."],
         "img": "http://lorempixel.com/100/100/people",
         "location": "Lagos",
-        "recommended_user_ids": []
+        "recommended_user_ids": [],
+        "liked_post_ids": []
       },
     "Lola":
       {
@@ -36,7 +33,8 @@
         "following_ids": ["Anna B."],
         "img": "http://lorempixel.com/100/100/people",
         "location": "Austin",
-        "recommended_user_ids": []
+        "recommended_user_ids": [],
+        "liked_post_ids": []
       },
     "Anna B.":
       {
@@ -49,7 +47,8 @@
         "followers_ids": ["Kyle", "Lola", "Em9"],
         "img": "http://lorempixel.com/100/100/people",
         "location": "Finland",
-        "recommended_user_ids": []
+        "recommended_user_ids": [],
+        "liked_post_ids": []
       },
     "Kendrick.":
       {
@@ -60,7 +59,8 @@
         "followers_ids": ["Anna B."],
         "img": "http://lorempixel.com/100/100/people",
         "location": "Westchester, NY",
-        "recommended_user_ids": []
+        "recommended_user_ids": [],
+        "liked_post_ids": []
       }
   },
   
@@ -73,7 +73,7 @@
 		"username": "Anna B.",
 		"userid": "Anna B.",
 		"numcomments": "3 comments",
-		"likes": "41",
+		"likes": 41,
 		"time": "17 minutes ago",
 		"caption": "Found this and just had to share!",
 		"img": "http://i.istockimg.com/file_thumbview_approve/21076093/2/stock-photo-21076093-happy-summer-girl.jpg",
@@ -116,7 +116,7 @@
 		"username": "Kendrick.",
 		"userid": "Kendrick.",
 		"numcomments": "0 comments",
-		"likes": "19",
+		"likes": 19,
 		"time": "28 minutes ago",
 		"caption": "Took the car out to the hills with a couple of friends. Thought this look'd do!",
 		"img": "http://i.istockimg.com/file_thumbview_approve/19744739/2/stock-photo-19744739-male-fashion-model-sitting-in-classic-sports-car.jpg",
@@ -134,7 +134,7 @@
         "username": "Anna B.",
         "userid": "Anna B.",
         "numcomments": "0 comments",
-        "likes": "0",
+        "likes": 0,
         "time": "3 days ago",
         "caption": "CHIC CHIC CHIC CHIC CHIC",
         "item_ids": ["1"],
@@ -147,7 +147,7 @@
         "username": "Anna B.",
         "userid": "Anna B.",
         "numcomments": "0 comments",
-        "likes": "1",
+        "likes": 1,
         "time": "17 minutes ago",
         "price": "$180.00",
         "retailer": "Ray-Ban",
@@ -163,7 +163,7 @@
         "username": "Anna B.",
         "userid": "Anna B.",
         "numcomments": "0 comments",
-        "likes": "12",
+        "likes": 12,
         "time": "17 minutes ago",
         "price": "$27.00",
         "retailer": "Gap",
@@ -178,7 +178,7 @@
         "username": "Anna B.",
         "userid": "Anna B.",
         "numcomments": "0 comments",
-        "likes": "19",
+        "likes": 19,
         "time": "17 minutes ago",
         "price": "$10.80",
         "retailer": "Forever 21",

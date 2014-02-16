@@ -80,7 +80,7 @@
        });
       $(document).ready(function() {
         setSizes();
-        activatelikebuttons({{#if logged_in_user}}true{{else}}false{{/if}});
+        activatelikebuttons({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
       });
       $(window).load(function() {
         setSizes();

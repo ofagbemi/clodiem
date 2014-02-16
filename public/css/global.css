@@ -609,6 +609,9 @@ div.separate_header {
   background-image: url('../images/icons/black_heart/black_heart.svg');
   cursor: pointer;
 }
+.post_interact .like_button[status="liked"] {
+  background-image: url('../images/icons/black_heart/red_heart.svg');
+}
 .post_interact .add_button {
   background-image: url('../images/icons/plus/plus.svg');
   border-left: solid 1px #333;

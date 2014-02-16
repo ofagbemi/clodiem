@@ -22,6 +22,7 @@ exports.createnewpost = function(req, res) {
 	  'comments': [],
 	  'img': req.body.img,
 	  'likes': 0,
+	  'likers': [],
 	  'time': req.body.time,
 	  'price': req.body.price,
 	  'title': req.body.title,
@@ -57,6 +58,7 @@ exports.createnewpostfromitems = function(req, res) {
 	post['numcomments'] = '0 comments';
 	post['comments'] = [];
 	post['likes'] = 0;
+	post['likers'] = [];
 	post['item_ids'] = [];
   
     var item_ids = [];
@@ -65,7 +67,7 @@ exports.createnewpostfromitems = function(req, res) {
 	  
 	  item['comments'] = [];
 	  item['likes'] = 0;
-	  
+	  item['likers'] = [];
 	  item['id'] = util.getpostid(item);
 	  if(item['type'] == 'item') {
 		if(!item['item_ids']) item['item_ids'] = [];

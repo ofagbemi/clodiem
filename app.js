@@ -65,12 +65,15 @@ app.get('/closet', outfits.view);
 app.get('/createpost', createpost.view);
 app.get('/additem', additem.view);
 app.get('/settings', settings.view);
+app.get('/getaisleposts', dashboard.getaisleposts);
 
 app.post('/addcomment', comment.addcomment);
 app.post('/followuser', follow.followuser);
 app.post('/createnewpost', createpost.createnewpost);
 app.post('/createnewpostfromitems', createpost.createnewpostfromitems);
 app.post('/setuser', settings.setuser);
+app.post('/addlike', dashboard.addlike);
+app.post('/removelike', dashboard.removelike);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
