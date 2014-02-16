@@ -1,10 +1,10 @@
 $(document).ready(function() {
-  register_bindclicklisteners();
+  login_bindclicklisteners();
 });
-function register_checkformvalid() {
+function login_checkformvalid() {
   return true;
 }
-function register_bindclicklisteners() {
+function login_bindclicklisteners() {
   $('#login_button')
     .unbind('click')
     .click(function(e) {

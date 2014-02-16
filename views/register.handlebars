@@ -20,14 +20,20 @@
           <div class="validatewrap">
             <input class="padded register" name="username" placeholder="Username" type="text">
           </div>
+          <div style="display:none;" name="username" class="message invalid">
+            <p>Sorry, but that username's already been taken</p>
+          </div>
           <div class="validatewrap">
             <input class="padded register" name="email" placeholder="Email" type="email">
           </div>
           <div class="validatewrap">
             <input class="padded register" name="password" placeholder="Password" type="password">
           </div>
+          <div style="display:none;" name="password" class="message invalid">
+            <p>Your password must be at least 6 characters long and contain one or more numbers</p>
+          </div>
           <div class="validatewrap">
-            <input class="padded register" name="password" placeholder="Verify password" type="password">
+            <input class="padded register" name="verify_password" placeholder="Verify password" type="password">
           </div>
           <div id="register_button" class="button big"><a href="/aisle">Sign up</a></div>
         </form>

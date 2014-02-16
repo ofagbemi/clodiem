@@ -2,6 +2,15 @@ var data = require('../data.json');
 var util = require('./util.js');
 var follow = require('./follow.js');
 
+exports.usernametaken = function(req, res) {
+  var ret = {'exists': false};
+  if(data['users'][util.getuserid(req.query.username)]) {
+    console.log('profile.js: user ' + req.query.username + ' found');
+    ret['exists'] = true;
+  }
+  res.json(ret);
+}
+
 exports.view = function(req, res) {
   var u = null;
   if(req.query.id) u = data['users'][req.query.id];

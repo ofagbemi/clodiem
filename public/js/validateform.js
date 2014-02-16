@@ -1,3 +1,5 @@
+var validateform_usernametaken = true;
+
 $(document).ready(function() {
   stagevalidator();
 });
@@ -28,25 +30,85 @@ function stagevalidator() {
 
 $('form.validate input').keyup(function() {
   $(this).parent().find('.validatemarker').remove();
-  var validatemarker = $('<span style="background-size:contain;"class="validatemarker"></span>');
-  var valid = ($(this).val() != '');  // make request here
-  if(valid) {
-    validatemarker
-      .css('background-image', 'url("/images/icons/checkmark/checkmark.svg")');
+  var invalid_message = $('form.validate .message.invalid[name="' + $(this).attr('name') + '"]');
+  
+  var name = $(this).attr('name');
+  var value1 = $(this).val();
+  var value2;
+  if(name == 'password' || name == 'verify_password') {
+    value1 = $('form.validate input[name="password"]').val();
+    value2 = $('form.validate input[name="verify_password"]').val();
   }
   
-  var checksize = $(this).outerHeight() - 2;
-  $(this).css('z-index', '0');
-  validatemarker
-    .css('height', checksize + 'px')
-    .css('width', checksize - 2 + 'px')
-    .css('position', 'absolute')
-    .css('top', '2px')
-    .css('right', '4px')
-    .css('z-index', '1')
-    .css('display', 'inline-block')
-    .css('background-size', (checksize - 2) + 'px ' + (checksize - 2) + 'px')
-    .css('background-position', 'center')
-    .css('background-repeat', 'no-repeat');
-  $(this).parent().append(validatemarker);
+  var valid = checkvalid(name, value1, value2);
+  if(valid) {
+    validateform_showvalid(name);
+    invalid_message.slideUp();
+  } else {
+    if(name != 'username') invalid_message.slideDown();
+    if(name == 'password') {
+      $('form.validate input[name="verify_password"]').parent().find('.validatemarker').remove();
+    }
+  }
 });
+
+function validateform_showvalid(name) {
+  var input = $('form.validate input[name="' + name + '"]');
+  var invalid_message = $('form.validate .message.invalid[name="' + $(this).attr('name') + '"]');
+  var validatemarker = $('<span style="background-size:contain;"class="validatemarker"></span>');
+  validatemarker
+	.css('background-image', 'url("/images/icons/checkmark/checkmark.svg")');
+  var checksize = input.outerHeight() - 2;
+  input.css('z-index', '0');
+  validatemarker
+	.css('height', checksize + 'px')
+	.css('width', checksize - 2 + 'px')
+	.css('position', 'absolute')
+	.css('top', '2px')
+	.css('right', '4px')
+	.css('z-index', '1')
+	.css('display', 'inline-block')
+	.css('background-size', (checksize - 2) + 'px ' + (checksize - 2) + 'px')
+	.css('background-position', 'center')
+	.css('background-repeat', 'no-repeat');
+  
+  input.parent().append(validatemarker);
+  invalid_message.slideUp();
+}
+
+function validateform_showusernamevalid(response) {
+  var invalid_message = $('form.validate .message.invalid[name="username"]');
+  if(!response['exists']) {
+    validateform_showvalid('username');
+    invalid_message.slideUp();
+  } else {
+    invalid_message.slideDown();
+  }
+}
+
+function checkvalid(name, value1, value2) {
+  if(name == 'username') {
+    if(!(value1.length > 0)) return false;
+    var data = {
+      'username': value1
+	};
+	$.ajax({
+	  type: 'GET',
+	  url: '/usernametaken',
+	  data: data,
+	  success: validateform_showusernamevalid
+	});
+	return false;
+  }
+  else if(name == 'email') {
+    return (/^.+@.+\..+$/.exec(value1) == value1);
+  }
+  else if(name == 'password') {
+    return value1.length >= 6 && (/[0-9]/).test(value1);
+  }
+  else if(name == 'verify_password') {
+    return value1 == value2 && value1.length > 0;
+  }
+  
+  return false;
+}

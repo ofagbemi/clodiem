@@ -66,6 +66,7 @@ app.get('/createpost', createpost.view);
 app.get('/additem', additem.view);
 app.get('/settings', settings.view);
 app.get('/getaisleposts', dashboard.getaisleposts);
+app.get('/usernametaken', profile.usernametaken);
 
 app.post('/addcomment', comment.addcomment);
 app.post('/followuser', follow.followuser);
