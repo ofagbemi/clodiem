@@ -2,7 +2,7 @@ $(document).ready(function() {
   register_bindclicklisteners();
 });
 function register_checkformvalid() {
-  return true;
+  return validateform_good2go();
 }
 function register_bindclicklisteners() {
   $('#register_button')
@@ -11,6 +11,8 @@ function register_bindclicklisteners() {
       e.preventDefault();
       if(register_checkformvalid()) {
         $('.registerform').submit();
+      } else {
+        alert('Please finish filling out the form');
       }
     });
 }

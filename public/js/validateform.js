@@ -16,8 +16,8 @@ function stagevalidator() {
     
     
   $('form.validate .validatewrap').children().each(function() {
-    var elemheight = $(this).outerHeight(true);// + $(this).marginTop() //+ $(this).marginBottom();
-    var elemwidth = $(this).outerWidth(true); //+ $(this).marginLeft()// + $(this).marginRight();
+    var elemheight = $(this).outerHeight(true);
+    var elemwidth = $(this).outerWidth(true);
     $(this)
       .css('position', 'absolute')
       .css('top', '0px')
@@ -29,16 +29,17 @@ function stagevalidator() {
 }
 
 $('form.validate input').keyup(function() {
-  $(this).parent().find('.validatemarker').remove();
-  var invalid_message = $('form.validate .message.invalid[name="' + $(this).attr('name') + '"]');
-  
   var name = $(this).attr('name');
+  validateform_clearvalid(name);
+  
   var value1 = $(this).val();
   var value2;
   if(name == 'password' || name == 'verify_password') {
     value1 = $('form.validate input[name="password"]').val();
     value2 = $('form.validate input[name="verify_password"]').val();
   }
+  
+  var invalid_message = $('form.validate .message.invalid[name="' + name + '"]');
   
   var valid = checkvalid(name, value1, value2);
   if(valid) {
@@ -51,6 +52,12 @@ $('form.validate input').keyup(function() {
     }
   }
 });
+
+function validateform_clearvalid(name) {
+  var input = $('form.validate input[name="' + name + '"]');
+  input.parent().find('.validatemarker').remove();
+  input.removeAttr('v');
+}
 
 function validateform_showvalid(name) {
   var input = $('form.validate input[name="' + name + '"]');
@@ -74,6 +81,17 @@ function validateform_showvalid(name) {
   
   input.parent().append(validatemarker);
   invalid_message.slideUp();
+  input.attr('v', 'y');  // hacky?
+}
+
+function validateform_good2go() {
+  var valid = true;
+  $('form.validate input').each(function() {
+    if($(this).attr('v') != 'y') {
+      valid = false;
+    }
+  });
+  return valid;
 }
 
 function validateform_showusernamevalid(response) {
