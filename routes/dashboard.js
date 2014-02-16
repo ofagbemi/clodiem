@@ -51,7 +51,28 @@ exports.removeaisleposts = function(follower, followed) {
       return !(util.contains(elem, followed['post_ids']));
     });
 }
-
+exports.getaisleposts = function(req, res) {
+  var segment_index = req.query.index;
+  var num_posts = req.query.num_posts;
+  var userid = req.query.userid;
+  var ret = {};
+  
+  if(data['users'][userid]) {
+    // index to start getting posts from
+    var index = segment_index * num_posts;
+    var aisle_post_ids = data['users'][userid]['aisle_post_ids'];
+    if(index < aisle_post_ids.length) {
+      var aisle_posts = [];
+      for(var i=index;i<num_posts&&i<aisle_post_ids.length;i++) {
+        aisle_posts.push(data['posts'][aisle_post_ids[i]]);
+      }
+      ret['aisle_posts'] = aisle_posts;
+      res.render('/partials/post', data['aisle_posts'][0]);
+    }
+  } else {
+  
+  }
+}
 exports.view = function(req, res) {
   if(data['logged_in_user']) {
 	var ret = {};
