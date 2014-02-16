@@ -5,14 +5,16 @@ exports.view = function(req, res) {
   res.render('login', {});
 };
 
-function setcurrentuser(userid) {
+function setcurrentuser(req, userid) {
   console.log('login.js: setting current user to ' + userid);
-  data['logged_in_user'] = data['users'][userid];
+  req.session.userid = userid;
+  // data['logged_in_user'] = data['users'][userid];
 }
 
-function removecurrentuser() {
+function removecurrentuser(req) {
   console.log('login.js: setting current user to null');
-  data['logged_in_user'] = null;
+  req.session.userid = null;
+  // data['logged_in_user'] = null;
 }
 
 exports.setcurrentuser = setcurrentuser;

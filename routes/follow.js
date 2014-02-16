@@ -6,25 +6,22 @@ exports.followuser = function(req, res) {
   var ret = {'follow': false};
   
   // prevent user from following themselves
-  console.log('follower: ' + util.getuserid(req.body.followeruserid));
-  console.log('followed: ' + util.getuserid(req.body.followeduserid));
-  
   if(req.body.followeruserid == req.body.follweduserid) {
     console.log('follow.js: user ' + req.body.follweruserid + ' tried to follow him/herself');
     res.writeHead(403);
     res.end();
-    cosole.log('hi');
     return;
   }
   
-  var follower = data['users'][decodeURIComponent(req.body.followeruserid)];
-  var followed = data['users'][decodeURIComponent(req.body.followeduserid)];
+  var follower = data['users'][req.body.followeruserid];
+  var followed = data['users'][req.body.followeduserid];
   
-  if(!isfollowing(req.body.followeruserid, req.body.followeduserid)) {
+  if(!isfollowing(follower['id'], followed['id'])) {
     followed['followers_ids'].unshift(follower['id']);
     follower['following_ids'].unshift(followed['id']);
     ret['follow'] = true;
-    console.log('follow.js: ' + req.body.followeruserid + ' is following ' + req.body.followeduserid);
+    console.log('follow.js: ' + follower['id'] + ' is following ' + followed['id']);
+    console.log('follow.js: ' + follower['id'] + ' is now following ' + follower['following_ids'].length + ' users');
     
     dashboard.addaisleposts(follower, followed);
   } else {
@@ -40,8 +37,6 @@ exports.followuser = function(req, res) {
     dashboard.removeaisleposts(follower, followed);
   }
   
-  //res.writeHead(200);
-  //res.end();
   res.json(ret);
 }
 

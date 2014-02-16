@@ -1,6 +1,11 @@
 var data = require('../data.json');
 var util = require('./util.js');
 var follow = require('./follow.js');
+var profile = require('./profile.js');
+
+exports.getloggedinuser = function(req) {
+  return data['users'][req.session.userid];
+}
 
 exports.usernametaken = function(req, res) {
   var ret = {'exists': false};
@@ -22,10 +27,9 @@ exports.view = function(req, res) {
     u = {};
   }
   
-  var logged_in_user = data['logged_in_user'];
-  
+  var logged_in_user = profile.getloggedinuser(req);
   if(logged_in_user) {
-    u['logged_in_user'] = data['logged_in_user'];
+    u['logged_in_user'] = logged_in_user;
     if(u['id'] && u['logged_in_user']) {
       console.log('profile.js: ' + u['logged_in_user']['id'] + ' is looking at ' + u['id'] + '\'s profile');
       u['isfollowing'] = follow.isfollowing(u['logged_in_user']['id'], u['id']);

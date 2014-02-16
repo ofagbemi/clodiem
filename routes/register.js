@@ -27,7 +27,7 @@ exports.registeruser = function(req, res) {
 	data['users'][user['id']] = user;
   
 	// set this user as the logged in user
-	login.setcurrentuser(user['id']);
+	login.setcurrentuser(req, user['id']);
   
 	res.redirect('/aisle');
   } else {

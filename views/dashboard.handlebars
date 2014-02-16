@@ -24,11 +24,14 @@
 		  {{/each}}
 		</div>
       {{else}}
-        {{#unless logged_in_user.following_ids}}
           <div class="separate_header" >
             <h2 style="margin-bottom:8px;">Hey!</h2>
             <h4 style="margin-bottom:8px;">Your aisle's empty!</h4>
-            <p>It doesn't look like you're following anyone. How about checking out some of these users?</p>
+            <p>
+            {{#unless logged_in_user.following_ids.length}}
+            It doesn't look like you're following anyone. 
+            {{/unless}}
+            How about checking out some of these users?</p>
           </div>
           <div class="separate_header">
             <div class="user_list">
@@ -37,7 +40,6 @@
 			  {{/each}}
 			</div>
 		  </div>
-		{{/unless}}
 	  {{/if}}
     </div>
     

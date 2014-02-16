@@ -1,5 +1,6 @@
 var data = require('../data.json');
 var util = require('./util.js');
+var profile = require('./profile.js');
 
 
 exports.addlike = function(req, res) {
@@ -74,10 +75,9 @@ exports.getaisleposts = function(req, res) {
   }
 }
 exports.view = function(req, res) {
-  if(data['logged_in_user']) {
+  var logged_in_user = profile.getloggedinuser(req);
+  if(logged_in_user) {
 	var ret = {};
-	ret['logged_in_user'] = data['logged_in_user'];
-	var logged_in_user = ret['logged_in_user'];
 	ret['posts'] = [];
 	if(logged_in_user && logged_in_user['aisle_post_ids']) {
 	  for(var i=0;i<logged_in_user['aisle_post_ids'].length;i++) {
@@ -88,7 +88,7 @@ exports.view = function(req, res) {
 		ret['posts'].push(post);
 	  }
 	} else {
-	  ret['logged_in_user']['aisle_post_ids'] = [];
+	  logged_in_user['aisle_post_ids'] = [];
 	}
   
 	for(var i=0;i<ret['posts'].length;i++) {
@@ -104,11 +104,15 @@ exports.view = function(req, res) {
 	}
 	
 	// get recommended users
-	ret['logged_in_user']['recommended_users'] = [];
-	for(var i=0;i<ret['logged_in_user']['recommended_user_ids'].length;i++) {
-	  var r_user = data['users'][ret['logged_in_user']['recommended_user_ids'][i]];
-	  ret['logged_in_user']['recommended_users'].push(r_user);
+	logged_in_user['recommended_users'] = [];
+	for(var i=0;i<logged_in_user['recommended_user_ids'].length;i++) {
+	  var r_user = data['users'][logged_in_user['recommended_user_ids'][i]];
+	  logged_in_user['recommended_users'].push(r_user);
 	}
+	
+	ret['logged_in_user'] = logged_in_user;
+	
+	console.log(logged_in_user.following_ids);
 	
 	res.render('dashboard', ret);
   } else {
