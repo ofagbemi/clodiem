@@ -4,8 +4,21 @@ var dashboard = require('./dashboard.js');
 
 exports.followuser = function(req, res) {
   var ret = {'follow': false};
-  var follower = data['users'][req.body.followeruserid];
-  var followed = data['users'][req.body.followeduserid];
+  
+  // prevent user from following themselves
+  console.log('follower: ' + util.getuserid(req.body.followeruserid));
+  console.log('followed: ' + util.getuserid(req.body.followeduserid));
+  
+  if(req.body.followeruserid == req.body.follweduserid) {
+    console.log('follow.js: user ' + req.body.follweruserid + ' tried to follow him/herself');
+    res.writeHead(403);
+    res.end();
+    cosole.log('hi');
+    return;
+  }
+  
+  var follower = data['users'][decodeURIComponent(req.body.followeruserid)];
+  var followed = data['users'][decodeURIComponent(req.body.followeduserid)];
   
   if(!isfollowing(req.body.followeruserid, req.body.followeduserid)) {
     followed['followers_ids'].unshift(follower['id']);

@@ -16,32 +16,25 @@ exports.view = function(req, res) {
   if(req.query.id) u = data['users'][req.query.id];
   else if(req.query.username) u = data['users'][util.getuserid(req.query.username)];
   
-  // var u = data['users'][util.getuserid(req.query.username)];
-  
   if(!u) {
     console.log('profile.js: The user \'' + req.query.username + '\' ' +
                 '(id: ' + req.query.id + ') could not be found');
     u = {};
   }
   
-  if(data['logged_in_user']) {
+  var logged_in_user = data['logged_in_user'];
+  
+  if(logged_in_user) {
     u['logged_in_user'] = data['logged_in_user'];
     if(u['id'] && u['logged_in_user']) {
-      console.log(u['id'] + ' ' + u['logged_in_user']['id']);
+      console.log('profile.js: ' + u['logged_in_user']['id'] + ' is looking at ' + u['id'] + '\'s profile');
       u['isfollowing'] = follow.isfollowing(u['logged_in_user']['id'], u['id']);
-      console.log(u['isfollowing']);
+      console.log('profile.js: ' + u['logged_in_user']['id'] + ' is following? ' + u['isfollowing']);
     } else {
       console.log('no id');
     }
   } else {
     console.log('profile.js: no user logged in');
-  }
-  
-  // get recommended users
-  u['logged_in_user']['recommended_users'] = [];
-  for(var i=0;i<u['logged_in_user']['recommended_user_ids'].length;i++) {
-    var r_user = data['users'][u['logged_in_user']['recommended_user_ids'][i]];
-    u['logged_in_user']['recommended_users'].push(r_user);
   }
   
   u['posts'] = [];
@@ -90,5 +83,10 @@ exports.view = function(req, res) {
 	  u['following'].push(following);
 	}
   }
+  
+  if(logged_in_user['id'] == u['id']) {
+    u['own_page'] = true;
+  }
+  
   res.render('profile', u);
 };

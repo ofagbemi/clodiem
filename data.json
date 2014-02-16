@@ -2,9 +2,9 @@
   "users": {
     "_comment": "users keys will be replaced with user id's. names in following and followers",
     "_comment": "lists will be replaced with user id's as well",
-    "Kyle":
+    "964d1ca629f900e0f2c6b16caf5bbed72e4c1f65":
       {
-        "id": "Kyle",
+        "id": "964d1ca629f900e0f2c6b16caf5bbed72e4c1f65",
         "username": "Kyle",
         "email": "",
         "description": "I'm a fan of everything",
@@ -15,9 +15,9 @@
         "recommended_user_ids": [],
         "liked_post_ids": []
       },
-    "Em9":
+    "d7a6cb16e3425a7dafdcf13c91f582ad7d92d174":
       {
-        "id": "Em9",
+        "id": "d7a6cb16e3425a7dafdcf13c91f582ad7d92d174",
         "username": "Em9",
         "email": "",
         "following_ids": ["Anna B."],
@@ -27,9 +27,9 @@
         "recommended_user_ids": [],
         "liked_post_ids": []
       },
-    "Lola":
+    "bf580931d48a1b191c714e81377e254e32c7f306":
       {
-        "id": "Lola",
+        "id": "bf580931d48a1b191c714e81377e254e32c7f306",
         "username": "Lola",
         "email": "",
         "description": "Kid is nice!",
@@ -39,9 +39,9 @@
         "recommended_user_ids": [],
         "liked_post_ids": []
       },
-    "Anna B.":
+    "94f0b4eed3efb79a922bc47814bfe7e7cd7650be":
       {
-        "id": "Anna B.",
+        "id": "94f0b4eed3efb79a922bc47814bfe7e7cd7650be",
         "username": "Anna B.",
         "email": "",
         "description": "Chic!",
@@ -54,9 +54,9 @@
         "recommended_user_ids": [],
         "liked_post_ids": []
       },
-    "Kendrick.":
+    "48b4a5fecaf11dac92e33f1035c2ee3aaf6847dc":
       {
-        "id": "Kendrick.",
+        "id": "48b4a5fecaf11dac92e33f1035c2ee3aaf6847dc",
         "username": "Kendrick.",
         "email": "",
         "description": "I'm rich",

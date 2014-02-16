@@ -45,6 +45,9 @@ $('form.validate input').keyup(function() {
   if(valid) {
     validateform_showvalid(name);
     invalid_message.slideUp();
+    if(name == 'password') {
+      $('form.validate input[name="verify_password"]').trigger('keyup');
+    }
   } else {
     if(name != 'username') invalid_message.slideDown();
     if(name == 'password') {

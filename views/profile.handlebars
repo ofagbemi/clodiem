@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/bootstrap-theme.css">
     <link rel="stylesheet" href="/css/global.css">
     <meta content="width=device-width,initial-scale=1.0,user-scalable=no" name="viewport">
+    <meta charset="UTF-8">
   </head>
   <body>
     <div class="profile_header">
@@ -14,6 +15,7 @@
         <h2>{{username}}</h2>
         <p>{{description}}</p>
         <div class="clear"></div>
+        {{#unless own_page}}
         <div class="button_wrap">
 		  <div followedid="{{id}}" class="follow_button button {{#if isfollowing}}toggled{{/if}}">
 		    <a>
@@ -26,6 +28,7 @@
 		    </a>
 		  </div>
 	    </div>
+	    {{/unless}}
 	  </div>
       <div class="clear"></div>
     </div>

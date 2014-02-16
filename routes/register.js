@@ -7,24 +7,32 @@ exports.view = function(req, res) {
 };
 
 exports.registeruser = function(req, res) {
-  var user =
-	{
-	  'id': util.getuserid(req.query.username),
-	  'username': req.query.username,
-	  'email': req.query.email,
-	  'post_ids': [],
-	  'aisle_post_ids': [],
-	  'style_ids': [],
-	  'following_ids': [],
-	  'followers_ids': [],
-	  'recommended_user_ids': ['Anna B.', 'Kendrick.'],
-	  'liked_post_ids': []
-	};
-
-  data['users'][req.query.username] = user;
+  var userid = util.getuserid(req.query.username);
+  if(!data['users'][userid]) {
+	var user =
+	  {
+		'id': userid,
+		'username': req.query.username,
+		'email': req.query.email,
+		'post_ids': [],
+		'aisle_post_ids': [],
+		'style_ids': [],
+		'following_ids': [],
+		'followers_ids': [],
+		'recommended_user_ids': [util.getuserid('Anna B.'), util.getuserid('Kendrick.')],
+		'liked_post_ids': []
+	  };
+	  
+	// add user to data
+	data['users'][user['id']] = user;
   
-  // set this user as the logged in user
-  login.setcurrentuser(util.getuserid(user['username']));
+	// set this user as the logged in user
+	login.setcurrentuser(user['id']);
   
-  res.redirect('/aisle');
+	res.redirect('/aisle');
+  } else {
+    cosole.log('register.js: user with id ' + userid + ' already exists');
+    res.writeHead(403);
+    res.end();
+  }
 };
