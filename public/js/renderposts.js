@@ -22,7 +22,7 @@ function renderposts(userid) {
   renderposts_loadaisleposts(renderposts_userid);
 }
 // renders comments and posts
-function renderpost() {
+function renderpost(userid) {
   renderposts_userid = userid;
   alignposts();
   placemarkers();
