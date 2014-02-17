@@ -66,6 +66,9 @@
 	<span postid="{{id}}" {{#if liked_post}}status="liked"{{/if}} class="like_button"></span>
 	<div class="clear"></div>
 	<div class="comment_on_post" postid="{{id}}" style="padding:0 8px 8px 8px;display:none;">
+	  <div style="margin-bottom:4px;">
+	    <a href="/outfit?id={{id}}">View comments ({{comments.length}})</a>
+	  </div>
 	  <textarea placeholder="ADD COMMENT..." postid="{{id}}" class="comment_box"></textarea>
 	  <div postid="{{id}}" class="button comment_button" style="float:right;margin-bottom:4px;">
 	    <a postid="{{id}}" href="#">comment</a>
