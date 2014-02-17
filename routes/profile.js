@@ -107,7 +107,7 @@ exports.view = function(req, res) {
   }
   
   // feed back whether the user is looking at his/her own page
-  if(logged_in_user['id'] == ret['id']) {
+  if(logged_in_user && logged_in_user['id'] == ret['id']) {
     ret['own_page'] = true;
   }
   
