@@ -41,12 +41,16 @@ exports.removelike = function(req, res) {
   }
 };
 exports.addaislepostsfromlist = function(user, post_ids) {
-  user['aisle_post_ids'] = post_ids + user['aisle_post_ids'];
+  console.log('dashboard.js: adding ' + post_ids + ' to aisle posts');
+  user['aisle_post_ids'] = post_ids.concat(user['aisle_post_ids']);
 }
 exports.addaisleposts = function(follower, followed) {
-  follower['aisle_post_ids'] = followed['post_ids'] + follower['aisle_post_ids'];
+  console.log('dashboard.js: adding ' + followed['post_ids'] + ' to aisle posts');
+  follower['aisle_post_ids'] = followed['post_ids'].concat(follower['aisle_post_ids']);
 }
 exports.removeaisleposts = function(follower, followed) {
+  console.log('dashboard.js: removing ' + followed['id'] + '\'s aisle posts');
+  console.log(follower['aisle_post_ids']);
   follower['aisle_post_ids'] = 
     follower['aisle_post_ids'].filter(function(elem) {
       return !(util.contains(elem, followed['post_ids']));
