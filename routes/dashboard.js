@@ -52,7 +52,9 @@ exports.removeaisleposts = function(follower, followed) {
       return !(util.contains(elem, followed['post_ids']));
     });
 }
+
 exports.getaisleposts = function(req, res) {
+  /*
   var segment_index = req.query.index;
   var num_posts = req.query.num_posts;
   var userid = req.query.userid;
@@ -73,33 +75,55 @@ exports.getaisleposts = function(req, res) {
   } else {
   
   }
-}
+  */
+};
+
+exports.getpostsfromids = getpostsfromids;
+
+/* getpostsfromids
+ *
+ * Takes in a user object and a list of post ids and
+ * returns a list of post objects. If a user is provided,
+ * the function will set the post as liked if the given 
+ * user has liked the post
+ */
+function getpostsfromids(ids, user) {
+  var ret = [];
+  if(ids) {
+    for(var i=0;i<ids.length;i++) {
+	  var post = data['posts'][ids[i]];
+	  if(user) {
+	    if(util.contains(post['id'], user['liked_post_ids'])) {
+		  post['liked_post'] = true;
+	    }
+	  }
+	  ret.push(post);
+	}
+  }
+  return ret;
+};
+
 exports.view = function(req, res) {
   var logged_in_user = profile.getloggedinuser(req);
   if(logged_in_user) {
 	var ret = {};
 	ret['posts'] = [];
+	
+	// populate ret['posts'] with all of the logged in user's aisle posts
 	if(logged_in_user && logged_in_user['aisle_post_ids']) {
-	  for(var i=0;i<logged_in_user['aisle_post_ids'].length;i++) {
-		var post = data['posts'][logged_in_user['aisle_post_ids'][i]];
-		if(util.contains(post['id'], logged_in_user['liked_post_ids'])) {
-		  post['liked_post'] = true;
-		}
-		ret['posts'].push(post);
-	  }
+	  ret['posts'] = getpostsfromids(logged_in_user['aisle_post_ids'],
+	                                 logged_in_user);
 	} else {
 	  logged_in_user['aisle_post_ids'] = [];
 	}
   
+    // populate each post with the item posts for each of the items
+    // belonging to that post
 	for(var i=0;i<ret['posts'].length;i++) {
 	  var post = ret['posts'][i];
 	  post['items'] = [];
 	  if(post['item_ids']) {
-		// turn items (item/post ids) into their actual posts
-		for(var j=0;j<post['item_ids'].length;j++) {
-		  var item = data['posts'][post['item_ids'][j]];
-		  post['items'].push(item);
-		}
+	    post['items'] = getpostsfromids(post['item_ids']);
 	  }
 	}
 	
@@ -111,8 +135,6 @@ exports.view = function(req, res) {
 	}
 	
 	ret['logged_in_user'] = logged_in_user;
-	
-	console.log(logged_in_user.following_ids);
 	
 	res.render('dashboard', ret);
   } else {
