@@ -53,7 +53,6 @@ app.get('/', landing.view);
 app.get('/aisle', dashboard.view);
 app.get('/outfit', outfit.view);
 app.get('/login', login.view);
-app.get('/loginuser', login.loginuser);
 app.get('/logoutuser', login.logoutuser);
 app.get('/register', register.view);
 app.get('/user', profile.view);
@@ -67,6 +66,7 @@ app.get('/settings', settings.view);
 app.get('/getaisleposts', dashboard.getaisleposts);
 app.get('/usernametaken', profile.usernametaken);
 
+app.post('/loginuser', login.loginuser);
 app.post('/registeruser', register.registeruser);
 app.post('/addcomment', comment.addcomment);
 app.post('/followuser', follow.followuser);

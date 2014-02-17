@@ -23,11 +23,11 @@ exports.setcurrentuser = setcurrentuser;
 
 exports.loginuser = function(req, res) {
   // look for user -- TODO: change this later to generate user id
-  var userid = util.getuserid(req.query.username);
+  var userid = util.getuserid(req.body.username);
   var user = data['users'][userid];
   if(user) {
     // check password
-    if(passwordHash.verify(req.query.password, user['password'])) {
+    if(passwordHash.verify(req.body.password, user['password'])) {
       console.log('login.js: logging in user ' + userid);
       setcurrentuser(req, userid);
       res.redirect('/aisle');
