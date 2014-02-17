@@ -622,6 +622,11 @@ div.separate_header {
   background-repeat: no-repeat;
   float: right;
 }
+.post_interact .add_to_style_button {
+  background-image: url('../images/icons/shirt3/shirt3.svg');
+  background-size: 23px 23px;
+  background-position-y: 5px;
+}
 .post_interact .comment_show_button {
   background-image: url('../images/icons/comment/comment.svg');
   cursor: pointer;
@@ -632,10 +637,6 @@ div.separate_header {
 }
 .post_interact .like_button[status="liked"] {
   background-image: url('../images/icons/black_heart/red_heart.svg');
-}
-.post_interact .add_button {
-  background-image: url('../images/icons/plus/plus.svg');
-  border-left: solid 1px #333;
 }
 .likes {
   display: inline-block;

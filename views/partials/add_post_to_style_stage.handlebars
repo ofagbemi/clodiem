@@ -1,0 +1,37 @@
+<div class="add_post_to_style_stage">
+  <a class="close_button white" style="float:right;"></a>
+  <div class="wrap padded top bottom side" style="overflow:auto;">
+    <div>
+      <div class="header">
+	    <h2 class="title">Add <a href="/outfit?id={{id}}">{{title}}</a> to a style</h2>
+	  </div>
+	  <div>
+	    <h3>Create a new style</h3>
+	  </div>
+	  <div>
+	    {{#if logged_in_user.styles.length}}
+	    <h3>Add to an existing style</h3>
+	    {{#each styles}}
+	      {{id}}
+	    {{/each}}
+	    {{/if}}
+	  </div>
+	  <!--
+	  <div class="post_stats">
+		<span>{{comments.length}} comments</span>
+		 · <span class="num_likes">{{likes}}</span> <span class="likes white"></span>
+		 · <span>{{time}}</span>
+	  </div>
+	  {{#if retailer}}
+	  <h3>Sold by <span class="retailer">{{retailer}}</span></h3>
+	  {{/if}}
+	  {{#if price}}
+	  <span class="price">{{price}}</span>
+	  {{/if}}
+	  {{#if purchase_link}}
+	  <a class="purchase_link" target="_blank" href="{{purchase_link}}">Buy</a>
+	  {{/if}}
+	  -->
+	</div>
+  </div>
+</div>
