@@ -44,7 +44,7 @@ function renderprofile_closetbindclicklisteners() {
 	
 	  // call this to make sure that the markers are rendered properly, since
 	  // they were hidden before
-	  renderposts();
+	  renderposts(renderposts_userid);
 	});
   $('.followers_button')
     .unbind('click')
@@ -82,6 +82,6 @@ function renderprofile_stylesbindclicklisteners() {
 	  displays['style_contents'].show();
 	  // call this to make sure that the markers are rendered properly, since
 	  // they were hidden before
-	  renderposts();
+	  renderposts(renderposts_postid);
 	});
 }
