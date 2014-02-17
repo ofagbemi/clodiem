@@ -45,7 +45,7 @@
 		<h3>{{posts.length}}</h3>
 		<p>Posts</p>
 	  </div>
-	  <div class="display styles_button">
+	  <div class="display active styles_button">
 		<h3>{{styles.length}}</h3>
 		<p>Styles</p>
 	  </div>
@@ -89,9 +89,8 @@
 		<div class="items posts" style="display:none;">
 		  {{#if posts.length}}
 		    <h3 class="style_header">Posts ({{posts.length}})</h3>
-		    {{#each posts}}
-	          {{> post}}
-	        {{/each}}
+		    {{> postlist}}
+		    {{> loadmorepostsbutton}}
 	      {{else}}
 	        <span>{{username}} hasn't made any posts yet</span>
 	      {{/if}}
