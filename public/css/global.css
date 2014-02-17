@@ -325,6 +325,12 @@ div.separate_header {
 .login_message, .register_message {
   margin-top: 8px;
 }
+.login_message.error, .register_message.error {
+  color: #d55353;
+  margin-bottom: 8px;
+  background-color: #ffdfe4;
+  padding: 11px;
+}
 
 /* profile stuff */
 .profile_header {

@@ -32,10 +32,16 @@ exports.loginuser = function(req, res) {
       setcurrentuser(req, userid);
       res.redirect('/aisle');
     } else {
-      // wrong password (or username)
+      var ret = {'message': 'Wrong username/password',
+                 'username': req.body.username};
+      res.render('login', ret);
     }
+  } else {
+    console.log('login.js: login failed! User ' + userid + ' could not be found');
+    var ret = {'message': 'The username "' + req.body.username + '" could not be found',
+               'username': req.body.username};
+    res.render('login', ret);
   }
-  console.log('login.js: login failed! User ' + userid + ' could not be found');
 };
 
 exports.logoutuser = function(req, res) {

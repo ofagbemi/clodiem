@@ -1,5 +1,8 @@
 $(document).ready(function() {
   login_bindclicklisteners();
+  $('.login_message.error')
+    .hide()
+    .slideDown();
 });
 function login_checkformvalid() {
   return $('input[name="username"]').val() != '' && $('input[name="password"]').val() != '';
