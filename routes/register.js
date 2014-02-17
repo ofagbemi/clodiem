@@ -7,13 +7,13 @@ exports.view = function(req, res) {
 };
 
 exports.registeruser = function(req, res) {
-  var userid = util.getuserid(req.query.username);
+  var userid = util.getuserid(req.body.username);
   if(!data['users'][userid]) {
 	var user =
 	  {
 		'id': userid,
-		'username': req.query.username,
-		'email': req.query.email,
+		'username': req.body.username,
+		'email': req.body.email,
 		'post_ids': [],
 		'aisle_post_ids': [],
 		'style_ids': [],
