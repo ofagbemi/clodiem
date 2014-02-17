@@ -17,9 +17,13 @@ function renderposts(userid) {
   alignposts();
   placemarkers();
   renderposts_bindclicklisteners();
+  
+  console.log(userid);
+  renderposts_loadaisleposts(renderposts_userid);
 }
 // renders comments and posts
 function renderpost() {
+  renderposts_userid = userid;
   alignposts();
   placemarkers();
   renderposts_bindclicklisteners();
@@ -63,5 +67,5 @@ function renderposts_loadaisleposts(userid) {
 }
 
 function renderposts_rendernewaisleposts(response) {
-
+  console.log(response);
 }

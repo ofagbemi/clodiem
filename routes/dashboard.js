@@ -54,28 +54,31 @@ exports.removeaisleposts = function(follower, followed) {
 }
 
 exports.getaisleposts = function(req, res) {
-  /*
   var segment_index = req.query.index;
   var num_posts = req.query.num_posts;
   var userid = req.query.userid;
   var ret = {};
   
-  if(data['users'][userid]) {
+  var user = data['users'][userid];
+  
+  if(user) {
     // index to start getting posts from
     var index = segment_index * num_posts;
-    var aisle_post_ids = data['users'][userid]['aisle_post_ids'];
-    if(index < aisle_post_ids.length) {
-      var aisle_posts = [];
-      for(var i=index;i<num_posts&&i<aisle_post_ids.length;i++) {
-        aisle_posts.push(data['posts'][aisle_post_ids[i]]);
-      }
-      ret['aisle_posts'] = aisle_posts;
-      res.render('/partials/post', data['aisle_posts'][0]);
+    var aisle_post_ids = user['aisle_post_ids'];
+    var aisle_posts = [];
+    if(aisle_post_ids && index < aisle_post_ids.length) {
+      // slice will just grab the rest of the posts if index goes over
+      // the number of aisle_posts
+      aisle_posts = getpostsfromids(aisle_post_ids.slice(index, index + num_posts));
+    } else {
+      console.log('dashboard.js: no more posts left');
     }
+    ret['posts'] = aisle_posts;
+    res.render('partials/postlist', ret);
+    
   } else {
-  
+    console.log('dashboard.js: couldn\'t find user ' + userid);
   }
-  */
 };
 
 exports.getpostsfromids = getpostsfromids;
