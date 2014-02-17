@@ -19,7 +19,7 @@ function adjustheaderwidths() {
 }
 function renderprofile_clearcloset() {
   $('.items').hide();
-  $('.button.active').removeClass('active').addClass('inactive');
+  $('.display.active').removeClass('active').addClass('inactive');
 }
 function renderprofile_closetbindclicklisteners() {
   $('.styles_button')
@@ -27,7 +27,7 @@ function renderprofile_closetbindclicklisteners() {
     .click(function(e) {
 	  e.preventDefault();
 	  renderprofile_clearcloset();
-	  $(this).parent()
+	  $(this)
 		.addClass('active')
 		.removeClass('inactive');
 	  displays['styles'].show();
@@ -37,7 +37,7 @@ function renderprofile_closetbindclicklisteners() {
     .click(function(e) {
       e.preventDefault();
 	  renderprofile_clearcloset();
-	  $(this).parent()
+	  $(this)
 		.addClass('active')
 		.removeClass('inactive');
 	  displays['posts'].show();
@@ -51,7 +51,7 @@ function renderprofile_closetbindclicklisteners() {
     .click(function(e) {
 	  e.preventDefault();
 	  renderprofile_clearcloset();
-	  $(this).parent()
+	  $(this)
 		.addClass('active')
 		.removeClass('inactive');
 	  displays['followers'].show();
@@ -61,7 +61,7 @@ function renderprofile_closetbindclicklisteners() {
     .click(function(e) {
 	  e.preventDefault();
 	  renderprofile_clearcloset();
-	  $(this).parent()
+	  $(this)
 		.addClass('active')
 		.removeClass('inactive');
 	  displays['following'].show();

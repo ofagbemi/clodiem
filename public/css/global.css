@@ -369,6 +369,13 @@ div.separate_header {
   box-shadow: 1px 1px 3px rgba(0,0,0,0.04);
   border-bottom: solid 1px rgba(0,0,0,0.15);
 }
+.profile_stats .display.active {
+  background: black;
+  color: white;
+}
+.profile_stats .display.active p {
+  color: white;
+}
 .profile_stats .clear {
   margin-bottom: -8px;
 }
@@ -451,10 +458,11 @@ div.separate_header {
   font-size: larger;
   margin-top: auto;
   margin-bottom: 8px;
-  background: black;
-  color: white;
+  /* background: black; */
+  /* color: white; */
   padding: 4px 0px;
-  text-transform: lowercase;
+  /* text-transform: lowercase; */
+  font-weight: 400;
   letter-spacing: 3px;
 }
 .post {

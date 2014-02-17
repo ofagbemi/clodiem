@@ -33,17 +33,21 @@
       <div class="clear"></div>
     </div>
     <div class="profile_stats">
-      <div class="display">
+	  <div class="display followers_button">
 		<h3>{{followers.length}}</h3>
 		<p>Followers</p>
 	  </div>
-	  <div class="display">
+	  <div class="display following_button">
 		<h3>{{following.length}}</h3>
 		<p>Following</p>
 	  </div>
-	  <div class="display">
+	  <div class="display posts_button">
 		<h3>{{posts.length}}</h3>
 		<p>Posts</p>
+	  </div>
+	  <div class="display styles_button">
+		<h3>{{styles.length}}</h3>
+		<p>Styles</p>
 	  </div>
 	  <div class="clear"></div>
 	</div>
@@ -52,25 +56,10 @@
 	  <div class="closet">
 		<div class="closet_inner">
 		  <h3>{{username}}'s Closet</h3>
-		  <div class="button_wrap">
-			<div class="button active">
-			  <a class="styles_button" href="#">Styles</a>
-			</div>
-			<div class="button inactive">
-			  <a class="posts_button" href="#">Posts</a>
-			</div>
-			<div class="button inactive">
-			  <a class="following_button" href="#">Following</a>
-			</div>
-			<div class="button inactive">
-			  <a class="followers_button" href="#">Followers</a>
-			</div>
-		  </div>
-		  
 		  
 		  <div class="items styles">
 		    {{#if styles.length}}
-		    
+		      <h3 class="style_header">Styles ({{styles.length}})</h3>
 			  {{#each styles}}
 			    <div class="item_wrapper">
 			      <a class="item_wrapper_link" title="{{title}}" href="#">
@@ -147,7 +136,7 @@
   <script>
 	function setSizes() {
 	  rendertopbar();
-	  renderposts();
+	  renderposts({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
 	  buildmenu(
           {{#if logged_in_user}}
             true, '{{logged_in_user.id}}', '{{logged_in_user.img}}'
