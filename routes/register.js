@@ -26,6 +26,7 @@ exports.registeruser = function(req, res) {
 	// add user to data
 	data['users'][user['id']] = user;
   
+    console.log('register.js: registered user ' + userid + ' successfully!');
 	// set this user as the logged in user
 	login.setcurrentuser(req, user['id']);
   
