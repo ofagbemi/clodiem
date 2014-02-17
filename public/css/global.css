@@ -586,14 +586,21 @@ div.separate_header {
   font-size: small;
 }
 .post_tags {
-  background: #f1f1f1;
-  border-bottom: solid 1px #aaa;
+  background: #F8F8F8;
+  border-bottom: solid 1px rgba(0,0,0,0.15);
   padding: 14px;
   font-size: x-small;
+  width: 102%;
+  margin-left: -1%;
+  box-shadow: 0px 1px 1px rgba(0,0,0,0.14);
+}
+.post_tags a {
+  color: #707d91;
 }
 .post_tags span.tag {
-  color: black;
+  color: #707d91;
   text-transform: uppercase;
+  margin: 0 1px;
 }
 .post_interact {
   background-color: #FFFFFF;
