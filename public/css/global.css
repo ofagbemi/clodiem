@@ -682,6 +682,17 @@ div.separate_header {
 .post_comment .comment_body {
   float: left;
 }
+.load_more_posts_button {
+  text-align:center;
+  padding:8px;
+  background:white;
+  margin-top:-8px;
+}
+.load_more_posts_button a {
+  font-size: 28px;
+  color: #333333;
+  font-weight: 300;
+}
 
 /* create post */
 .createpost_stepwrap {

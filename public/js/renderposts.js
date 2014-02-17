@@ -48,6 +48,12 @@ function renderposts_bindclicklisteners() {
     .click(function() {
       $(this).parent().fadeOut();
     });
+  $('.load_more_posts_button')
+    .unbind('click')
+    .click(function(e) {
+      e.preventDefault();
+      renderposts_loadaisleposts(renderposts_userid);
+    });
 }
 
 function renderposts_loadaisleposts(userid) {
@@ -67,5 +73,5 @@ function renderposts_loadaisleposts(userid) {
 }
 
 function renderposts_rendernewaisleposts(response) {
-  console.log(response);
+  $(response).insertBefore('.load_more_posts_button');
 }
