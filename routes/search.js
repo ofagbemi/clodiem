@@ -1,10 +1,11 @@
 var data = require("../data.json");
+var profile = require('./profile.js');
 
 exports.view = function(req, res) {
     var ret = {};
     
     // get the current logged in user
-    ret['logged_in_user'] = data['logged_in_user'];
+    ret['logged_in_user'] = profile.getloggedinuser(req);
     
     ret['query'] = req.query.q.toLowerCase();
     ret['posts'] = [];

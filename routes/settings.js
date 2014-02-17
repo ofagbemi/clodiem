@@ -1,9 +1,11 @@
 var data = require('../data.json');
+var profile = require('./profile.js');
 
 exports.view = function(req, res) {
   var ret = {};
-  if(data['logged_in_user']) {
-    ret['logged_in_user'] = data['logged_in_user'];
+  var logged_in_user = profile.getloggedinuser(req);
+  if(logged_in_user) {
+    ret['logged_in_user'] = logged_in_user;
     res.render('settings', ret);
   } else {
     res.redirect('/login');
