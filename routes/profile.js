@@ -17,7 +17,7 @@ exports.getloggedinuser = getloggedinuser;
 exports.usernametaken = function(req, res) {
   var ret = {'exists': false};
   if(data['users'][util.getuserid(req.query.username)]) {
-    console.log('profile.js: user ' + req.query.username + ' found');
+    console.log('profile.js: username ' + req.query.username + ' (or username with same hash) found');
     ret['exists'] = true;
   }
   res.json(ret);
