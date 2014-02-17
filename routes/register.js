@@ -1,6 +1,7 @@
 var data = require('../data.json');
 var login = require('./login.js');
 var util = require('./util.js');
+var passwordHash = require('password-hash');
 
 exports.view = function(req, res) {
   res.render('register', {});
@@ -14,6 +15,13 @@ exports.registeruser = function(req, res) {
 		'id': userid,
 		'username': req.body.username,
 		'email': req.body.email,
+		'password': passwordHash.generate(
+		  req.body.password,
+		  {
+		    'algorithm': 'sha256',
+		    'saltLength': 32
+		  }
+		),
 		'post_ids': [],
 		'aisle_post_ids': [],
 		'style_ids': [],

@@ -1,6 +1,7 @@
 var data = require('../data.json');
 var util = require('./util.js');
 var profile = require('./profile.js');
+var passwordHash = require('password-hash');
 
 exports.view = function(req, res) {
   res.render('login', {});
@@ -23,10 +24,16 @@ exports.setcurrentuser = setcurrentuser;
 exports.loginuser = function(req, res) {
   // look for user -- TODO: change this later to generate user id
   var userid = util.getuserid(req.query.username);
-  if(data['users'][userid]) {
-    console.log('login.js: logging in user ' + userid);
-    setcurrentuser(req, userid);
-    res.redirect('/aisle');
+  var user = data['users'][userid];
+  if(user) {
+    // check password
+    if(passwordHash.verify(req.query.password, user['password'])) {
+      console.log('login.js: logging in user ' + userid);
+      setcurrentuser(req, userid);
+      res.redirect('/aisle');
+    } else {
+      // wrong password (or username)
+    }
   }
   console.log('login.js: login failed! User ' + userid + ' could not be found');
 };
