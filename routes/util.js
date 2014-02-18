@@ -11,7 +11,7 @@ exports.getuserid = function(username) {
   return sha1(querystring.unescape(username)).toString();
 };
 exports.contains = function(item, list) {
-  for(var i=0;i<list.length;list++) {
+  for(var i=0;i<list.length;i++) {
     if(item == list[i]) {
       console.log('util.js: found ' + list[i] + ' in ' + list);
       return true;
