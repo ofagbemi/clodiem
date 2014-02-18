@@ -19,6 +19,14 @@ exports.contains = function(item, list) {
   }
   return false;
 };
+exports.randomstr = function(length) {
+  var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var ret = '';
+  for(var i=0;i<length;i++) {
+    ret += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return ret;
+}
 exports.getpostid = function(post) {
   // three things that probably won't change
   var str = post['type'].toString() + post['userid'] +
