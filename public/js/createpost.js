@@ -193,7 +193,7 @@ function createpost_bindclicklisteners() {
               // slightly hacky, get height from image loaded above
           });
         
-        createpost_show(3);
+        createpost_show(4);
       }
     }
   });
@@ -215,6 +215,16 @@ function createpost_bindclicklisteners() {
       // create the post marker after we check if the last
       // one was visible (if the user's already clicked before)
       createpost_placemarker(top, left, $(this).height(), $(this).width());
+    });
+
+  $('.createpost_skip_additem')
+    .unbind('click')
+    .click(function(e) {
+      e.preventDefault();
+      createpost_hide(4);
+      createpost_show(3);
+      createpost_show(5);
+      createpost_showpostbutton();
     });
 }
 

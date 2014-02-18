@@ -725,6 +725,10 @@ div.separate_header {
   border: dotted 1px rgba(0,0,0,0.15);
   */
 }
+.createpost_stepwrap .createpost_skip_additem {
+  font-size: small;
+  text-transform: lowercase;
+}
 .createpost_stepwrap .title {
   display: block;
   text-transform:uppercase;
