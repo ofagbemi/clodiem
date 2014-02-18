@@ -1,8 +1,10 @@
 var data = require('../data.json');
 var util = require('./util.js');
+var profile = require('./profile.js');
 
 exports.view = function(req, res) {
-  if(data['logged_in_user']) {
+  var logged_in_user = profile.getloggedinuser(req);
+  if(logged_in_user) {
 	var ret = {};
 	ret['logged_in_user'] = data['logged_in_user'];
 	res.render('createpost', ret);

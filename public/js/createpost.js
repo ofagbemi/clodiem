@@ -63,7 +63,6 @@ function createpost_bindclicklisteners() {
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
-      var img = '';
       var time = (new Date()).toString();
       var price = createpost_gettotalprice(createpost_addeditems);
       var title = $("input[name='post_title']").val();
@@ -72,6 +71,12 @@ function createpost_bindclicklisteners() {
         return;
       }
       var tags = createpost_parsetags($('.tagbox.posttagbox').val());
+      
+      // img upload
+      var img = $('input.img_upload')[0].files[0];
+      
+      
+      
       createpost_submitpost(createpost_userid, img, time,
                             price, title, tags, createpost_addeditems)
     });
@@ -109,7 +114,11 @@ function createpost_bindclicklisteners() {
       var time = (new Date()).toString();
       
       // var img = '/images/icons/pants2/pants2.svg'; // TODO change this
+      
+      
       var img = null;
+      
+      
       var x = $('.marker').attr('x');
       var y = $('.marker').attr('y');
       
@@ -136,23 +145,6 @@ function createpost_bindclicklisteners() {
 	  createpost_show(5);
 	  createpost_showpostbutton();
       
-      /*
-      createpost_submitpost(type, createpost_userid, img, time, price,
-                            title, x, y, retailer, purchase_link,
-                            tags, item_ids, function(result) {
-        // callback
-        var addeditem = $(createpost_addeditem_partial.replace('{{title}}', title));
-        addeditem
-          .find('img')
-            .css('height', createpost_addeditemiconheight + 'px')
-            .css('width', createpost_addeditemiconwidth + 'px');
-        
-        $('.createpost_additem').parent().prepend(addeditem);
-        createpost_hide(4);
-        createpost_show(3);
-        createpost_cleanupmarkitem();
-      });
-      */
     });
   $('a.createpost_additem')
     .unbind('click')
@@ -301,8 +293,10 @@ function createpost_submitpost(type, userid, img, time, price, title, x, y,
 }
 */
 
+
+
 /* createpost_parsetags(tagstr)
- * --------------------
+ * 
  * Takes in a raw input string--whatever was typed into the
  * tag box, and spits out an array of tag objects, i.e
  * [{'tag': 'cool'}, {'tag': 'hip'}, ... ]
@@ -316,7 +310,7 @@ function createpost_parsetags(tagstr) {
 }
 
 /* createpost_cleanupmarkitem()
- * --------------------------
+ * 
  * Cleanup function that gets run after the mark item
  * step. Clears the form and marker field out.
  */
@@ -338,7 +332,7 @@ function createpost_cleanupmarkitem() {
 }
 
 /* createpost_gettotalprice(items)
- * ------------------------
+ * 
  * Takes in a list of items and compiles their prices
  * into a single returned string
  */
