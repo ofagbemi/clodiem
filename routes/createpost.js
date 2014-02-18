@@ -123,21 +123,24 @@ exports.createnewpostfromitems = function(req, res) {
 	post['item_ids'] = [];
   
     var item_ids = [];
-	for(var i=0;i<req.body.items.length;i++) {
-	  var item = req.body.items[i];
+    var items = req.body.items;
+    if(items) {
+	  for(var i=0;i<req.body.items.length;i++) {
+		var item = req.body.items[i];
 	  
-	  item['comments'] = [];
-	  item['likes'] = 0;
-	  item['likers'] = [];
-	  item['id'] = util.getpostid(item);
-	  if(item['type'] == 'item') {
-		if(!item['item_ids']) item['item_ids'] = [];
-		post['item_ids'].push(item['id']);
+		item['comments'] = [];
+		item['likes'] = 0;
+		item['likers'] = [];
+		item['id'] = util.getpostid(item);
+		if(item['type'] == 'item') {
+		  if(!item['item_ids']) item['item_ids'] = [];
+		  post['item_ids'].push(item['id']);
+		}
+		// add the item
+		item_ids.push(item['id']);
+		data['posts'][item['id']] = item;
+		console.log('createpost.js: created item with id ' + item['id']);
 	  }
-	  // add the item
-	  item_ids.push(item['id']);
-	  data['posts'][item['id']] = item;
-	  console.log('createpost.js: created item with id ' + item['id']);
 	}
 	
 	post['item_ids'] = item_ids;
