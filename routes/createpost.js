@@ -21,6 +21,13 @@ exports.uploads = function(req, res) {
   res.end(img, 'binary');
 }
 
+function generateimageuploadname(imgname) {
+  var s = imgname.split('.');
+  var ext = (s.length > 1)?('.' + s[s.length-1]):'';
+  var randomstr = util.randomstr(32);
+  return 'clodiem_' + util.sha1(imgname + randomstr) + ext;
+}
+
 exports.uploadimage = uploadimage;
 
 // uploads image req.files.(image member) and passes
@@ -32,7 +39,7 @@ function uploadimage(image, success) {
 	if(!name) {
 	  console.log('error');
 	} else {
-	  var upload_name = 'clodiem_' + util.sha1(name) + '.' + name.split('.').pop().toLowerCase();
+	  var upload_name = generateimageuploadname(name);//'clodiem_' + util.sha1(name) + '.' + name.split('.').pop().toLowerCase();
 	  var newPath = __dirname + '/../uploads/' + upload_name;
 	  fs.writeFile(newPath, data, function(err) {
 	    console.log('createpost.js: file available as ' + upload_name);
