@@ -34,6 +34,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', handlebars());
 app.set('view engine', 'handlebars');
 app.use(express.favicon());
+app.use(express.bodyParser({keepExtentions: true, uploadDir: __dirname + '/uploads'}));
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
@@ -49,6 +50,7 @@ if ('development' == app.get('env')) {
 }
 
 // Add routes here
+app.get('/uploads/:file', createpost.uploads);
 app.get('/', landing.view);
 app.get('/aisle', dashboard.view);
 app.get('/outfit', outfit.view);
@@ -75,6 +77,7 @@ app.post('/createnewpostfromitems', createpost.createnewpostfromitems);
 app.post('/setuser', settings.setuser);
 app.post('/addlike', dashboard.addlike);
 app.post('/removelike', dashboard.removelike);
+app.post('/uploadimageandaddtopost', createpost.uploadimageandaddtopost);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

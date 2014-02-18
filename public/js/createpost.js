@@ -72,13 +72,20 @@ function createpost_bindclicklisteners() {
       }
       var tags = createpost_parsetags($('.tagbox.posttagbox').val());
       
-      // img upload
-      var img = $('input.img_upload')[0].files[0];
-      
-      
+      var img = $("input[name='img_from_url']").val();
+      if(img == '') img = null;
       
       createpost_submitpost(createpost_userid, img, time,
-                            price, title, tags, createpost_addeditems)
+        price, title, tags, createpost_addeditems,
+        function(response) {
+          // upload image on callback
+          var postid_input = $('<input style="display:none;" name="postid">');
+          postid_input.val(response['postid']);
+          
+          $('form.createpost_form')
+            .append(postid_input)
+            .submit();
+        });
     });
   $('.placed.button')
     .unbind('click')
@@ -245,7 +252,7 @@ function createpost_pushitem(type, userid, img, time, price, title, x, y,
   createpost_addeditems.push(data);
 }
 
-function createpost_submitpost(userid, img, time, price, title, tags, items) {
+function createpost_submitpost(userid, img, time, price, title, tags, items, success) {
   var post = {
     'type': 'outfit',
     'userid': createpost_userid,
@@ -262,37 +269,9 @@ function createpost_submitpost(userid, img, time, price, title, tags, items) {
 	type: 'POST',
 	url: '/createnewpostfromitems',
 	data: data,
-	success: createpost_redirecttopost
+	success: success
   });
 }
-
-/*
-function createpost_submitpost(type, userid, img, time, price, title, x, y,
-                               retailer, purchase_link, tags, item_ids, success) {
-  var data = {
-    'type': type,
-    'userid': userid,
-    'img': img,
-    'time': (new Date()).toString(),
-    'price': price,
-    'title': title,
-    'x': x,
-    'y': y,
-    'retailer': retailer,
-    'purchase_link': purchase_link,
-    'tags': tags,
-    'item_ids': item_ids
-  };
-  
-  $.ajax({
-    type: 'POST',
-    url: '/createnewpost',
-    data: data,
-    success: success
-  });
-}
-*/
-
 
 
 /* createpost_parsetags(tagstr)

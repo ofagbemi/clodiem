@@ -1,28 +1,80 @@
 var data = require('../data.json');
 var util = require('./util.js');
 var profile = require('./profile.js');
+var fs = require('fs');
 
 exports.view = function(req, res) {
   var logged_in_user = profile.getloggedinuser(req);
   if(logged_in_user) {
 	var ret = {};
-	ret['logged_in_user'] = data['logged_in_user'];
+	ret['logged_in_user'] = logged_in_user;
 	res.render('createpost', ret);
   } else {
     res.redirect('/login');
   }
 };
 
+exports.uploads = function(req, res) {
+  var file = req.params.file;
+  var img = fs.readFileSync(__dirname + '/../uploads/' + file);
+  res.writeHead(200, {'Content-Type': 'image'});
+  res.end(img, 'binary');
+}
+
+exports.uploadimage = uploadimage;
+
+// uploads image req.files.(image member) and passes
+// the url to the callback function success
+function uploadimage(image, success) {
+  fs.readFile(image.path, function(err, data) {
+	var name = image.name
+	console.log('createpost.js: uploading file ' + name);
+	if(!name) {
+	  console.log('error');
+	} else {
+	  var upload_name = 'clodiem_' + util.sha1(name) + '.' + name.split('.').pop().toLowerCase();
+	  var newPath = __dirname + '/../uploads/' + upload_name;
+	  fs.writeFile(newPath, data, function(err) {
+	    console.log('createpost.js: file available as ' + upload_name);
+	    if(success)
+	      success('/uploads/' +  upload_name);
+	  });
+	}
+  
+  });
+}
+
+/*
+ * only adds to post if there isn't an image for it already
+ */
+exports.uploadimageandaddtopost = function(req, res) {
+  var post = data['posts'][req.body.postid];
+  if(post && !post['img']) {
+    uploadimage(
+      req.files.img, 
+	  function(url) {
+		post['img'] = url;
+		console.log('createpost.js: ' + post['img'] + ' added to post ' + post['id']);
+		res.redirect('/outfit?id=' + post['id']);
+	  });
+  } else {
+    res.writeHead(404);
+    res.end();
+  }
+}
+
 exports.createnewpost = function(req, res) {
-  if(data['users'][req.body.userid]) {
-	var username = data['users'][req.body.userid]['username'];
+  var user = data['users'][req.body.userid];
+  if(user) {
+	var username = user['username'];
+	var imgpath =  uploadimage(req.files.img.path);
 	var post = {
 	  'type': req.body.type,
-	  'userid': req.body.userid,
-	  'username': username,
+	  'userid': user['id'],
+	  'username': user['username'],
 	  'numcomments': '0 comments',
 	  'comments': [],
-	  'img': req.body.img,
+	  'img': imgpath,
 	  'likes': 0,
 	  'likers': [],
 	  'time': req.body.time,

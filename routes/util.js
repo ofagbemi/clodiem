@@ -1,12 +1,15 @@
 var sha1 = require('sha1');
 var querystring = require('querystring');
 
+exports.sha1 = function(str) {
+  return sha1(str);
+};
 exports.unescape = function(str) {
   return querystring.unescape(str);
-}
+};
 exports.getuserid = function(username) {
   return sha1(querystring.unescape(username)).toString();
-}
+};
 exports.contains = function(item, list) {
   for(var i=0;i<list.length;list++) {
     if(item == list[i]) {
@@ -15,10 +18,11 @@ exports.contains = function(item, list) {
     }
   }
   return false;
-}
+};
 exports.getpostid = function(post) {
-  var str = post['type'].toString() + post['img'].toString() +
-            post['time'].toString() + post['title'].toString();
+  // three things that probably won't change
+  var str = post['type'].toString() + post['userid'] +
+            post['time'].toString();
   return sha1(str).toString();
   
   /*
