@@ -46,6 +46,7 @@
     <script src="/js/rendermenu.js"></script>
     <script src="/js/likebuttons.js"></script>
     <script src="/js/comments.js"></script>
+    <script src="/js/addtostyle.js"></script>
     <script>
       function setSizes() {
         rendertopbar(true);
@@ -73,6 +74,7 @@
       $(document).ready(function() {
         setSizes();
         activatelikebuttons({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
+        addtostyle({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}})
       });
       $(window).load(function() {
         setSizes();
