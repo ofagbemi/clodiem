@@ -25,21 +25,18 @@ function createpost_start(id) {
       marginTop: '0px'
     }, 600,
       function() {
-        createpost_show(2, true);
+        createpost_show(2);
+        createpost_scrollto(2);
       });
 }
 function createpost_showpostbutton() {
   $('#post_button')
     .fadeIn(600);
 }
-function createpost_show(num, scroll) {
+function createpost_show(num) {
   $('.createpost_stepwrap.' + num)
-    .fadeIn(600, function() {
-      if(scroll) {
-        createpost_scrollto(num);
-      }
-    });
-}
+      .fadeIn(600);
+};
 function createpost_hide(num) {
   $('.createpost_stepwrap.' + num).fadeOut(600);
 }
@@ -47,7 +44,7 @@ function createpost_scrollto(num) {
   $('html, body').animate({
     scrollTop: $('.createpost_stepwrap.' + num)
                  .offset().top
-  }, 1000);
+  }, 1800);
 }
 function createpost_bindclicklisteners() {
   $("input[name='post_title']")
@@ -194,6 +191,7 @@ function createpost_bindclicklisteners() {
           });
         
         createpost_show(4);
+        createpost_scrollto(4);
       }
     }
   });
@@ -224,6 +222,7 @@ function createpost_bindclicklisteners() {
       createpost_hide(4);
       createpost_show(3);
       createpost_show(5);
+      createpost_scrollto(5);
       createpost_showpostbutton();
     });
 }

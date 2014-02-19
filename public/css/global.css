@@ -767,6 +767,7 @@ div.separate_header {
 .createpost_stepwrap .createpost_skip_additem {
   font-size: small;
   text-transform: lowercase;
+  font-weight: 300;
 }
 .createpost_stepwrap .title {
   display: block;
