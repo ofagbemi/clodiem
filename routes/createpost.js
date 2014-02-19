@@ -74,14 +74,17 @@ exports.createnewpost = function(req, res) {
   var user = data['users'][req.body.userid];
   if(user) {
 	var username = user['username'];
-	var imgpath =  uploadimage(req.files.img.path);
+	var img;
+	if(req.files && req.files.img) {
+	  img =  uploadimage(req.files.img.path);
+	} else img = req.body.img;
 	var post = {
 	  'type': req.body.type,
 	  'userid': user['id'],
 	  'username': user['username'],
 	  'numcomments': '0 comments',
 	  'comments': [],
-	  'img': imgpath,
+	  'img': img,
 	  'likes': 0,
 	  'likers': [],
 	  'time': req.body.time,
@@ -92,7 +95,7 @@ exports.createnewpost = function(req, res) {
 	  'retailer': req.body.retailer,
 	  'purchase_link': req.body.purchase_link,
 	  'tags': req.body.tags,
-	  'item_ids': req.body.items
+	  'item_ids': req.body.item_ids
 	};
   
 	post['id'] = util.getpostid(post);
@@ -100,6 +103,16 @@ exports.createnewpost = function(req, res) {
 	  post['item_ids'].push(post['id']);
 	}
 	console.log('createpost.js: created post with id ' + post['id']);
+	
+	// add to posts
+	data['posts'][post['id']] = post;
+	
+	// add to user
+	if(post['type'] == 'style') {
+	  user['style_ids'].unshift(post['id']);
+	} else {
+	  console.log('createpost.js: unsupported post type ' + post['type']);
+	}
 	
 	// return with id of item added
 	var ret = {'postid': post['id']};

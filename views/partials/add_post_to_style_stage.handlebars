@@ -1,21 +1,37 @@
-<div class="add_post_to_style_stage">
-  <a class="close_button white" style="float:right;"></a>
+<div class="add_post_to_style_stage" postid="{{id}}" style="display:none;">
+  <a class="close_button" style="float:right;"></a>
   <div class="wrap padded top bottom side" style="overflow:auto;">
     <div>
       <div class="header">
 	    <h2 class="title">Add <a href="/outfit?id={{id}}">{{title}}</a> to a style</h2>
 	  </div>
-	  <div>
-	    <h3>Create a new style</h3>
-	  </div>
-	  <div>
-	    {{#if logged_in_user.styles.length}}
-	    <h3>Add to an existing style</h3>
-	    {{#each styles}}
-	      {{id}}
-	    {{/each}}
+	  <div class="choose">
+	    <div class="option add_to_new_style">
+	      <h3><a>Add to a new style...</a></h3>
+	    </div>
+	    
+	    {{#if logged_in_user}}
+		  {{#if logged_in_user.styles.length}}
+		  <div class="option">
+			<h3>Add to an existing style</h3>
+		  {{#each styles}}
+			{{id}}
+		  {{/each}}
+		  </div>
+		  {{/if}}
 	    {{/if}}
+	    
+	    <form style="display:none;" class="add_to_new_style_form" {{#if logged_in_user}}userid="{{logged_in_user.id}}"{{/if}} class="add_style_form" method="post">
+	    <input type="text" style="width:100%;" class="padded" placeholder="Style name" name="style_name">
+	    <div style="width:100%;">
+	      <div postid="{{id}}" style="float:left;display:inline-block;width:47%;margin-top:8px;" class="button submit"><a href="#">Add it!</a></div>
+	      <div style="float:right;display:inline-block;width:47%;margin-top:8px;" class="button cancel"><a href="#">Cancel</a></div>
+	      <div class="clear"></div>
+	    </div>
+	  </form>
+	    
 	  </div>
+	  
 	  <!--
 	  <div class="post_stats">
 		<span>{{comments.length}} comments</span>

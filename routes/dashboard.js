@@ -91,8 +91,9 @@ exports.getpostsfromids = getpostsfromids;
  *
  * Takes in a user object and a list of post ids and
  * returns a list of post objects. If a user is provided,
- * the function will set the post as liked if the given 
- * user has liked the post
+ * the function will set the user as the post's logged in
+ * user and set the liked_post attribute of each liked post
+ * to true
  */
 function getpostsfromids(ids, user) {
   var ret = [];
@@ -104,6 +105,8 @@ function getpostsfromids(ids, user) {
 		  post['liked_post'] = true;
 	    }
 	  }
+	  // tack on logged in user
+	  post['logged_in_user'] = user;
 	  ret.push(post);
 	}
   }

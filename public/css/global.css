@@ -531,7 +531,8 @@ div.separate_header {
   z-index: 4;
   border: solid 2px rgba(245, 255, 0, 0.9);
 }
-.post_stage .item_stage {
+.post_stage .item_stage,
+.post_stage .add_post_to_style_stage {
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.78);
@@ -541,20 +542,58 @@ div.separate_header {
   top:0;
   left:0;
 }
-.post_stage .item_stage .close_button {
+.post_stage .add_post_to_style_stage {
+  background-color: rgba(255,255,255,0.94);
+  color: black;
+  box-shadow: 0 0 23px rgba(42, 88, 146, 0.14);
+}
+.post_stage .item_stage .close_button,
+.post_stage .add_post_to_style_stage .close_button{
   position: absolute;
   top: 8px;
   right: 8px;
 }
-.post_stage .item_stage .header {
+.post_stage .item_stage .header,
+.post_stage .add_post_to_style_stage .header {
   margin-bottom: 11px;
   margin-right: 24px; /* keep out of the way of the close button */
 }
-.post_stage .item_stage .header .title {
+.post_stage .add_post_to_style_stage .header{
+  padding: 20px;
+  text-align:center;
+}
+.post_stage .add_post_to_style_stage .choose {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  padding: 11px;
+}
+
+
+.post_stage .add_post_to_style_stage .choose h3 a{
+  font-weight: 300;
+  font-size: x-large;
+  color: white;
+}
+
+.post_stage .add_post_to_style_stage .choose .option {
+  padding: 11px;
+  text-align: center;
+  width: 100%;
+  background: black;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.post_stage .item_stage .header .title,
+.post_stage .add_post_to_style_stage .title {
   display: inline-block;
 }
 .post_stage .item_stage .header .title a{
   color: white;
+}
+.post_stage .add_post_to_style_stage .title a {
+  color: black;
 }
 .post_stage .item_stage .header .see_more {
   color: white;

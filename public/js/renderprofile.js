@@ -82,6 +82,6 @@ function renderprofile_stylesbindclicklisteners() {
 	  displays['style_contents'].show();
 	  // call this to make sure that the markers are rendered properly, since
 	  // they were hidden before
-	  renderposts(renderposts_postid);
+	  renderposts(renderposts_userid);
 	});
 }
