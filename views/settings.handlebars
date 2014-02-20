@@ -7,8 +7,42 @@
   <body>
     <div class="content">
       <div style="background:white;" class="top bottom side padded wrap">
-        <img class="spinning" style="float:right;width:23px;height:23px;" src="/images/icons/gear/gear.svg">
-        <h2 style="margin-bottom:11px;">Account settings</h2>
+        <h2 style="margin-bottom:11px;">My account</h2>
+        
+        <div>
+          <img class="corner_icon" style="float:right;" src="/images/icons/user/user.svg">
+          <h3>
+            <a style="color:inherit;" href="/user?id={{logged_in_user.id}}">My profile</a>
+          </h3>
+        </div>
+        <div style="margin-bottom: 11px;padding: 11px;border: dotted 1px rgba(0,0,0,0.15);margin-top: 8px;box-shadow: 0 0 4px rgba(0,0,0,0.04);">
+          <div style="margin-bottom:4px;font-size:medium;float:left;">
+            <a href="/user?id={{logged_in_user.id}}">Go to my profile</a>
+          </div>
+          <div style="margin-bottom:4px;font-size:medium;float:right;text-align:right;">
+            <a style="color:#d55353;" href="/logoutuser?id={{logged_in_user.id}}">Log out</a>
+          </div>
+          <div class="clear"></div>
+          <div style="margin-bottom:4px;font-size:medium;float:left;">Styles</div>
+          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.styles.length}}</div>
+          <div class="clear"></div>
+          <div style="margin-bottom:4px;font-size:medium;float:left;">Posts</div>
+          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.posts.length}}</div>
+          <div class="clear"></div>
+          <div style="margin-bottom:4px;font-size:medium;float:left;">Likes</div>
+          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.liked_post_ids.length}}</div>
+          <div class="clear"></div>
+          <div style="margin-bottom:4px;font-size:medium;float:left;">Following</div>
+          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.following.length}}</div>
+          <div class="clear"></div>
+          <div style="margin-bottom:4px;font-size:medium;float:left;">Followers</div>
+          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.followers.length}}</div>
+          <div class="clear"></div>
+        </div>
+        <div>
+          <img class="spinning corner_icon" style="float:right;" src="/images/icons/gear/gear.svg">
+          <h3 style="margin-bottom:11px;">Account settings</h3>
+        </div>
 		<form class="settings_form">
 		  <div>
 			<input value="{{logged_in_user.location}}" class="padded" type="text" name="location" placeholder="Location">
@@ -50,6 +84,7 @@
     <script>
       function setSizes() {
         rendertopbar(true);
+        renderbottombar(true, 3, {{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
         renderposts({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
         buildmenu(
           {{#if logged_in_user}}
