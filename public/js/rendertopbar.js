@@ -35,6 +35,40 @@ function rendertopbar(withpadding) {
   
   bindclicklisteners();
 }
+
+function renderbottombar(withpadding) {
+  var winwidth = window.innerWidth;
+  var html = '<div id="bottombar" style="width: ' + winwidth + 'px"></div>';
+  var bottombar = $(html);
+  
+  var createpostbutton = '<a class="create_post_button" href="/createpost">Menu</a>';
+  var homebutton = '<a class="home_button" href="/aisle">Clodiem</a>';
+  var searchbutton = '<a class="search_button" href="#">Search</a>';
+  var closesearchbutton = $('<a class="close_search_button" href="#">x</a>')
+                            .css('display', 'none');
+  
+  bottombar
+    .append(createpostbutton);
+    
+  $('#bottombar').remove();
+  
+  $('body')
+    .append(bottombar)
+    .css('margin-bottom', $('#bottombar').height() + 'px');
+    
+  var bottombar_back = $('<div id="bottombar_back"></div>')
+    .css('position', 'absolute')
+    .css('z-index', '-1')
+    .css('width', winwidth + 'px');
+    
+  $('#bottombar_back').remove();
+  $('body').append(bottombar_back);
+    
+  if(withpadding) {
+    $('.content')
+      .css('margin-bottom', $('#bottombar').height() + 'px');
+  }
+}
   
   
 function bindclicklisteners() {
