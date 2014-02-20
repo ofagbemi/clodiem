@@ -2,9 +2,14 @@ var data = require('../data.json');
 var login = require('./login.js');
 var util = require('./util.js');
 var passwordHash = require('password-hash');
+var profile = require('./profile.js');
 
 exports.view = function(req, res) {
-  res.render('register', {});
+  if(profile.getloggedinuser(req)) {
+    res.redirect('/aisle');
+  } else {
+    res.render('register', {});
+  }
 };
 
 exports.registeruser = function(req, res) {

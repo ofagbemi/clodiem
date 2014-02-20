@@ -1,9 +1,10 @@
 var data = require('../data.json');
+var profile = require('./profile.js');
 
 exports.view = function(req, res) {
-  if(!data['logged_in_user']) {
-    res.render('landing', {});
-  } else {
+  if(profile.getloggedinuser(req)) {
     res.redirect('/aisle');
+  } else {
+    res.render('landing', {});
   }
 };

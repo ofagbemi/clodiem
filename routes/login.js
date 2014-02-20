@@ -4,7 +4,11 @@ var profile = require('./profile.js');
 var passwordHash = require('password-hash');
 
 exports.view = function(req, res) {
-  res.render('login', {});
+  if(profile.getloggedinuser(req)) {
+    res.redirect('/aisle');
+  } else {
+    res.render('login', {});
+  }
 };
 
 function setcurrentuser(req, userid) {
