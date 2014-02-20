@@ -11,13 +11,25 @@
 	    </div>
 	    
 	    {{#if logged_in_user}}
-		  {{#if logged_in_user.styles.length}}
-		  <div class="option">
-			<h3>Add to an existing style</h3>
-		  {{#each styles}}
-			{{id}}
-		  {{/each}}
-		  </div>
+		  {{#if logged_in_user.styles}}
+			<div class="option add_to_existing_style">
+			  <h3><a>Add to an existing style</a></h3>
+			</div>
+			
+			
+			<form style="display:none;background:white;padding:22px;border:solid 1px rgba(0,0,0,0.15);" class="add_to_existing_style_form" {{#if logged_in_user}}userid="{{logged_in_user.id}}" {{/if}} method="post">
+			 <div style="width:100%;">
+			  {{#each logged_in_user.styles}}
+				<div><input style="float:left;" type="checkbox" name="{{id}}"> <h4>{{title}}</h4></div>
+			  {{/each}}
+			 </div>
+			 <div style="width:100%;">
+			   <div postid="{{id}}" style="float:left;display:inline-block;width:47%;margin-top:8px;" class="button submit"><a href="#">Add it!</a></div>
+	           <div style="float:right;display:inline-block;width:47%;margin-top:8px;" class="button cancel"><a href="#">Cancel</a></div>
+			 </div>
+			 <div class="clear"></div>
+		   </form>
+		   
 		  {{/if}}
 	    {{/if}}
 	    

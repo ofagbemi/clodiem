@@ -89,5 +89,9 @@ exports.logoutuser = function(req, res) {
     console.log('login.js: logging out user ' + logged_in_user['id']);
     removecurrentuser(req);
     res.redirect('/');
+  } else {
+    console.log('login.js: user ' + req.query.id + ' could not be found');
+    res.writeHead(404);
+    res.end();
   }
 }

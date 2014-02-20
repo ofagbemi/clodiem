@@ -33,7 +33,7 @@ function addtostyle_bindclicklisteners(userid) {
       e.preventDefault();
       $('form.add_to_new_style_form')
         .slideDown();
-      $('form.add_to_existing_style')
+      $('.option.add_to_existing_style')
         .slideUp();
     });
   $('form.add_to_new_style_form .submit')
@@ -49,7 +49,7 @@ function addtostyle_bindclicklisteners(userid) {
       var name = input.val();
       
       if(name.length < 1) {
-        alert('You have to give the style a name to create it!');
+        alert('You have to give the style a name to create it');
         return;
       }
       
@@ -84,11 +84,79 @@ function addtostyle_bindclicklisteners(userid) {
     .click(function(e) {
       e.preventDefault();
       $('form.add_to_new_style_form').slideUp();
-      $('form.add_to_existing_style')
+      $('.option.add_to_existing_style')
         .slideDown();
   });
+  
+  $('.option.add_to_existing_style')
+    .unbind('click')
+    .click(function(e) {
+      e.preventDefault();
+      $('form.add_to_existing_style_form')
+        .slideDown();
+      $('.option.add_to_new_style')
+        .slideUp();
+    });
+    
+  $('form.add_to_existing_style_form .cancel')
+    .unbind('click')
+    .click(function(e) {
+      e.preventDefault();
+      $('form.add_to_existing_style_form').slideUp();
+      $('.option.add_to_new_style')
+        .slideDown();
+    });
+    
+  $('form.add_to_existing_style_form .submit')
+    .unbind('click')
+    .click(function(e) {
+      e.preventDefault();
+      var postid = $(this).attr('postid');
+      
+      var inputs = $(this)
+        .parent()
+        .parent()
+        .find('input[type="checkbox"]')
+    
+      var ids = [];
+      for(var i=0;i<inputs.length;i++) {
+        if(inputs[i].checked) {
+          ids.push($(inputs[i]).attr('name'));
+          inputs[i].checked = false;
+        }
+      }
+      
+      if(ids.length < 1) {
+        alert('You have to choose a style');
+        return;
+      }
+      
+      var img = $(this).parents('.post_stage').find('.post_img').attr('src');
+      
+      var close = $(this).parents('.add_post_to_style_stage').find('.close_button');
+      
+      var data = {
+		'id': postid,
+		'item_ids': ids,
+		'img': img
+      };
+  
+	  $.ajax({
+		type: 'POST',
+		url: '/addtopostitems',
+		data: data,
+		success: function(response) {
+		  addtostyle_addedtoexistingstyle(response);
+		  close.trigger('click');
+		}
+	  });
+      
+    });
 };
 
 function addtostyle_createdfromnewstyle(response) {
   alert('Created new style successfully');
+}
+function addtostyle_addedtoexistingstyle(response) {
+  //
 }

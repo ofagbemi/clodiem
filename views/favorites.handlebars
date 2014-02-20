@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+  <head>
+    {{> head}}
+  </head>
+  
+  <body>
+    <div class="content">
+      <div style="text-align:center;" class="separate_header" >
+		<img src="images/icons/black_heart/red_heart.svg" style="width:48px;">
+	  </div>
+	  
+	  {{#if logged_in_user.style_ids.length}}
+	  <a style="color:inherit;" href="/styles">
+	  {{/if}}
+	  
+      <div 
+      {{#unless logged_in_user.style_ids.length}}
+      style="background-color: #eee;color: #aaa;"
+      {{/unless}}
+      class="separate_header">
+        {{#if logged_in_user.style_ids.length}}
+          <img src="/images/icons/forward/darkgreyforward.svg" style="width:30px;margin-top:8px;float:right;">
+        {{/if}}
+        <h3>Styles</h3>
+        <p>{{logged_in_user.style_ids.length}} styles</p>
+      </div>
+      
+      {{#if logged_in_user.style_ids.length}}
+	  </a>
+	  {{/if}}
+	  
+	  
+	  {{#if logged_in_user.liked_post_ids.length}}
+      <a style="color:inherit;" href="/likedposts">
+      {{/if}}
+      <div 
+      {{#unless logged_in_user.liked_post_ids.length}}
+      style="background-color: #eee;color: #aaa;"
+      {{/unless}}
+      class="separate_header">
+        {{#if logged_in_user.liked_post_ids.length}}
+          <img src="/images/icons/forward/darkgreyforward.svg" style="width:30px;margin-top:8px;float:right;">
+        {{/if}}
+        <h3>Likes</h3>
+        <p>{{logged_in_user.liked_post_ids.length}} likes</p>
+      </div>
+      {{#if logged_in_user.liked_post_ids.length}}
+      </a>
+      {{/if}}
+      {{#if logged_in_user.following_ids.length}}
+      <a style="color:inherit;" href="/following">
+      {{/if}}
+      <div 
+      {{#unless logged_in_user.following_ids.length}}
+      style="background-color: #eee;color: #aaa;"
+      {{/unless}}
+      class="separate_header">
+        {{#if logged_in_user.following_ids.length}}
+          <img src="/images/icons/forward/darkgreyforward.svg" style="width:30px;margin-top:8px;float:right;">
+        {{/if}}
+        <h3>Following</h3>
+        <p>Following {{logged_in_user.following_ids.length}} users</p>
+      </div>
+      {{#if logged_in_user.following_ids.length}}
+      </a>
+      {{/if}}
+    </div>
+    
+    <script src="/js/jquery-1.11.0.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/renderposts.js"></script>
+    <script src="/js/rendertopbar.js"></script>
+    <script src="/js/rendersearchbar.js"></script>
+    <script src="/js/splitbackground.js"></script>
+    <script src="/js/rendermenu.js"></script>
+    <script src="/js/likebuttons.js"></script>
+    <script src="/js/comments.js"></script>
+    <script src="/js/addtostyle.js"></script>
+    {{> universalscripts}}
+    <script>
+      function setSizes() {
+        rendertopbar(true);
+        renderbottombar(true, 0{{#if logged_in_user}},'{{logged_in_user.id}}'{{/if}});
+        renderposts({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
+        buildmenu(
+          {{#if logged_in_user}}
+            true, '{{logged_in_user.id}}', '{{logged_in_user.img}}'
+          {{else}}
+            false
+          {{/if}}
+        );
+        rendercomments(
+          {{#if logged_in_user}}
+            true,
+            '{{logged_in_user.username}}',
+            '{{logged_in_user.img}}'
+          {{else}}
+            false
+          {{/if}}
+        );
+      }
+      $(window).resize(function() {
+         setSizes();
+       });
+      $(document).ready(function() {
+        setSizes();
+        activatelikebuttons({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
+        addtostyle({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}})
+      });
+      $(window).load(function() {
+        setSizes();
+      });
+    </script>
+  </body>
+
+</html>

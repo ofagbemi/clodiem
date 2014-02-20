@@ -1,4 +1,4 @@
-function rendertopbar(withpadding) {
+function rendertopbar(withpadding, withbackbutton) {
   var winwidth = window.innerWidth;
   var html = '<div id="topbar" style="width: ' + winwidth + 'px"></div>';
   var topbar = $(html);
@@ -9,11 +9,22 @@ function rendertopbar(withpadding) {
   var closesearchbutton = $('<a class="close_search_button" href="#">x</a>')
                             .css('display', 'none');
   
+  if(withbackbutton) {
+    var link = document.referrer;
+    if(! (link.indexOf('clodiem') > -1 || link.indexOf('localhost') > -1) ) {
+      link = '/aisle';
+    }
+    
+	var backbutton = $('<a class="back_button" href="#">back</a>');
+	backbutton.attr('href', link);
+	topbar.append(backbutton);
+  }
+  
   topbar
-    .append(menubutton)
-    .append(homebutton)
-    .append(closesearchbutton)
-    .append(searchbutton);
+    // .append(menubutton)
+    .append(homebutton);
+    //.append(closesearchbutton)
+    //.append(searchbutton);
   $('#topbar').remove();
   
   $('body')
@@ -21,35 +32,46 @@ function rendertopbar(withpadding) {
     .css('margin-top', $('#topbar').height() + 'px');
     
   var topbar_back = $('<div id="topbar_back"></div>')
-    .css('position', 'absolute')
     .css('z-index', '-1')
     .css('width', winwidth + 'px');
     
   $('#topbar_back').remove();
   $('body').append(topbar_back);
-    
+  
+  /*  
   if(withpadding) {
     $('.content')
       .css('margin-top', $('#topbar').height() + 'px');
-  }
+  }*/
   
   bindclicklisteners();
 }
 
-function renderbottombar(withpadding) {
+function renderbottombar(withpadding, active, userid) {
   var winwidth = window.innerWidth;
   var html = '<div id="bottombar" style="width: ' + winwidth + 'px"></div>';
   var bottombar = $(html);
   
-  var createpostbutton = '<a class="create_post_button" href="/createpost">Menu</a>';
-  var homebutton = '<a class="home_button" href="/aisle">Clodiem</a>';
-  var searchbutton = '<a class="search_button" href="#">Search</a>';
-  var closesearchbutton = $('<a class="close_search_button" href="#">x</a>')
-                            .css('display', 'none');
+  var likesbutton = $('<a class="favorites_button" href="/favorites">favs</a>');
+  var homebutton = $('<a class="home_button" href="/aisle">home</a>');
+  var createpostbutton = $('<a class="create_post_button" href="/createpost">create</a>');
+  var profilebutton = $('<a class="profile_button" href="/settings">me</a>');
+  var searchbutton = $('<a class="search_button" href="#">search</a>');
+  
+  var buttons = [likesbutton, homebutton, createpostbutton,
+                 profilebutton, searchbutton];
+  
+  if(active != null && active < buttons.length) {
+    buttons[active].addClass('active');
+  }
   
   bottombar
-    .append(createpostbutton);
-    
+    .append(likesbutton)
+    .append(homebutton)
+    .append(createpostbutton)
+    .append(profilebutton)
+    .append(searchbutton);
+
   $('#bottombar').remove();
   
   $('body')
@@ -57,7 +79,6 @@ function renderbottombar(withpadding) {
     .css('margin-bottom', $('#bottombar').height() + 'px');
     
   var bottombar_back = $('<div id="bottombar_back"></div>')
-    .css('position', 'absolute')
     .css('z-index', '-1')
     .css('width', winwidth + 'px');
     

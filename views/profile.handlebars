@@ -5,7 +5,7 @@
   </head>
   <body>
     <div class="profile_header">
-      <img src="{{img}}" class="profpic">
+      <img src="{{#if img}}{{img}}{{else}}/images/icons/button/button.svg{{/if}}" class="profpic">
       <div class="profile_header_body">
         <h2>{{username}}</h2>
         <p>{{description}}</p>
@@ -130,7 +130,8 @@
   <script src="/js/addtostyle.js"></script>
   <script>
 	function setSizes() {
-	  rendertopbar();
+	  rendertopbar(true, true);
+	  renderbottombar(true, {{#if own_page}}3{{else}}1{{/if}}{{#if logged_in_user}}, '{{logged_in_user.id}}'{{/if}});
 	  renderposts({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
 	  buildmenu(
           {{#if logged_in_user}}
