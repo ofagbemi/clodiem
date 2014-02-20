@@ -1,4 +1,5 @@
 var data = require('../data.json');
+var models = require('../models');
 var util = require('./util.js');
 var profile = require('./profile.js');
 var passwordHash = require('password-hash');
@@ -27,25 +28,59 @@ exports.setcurrentuser = setcurrentuser;
 
 exports.loginuser = function(req, res) {
   // look for user -- TODO: change this later to generate user id
-  var userid = util.getuserid(req.body.username);
-  var user = data['users'][userid];
-  if(user) {
-    // check password
-    if(passwordHash.verify(req.body.password, user['password'])) {
-      console.log('login.js: logging in user ' + userid);
-      setcurrentuser(req, userid);
-      res.redirect('/aisle');
-    } else {
-      var ret = {'message': 'Wrong username/password',
-                 'username': req.body.username};
-      res.render('login', ret);
+    
+     var userid = util.getuserid(req.body.username);
+        //{"id": userid}
+    models.User
+    .find({"id" : userid})
+    .exec(afterSearch)
+    
+    function afterSearch(err, result) { // this is a callback
+        if(err) {console.log(err); res.send(500); }
+        if(result[0]){
+            console.log(result[0]["username"]);
+            var user = result[0];
+            
+            // check password
+            if(passwordHash.verify(req.body.password, user['password'])) {
+                console.log('login.js: logging in user ' + userid);
+                setcurrentuser(req, userid);
+                res.redirect('/aisle');
+            } else {
+                var ret = {'message': 'Wrong username/password',
+                    'username': req.body.username};
+                res.render('login', ret);
+            }
+        } else {
+            console.log('login.js: login failed! User ' + userid + ' could not be found');
+            var ret = {'message': 'The username "' + req.body.username + '" could not be found',
+                'username': req.body.username};
+            res.render('login', ret);
+        }
+       
+        //var user = data['users'][userid];
+        
+//        if(user) {
+//            // check password
+//            if(passwordHash.verify(req.body.password, user['password'])) {
+//                //      if(true){
+//                console.log('login.js: logging in user ' + userid);
+//                setcurrentuser(req, userid);
+//                res.redirect('/aisle');
+//            } else {
+//                var ret = {'message': 'Wrong username/password',
+//                    'username': req.body.username};
+//                res.render('login', ret);
+//            }
+//        } else {
+//            console.log('login.js: login failed! User ' + userid + ' could not be found');
+//            var ret = {'message': 'The username "' + req.body.username + '" could not be found',
+//                'username': req.body.username};
+//            res.render('login', ret);
+//        }
     }
-  } else {
-    console.log('login.js: login failed! User ' + userid + ' could not be found');
-    var ret = {'message': 'The username "' + req.body.username + '" could not be found',
-               'username': req.body.username};
-    res.render('login', ret);
-  }
+    
+  
 };
 
 exports.logoutuser = function(req, res) {
