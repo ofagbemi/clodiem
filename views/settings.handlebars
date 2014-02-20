@@ -85,7 +85,7 @@
     <script>
       function setSizes() {
         rendertopbar(true);
-        renderbottombar(true, 3, {{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
+        renderbottombar(true, 3{{#if logged_in_user}},'{{logged_in_user.id}}'{{/if}});
         renderposts({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
         buildmenu(
           {{#if logged_in_user}}

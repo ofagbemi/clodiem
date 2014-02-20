@@ -52,7 +52,7 @@ function renderbottombar(withpadding, active, userid) {
   var html = '<div id="bottombar" style="width: ' + winwidth + 'px"></div>';
   var bottombar = $(html);
   
-  var likesbutton = $('<a class="likes_button" href="/likes">likes</a>');
+  var likesbutton = $('<a class="favorites_button" href="/favorites">favs</a>');
   var homebutton = $('<a class="home_button" href="/aisle">home</a>');
   var createpostbutton = $('<a class="create_post_button" href="/createpost">create</a>');
   var profilebutton = $('<a class="profile_button" href="/settings">me</a>');
@@ -61,7 +61,7 @@ function renderbottombar(withpadding, active, userid) {
   var buttons = [likesbutton, homebutton, createpostbutton,
                  profilebutton, searchbutton];
   
-  if(active && active < buttons.length) {
+  if(active != null && active < buttons.length) {
     buttons[active].addClass('active');
   }
   

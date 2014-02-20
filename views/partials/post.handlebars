@@ -1,3 +1,6 @@
+{{#if notification}}
+  {{> notification}}
+{{else}}
 <div class="post" postid="{{id}}">
   <div class="post_header">
 	<h2 class="title"><a href="/outfit?id={{id}}">{{title}}</a></h2>
@@ -81,3 +84,4 @@
 	</div>
   </div>
 </div>
+{{/if}}
