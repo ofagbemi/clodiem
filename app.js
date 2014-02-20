@@ -2,11 +2,13 @@
  * Module dependencies.
  */
 
+
 var express = require('express');
 var http = require('http');
 var path = require('path');
 var handlebars = require('express3-handlebars');
 var partials = require('express-partials');
+var mongoose = require('mongoose');
 
 
 var landing = require('./routes/landing');
@@ -24,6 +26,15 @@ var additem = require('./routes/additem');
 var comment = require('./routes/comment');
 var follow = require('./routes/follow');
 var settings = require('./routes/settings');
+
+
+// Connect to the Mongo database, whether locally or on Heroku
+var local_database_name = 'clodiem';
+var local_database_uri  = 'mongodb://localhost/' + local_database_name
+var database_uri = process.env.MONGOLAB_URI || local_database_uri
+mongoose.connect(database_uri);
+
+
 var app = express();
 
 app.use(partials());

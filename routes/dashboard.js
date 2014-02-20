@@ -1,9 +1,11 @@
 var data = require('../data.json');
+var models = require('../models');
 var util = require('./util.js');
 var profile = require('./profile.js');
 
 
 exports.addlike = function(req, res) {
+    
   var postid = req.body.postid;
   var userid = req.body.userid;
   
