@@ -4,7 +4,7 @@
 	  e.preventDefault();
 	  var h = $(this).attr('href');
 	  if(h == '#') h = null;
-	  if(h) location.href = h;
+	  if(h && (h.indexOf('clodiem.') > -1 || h.indexOf('localhost') > -1)) location.href = h;
 	});
   }
   function setlinks_exp() {
@@ -13,7 +13,7 @@
 	  var h = $(this).attr('href');
 	  if(h == '#') h = null;
 	  // if(h) location.href = h;
-	  if(h) {
+	  if(h && (h.indexOf('clodiem.') > -1 || h.indexOf('localhost') > -1)) {
 	    $('#window').attr('src', h);
 	  }
 	});
