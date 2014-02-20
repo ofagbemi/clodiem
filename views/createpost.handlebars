@@ -145,6 +145,7 @@
   <script src="/js/renderprofile.js"></script>
   <script src="/js/follow.js"></script>
   <script src="/js/createpost.js"></script>
+  {{> universalscripts}}
   <script>
 	function setSizes() {
 	  rendertopbar();
@@ -186,28 +187,4 @@
 	  setSizes();
 	});
   </script>
-  {{> universalscripts}}
-  <!--
-  <script src="/js/jquery-1.11.0.js"></script>
-  <script src="/js/rendermenu.js"></script>
-  <script src="/js/rendersearchbar.js"></script>
-  <script src="/js/rendertopbar.js"></script>
-  <script src="/js/splitbackground.js"></script>
-  <script src="/js/createpost.js"></script>
-  <script>
-	function setSizes() {
-	  rendertopbar(true);
-	  buildmenu('{{username}}');
-	}
-	$(window).resize(function() {
-	  setSizes();
-	});
-	$(document).ready(function() {
-	  setSizes();
-	});
-	$(window).load(function() {
-	  setSizes();
-	});
-  </script>-->
-  
 </html>
