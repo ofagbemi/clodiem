@@ -78,6 +78,7 @@ app.post('/setuser', settings.setuser);
 app.post('/addlike', dashboard.addlike);
 app.post('/removelike', dashboard.removelike);
 app.post('/uploadimageandaddtopost', createpost.uploadimageandaddtopost);
+app.post('/addtopostitems', createpost.addtopostitems);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

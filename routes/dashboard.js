@@ -105,8 +105,13 @@ function getpostsfromids(ids, user) {
 		  post['liked_post'] = true;
 	    }
 	  }
+	  if(user) {
 	  // tack on logged in user
-	  post['logged_in_user'] = user;
+	    post['logged_in_user'] = user;
+	    
+	    // set logged in user's style stuff up
+	    user['styles'] = getpostsfromids(user['style_ids']);
+	  }
 	  ret.push(post);
 	}
   }

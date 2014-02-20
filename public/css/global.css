@@ -646,14 +646,11 @@ div.separate_header {
   width: 100%;
   padding: 11px;
 }
-
-
 .post_stage .add_post_to_style_stage .choose h3 a{
   font-weight: 300;
   font-size: x-large;
   color: white;
 }
-
 .post_stage .add_post_to_style_stage .choose .option {
   padding: 11px;
   text-align: center;
@@ -662,7 +659,9 @@ div.separate_header {
   color: white;
   margin-bottom: 8px;
 }
-
+.post_stage .add_post_to_style_stage .add_to_existing_style_form input[type="checkbox"] {
+  margin-right: 11px;
+}
 .post_stage .item_stage .header .title,
 .post_stage .add_post_to_style_stage .title {
   display: inline-block;

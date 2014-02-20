@@ -11,7 +11,7 @@
         
         <div>
           <img class="corner_icon" style="float:right;" src="/images/icons/user/user.svg">
-          <h3>
+          <h3 style="margin-top:19px;margin-bottom:11px;margin-left:4px;">
             <a style="color:inherit;" href="/user?id={{logged_in_user.id}}">My profile</a>
           </h3>
         </div>
@@ -24,24 +24,25 @@
           </div>
           <div class="clear"></div>
           <div style="margin-bottom:4px;font-size:medium;float:left;">Styles</div>
-          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.styles.length}}</div>
+          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.style_ids.length}}</div>
           <div class="clear"></div>
           <div style="margin-bottom:4px;font-size:medium;float:left;">Posts</div>
-          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.posts.length}}</div>
+          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.post_ids.length}}</div>
           <div class="clear"></div>
           <div style="margin-bottom:4px;font-size:medium;float:left;">Likes</div>
           <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.liked_post_ids.length}}</div>
           <div class="clear"></div>
           <div style="margin-bottom:4px;font-size:medium;float:left;">Following</div>
-          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.following.length}}</div>
+          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.following_ids.length}}</div>
           <div class="clear"></div>
           <div style="margin-bottom:4px;font-size:medium;float:left;">Followers</div>
-          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.followers.length}}</div>
+          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.followers_ids.length}}</div>
           <div class="clear"></div>
         </div>
+        
         <div>
           <img class="spinning corner_icon" style="float:right;" src="/images/icons/gear/gear.svg">
-          <h3 style="margin-bottom:11px;">Account settings</h3>
+          <h3 style="margin-top:19px;margin-bottom:19px;margin-left:4px;">Account settings</h3>
         </div>
 		<form class="settings_form">
 		  <div>
