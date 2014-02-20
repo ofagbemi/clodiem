@@ -1,6 +1,7 @@
 <script>
   $('a').click( function(e) {
     e.preventDefault();
-    location.href = $(event.target).attr('href');
+    var h = $(this).attr('href');
+    if(h) location.href = h;
   });
 </script>
