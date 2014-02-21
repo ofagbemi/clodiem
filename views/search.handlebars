@@ -47,7 +47,7 @@
     <script src="/js/addtostyle.js"></script>
     <script>
       function setSizes() {
-        rendertopbar(true, false);
+        rendertopbar(true, true);
 	    renderbottombar(true, 4{{#if logged_in_user}}, '{{logged_in_user.id}}'{{/if}});
         renderposts({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
         buildmenu(
