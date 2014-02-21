@@ -135,17 +135,23 @@ exports.createnewpostfromitems = function(req, res) {
   //if(data['users'][req.body.userid]) {
     //var username = data['users'][req.body.userid]['username'];
 
+
+    models.Post.find({"title" : "first post"}).exec(test);
+    function test(err, name){
+    	if(err) {console.log(err); res.send(500); }
+    	console.log("post test " + name[0]["title"]);
+    }
+
     console.log(req.body.userid);
     models.User.find({"id" : req.body.userid}).exec(afterSearch);
     function afterSearch(err, result) {
     	if(err) {console.log(err); res.send(500); }
     	console.log("create new post: " + req.body.userid);
     	if(result[0]) {
+    		var user = result[0];
     		var username = result[0]["username"];
     		//var body = req.body.post;
     		var post = new models.Post(req.body.post);
-    		console.log("post id" + post["id"]);
-
 	    	
 		    post['username'] = username;
 			post['numcomments'] = '0 comments';
@@ -180,8 +186,15 @@ exports.createnewpostfromitems = function(req, res) {
 			
 			// add the post to posts and add the post id to the posting user's
 			// list of post ids
-			data['posts'][post['id']] = post;
-			//data['users'][req.body.userid]['post_ids'].unshift(post['id']);
+			//data['posts'][post['id']] = post;
+
+			//saving
+			post.save(afterSave);
+			function afterSave(err){
+				if(err) {console.log(err); res.send(500); }
+		        console.log("post saved");
+		        user['post_ids'].unshift(post['id']);
+			}
 			
 			console.log('createpost.js: created post with id ' + post['id']);
 			console.log('createpost.js: post ' + post['id'] + ' has ' + post['item_ids'].length + ' items');

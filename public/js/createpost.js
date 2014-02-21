@@ -339,6 +339,7 @@ function createpost_gettotalprice(items) {
  * into a single returned string
  */
 function createpost_gettotalprice(items) {
+  if(!items || items.length == 0) return null;
   var price = '';
   price = items[0]['price'];
   var dollarSplit = items[0]['price'].split('$');

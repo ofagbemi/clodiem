@@ -19,13 +19,15 @@ var UserSchema = new Mongoose.Schema({
 });
 
 var PostSchema = new Mongoose.Schema({
+    "id": String,
     "type": String,
-    "userid": Date,
+    "userid": String,
     "username": String,
     "img":String,
     "comments":[String],
     "likers":[String],
-    "time": String,
+    "likes": Number,
+    "time": Date,
     "price": String,
     "title": String,
     "x": Number,
@@ -34,6 +36,7 @@ var PostSchema = new Mongoose.Schema({
     "purchase_link": String,
     "tags": [String],
     "item_ids": [String]
+                                     
 });
 
 exports.User = Mongoose.model('User', UserSchema);

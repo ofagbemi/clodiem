@@ -15,6 +15,7 @@ exports.view = function(req, res) {
 function setcurrentuser(req, userid) {
   console.log('login.js: setting current user to ' + userid);
   req.session.userid = userid;
+
   // data['logged_in_user'] = data['users'][userid];
 }
 
