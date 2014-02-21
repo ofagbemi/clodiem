@@ -1,5 +1,6 @@
 var data = require('../data.json');
 var util = require('./util.js');
+var profile = require('./profile.js');
 var dashboard = require('./dashboard.js');
 
 exports.followuser = function(req, res) {
@@ -50,7 +51,7 @@ function isfollowing(followerid, followedid) {
 }
 
 function isloggedinfollowing(userid) {
-  var logged_in_user = data['logged_in_user'];
+  var logged_in_user = profile.getloggedinuser(req);
   if(logged_in_user) {
     return util.contains(userid, logged_in_user['following_ids']);
   }
