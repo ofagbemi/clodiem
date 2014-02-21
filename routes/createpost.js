@@ -16,7 +16,7 @@ exports.view = function(req, res) {
 
 exports.uploads = function(req, res) {
   var file = req.params.file;
-  var img = fs.readFileSync(__dirname + '/../uploads/' + file);
+  var img = fs.readFileSync(__dirname + '/../public/uploads/' + file);
   res.writeHead(200, {'Content-Type': 'image'});
   res.end(img, 'binary');
 }
@@ -39,8 +39,8 @@ function uploadimage(image, success) {
 	if(!name) {
 	  console.log('error');
 	} else {
-	  var upload_name = generateimageuploadname(name);//'clodiem_' + util.sha1(name) + '.' + name.split('.').pop().toLowerCase();
-	  var newPath = __dirname + '/../uploads/' + upload_name;
+	  var upload_name = generateimageuploadname(name);
+	  var newPath = __dirname + '/../public/uploads/' + upload_name;
 	  fs.writeFile(newPath, data, function(err) {
 	    console.log('createpost.js: file available as ' + upload_name);
 	    if(success)
