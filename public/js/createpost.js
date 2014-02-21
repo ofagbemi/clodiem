@@ -327,7 +327,27 @@ function createpost_cleanupmarkitem() {
 function createpost_gettotalprice(items) {
   var price = '';
   for(var i=0;i<items.length;i++) {
-	price = price + ' + ' + items[i]['price'];
+  price = price + ' + ' + items[i]['price'];
   }
+  return $.trim(price);
+}
+
+
+/* createpost_gettotalprice(items)
+ * 
+ * Takes in a list of items and compiles their prices
+ * into a single returned string
+ */
+function createpost_gettotalprice(items) {
+  var price = '';
+  price = items[0]['price'];
+  var dollarSplit = items[0]['price'].split('$');
+  priceTotal += parseFloat(dollarSplit[1]);
+  var priceTotal = 0.0;
+  for(var i = 1; i < items.length; i++) {
+	   price += ' + ' + items[i]['price'].split('$');
+     priceTotal += parseFloat(dollarSplit[1]);
+  }
+  price += ' = ' + priceTotal;
   return $.trim(price);
 }

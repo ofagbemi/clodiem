@@ -2,11 +2,13 @@
  * Module dependencies.
  */
 
+
 var express = require('express');
 var http = require('http');
 var path = require('path');
 var handlebars = require('express3-handlebars');
 var partials = require('express-partials');
+var mongoose = require('mongoose');
 
 
 var landing = require('./routes/landing');
@@ -23,7 +25,17 @@ var createpost = require('./routes/createpost');
 var comment = require('./routes/comment');
 var follow = require('./routes/follow');
 var settings = require('./routes/settings');
+
+
+// Connect to the Mongo database, whether locally or on Heroku
+var local_database_name = 'clodiem';
+var local_database_uri  = 'mongodb://localhost/' + local_database_name
+var database_uri = process.env.MONGOLAB_URI || local_database_uri
+mongoose.connect(database_uri);
+
 var favorites = require('./routes/favorites');
+var likedposts = require('./routes/likedposts'); 
+
 var app = express();
 
 app.use(partials());
@@ -67,9 +79,7 @@ app.get('/settings', settings.view);
 app.get('/getaisleposts', dashboard.getaisleposts);
 app.get('/usernametaken', profile.usernametaken);
 app.get('/favorites', favorites.view);
-app.get('/likedposts', favorites.likedpostsview);
-app.get('/styles', favorites.stylesview);
-app.get('/styleposts', favorites.stylepostsview);
+app.get('/likedposts', likedposts.view);
 
 app.post('/loginuser', login.loginuser);
 app.post('/registeruser', register.registeruser);
