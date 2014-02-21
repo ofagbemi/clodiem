@@ -1,5 +1,3 @@
-var data = require('../data.json');
-
 exports.addcomment = function(req, res) {
   var comment = {
     'username': req.body.username,
@@ -8,20 +6,24 @@ exports.addcomment = function(req, res) {
     'img': req.body.img
   };
   
-  var post = data['posts'][req.body.postid];
-  
-  console.log('comment.js: posting to post ' + req.body.postid);
-  console.log('comment.js: ' + post);
-  
-  if(post) {
-    console.log('comment.js: Adding comment \'' + comment['comment'] + '\' to post ' + req.body.postid);
-    if(post['comments']) {
-      post['comments'].unshift(comment);
-    } else {
-      post['comments'] = [comment];
-    }
+  models.Post.
+        find("id", req.body.postid).
+        exec(afterSearchPost);
+
+        function afterSearchPost(err, result) {
+            if(err) {console.log(err); res.send(500); }
+            if(result[0]) {
+                console.log('comment.js: posting to post ' + req.body.postid);
+                console.log('comment.js: ' + post);
+                console.log('comment.js: Adding comment \'' + comment['comment'] + '\' to post ' + req.body.postid);
+                if(post['comments']) {
+                  post['comments'].unshift(comment);
+                } else {
+                post['comments'] = [comment];
+                }
     
-    res.writeHead(200);
-    res.end();
-  }
+                res.writeHead(200);
+                res.end();
+            }
+        }
 };

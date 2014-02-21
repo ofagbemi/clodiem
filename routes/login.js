@@ -1,4 +1,3 @@
-var data = require('../data.json');
 var util = require('./util.js');
 var profile = require('./profile.js');
 var passwordHash = require('password-hash');
@@ -28,24 +27,31 @@ exports.setcurrentuser = setcurrentuser;
 exports.loginuser = function(req, res) {
   // look for user -- TODO: change this later to generate user id
   var userid = util.getuserid(req.body.username);
-  var user = data['users'][userid];
-  if(user) {
-    // check password
-    if(passwordHash.verify(req.body.password, user['password'])) {
-      console.log('login.js: logging in user ' + userid);
-      setcurrentuser(req, userid);
-      res.redirect('/aisle');
-    } else {
-      var ret = {'message': 'Wrong username/password',
-                 'username': req.body.username};
-      res.render('login', ret);
-    }
-  } else {
-    console.log('login.js: login failed! User ' + userid + ' could not be found');
-    var ret = {'message': 'The username "' + req.body.username + '" could not be found',
-               'username': req.body.username};
-    res.render('login', ret);
-  }
+
+  models.User.
+        find("id", userid).
+        exec(afterSearch);
+
+        function afterSearch(err, result) {
+          user = result[0];
+          if(user) {
+            // check password
+            if(passwordHash.verify(req.body.password, user['password'])) {
+              console.log('login.js: logging in user ' + userid);
+              setcurrentuser(req, userid);
+              res.redirect('/aisle');
+            } else {
+              var ret = {'message': 'Wrong username/password',
+                         'username': req.body.username};
+              res.render('login', ret);
+            }
+          } else {
+            console.log('login.js: login failed! User ' + userid + ' could not be found');
+            var ret = {'message': 'The username "' + req.body.username + '" could not be found',
+                       'username': req.body.username};
+            res.render('login', ret);
+          }
+        }
 };
 
 exports.logoutuser = function(req, res) {

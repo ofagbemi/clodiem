@@ -1,4 +1,3 @@
-var data = require('../data.json');
 var profile = require('./profile.js');
 
 exports.view = function(req, res) {
@@ -13,16 +12,22 @@ exports.view = function(req, res) {
 }
 
 exports.setuser = function(req, res) {
-  var user = data['users'][req.body.userid];
-  if(user) {
-    for(var key in req.body.settings) {
-      user[key] = req.body.settings[key];
-    }
-    res.writeHead(200);
-    res.end();
-  } else {
-    console.log('setuser.js: the user with id ' + req.body.userid + ' could not be found');
-    res.writeHead(404);
-    res.end();
-  }
+   models.User.
+        find("id", req.body.userid).
+        exec(afterSearchUser);
+
+        function afterSearchUser(err, result) {
+          var user = result[0];
+          if(user) {
+            for(var key in req.body.settings) {
+              user[key] = req.body.settings[key];
+            }
+            res.writeHead(200);
+            res.end();
+          } else {
+            console.log('setuser.js: the user with id ' + req.body.userid + ' could not be found');
+            res.writeHead(404);
+            res.end();
+          }
+        }
 };

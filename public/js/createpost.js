@@ -337,7 +337,7 @@ function createpost_gettotalprice(items) {
  * 
  * Takes in a list of items and compiles their prices
  * into a single returned string
- */
+ */ 
 function createpost_gettotalprice(items) {
   var price = '';
   price = items[0]['price'];
@@ -345,7 +345,7 @@ function createpost_gettotalprice(items) {
   priceTotal += parseFloat(dollarSplit[1]);
   var priceTotal = 0.0;
   for(var i = 1; i < items.length; i++) {
-	   price += ' + ' + items[i]['price'].split('$');
+     price += ' + ' + items[i]['price'].split('$');
      priceTotal += parseFloat(dollarSplit[1]);
   }
   price += ' = ' + priceTotal;
