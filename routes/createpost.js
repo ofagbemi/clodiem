@@ -40,7 +40,11 @@ function uploadimage(image, success) {
 	if(!name) {
 	  console.log('error');
 	} else {
+<<<<<<< HEAD
 	  var upload_name = generateimageuploadname(name);//'clodiem_' + util.sha1(name) + '.' + name.split('.').pop().toLowerCase();
+=======
+	  var upload_name = generateimageuploadname(name);
+>>>>>>> 86b59b1f0f2c7dce06cd2e74628c1992b07b5642
 	  var newPath = __dirname + '/../uploads/' + upload_name;
 	  fs.writeFile(newPath, data, function(err) {
 	    console.log('createpost.js: file available as ' + upload_name);

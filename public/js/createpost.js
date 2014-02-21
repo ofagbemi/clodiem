@@ -348,6 +348,6 @@ function createpost_gettotalprice(items) {
      price += ' + ' + items[i]['price'].split('$');
      priceTotal += parseFloat(dollarSplit[1]);
   }
-  price += ' = ' + priceTotal;
+  price += priceTotal;
   return $.trim(price);
 }

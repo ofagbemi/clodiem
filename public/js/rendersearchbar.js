@@ -10,7 +10,7 @@ function rendersearchbar(h, barheight, barwidth, boxshadow) {
   
   
   var wrap = $('<div class="searchwrap"></div>');
-  var form = $('<form class="searchform" method="get" action="search"><div class="search"></div></form>');
+  var form = $('<form class="searchform" method="get" action="searchfor"><div class="search"></div></form>');
   $(wrap).append(form);
   $('body').append(wrap);
   $('.searchwrap')
@@ -23,13 +23,14 @@ function rendersearchbar(h, barheight, barwidth, boxshadow) {
     $('.searchwrap')
       .css('box-shadow', '0px 1px 3px rgba(0,0,0,0.1)');
   }
+  
 
   var label = $('<label></label>');
   label
     .css('height', height - 8 + 'px')
     .css('width', height - 8 + 'px')
-    .css('background-size', (height-8-10) + 'px ' + (height-8-10) + 'px')
-    .css('background-position', '4px 6px')
+    .css('background-size', (height-8-10 - 4) + 'px ' + (height-8-10 - 4) + 'px')
+    .css('background-position', 'center')
     .attr('id', 'searchbox_label')
     .attr('for', 'searchbox');
     
@@ -50,4 +51,10 @@ function rendersearchbar(h, barheight, barwidth, boxshadow) {
   $('#searchbox')
     .css('padding-top', '5px')
     .css('width', ($('.search').width() - $('#searchbox_label').width()) + 'px');
+    
+  $('.searchbutton')
+    .click(function(e) {
+      e.preventDefault();
+      $('form.searchform').submit();
+    });
 }
