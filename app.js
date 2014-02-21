@@ -26,13 +26,6 @@ var comment = require('./routes/comment');
 var follow = require('./routes/follow');
 var settings = require('./routes/settings');
 
-
-// Connect to the Mongo database, whether locally or on Heroku
-var local_database_name = 'clodiem';
-var local_database_uri  = 'mongodb://localhost/' + local_database_name
-var database_uri = process.env.MONGOLAB_URI || local_database_uri
-mongoose.connect(database_uri);
-
 var favorites = require('./routes/favorites');
 
 var app = express();
