@@ -2,6 +2,7 @@ var data = require('../data.json');
 var util = require('./util.js');
 var follow = require('./follow.js');
 var dashboard = require('./dashboard.js');
+var models = require('../models');
 
 /* getloggedinuser
  *
@@ -9,7 +10,7 @@ var dashboard = require('./dashboard.js');
  * user
  */
 function getloggedinuser(req) {
-  return data['users'][req.session.userid];
+    return req.session.userid;
 }
 
 exports.getloggedinuser = getloggedinuser;

@@ -70,20 +70,5 @@ function isfollowing(followerid, followedid) {
         }
 }
 
-function isloggedinfollowing(userid) {
-  models.User.
-        find("id", followerid).
-        exec(afterSearch);
-
-        function afterSearch(err, result) {
-          var follower = result[0];
-
-          
-  var logged_in_user = data['logged_in_user'];
-  if(logged_in_user) {
-    return util.contains(userid, logged_in_user['following_ids']);
-  }
-}
-
-exports.isloggedinfollowing = isloggedinfollowing;
 exports.isfollowing = isfollowing;
+
