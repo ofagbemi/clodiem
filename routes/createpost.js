@@ -2,15 +2,22 @@ var data = require('../data.json');
 var util = require('./util.js');
 var profile = require('./profile.js');
 var fs = require('fs');
+var models = require('../models');
 
 exports.view = function(req, res) {
-  var logged_in_user = profile.getloggedinuser(req);
-  if(logged_in_user) {
-	var ret = {};
-	ret['logged_in_user'] = logged_in_user;
-	res.render('createpost', ret);
-  } else {
-    res.redirect('/login');
+  var logged_in_id = profile.getloggedinuser(req);
+  models.User.find({"id" : logged_in_id}).exec(afterSearch);
+  function afterSearch(err, result){
+  	  if(err) {console.log(err); res.send(500); }
+  	  if(result[0]) {
+  	  	//RESET LOGGED IN USER
+  	  	var logged_in_user = result[0];
+		var ret = {};
+		ret['logged_in_user'] = logged_in_user;
+		res.render('createpost', ret);
+	  } else {
+	    res.redirect('/login');
+	  }
   }
 };
 
@@ -118,64 +125,81 @@ exports.createnewpost = function(req, res) {
 	var ret = {'postid': post['id']};
 	res.json(ret);
   } else {
-    console.log('createpost.js: couldn\'t find user with id ' + req.body.userid);
+    console.log('createpost.js: couldn\'t find user with id 1' + req.body.userid);
     res.writeHead(404);
     res.end();
   }
 }
 
 exports.createnewpostfromitems = function(req, res) {
-  if(data['users'][req.body.userid]) {
-    var username = data['users'][req.body.userid]['username'];
-    var post = req.body.post;
-    post['username'] = username;
-	post['numcomments'] = '0 comments';
-	post['comments'] = [];
-	post['likes'] = 0;
-	post['likers'] = [];
-	post['item_ids'] = [];
-  
-    var item_ids = [];
-    var items = req.body.items;
-    if(items) {
-	  for(var i=0;i<req.body.items.length;i++) {
-		var item = req.body.items[i];
-	  
-		item['comments'] = [];
-		item['likes'] = 0;
-		item['likers'] = [];
-		item['id'] = util.getpostid(item);
-		if(item['type'] == 'item') {
-		  if(!item['item_ids']) item['item_ids'] = [];
-		  post['item_ids'].push(item['id']);
+  //if(data['users'][req.body.userid]) {
+    //var username = data['users'][req.body.userid]['username'];
+
+    console.log(req.body.userid);
+    models.User.find({"id" : req.body.userid}).exec(afterSearch);
+    function afterSearch(err, result) {
+    	if(err) {console.log(err); res.send(500); }
+    	console.log("create new post: " + req.body.userid);
+    	if(result[0]) {
+    		var username = result[0]["username"];
+    		//var body = req.body.post;
+    		var post = new models.Post(req.body.post);
+    		console.log("post id" + post["id"]);
+
+	    	
+		    post['username'] = username;
+			post['numcomments'] = '0 comments';
+			post['comments'] = [];
+			post['likes'] = 0;
+			post['likers'] = [];
+			post['item_ids'] = [];
+		  
+		    var item_ids = [];
+		    var items = req.body.items;
+		    if(items) {
+			  for(var i=0;i<req.body.items.length;i++) {
+				var item = req.body.items[i];
+			  
+				item['comments'] = [];
+				item['likes'] = 0;
+				item['likers'] = [];
+				item['id'] = util.getpostid(item);
+				if(item['type'] == 'item') {
+				  if(!item['item_ids']) item['item_ids'] = [];
+				  post['item_ids'].push(item['id']);
+				}
+				// add the item
+				item_ids.push(item['id']);
+				data['posts'][item['id']] = item;
+				console.log('createpost.js: created item with id ' + item['id']);
+			  }
+			}
+			
+			post['item_ids'] = item_ids;
+			post['id'] = util.getpostid(post)
+			
+			// add the post to posts and add the post id to the posting user's
+			// list of post ids
+			data['posts'][post['id']] = post;
+			//data['users'][req.body.userid]['post_ids'].unshift(post['id']);
+			
+			console.log('createpost.js: created post with id ' + post['id']);
+			console.log('createpost.js: post ' + post['id'] + ' has ' + post['item_ids'].length + ' items');
+			
+			// return with id of item added
+			var ret = {'postid': post['id']};
+			res.json(ret);
+
+		} else {
+		  console.log('createpost.js: couldn\'t find user with id 2' + req.body.userid);
+		  res.writeHead(404);
+		  res.end();
 		}
-		// add the item
-		item_ids.push(item['id']);
-		data['posts'][item['id']] = item;
-		console.log('createpost.js: created item with id ' + item['id']);
-	  }
-	}
-	
-	post['item_ids'] = item_ids;
-	post['id'] = util.getpostid(post)
-	
-	// add the post to posts and add the post id to the posting user's
-	// list of post ids
-	data['posts'][post['id']] = post;
-	data['users'][req.body.userid]['post_ids'].unshift(post['id']);
-	
-	console.log('createpost.js: created post with id ' + post['id']);
-	console.log('createpost.js: post ' + post['id'] + ' has ' + post['item_ids'].length + ' items');
-	
-	// return with id of item added
-	var ret = {'postid': post['id']};
-	res.json(ret);
-  } else {
-    console.log('createpost.js: couldn\'t find user with id ' + req.body.userid);
-    res.writeHead(404);
-    res.end();
-  }
-};
+    }
+}
+
+
+
 exports.addtopostitems = function(req, res) {
   var post = data['posts'][req.body.id];
   if(post) {

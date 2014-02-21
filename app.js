@@ -35,7 +35,6 @@ mongoose.connect(database_uri);
 
 var favorites = require('./routes/favorites');
 
-var likedposts = require('./routes/likedposts'); 
 
 var app = express();
 

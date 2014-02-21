@@ -1,15 +1,29 @@
 var data = require("../data.json");
 var profile = require('./profile.js');
+var models = require('../models');
 
 exports.view = function(req, res) {
     var ret = {};
     
     // get the current logged in user
-    ret['logged_in_user'] = profile.getloggedinuser(req);
-    
+    ret['logged_in_user'] = profile.getloggedinuser(req); 
     ret['query'] = req.query.q.toLowerCase();
     ret['posts'] = [];
     
+
+    // models.User
+    // .find({"id" : userid})
+    // .exec(afterSearch)
+    
+    // function afterSearch(err, result) { // this is a callback
+    //     if(err) {console.log(err); res.send(500); }
+    //     if(!result[0]){
+    //     }
+    // }
+
+
+
+
     var d = data['posts'];
     var ids = Object.keys(d);
     
