@@ -15,8 +15,8 @@ function rendertopbar(withpadding, withbackbutton) {
       link = '/aisle';
     }
     
-	var backbutton = $('<a class="back_button" href="#">back</a>');
-	backbutton.attr('href', link);
+	var backbutton = $('<a class="back_button">back</a>');
+	backbutton.attr('onclick', 'window.history.back()');
 	topbar.append(backbutton);
   }
   

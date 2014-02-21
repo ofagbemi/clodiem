@@ -106,6 +106,9 @@
         {{#if logged_in_user}}
         settings_setup('{{logged_in_user.id}}');
         {{/if}}
+        
+        
+        setlinks();  // call this last!
       }
       $(window).resize(function() {
          setSizes();

@@ -20,7 +20,7 @@
       {{/unless}}
       class="separate_header">
         {{#if logged_in_user.style_ids.length}}
-          <img src="/images/icons/forward/darkgreyforward.svg" style="width:30px;margin-top:8px;float:right;">
+          <img src="/images/icons/forward/darkgreyforward.svg" style="width:18px;margin-top:14px;margin-right:2px;float:right;">
         {{/if}}
         <h3>Styles</h3>
         <p>{{logged_in_user.style_ids.length}} styles</p>
@@ -40,7 +40,7 @@
       {{/unless}}
       class="separate_header">
         {{#if logged_in_user.liked_post_ids.length}}
-          <img src="/images/icons/forward/darkgreyforward.svg" style="width:30px;margin-top:8px;float:right;">
+          <img src="/images/icons/forward/darkgreyforward.svg" style="width:18px;margin-top:14px;margin-right:2px;float:right;">
         {{/if}}
         <h3>Likes</h3>
         <p>{{logged_in_user.liked_post_ids.length}} likes</p>
@@ -57,7 +57,7 @@
       {{/unless}}
       class="separate_header">
         {{#if logged_in_user.following_ids.length}}
-          <img src="/images/icons/forward/darkgreyforward.svg" style="width:30px;margin-top:8px;float:right;">
+          <img src="/images/icons/forward/darkgreyforward.svg" style="width:18px;margin-top:14px;margin-right:2px;float:right;">
         {{/if}}
         <h3>Following</h3>
         <p>Following {{logged_in_user.following_ids.length}} users</p>
@@ -99,6 +99,8 @@
             false
           {{/if}}
         );
+        
+        setlinks();  // call this last!
       }
       $(window).resize(function() {
          setSizes();

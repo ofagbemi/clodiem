@@ -22,7 +22,6 @@ var following = require('./routes/following');
 var followers = require('./routes/followers');
 var outfits = require('./routes/closet');
 var createpost = require('./routes/createpost');
-var additem = require('./routes/additem');
 var comment = require('./routes/comment');
 var follow = require('./routes/follow');
 var settings = require('./routes/settings');
@@ -35,6 +34,7 @@ var database_uri = process.env.MONGOLAB_URI || local_database_uri
 mongoose.connect(database_uri);
 
 var favorites = require('./routes/favorites');
+
 var likedposts = require('./routes/likedposts'); 
 
 var app = express();
@@ -76,12 +76,13 @@ app.get('/following', following.view);
 app.get('/followers', followers.view);
 app.get('/closet', outfits.view);
 app.get('/createpost', createpost.view);
-app.get('/additem', additem.view);
 app.get('/settings', settings.view);
 app.get('/getaisleposts', dashboard.getaisleposts);
 app.get('/usernametaken', profile.usernametaken);
 app.get('/favorites', favorites.view);
-app.get('/likedposts', likedposts.view);
+app.get('/likedposts', favorites.likedpostsview);
+app.get('/styles', favorites.stylesview);
+app.get('/styleposts', favorites.stylepostsview);
 
 app.post('/loginuser', login.loginuser);
 app.post('/registeruser', register.registeruser);

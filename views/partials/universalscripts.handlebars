@@ -1,8 +1,21 @@
 <script>
-  $('a').click( function(e) {
-    e.preventDefault();
-    var h = $(this).attr('href');
-    if(h == '#') h = null;
-    if(h) location.href = h;
-  });
+  function setlinks() {
+	$('a').click( function(e) {
+	  e.preventDefault();
+	  var h = $(this).attr('href');
+	  if(h == '#') h = null;
+	  if(h && (h.indexOf('clodiem.') > -1 || h.indexOf('localhost') > -1) || h.indexOf('/') == 0) location.href = h;
+	});
+  }
+  function setlinks_exp() {
+	$('a').click( function(e) {
+	  e.preventDefault();
+	  var h = $(this).attr('href');
+	  if(h == '#') h = null;
+	  // if(h) location.href = h;
+	  if(h && (h.indexOf('clodiem.') > -1 || h.indexOf('localhost') > -1 || h.indexOf('/') == 0)) {
+	    $('#window').attr('src', h);
+	  }
+	});
+  }
 </script>

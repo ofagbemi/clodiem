@@ -7,8 +7,8 @@
   <body>
     <div class="content">
       <div class="separate_header" >
-        <img class="corner_icon" style="margin-top:8px;float:right" src="/images/icons/black_heart/black_heart.svg">
-		<h2>Likes</h2>
+        <img class="corner_icon" style="margin-top:8px;float:right" src="{{icon}}">
+		<h2>{{title}}</h2>
 	  </div>
       {{#if posts.length}}
         <div class="posts">
@@ -50,6 +50,9 @@
             false
           {{/if}}
         );
+        
+        
+        setlinks();  // call this last!
       }
       $(window).resize(function() {
          setSizes();
