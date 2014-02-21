@@ -1,6 +1,6 @@
 var util = require('./util.js');
 var dashboard = require('./dashboard.js');
-
+var models = require('../models');
 
 exports.followuser = function(req, res) {
   var ret = {'follow': false};

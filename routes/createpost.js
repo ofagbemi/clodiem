@@ -2,6 +2,7 @@ var data = require('../data.json');
 var util = require('./util.js');
 var profile = require('./profile.js');
 var fs = require('fs');
+var models = require('../models');
 
 exports.view = function(req, res) {
   var logged_in_user = profile.getloggedinuser(req);

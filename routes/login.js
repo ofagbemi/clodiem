@@ -1,6 +1,7 @@
 var util = require('./util.js');
 var profile = require('./profile.js');
 var passwordHash = require('password-hash');
+var models = require('../models');
 
 exports.view = function(req, res) {
   if(profile.getloggedinuser(req)) {

@@ -1,6 +1,6 @@
 var util = require('./util.js');
 var profile = require('./profile.js');
-
+var models = require('../models');
 
 exports.addlike = function(req, res) {
   var postid = req.body.postid;
@@ -139,67 +139,84 @@ function getpostsfromids(ids, user) {
         exec(afterSearchUser);
 
         function afterSearchUser(err, result) {
-	       var user = result[0];
-      	 if(user) {
-      	    if(util.contains(post['id'], user['liked_post_ids'])) {
-      		  post['liked_post'] = true;
-      	    }
-      	  }
-      	  if(user) {
-      	  // tack on logged in user
-      	    post['logged_in_user'] = user;
-      	    
-      	    // set logged in user's style stuff up
-      	    user['styles'] = getpostsfromids(user['style_ids']);
-      	  }
-      	  ret.push(post);
-      	}
+         var user = result[0];
+         if(user) {
+            if(util.contains(post['id'], user['liked_post_ids'])) {
+            post['liked_post'] = true;
+            }
+          }
+          if(user) {
+          // tack on logged in user
+            post['logged_in_user'] = user;
+            
+            // set logged in user's style stuff up
+            user['styles'] = getpostsfromids(user['style_ids']);
+          }
+          ret.push(post);
+        }
     }
     return ret;
+  }
 };
 
 exports.view = function(req, res) {
   var logged_in_user = profile.getloggedinuser(req);
   if(logged_in_user) {
-	var ret = {};
-	ret['posts'] = [];
-	
-	// populate ret['posts'] with all of the logged in user's aisle posts
-	if(logged_in_user && logged_in_user['aisle_post_ids']) {
-	  ret['posts'] = getpostsfromids(logged_in_user['aisle_post_ids'],
-	                                 logged_in_user);
-	} else {
-	  logged_in_user['aisle_post_ids'] = [];
-	}
-  
-    // populate each post with the item posts for each of the items
-    // belonging to that post
-	for(var i=0;i<ret['posts'].length;i++) {
-	  var post = ret['posts'][i];
-	  post['items'] = [];
-	  if(post['item_ids']) {
-	    post['items'] = getpostsfromids(post['item_ids']);
-	  }
-	}
-	
-	// get recommended users
-	logged_in_user['recommended_users'] = [];
-	for(var i=0;i<logged_in_user['recommended_user_ids'].length;i++) {
-      models.User.
-        find("id", logged_in_user['recommended_user_ids'][i]).
-        exec(afterSearchUser);
+    var ret = {};
+    ret['posts'] = [];
+    
+    // populate ret['posts'] with all of the logged in user's aisle posts
+    if(logged_in_user && logged_in_user['aisle_post_ids']) {
+      ret['posts'] = getpostsfromids(logged_in_user['aisle_post_ids'],
+                                     logged_in_user);
+    } else {
+      logged_in_user['aisle_post_ids'] = [];
+    }
+    
+      // populate each post with the item posts for each of the items
+      // belonging to that post
+    for(var i=0;i<ret['posts'].length;i++) {
+      var post = ret['posts'][i];
+      post['items'] = [];
+      if(post['item_ids']) {
+        post['items'] = getpostsfromids(post['item_ids']);
+      }
+    }
+    
+    // get recommended users
+    //console.log(logged_in_user);
 
-        function afterSearchUser(err, result) {
-	        var r_user = result[0];
-          logged_in_user['recommended_users'].push(r_user);
-        }
-	}
-	
-	ret['logged_in_user'] = logged_in_user;
-	
-	res.render('dashboard', ret);
+    models.User.find({"id" : logged_in_user}).exec(afterSearch);
+
+    function afterSearch(err, result){
+      //CONVERTED LOGGED_IN_USER
+      var logged_in_user = result[0];
+      logged_in_user['recommended_users'] = [];
+      if(!logged_in_user['recommended_user_ids']) logged_in_user['recommended_user_ids'] = [];
+      for(var i=0;i<logged_in_user['recommended_user_ids'].length;i++) {
+          models.User.
+            find("id", logged_in_user['recommended_user_ids'][i]).
+            exec(afterSearchUser);
+
+            function afterSearchUser(err, result) {
+              var r_user = result[0];
+              logged_in_user['recommended_users'].push(r_user);
+            }
+      }
+      
+      ret['logged_in_user'] = logged_in_user;
+      
+      res.render('dashboard', ret);
+    }
   } else {
     // if no one's logged in, redirect to log in page
     res.redirect('/login');
   }
 };
+
+
+
+
+
+
+

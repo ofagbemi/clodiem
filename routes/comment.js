@@ -1,3 +1,5 @@
+var models = require('../models');
+
 exports.addcomment = function(req, res) {
   var comment = {
     'username': req.body.username,

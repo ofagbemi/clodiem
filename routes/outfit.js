@@ -1,5 +1,6 @@
 var profile = require('./profile.js');
 var dashboard = require('./dashboard.js');
+var models = require('../models');
 
 exports.view = function(req, res) {
   var ret = {};
