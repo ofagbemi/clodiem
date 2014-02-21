@@ -205,6 +205,21 @@ div.separate_header {
                                     url("http://subtlepatterns.com/patterns/sprinkles.png");
   */
 }
+#about {
+  background: white;
+}
+#about h2 {
+  margin-bottom: 11px;
+  padding-bottom: 16px;
+  border-bottom: solid 1px rgba(0,0,0,0.14);
+}
+#about h3 {
+  margin-top: 11px;
+  margin-bottom: 8px;
+}
+#cover {
+  background: rgba(0,0,0,0.4);
+}
 .button_wrap {
   /* background-color: #3d3c3c; */
 }

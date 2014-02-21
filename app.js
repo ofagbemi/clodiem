@@ -20,12 +20,10 @@ var profile = require('./routes/profile');
 var search = require('./routes/search');
 var following = require('./routes/following');
 var followers = require('./routes/followers');
-var outfits = require('./routes/closet');
 var createpost = require('./routes/createpost');
 var comment = require('./routes/comment');
 var follow = require('./routes/follow');
 var settings = require('./routes/settings');
-
 
 // Connect to the Mongo database, whether locally or on Heroku
 var local_database_name = 'clodiem';
@@ -34,7 +32,6 @@ var database_uri = process.env.MONGOLAB_URI || local_database_uri
 mongoose.connect(database_uri);
 
 var favorites = require('./routes/favorites');
-
 
 var app = express();
 
@@ -70,10 +67,10 @@ app.get('/login', login.view);
 app.get('/logoutuser', login.logoutuser);
 app.get('/register', register.view);
 app.get('/user', profile.view);
-app.get('/search', search.view);
+app.get('/search', search.landingview);
+app.get('/searchfor', search.view);
 app.get('/following', following.view);
 app.get('/followers', followers.view);
-app.get('/closet', outfits.view);
 app.get('/createpost', createpost.view);
 app.get('/settings', settings.view);
 app.get('/getaisleposts', dashboard.getaisleposts);

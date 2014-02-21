@@ -6,8 +6,14 @@ exports.view = function(req, res) {
     var ret = {};
     
     // get the current logged in user
-    ret['logged_in_user'] = profile.getloggedinuser(req); 
-    ret['query'] = req.query.q.toLowerCase();
+
+    ret['logged_in_user'] = profile.getloggedinuser(req);
+    
+    var query = req.query.q
+    if(!query) {
+      query = '';
+    }
+    ret['query'] = query.toLowerCase();
     ret['posts'] = [];
     
 
@@ -30,7 +36,7 @@ exports.view = function(req, res) {
     for(var i=0; i < ids.length; i++) {
         if(d[ids[i]]['tags']) {
             for(var j=0; j< d[ids[i]]['tags'].length; j++){
-                if(d[ids[i]]['tags'][j]['tag'].toLowerCase() === req.query.q.toLowerCase()){
+                if(d[ids[i]]['tags'][j]['tag'].toLowerCase() == query.toLowerCase()){
                     ret['posts'].push(d[ids[i]]);
                 }
             }
@@ -39,3 +45,7 @@ exports.view = function(req, res) {
     
     res.render('search', ret);
 };
+exports.landingview = function(req, res) {
+  var ret = {};
+  res.render('searchlanding', ret);
+}

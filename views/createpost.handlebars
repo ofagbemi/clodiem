@@ -148,7 +148,9 @@
   {{> universalscripts}}
   <script>
 	function setSizes() {
-	  rendertopbar();
+	  rendertopbar(true, false);
+	  renderbottombar(true, 2{{#if logged_in_user}}, '{{logged_in_user.id}}'{{/if}});
+	  
 	  renderposts({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
 	  buildmenu(
 		  {{#if logged_in_user}}
