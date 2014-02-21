@@ -9,7 +9,7 @@ exports.addcomment = function(req, res) {
   };
   
   models.Post.
-        find("id", req.body.postid).
+        find("id": req.body.postid).
         exec(afterSearchPost);
 
         function afterSearchPost(err, result) {
