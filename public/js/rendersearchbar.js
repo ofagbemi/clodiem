@@ -10,7 +10,7 @@ function rendersearchbar(h, barheight, barwidth, boxshadow) {
   
   
   var wrap = $('<div class="searchwrap"></div>');
-  var form = $('<form class="searchform" method="get" action="search"><div class="search"></div></form>');
+  var form = $('<form class="searchform" method="get" action="searchfor"><div class="search"></div></form>');
   $(wrap).append(form);
   $('body').append(wrap);
   $('.searchwrap')
@@ -23,6 +23,8 @@ function rendersearchbar(h, barheight, barwidth, boxshadow) {
     $('.searchwrap')
       .css('box-shadow', '0px 1px 3px rgba(0,0,0,0.1)');
   }
+  
+  alert('hi');
 
   var label = $('<label></label>');
   label
