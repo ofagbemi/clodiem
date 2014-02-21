@@ -165,9 +165,13 @@ exports.createnewpostfromitems = function(req, res) {
     		var username = result[0]['username'];
     		var post = new models.Post({
     			'id': req.body.post.id,
-    			'type' = req.body.post.type,
+    			'type' = 'post',
     			'userid' = req.body.post.userid,
     			'username' = username,
+    			'img' = req.body.post.img,
+    			'time' = req.body.post.time,
+    			'tags' = req.body.post.tags});
+
 			post['numcomments'] = '0 comments';
 			post['comments'] = [];
 			post['likes'] = 0;
@@ -178,6 +182,7 @@ exports.createnewpostfromitems = function(req, res) {
 		    var items = req.body.items;
 		    if(items) {
 			  for(var i=0;i<req.body.items.length;i++) {
+			  	var item = 
 				var item = req.body.items[i];
 			  
 				item['comments'] = [];
