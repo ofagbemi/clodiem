@@ -1,4 +1,3 @@
-var data = require('../data.json');
 var profile = require('./profile.js');
 var models = require('../models');
 
@@ -48,4 +47,5 @@ exports.setuser = function(req, res) {
   //   res.writeHead(404);
   //   res.end();
   // }
+
 };

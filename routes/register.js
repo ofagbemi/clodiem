@@ -1,9 +1,9 @@
-var data = require('../data.json');
-var models = require('../models');
+
 var login = require('./login.js');
 var util = require('./util.js');
 var passwordHash = require('password-hash');
 var profile = require('./profile.js');
+var models = require('../models');
 
 exports.view = function(req, res) {
   if(profile.getloggedinuser(req)) {
@@ -53,14 +53,16 @@ exports.registeruser = function(req, res) {
 		          console.log("user saved");
 		      }
 		      
-		  
+
 		    console.log('register.js: registered user ' + userid + ' successfully!');
 			// set this user as the logged in user
 			login.setcurrentuser(req, user['id']);
 		  
 			res.redirect('/aisle');
 		  } else {
+              
 		    console.log('register.js: user with id ' + userid + ' already exists');
+
 		    res.writeHead(403);
 		    res.end();
 		  }

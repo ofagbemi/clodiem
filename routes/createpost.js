@@ -47,6 +47,7 @@ function uploadimage(image, success) {
 	  console.log('error');
 	} else {
 	  var upload_name = generateimageuploadname(name);
+
 	  var newPath = __dirname + '/../uploads/' + upload_name;
 	  fs.writeFile(newPath, data, function(err) {
 	    console.log('createpost.js: file available as ' + upload_name);
@@ -62,48 +63,102 @@ function uploadimage(image, success) {
  * only adds to post if there isn't an image for it already
  */
 exports.uploadimageandaddtopost = function(req, res) {
-  var post = data['posts'][req.body.postid];
-  if(post && !post['img']) {
-    uploadimage(
-      req.files.img, 
-	  function(url) {
-		post['img'] = url;
-		console.log('createpost.js: ' + post['img'] + ' added to post ' + post['id']);
-		res.redirect('/outfit?id=' + post['id']);
-	  });
-  } else {
-    res.writeHead(404);
-    res.end();
-  }
+	models.Post.
+        find("id", req.body.postid).
+        exec(afterSearch1);
+
+        function afterSearch1(err, result) {
+          var post = result[0];
+          if(post && !post['img']) {
+    			uploadimage(
+      				req.files.img, 
+	  				function(url) {
+	  					models.Post.
+	  						find({"id": post['id']}).
+	  						update({'img': url}).
+	  						exec(afterUpdating);
+
+	  						function afterUpdating(err) {
+	  							if (err) {console.log(err); res.send(500);}
+	  						}
+						console.log('createpost.js: ' + post['img'] + ' added to post ' + post['id']);
+						res.redirect('/outfit?id=' + post['id']);
+	  				});
+  			} else {
+    			res.writeHead(404);
+    			res.end();
+    		}
+  		}
 }
 
 exports.createnewpost = function(req, res) {
-  var user = data['users'][req.body.userid];
-  if(user) {
-	var username = user['username'];
-	var img;
-	if(req.files && req.files.img) {
-	  img =  uploadimage(req.files.img.path);
-	} else img = req.body.img;
-	var post = {
-	  'type': req.body.type,
-	  'userid': user['id'],
-	  'username': user['username'],
-	  'numcomments': '0 comments',
-	  'comments': [],
-	  'img': img,
-	  'likes': 0,
-	  'likers': [],
-	  'time': req.body.time,
-	  'price': req.body.price,
-	  'title': req.body.title,
-	  'x': req.body.x,
-	  'y': req.body.y,
-	  'retailer': req.body.retailer,
-	  'purchase_link': req.body.purchase_link,
-	  'tags': req.body.tags,
-	  'item_ids': req.body.item_ids
-	};
+	models.User.
+        find("id", req.body.userid).
+        exec(afterSearch1);
+
+        function afterSearch1(err, result) {
+          var user = result[0];
+          if(user) {
+			var username = user['username'];
+			var img;
+			if(req.files && req.files.img) {
+			  img =  uploadimage(req.files.img.path);
+			} else img = req.body.img;
+
+			var post = new models.Post({
+			  'type': req.body.type,
+			  'userid': user['id'],
+			  'username': user['username'],
+			  'numcomments': '0 comments',
+			  'comments': [],
+			  'img': img,
+			  'likes': 0,
+			  'likers': [],
+			  'time': req.body.time,
+			  'price': req.body.price,
+			  'title': req.body.title,
+			  'x': req.body.x,
+			  'y': req.body.y,
+			  'retailer': req.body.retailer,
+			  'purchase_link': req.body.purchase_link,
+			  'tags': req.body.tags,
+			  'item_ids': req.body.item_ids
+			});
+
+			post['id'] = util.getpostid(post);
+
+			if(post['type'] == 'item') {
+			  post['item_ids'].push(post['id']);
+			}
+						
+			console.log(post);			
+			console.log('createpost.js: created post with id ' + post['id']);
+
+			post.save(afterSaving);
+			function afterSaving(err) {
+			    if(err) {
+			      console.log(err);
+			      res.send(500);
+			    }
+			    res.send(200);
+			}
+			
+			// add to user
+			if(post['type'] == 'style') {
+			  user['style_ids'].unshift(post['id']);
+			} else {
+			  console.log('createpost.js: unsupported post type ' + post['type']);
+			}
+			
+			// return with id of item added
+			var ret = {'postid': post['id']};
+			res.json(ret);
+		  } else {
+		    console.log('createpost.js: couldn\'t find user with id ' + req.body.userid);
+		    res.writeHead(404);
+		    res.end();
+		  }
+  		}
   
 	post['id'] = util.getpostid(post);
 	if(post['type'] == 'item') {
@@ -164,6 +219,7 @@ exports.createnewpostfromitems = function(req, res) {
 		    var items = req.body.items;
 		    if(items) {
 			  for(var i=0;i<req.body.items.length;i++) {
+
 				var item = req.body.items[i];
 			  
 				item['comments'] = [];
@@ -176,6 +232,7 @@ exports.createnewpostfromitems = function(req, res) {
 				}
 				// add the item
 				item_ids.push(item['id']);
+
 				data['posts'][item['id']] = item;
 				console.log('createpost.js: created item with id ' + item['id']);
 			  }
@@ -186,6 +243,7 @@ exports.createnewpostfromitems = function(req, res) {
 			
 			// add the post to posts and add the post id to the posting user's
 			// list of post ids
+
 			//data['posts'][post['id']] = post;
 
 			//saving
@@ -203,6 +261,7 @@ exports.createnewpostfromitems = function(req, res) {
 			var ret = {'postid': post['id']};
 			res.json(ret);
 
+
 		} else {
 		  console.log('createpost.js: couldn\'t find user with id 2' + req.body.userid);
 		  res.writeHead(404);
@@ -210,7 +269,6 @@ exports.createnewpostfromitems = function(req, res) {
 		}
     }
 }
-
 
 
 exports.addtopostitems = function(req, res) {

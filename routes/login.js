@@ -1,8 +1,8 @@
-var data = require('../data.json');
-var models = require('../models');
+
 var util = require('./util.js');
 var profile = require('./profile.js');
 var passwordHash = require('password-hash');
+var models = require('../models');
 
 exports.view = function(req, res) {
   if(profile.getloggedinuser(req)) {
@@ -80,8 +80,6 @@ exports.loginuser = function(req, res) {
 //            res.render('login', ret);
 //        }
     }
-    
-  
 };
 
 exports.logoutuser = function(req, res) {
