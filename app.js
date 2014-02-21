@@ -78,7 +78,9 @@ app.get('/settings', settings.view);
 app.get('/getaisleposts', dashboard.getaisleposts);
 app.get('/usernametaken', profile.usernametaken);
 app.get('/favorites', favorites.view);
-app.get('/likedposts', likedposts.view);
+app.get('/likedposts', favorites.likedpostsview);
+app.get('/styles', favorites.stylesview);
+app.get('/styleposts', favorites.stylepostsview);
 
 app.post('/loginuser', login.loginuser);
 app.post('/registeruser', register.registeruser);
