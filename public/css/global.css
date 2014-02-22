@@ -207,6 +207,7 @@ div.separate_header {
 }
 #about {
   background: white;
+  overflow: auto;
 }
 #about h2 {
   margin-bottom: 11px;
