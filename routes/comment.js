@@ -8,9 +8,9 @@ exports.addcomment = function(req, res) {
     'img': req.body.img
   };
   
-  models.Post.
-        find("id": req.body.postid).
-        exec(afterSearchPost);
+  models.Post
+        .find({"id": req.body.postid})
+        .exec(afterSearchPost);
 
         function afterSearchPost(err, result) {
             if(err) {console.log(err); res.send(500); }
