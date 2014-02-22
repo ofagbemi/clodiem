@@ -264,7 +264,7 @@ exports.addtopostitems = function(req, res) {
     res.writeHead(200);
     res.end();
   } else {
-    console.log('creaetpost.js: couldn\'t find post with id ' + req.body.id);
+    console.log('createpost.js: couldn\'t find post with id ' + req.body.id);
     res.writeHead(404);
     res.end();
   }
