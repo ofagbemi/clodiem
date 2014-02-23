@@ -5,35 +5,40 @@ exports.view = function(req, res) {
     var ret = {};
     
     // get the current logged in user
-
-    ret['logged_in_user'] = profile.getloggedinuser(req);
+    logged_in_user_id = profile.getloggedinuser(req);
+    console.log('search.js: looking for logged in user');
+    models.User
+      .find({'id': logged_in_user_id})
+      .exec(function(err, result) {
+        ret['logged_in_user'] = result[0];
+		var query = req.query.q;
+		if(!query) {
+		  query = '';
+		}
+ 
+		query = query.toLowerCase();
+ 
+		ret['query'] = query;
+		ret['posts'] = []; // tags
+	 
+		console.log('search.js: looking for results for query ' + query);
+		models.Post
+		  .find({$or:
+				  [
+					{'tags': query},
+					{'title': new RegExp(query, 'i')}  // finds posts that have the query in the title
+				  ]
+				}
+		  )
+		  .exec(afterFindPosts);
+ 
+		function afterFindPosts(err, posts) {
+		  if(err) {console.log(err);res.send(500);}
+		  ret['posts'] = posts;
+		  res.render('search', ret);
+		}
+      });
     
-    var query = req.query.q
-    if(!query) {
-      query = '';
-    }
-    
-    query = query.toLowerCase();
-    
-    ret['query'] = query;
-    ret['posts'] = []; // tags
-        
-    console.log('search.js: looking for results for query ' + query);
-    models.Post
-      .find({$or:
-              [
-                {'tags': query},
-                {'title': new RegExp(query, 'i')}  // finds posts that have the query in the title
-              ]
-            }
-      )
-      .exec(afterFindPosts);
-    
-    function afterFindPosts(err, posts) {
-      if(err) {console.log(err);res.send(500);}
-      ret['posts'] = posts;
-      res.render('search', ret);
-    }
     // ret['types'] = [];
     // ret['tagswithusernames'] = [];
     // ret['comments'] = [];
