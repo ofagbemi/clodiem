@@ -2,14 +2,13 @@ var profile = require('./profile.js');
 var models = require('../models');
 
 exports.view = function(req, res) {
-    var ret = {};
-    
     // get the current logged in user
     logged_in_user_id = profile.getloggedinuser(req);
     console.log('search.js: looking for logged in user');
     models.User
       .find({'id': logged_in_user_id})
       .exec(function(err, result) {
+        var ret = {};
         ret['logged_in_user'] = result[0];
 		var query = req.query.q;
 		if(!query) {
@@ -56,12 +55,13 @@ exports.view = function(req, res) {
     
     /*
     models.Post.
-        find("tags", query.toLowerCase()).
+        find({"tags": query.toLowerCase()}).
         exec(afterSearchTags);
 
         function afterSearchTags(err, result) {
             if(err) {console.log(err); res.send(500); }
             if(result[0]) {
+                console.log(result.length)
                 for (var i = 0; i < result.length; i++) {
                     ret['posts'].push(result[i]["id"]);
                 }
@@ -69,12 +69,13 @@ exports.view = function(req, res) {
         }
 
     models.Post.
-        find("type", req.query.q.toLowerCase()).
+        find({"type": { $regex : new RegExp(req.query.q.toLowerCase(), "i") } }).
         exec(afterSearchTypes);
 
         function afterSearchTypes(err, result) {
             if(err) {console.log(err); res.send(500); }
             if(result[0]) {
+                console.log(result.length)
                 for (var i = 0; i < result.length; i++) {
                     ret['types'].push(result[i]["id"]);
                 }
@@ -82,12 +83,13 @@ exports.view = function(req, res) {
         }
         
     models.Post.
-        find("username", req.query.q.toLowerCase()).
+        find({"username": { $regex : new RegExp(req.query.q.toLowerCase(), "i") } }).
         exec(afterSearchTypes);
 
         function afterSearchTypes(err, result) {
             if(err) {console.log(err); res.send(500); }
             if(result[0]) {
+                console.log(result.length)
                 for (var i = 0; i < result.length; i++) {
                     ret['tagswithusernames'].push(result[i]["id"]);
                 }
@@ -95,12 +97,13 @@ exports.view = function(req, res) {
         }
 
     models.Post.
-        find("comments", req.query.q.toLowerCase()).
+        find({"comments": { $regex : new RegExp(req.query.q.toLowerCase(), "i") } }).
         exec(afterSearchTypes);
 
         function afterSearchTypes(err, result) {
             if(err) {console.log(err); res.send(500); }
             if(result[0]) {
+                console.log(result.length)
                 for (var i = 0; i < result.length; i++) {
                     ret['comments'].push(result[i]["id"]);
                 }
@@ -108,12 +111,13 @@ exports.view = function(req, res) {
         }
 
     models.Post.
-        find("title", req.query.q.toLowerCase()).
+        find({"title": { $regex : new RegExp(req.query.q.toLowerCase(), "i") } } ).
         exec(afterSearchTypes);
 
         function afterSearchTypes(err, result) {
             if(err) {console.log(err); res.send(500); }
             if(result[0]) {
+                console.log(result.length)
                 for (var i = 0; i < result.length; i++) {
                     ret['title'].push(result[i]["id"]);
                 }
@@ -121,12 +125,13 @@ exports.view = function(req, res) {
         }
 
     models.Post.
-        find("retailer", req.query.q.toLowerCase()).
+        find({"retailer": { $regex : new RegExp(req.query.q.toLowerCase(), "i") } }).
         exec(afterSearchTypes);
 
         function afterSearchTypes(err, result) {
             if(err) {console.log(err); res.send(500); }
             if(result[0]) {
+                console.log(result.length)
                 for (var i = 0; i < result.length; i++) {
                     ret['retailer'].push(result[i]["id"]);
                 }
@@ -135,12 +140,13 @@ exports.view = function(req, res) {
 
     // USER SEARCHES
     models.User.
-        find("username", req.query.q.toLowerCase()).
+        find({"username": { $regex : new RegExp(req.query.q.toLowerCase(), "i") } }).
         exec(afterSearchUsername);
 
         function afterSearchUsername(err, result) {
             if(err) {console.log(err); res.send(500); }
             if(result[0]) {
+                console.log(result.length)
                 for (var i = 0; i < result.length; i++) {
                     ret['users'].push(result[i]["id"]);
                 }
@@ -148,12 +154,13 @@ exports.view = function(req, res) {
         }
 
     models.User.
-        find("location", req.query.q.toLowerCase()).
+        find({"location" : { $regex : new RegExp(req.query.q.toLowerCase(), "i") } }).
         exec(afterSearchLocationInUser);
 
         function afterSearchLocationInUser(err, result) {
             if(err) {console.log(err); res.send(500); }
             if(result[0]) {
+                console.log(result.length)
                 for (var i = 0; i < result.length; i++) {
                     ret['locations'].push(result[i]["id"]);
                 }
@@ -161,12 +168,13 @@ exports.view = function(req, res) {
         }
 
     models.User.
-        find("description", req.query.q.toLowerCase()).
+        find({"description" : { $regex : new RegExp(req.query.q.toLowerCase(), "i") } }).
         exec(afterSearchDescriptionsInUser);
 
         function afterSearchDescriptionsInUser(err, result) {
             if(err) {console.log(err); res.send(500); }
             if(result[0]) {
+                console.log(result.length)
                 for (var i = 0; i < result.length; i++) {
                     ret['descriptions'].push(result[i]["id"]);
                 }
