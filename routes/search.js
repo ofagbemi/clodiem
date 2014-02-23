@@ -13,20 +13,43 @@ exports.view = function(req, res) {
       query = '';
     }
     
-    ret['query'] = query.toLowerCase();
+    query = query.toLowerCase();
+    
+    ret['query'] = query;
     ret['posts'] = []; // tags
-    ret['types'] = [];
-    ret['tagswithusernames'] = [];
-    ret['comments'] = [];
-    ret['title'] = [];
-    ret['retailer'] = [];
+        
+    console.log('search.js: looking for results for query ' + query);
+    models.Post
+      .find({$or:
+              [
+                {'tags': query},
+                {'title': new RegExp(query, 'i')}  // finds posts that have the query in the title
+              ]
+            }
+      )
+      .exec(afterFindPosts);
+    
+    function afterFindPosts(err, posts) {
+      if(err) {console.log(err);res.send(500);}
+      ret['posts'] = posts;
+      res.render('search', ret);
+    }
+    // ret['types'] = [];
+    // ret['tagswithusernames'] = [];
+    // ret['comments'] = [];
+    // ret['title'] = [];
+    // ret['retailer'] = [];
 
 
     // USERS
-    ret['users'] = []; // usernames
-    ret['locations'] = [];
-    ret['descriptions'] = [];
-
+    // ret['users'] = []; // usernames
+    // ret['locations'] = [];
+    // ret['descriptions'] = [];
+    
+    
+    
+    
+    /*
     models.Post.
         find("tags", query.toLowerCase()).
         exec(afterSearchTags);
@@ -145,7 +168,8 @@ exports.view = function(req, res) {
             }
         }
 
-    res.render('search', ret);
+    */
+    // res.render('search', ret);
 
 };
 exports.landingview = function(req, res) {
