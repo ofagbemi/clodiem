@@ -70,6 +70,7 @@ exports.removelike = function(req, res) {
           }
         }
 };
+
 exports.addaislepostsfromlist = function(user, post_ids) {
   console.log('dashboard.js: adding ' + post_ids + ' to aisle posts');
   user['aisle_post_ids'] = post_ids.concat(user['aisle_post_ids']);
@@ -157,22 +158,31 @@ function getpostsfromids(ids, user, callback) {
 		  }
 		  
 		  if(post['type'] == 'outfit') {
-			getpostsfromids(post['item_ids'], null,
-			  function(err, items) {
-			    if(err) {
-			      // quit
-			      callback(err, null);
-			      return;
-			    }
-				post['items'] = items;
-				l++;
-			});
+		    if(post['item_ids'] && post['item_ids'].length > 0) {
+		      console.log('dashboard.js: getting post items ' + post['item_ids'].length);
+			  getpostsfromids(post['item_ids'], null,
+				function(err, items) {
+				  if(err) {
+					// quit
+					callback(err, null);
+					return;
+				  }
+				  post['items'] = items;
+				  l++;
+			  });
+			} else {
+			  l++;
+			}
+		  } else {
+		    l++;
 		  }
 		}
 		
-		while(l < posts.length) {/* loop until all posts have been processed */}
+		while(l < posts.length) {
+		  /* loop until all posts have been processed */
+		}
 		console.log('dashboard.js: finished processing posts. Exiting soon...');
-		callback(err, posts);
+		if(callback) callback(err, posts);
       } else {
         if(callback) callback(err, null);
       }
