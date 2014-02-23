@@ -340,13 +340,13 @@ function createpost_gettotalprice(items) {
  */ 
 function createpost_gettotalprice(items) {
   if(!items || items.length == 0) return null;
-  var price = '';
-  price = items[0]['price'];
-  var dollarSplit = items[0]['price'].split('$');
+  var price = items[0]['price'];
+  var dollarSplit = price.split('$');
   priceTotal += parseFloat(dollarSplit[1]);
   var priceTotal = 0.0;
   for(var i = 1; i < items.length; i++) {
-     price += ' + ' + items[i]['price'].split('$');
+     price += ' + ' + items[i]['price'];
+     dollarSplit = items[i].split('$');
      priceTotal += parseFloat(dollarSplit[1]);
   }
   price += priceTotal;
