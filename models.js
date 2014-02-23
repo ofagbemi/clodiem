@@ -1,4 +1,3 @@
-
 var Mongoose = require('mongoose');
 
 var UserSchema = new Mongoose.Schema({
@@ -24,7 +23,7 @@ var PostSchema = new Mongoose.Schema({
     "userid": String,
     "username": String,
     "img":String,
-    "comments":[String],
+    "comment_ids":[String],
     "likers":[String],
     "likes": Number,
     "time": Date,
@@ -35,10 +34,18 @@ var PostSchema = new Mongoose.Schema({
     "retailer": String,
     "purchase_link": String,
     "tags": [String],
-    "item_ids": [String]
-                                     
+    "item_ids": [String]              
+});
+
+var CommentSchema = new Mongoose.Schema({
+  'username': String,
+  'time': Date,
+  'comment': String,
+  'postid': String,
+  'img': String
 });
 
 exports.User = Mongoose.model('User', UserSchema);
 exports.Post = Mongoose.model('Post', PostSchema);
+exports.Comment = Mongoose.model('Comment', CommentSchema);
 
