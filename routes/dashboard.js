@@ -210,11 +210,17 @@ function getpostsfromids(ids, user, callback) {
 		  });
 		}
 		
-		while(l < posts.length) {
-		  /* loop until all posts have been processed */
-		}
-		console.log('dashboard.js: finished processing posts. Exiting soon...');
-		if(callback) callback(err, posts);
+		var check = setInterval(function() {
+		  console.log('not stopping interval yet');
+		  if(!(l < posts.length)) {
+		    clearInterval(check);
+		    console.log('dashboard.js: finished processing posts. Exiting soon...');
+		    if(callback){
+		      callback(err, posts);
+		    }
+		  }
+		}, 200);
+		//if(callback) callback(err, posts);
       } else {
         if(callback) callback(err, null);
       }
