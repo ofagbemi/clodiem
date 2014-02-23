@@ -27,28 +27,69 @@ exports.view = function(req, res) {
 };
 
 exports.stylesview = function(req, res) {
-  var logged_in_user = profile.getloggedinuser(req);
-  if(logged_in_user) {
-    var ret = {};
-    ret['title'] = 'Styles';
-    ret['posts'] = [];
-    
-    // populate ret['posts'] with all of the logged in user's styles
-    if(logged_in_user['style_ids']) {
-      ret['posts'] = dashboard.getpostsfromids(
-                       logged_in_user['style_ids'],
-                       logged_in_user
-                     );
-    }
-    res.render('styles', ret);
-    
+  var logged_in_user_id = profile.getloggedinuser(req);
+  
+  if(logged_in_user_id) {
+    models.User
+      .find({'id': logged_in_user_id})
+      .exec(function(err, result) {
+        if(err) {console.log(err);res.send(500);}
+        var logged_in_user = result[0];
+        if(!logged_in_user) {
+          console.log('favorites.js: couldn\'t find user ' + logged_in_user_id);
+          res.send(404);
+        }
+        
+        var ret = {};
+        ret['title'] = 'Styles';
+        ret['posts'] = [];
+        
+        dashboard.getpostsfromids(
+          logged_in_user['style_ids'],
+          logged_in_user,
+          function(err, styles) {
+            if(err) {console.log(err); res.send(500);}
+            ret['posts'] = styles;
+            res.render('styles', ret);
+          }
+        );
+      });
+  } else {
+    console.log('favorites.js: no logged in user');
+    res.send(404);
+  }
+};
+exports.stylepostsview = function(req, res) {
+  var logged_in_user_id = profile.getloggedinuser(req);
+  
+  if(logged_in_user_id) {
+	models.User
+	  .find({'id': logged_in_user_id})
+	  .exec(function(err, users) {
+		if(err) {console.log(err); res.send(500);}
+		var user = users[0];
+		if(!user) {
+		  console.log('favorites.js: couldn\'t find user ' + logged_in_user_id);
+		  res.send(404);
+		}
+		
+		// find posts
+		
+		
+		
+		
+		
+		
+		
+	  });
   } else {
     console.log('favorites.js: no logged in user');
     res.redirect('/login');
   }
-};
-exports.stylepostsview = function(req, res) {
-  var logged_in_user = profile.getloggedinuser(req);
+  
+  /*
+  
+  
   models.Post.
 		find("id", req.query.id).
 		exec(afterSearchPost);
@@ -87,7 +128,7 @@ exports.stylepostsview = function(req, res) {
 				    console.log('favorites.js: no logged in user');
 				    res.redirect('/login');
 				  }
-			}	
+			}	*/
 };
 exports.likedpostsview = function(req, res) {
   var logged_in_user_id = profile.getloggedinuser(req);
