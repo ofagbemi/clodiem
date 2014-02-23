@@ -126,7 +126,6 @@ function createpost_bindclicklisteners() {
       var x = $('.marker').attr('x');
       var y = $('.marker').attr('y');
       
-      alert($(this).parent().find('.tagbox.itemtagbox').val());
       var tags = createpost_parsetags($(this).parent().find('.tagbox').val());
       
       var type = "item";
