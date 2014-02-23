@@ -155,13 +155,19 @@ exports.createnewpost = function(req, res) {
 				} else {
 				  console.log('createpost.js: unsupported post type ' + post['type']);
 				}
-				console.log("post number 1" + post);
-				// return with id of item added
-				var ret = {'postid': post['id']};
-				res.json(ret);
-				res.end();
+				
+				models.User
+				  .update({'id': user['id']},
+				    {'style_ids': user['style_ids'],
+				     'post_ids': user['post_ids']},
+				    function(err) {
+				      if(err) {console.log(err);res.send(500);}
+				      console.log('createpost.js: updated user ' + user['id']);
+					  // return with id of item added
+					  var ret = {'postid': post['id']};
+					  res.json(ret);
+				    });
 			}
-			
 		} else {
 		  console.log('createpost.js: couldn\'t find user with id ' + req.body.userid);
 		  res.writeHead(404);
