@@ -10,7 +10,16 @@
         <h2>{{username}}</h2>
         <p>{{description}}</p>
         <div class="clear"></div>
-        {{#unless own_page}}
+        {{#if own_page}}
+        <div class="button_wrap">
+          <div class="button">
+            <a href="/settings}}">
+              <img style="width:12px;margin-top:-5px;" src="/images/icons/user/whiteuser.svg">
+              My account
+            </a>
+          </div>
+        </div>
+        {{else}}
         <div class="button_wrap">
 		  <div followedid="{{id}}" class="follow_button button {{#if isfollowing}}toggled{{/if}}">
 		    <a>
@@ -23,7 +32,7 @@
 		    </a>
 		  </div>
 	    </div>
-	    {{/unless}}
+	    {{/if}}
 	  </div>
       <div class="clear"></div>
     </div>
