@@ -158,7 +158,7 @@ function getpostsfromids(ids, user, callback) {
     models.Post.find({
       'id': {$in: ids}
     })
-    .sort('-date')
+    .sort('-time')
     .exec(afterSearch);
   
     function afterSearch(err, posts) {
