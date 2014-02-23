@@ -35,13 +35,10 @@ function getusersfromids(ids, callback) {
     .exec(afterSearch);
     
     function afterSearch(err, users) {
-      console.log('hi');
       if(err) {
         if(callback) callback(err, null);
-        console.log('bye');
       }
       if(callback) callback(err, users);
-      console.log(users);
     }
   }
   /*
