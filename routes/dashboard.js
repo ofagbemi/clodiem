@@ -32,16 +32,10 @@ exports.addlike = function(req, res) {
 		    function(err) {
 		      if(err) console.log(err);res.send(500);
 		      
-		      console.log('dashboard.js: added like to post ' + post);
+		      console.log('dashboard.js: added like to post ' + postid);
 		      res.json(200, {'likes': newlikes});
 		  });
-		
-		  // if(!post['likers']) post['likers'] = [];
-		
-		  // if(!post['likes']) post['likes'] = [];
-		  // post['likes']++;
-		
-		  // if(!user['liked_post_ids']) user['liked_post_ids'] = [];
+		  
 		} else {
 		  console.log('dashboard.js: couldn\'t add like to post ' + postid);
 		  res.send(404);
@@ -55,33 +49,48 @@ exports.removelike = function(req, res) {
   var postid = req.body.postid;
   var userid = req.body.userid;
   
-  models.User.
-        find("id", userid).
-        exec(afterSearchUser);
+  models.User
+	.find({"id": userid})
+	.exec(afterSearchUser);
 
-        function afterSearchUser(err, result) {
-          var user = result[0];
-          if (user) {
-            models.Post.
-            find("id", postid).
-            exec(afterSearchPost);
+  function afterSearchUser(err, result) {
+	var user = result[0];
+	if(user) {
+	  models.Post
+		.find({"id": postid})
+		.exec(afterSearchPost);
 
-            function afterSearchPost(err, result) {
-              post = result[0];
-              if (post) {
-                console.log('dashboard.js: removing like from post ' + postid);
-                var uindex = post['likers'].indexOf(userid);
-                post['likers'].splice(uindex, 1);
-                post['likes']--;
-                
-                var pindex = user['liked_post_ids'].indexOf(postid);
-                user['liked_post_ids'].splice(pindex, 1);
-                
-                res.json({'likes': post['likes']});
-              }
-            }
-          }
-        }
+	  function afterSearchPost(err, result) {
+		var post = result[0];
+		if(post) {
+		  user['liked_post_ids'].unshift(postid);
+		  user.update({'liked_post_ids': user['liked_post_ids']});
+		  
+		  var newlikes = post['likes'];
+		  var likerindex = post['likers'].indexOf(userid);
+		  if(likerindex > -1){
+		    newlikes--;
+		    if(newlikes < 0) newlikes = 0;
+		    post['likers'].splice(likerindex, 1);
+		  }
+		
+		  models.Post.update(
+		    {'id':post['id']},
+		    {'likers': post['likers'], 'likes': newlikes},
+		    function(err) {
+		      if(err) console.log(err);res.send(500);
+		      
+		      console.log('dashboard.js: removed like from post ' + postid);
+		      res.json(200, {'likes': newlikes});
+		  });
+		  
+		} else {
+		  console.log('dashboard.js: couldn\'t remove like from post ' + postid);
+		  res.send(404);
+		}
+	  }
+	}
+  }
 };
 
 exports.addaislepostsfromlist = function(user, post_ids) {
