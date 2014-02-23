@@ -3,12 +3,20 @@ var models = require('../models');
 
 exports.view = function(req, res) {
   var ret = {};
-  var logged_in_user = profile.getloggedinuser(req);
-  if(logged_in_user) {
-    ret['logged_in_user'] = logged_in_user;
-    res.render('settings', ret);
-  } else {
-    res.redirect('/login');
+  var logged_in_user_id = profile.getloggedinuser(req);
+  
+  models.User
+    .find({"id": logged_in_user_id})
+    .exec(afterSearch);
+    
+  function afterSearch(err, users) {
+  var logged_in_user = users[0];
+	if(logged_in_user) {
+	  ret['logged_in_user'] = logged_in_user;
+	  res.render('settings', ret);
+	} else {
+	  res.redirect('/login');
+	}
   }
 }
 
