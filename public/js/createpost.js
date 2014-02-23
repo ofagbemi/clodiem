@@ -292,7 +292,7 @@ function createpost_submitpost(userid, img, time, price, title, tags, items, suc
 function createpost_parsetags(tagstr) {
   var tags = tagstr.split(',');
   for(var i=0;i<tags.length;i++) {
-    tags[i] = {'tag': $.trim(tags[i])};
+    tags[i] = $.trim(tags[i]);
   }
   return tags;
 }
