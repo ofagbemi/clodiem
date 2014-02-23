@@ -150,7 +150,7 @@ exports.view = function(req, res) {
                     ret['following'] = following;
                     
                     // that's it!
-                    console.log('profile.js: rendering page');
+                    console.log('profile.js: rendering page ' + ret['id']);
                     res.render('profile', ret);
                   });
               });
