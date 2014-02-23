@@ -1,6 +1,7 @@
 var util = require('./util.js');
 var profile = require('./profile.js');
 var models = require('../models');
+var comment = require('./comment.js');
 
 exports.addlike = function(req, res) {
   var postid = req.body.postid;
@@ -155,6 +156,8 @@ exports.getpostsfromids = getpostsfromids;
  */
 function getpostsfromids(ids, user, callback) {
   if(ids) {
+    console.log('dashboard.js: getting posts with id\'s [' + ids + ']');
+    console.log('dashboard.js: DB ready state ' + models.Post.db.readyState);
     models.Post.find({
       'id': {$in: ids}
     })
@@ -179,25 +182,32 @@ function getpostsfromids(ids, user, callback) {
 			post['logged_in_user'] = user;
 		  }
 		  
-		  if(post['type'] == 'outfit') {
-		    if(post['item_ids'] && post['item_ids'].length > 0) {
-		      console.log('dashboard.js: getting post items ' + post['item_ids'].length);
-			  getpostsfromids(post['item_ids'], null,
-				function(err, items) {
-				  if(err) {
-					// quit
-					callback(err, null);
-					return;
-				  }
-				  post['items'] = items;
-				  l++;
-			  });
+		  console.log('dashboard.js: getting comments ' + post['comment_ids']);
+		  comment.getcommentsfromids(post['comment_ids'],
+		    function(err, comments) {
+		    if(err) {console.log(err);res.send(500);}
+		    post['comments'] = comments;
+			if(post['type'] == 'outfit') {
+			  if(post['item_ids'] && post['item_ids'].length > 0) {
+				console.log('dashboard.js: getting post items ' + post['item_ids'].length);
+				getpostsfromids(post['item_ids'], null,
+				  function(err, items) {
+					if(err) {
+					  // quit
+					  callback(err, null);
+					  return;
+					}
+					post['items'] = items;
+					l++;
+				});
+				l++;
+			  } else {
+				l++;
+			  }
 			} else {
 			  l++;
 			}
-		  } else {
-		    l++;
-		  }
+		  });
 		}
 		
 		while(l < posts.length) {
