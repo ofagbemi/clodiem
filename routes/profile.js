@@ -67,20 +67,6 @@ exports.getusersfromids = getusersfromids;
  * }
  */
 exports.view = function(req, res) {
-  var ret = null;
-  
-  // allow to query by username or user id
-  // if(req.query.id) ret = data['users'][req.query.id];
-  // else if(req.query.username) ret = data['users'][util.getuserid(req.query.username)];
-  
-  /*
-  if(!ret) {
-    console.log('profile.js: The user \'' + req.query.id + '\' ' +
-                '(username: ' + req.query.username + ') could not be found');
-    res.writeHead(404);
-    res.end();
-  }*/
-  
   var ret = {};
   var logged_in_user_id = getloggedinuser(req);
   
