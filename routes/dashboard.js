@@ -6,36 +6,49 @@ exports.addlike = function(req, res) {
   var postid = req.body.postid;
   var userid = req.body.userid;
   
-  models.User.
-        find("id", userid).
-        exec(afterSearchUser);
+  models.User
+	.find({"id": userid})
+	.exec(afterSearchUser);
 
-        function afterSearchUser(err, result) {
-          var user = result[0];
-        
-          if (user) {
-          models.Post.
-            find("id", postid).
-            exec(afterSearchPost);
+  function afterSearchUser(err, result) {
+	var user = result[0];
+	if(user) {
+	  models.Post
+		.find({"id": postid})
+		.exec(afterSearchPost);
 
-            function afterSearchPost(err, result) {
-              var post = result[0];
-              if (post) {
-                console.log('dashboard.js: adding like to post ' + postid);
-                if(!post['likers']) post['likers'] = [];
-                post['likers'].unshift(userid);
-                if(!post['likes']) post['likes'] = [];
-                post['likes']++;
-                
-                if(!user['liked_post_ids']) user['liked_post_ids'] = [];
-                user['liked_post_ids'].unshift(postid);
-                
-                res.json({'likes': post['likes']});
-              }
-            }
-          }
-    
-      }
+	  function afterSearchPost(err, result) {
+		var post = result[0];
+		if(post) {
+		  user['liked_post_ids'].unshift(postid);
+		  user.update({'liked_post_ids': user['liked_post_ids']});
+		  post['likers'].unshift(userid);
+		
+		  var newlikes = post['likes'] + 1;
+		
+		  models.Post.update(
+		    {'id':post['id']},
+		    {'likers': post['likers'], 'likes': newlikes},
+		    function(err) {
+		      if(err) console.log(err);res.send(500);
+		      
+		      console.log('dashboard.js: added like to post ' + post);
+		      res.json(200, {'likes': newlikes});
+		  });
+		
+		  // if(!post['likers']) post['likers'] = [];
+		
+		  // if(!post['likes']) post['likes'] = [];
+		  // post['likes']++;
+		
+		  // if(!user['liked_post_ids']) user['liked_post_ids'] = [];
+		} else {
+		  console.log('dashboard.js: couldn\'t add like to post ' + postid);
+		  res.send(404);
+		}
+	  }
+	}
+  }
 };
 
 exports.removelike = function(req, res) {
