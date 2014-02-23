@@ -70,7 +70,7 @@ exports.uploadimageandaddtopost = function(req, res) {
   console.log("test id image " + req.body.postid);
   function afterSearch1(err, result) {
 	var post = result[0];
-	console.log("test upload "+ post);
+	console.log("test upload " + post);
 	if(post) {
 		  uploadimage(
 			  req.files.img, 
@@ -142,6 +142,7 @@ exports.createnewpost = function(req, res) {
 			    if(err) {
 			      console.log(err);
 			      res.send(500);
+			      res.end();
 			    }
 			    // add to user
 				if(post['type'] == 'style') {
@@ -153,21 +154,18 @@ exports.createnewpost = function(req, res) {
 				// return with id of item added
 				var ret = {'postid': post['id']};
 				res.json(ret);
+				res.end();
 			}
 			
-	  } else {
-	    console.log('createpost.js: couldn\'t find user with id ' + req.body.userid);
-	    res.writeHead(404);
-	    res.end();
-	  }
+		} else {
+		  console.log('createpost.js: couldn\'t find user with id ' + req.body.userid);
+		  res.writeHead(404);
+		  res.end();
+		}
   	}
 }
 
 exports.createnewpostfromitems = function(req, res) {
-  //if(data['users'][req.body.userid]) {
-    //var username = data['users'][req.body.userid]['username'];
-
-
     console.log(req.body.userid);
     models.User.find({"id" : req.body.userid}).exec(afterSearch);
     function afterSearch(err, result) {
@@ -205,7 +203,7 @@ exports.createnewpostfromitems = function(req, res) {
 				// add the item
 				item_ids.push(item['id']);
 
-				data['posts'][item['id']] = item;
+				// data['posts'][item['id']] = item;
 
 				item.save(afterSave);
 
@@ -227,19 +225,24 @@ exports.createnewpostfromitems = function(req, res) {
 			//data['posts'][post['id']] = post;
 
 			//saving
+			
 			post.save(afterSave);
 			function afterSave(err){
 				if(err) {console.log(err); res.send(500); }
 		        console.log("post saved");
-		        user['post_ids'].unshift(post['id']);//RESAVE
-		        console.log("post number 2" + post);
+		        user['post_ids'].unshift(post['id']);
+		        
+		        models.User.update({'id': user['id']}, {'post_ids': user['post_ids']},
+		          function(err) {
+		            if(err) {console.log(err);res.send(500);}
+		            console.log("post number 2" + post);
 
-		        console.log('createpost.js: created post with id ' + post['id']);
-				console.log('createpost.js: post ' + post['id'] + ' has ' + post['item_ids'].length + ' items');
+					console.log('createpost.js: created post with id ' + post['id']);
+					console.log('createpost.js: post ' + post['id'] + ' has ' + post['item_ids'].length + ' items');
 				
-				// return with id of item added
-				var ret = {'postid': post['id']};
-				res.json(ret);
+					// return with id of item added
+					res.json(200, {'postid': post['id']});
+		          });
 			}
 
 		} else {
