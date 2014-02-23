@@ -60,6 +60,11 @@ exports.stylesview = function(req, res) {
   }
 };
 exports.stylepostsview = function(req, res) {
+  var styleid = req.query.id;
+  if(!styleid) {
+    console.log('favorites.js: no style id provided');
+    res.send(404);
+  }
   var logged_in_user_id = profile.getloggedinuser(req);
   
   if(logged_in_user_id) {
@@ -73,14 +78,33 @@ exports.stylepostsview = function(req, res) {
 		  res.send(404);
 		}
 		
-		// find posts
-		
-		
-		
-		
-		
-		
-		
+		// find style
+		models.Post
+		  .find({'id': styleid})
+		  .exec(function(err, styles) {
+		    if(err) {console.log(err); res.send(500)}
+		    var style = styles[0];
+		    if(!style) {
+		      console.log('favorites.js: couldn\'t find style with id ' + styleid);
+		      res.send(404);
+		    }
+		    
+		    // find posts
+		    var ret = {};
+		    ret['title'] = style['title'];
+			ret['icon'] = '/images/icons/shirt3/shirt3.svg';
+			ret['logged_in_user'] = user;
+		    ret['posts'] = [];
+		    dashboard.getpostsfromids(
+		      style['item_ids'],
+		      null,
+		      function(err, posts) {
+		        if(err) {console.log(err); res.send(500);}
+		        ret['posts'] = posts;
+		        res.render('likedposts', ret);
+		      }
+		    );
+		  });
 	  });
   } else {
     console.log('favorites.js: no logged in user');
