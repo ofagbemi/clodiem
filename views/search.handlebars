@@ -49,6 +49,11 @@
       function setSizes() {
         rendertopbar(true, true);
 	    renderbottombar(true, 4{{#if logged_in_user}}, '{{logged_in_user.id}}'{{/if}});
+	    
+	    rendersearchbar(($('#topbar').height()/window.innerHeight), 40, $('body').width(),true);
+        $('body')
+          .css('margin-top', $('#topbar').height() + $('.searchwrap').height() + 'px');
+	    
         renderposts({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
         buildmenu(
           {{#if logged_in_user}}
