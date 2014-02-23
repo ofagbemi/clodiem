@@ -40,6 +40,7 @@ exports.uploadimage = uploadimage;
 // uploads image req.files.(image member) and passes
 // the url to the callback function success
 function uploadimage(image, success) {
+  console.log('createpost.js: starting image upload');
   fs.readFile(image.path, function(err, data) {
 	var name = image.name
 	console.log('createpost.js: uploading file ' + name);
@@ -63,34 +64,33 @@ function uploadimage(image, success) {
  * only adds to post if there isn't an image for it already
  */
 exports.uploadimageandaddtopost = function(req, res) {
+  models.Post
+	.find({"id": req.body.postid}).exec(afterSearch1);
 
-	models.Post.
-        find({"id": req.body.postid}).exec(afterSearch1);
+  console.log("test id image " + req.body.postid);
+  function afterSearch1(err, result) {
+	var post = result[0];
+	console.log("test upload "+ post);
+	if(post) {
+		  uploadimage(
+			  req.files.img, 
+			  function(url) {
+				  models.Post.update({'id' : post['id']}, {'img': url}, afterUpdating);
 
-        console.log("test id image " + req.body.postid);
-        function afterSearch1(err, result) {
-          var post = result[0];
-          console.log("test upload "+ post);
-          if(post) {
-    			uploadimage(
-      				req.files.img, 
-	  				function(url) {
-	  					models.Post.update({'id' : post['id']}, {'img': url}, afterUpdating);
+					  function afterUpdating(err) {
+						  if (err) {console.log(err); res.send(500);}
+						  console.log("im working " + "url: " + url);
+						  //BAD CHECKING, DOESNT WORK
+						  //console.log('createpost.js: ' + post['img'] + ' added to post ' + post['id']);
+						  res.redirect('/outfit?id=' + post['id']);
+					  }
 
-	  						function afterUpdating(err) {
-	  							if (err) {console.log(err); res.send(500);}
-	  							console.log("im working " + "url: " + url);
-	  							//BAD CHECKING, DOESNT WORK
-								//console.log('createpost.js: ' + post['img'] + ' added to post ' + post['id']);
-								res.redirect('/outfit?id=' + post['id']);
-	  						}
-
-	  				});
-  			} else {
-    			res.writeHead(404);
-    			res.end();
-    		}
-  		}
+			  });
+	  } else {
+		  res.writeHead(404);
+		  res.end();
+	  }
+  }
 }
 
 exports.createnewpost = function(req, res) {
