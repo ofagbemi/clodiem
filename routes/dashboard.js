@@ -130,8 +130,7 @@ exports.getpostsfromids = getpostsfromids;
  * in user and set the liked_post attribute of each liked post
  * to true
  */
-function getpostsfromids(ids, retposts, user, callback) {
-  var ret = [];
+function getpostsfromids(ids, user, callback) {
   if(ids) {
     models.Post.find({
       'id': {$in: ids}
@@ -140,70 +139,45 @@ function getpostsfromids(ids, retposts, user, callback) {
     .exec(afterSearch);
   
     function afterSearch(err, posts) {
-      retposts = posts;
-      if(user) {
-		for(var i=0;i<retposts.length;i++) {
-		  var post = retposts[i];
+      if(err) {
+        callback(err, null);
+        return;
+      }
+      
+      if(posts) {
+        console.log('dashboard.js: found requested posts');
+        var l = 0;
+		for(var i=0;i<posts.length;i++) {
+		  var post = posts[i];
 		  if(user) {
-			if(util.contains(retposts[i]['id'], user['liked_post_ids'])) {
+			if(util.contains(post['id'], user['liked_post_ids'])) {
 			  post['liked_post'] = true;
 			}
 			post['logged_in_user'] = user;
 		  }
 		  
 		  if(post['type'] == 'outfit') {
-			// if this is an outfit, go ahead and fill out
-			// its items
-			post['items'] = [];
-			getpostsfromids(post['item_ids'], post['items']);
+			getpostsfromids(post['item_ids'], null,
+			  function(err, items) {
+			    if(err) {
+			      // quit
+			      callback(err, null);
+			      return;
+			    }
+				post['items'] = items;
+				l++;
+			});
 		  }
 		}
 		
-		getpostsfromids(user['style_ids'], user['styles']);
+		while(l < posts.length) {/* loop until all posts have been processed */}
+		console.log('dashboard.js: finished processing posts. Exiting soon...');
+		callback(err, posts);
+      } else {
+        if(callback) callback(err, null);
       }
-	  
-	  if(callback) callback();
     }
   }
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  /*
-  
-  
-  
-  
-  
-    for(var i=0;i<ids.length;i++) {
-      models.User.
-        find("id", userid).
-        exec(afterSearchUser);
-
-        function afterSearchUser(err, result) {
-         var user = result[0];
-         if(user) {
-            if(util.contains(post['id'], user['liked_post_ids'])) {
-            post['liked_post'] = true;
-            }
-            // tack on logged in user
-            post['logged_in_user'] = user;
-            
-            // set logged in user's style stuff up
-            user['styles'] = getpostsfromids(user['style_ids']);
-        }
-    }
-    return ret;
-  }*/
 };
 
 exports.view = function(req, res) {

@@ -24,7 +24,27 @@ exports.usernametaken = function(req, res) {
   res.json(ret);
 }
 
-function getusersfromids(ids) {
+// takes in a list of ids and passes a list of
+// the user objects that correspond to the given
+// ids to the callback
+function getusersfromids(ids, callback) {
+  if(ids) {
+    models.User.find({
+      'id': {$in: ids}
+    })
+    .exec(afterSearch);
+    
+    function afterSearch(err, users) {
+      console.log('hi');
+      if(err) {
+        if(callback) callback(err, null);
+        console.log('bye');
+      }
+      if(callback) callback(err, users);
+      console.log(users);
+    }
+  }
+  /*
   var ret = [];
   if(ids) {
     for(var i=0;i<ids.length;i++) {
@@ -33,6 +53,7 @@ function getusersfromids(ids) {
     }
   }
   return ret;
+  */
 };
 
 exports.getusersfromids = getusersfromids;
@@ -113,15 +134,44 @@ exports.view = function(req, res) {
       }
       
       ret['posts'] = [];
-      dashboard.getpostsfromids(ret['post_ids'], ret['posts'],
-                                loggedinuser, function() {
+      console.log('profile.js: getting user ' + ret['id'] + '\'s posts');
+      dashboard.getpostsfromids(ret['post_ids'], loggedinuser,
+                                function(err, posts) {
                                 
-                                
-                                
-        // get the following and followed users
-        console.log('profile.js: rendering page');
-        res.render('profile', ret);
-      
+        if(err) {console.log(err);res.send(500);}
+        
+        ret['posts'] = posts;
+        
+        // get user's styles
+        console.log('profile.js: getting user ' + ret['id'] + '\'s styles');
+        if(!ret['style_ids']) ret['style_ids'] = [];
+        dashboard.getpostsfromids(ret['style_ids'], null,
+          function(err, styles) {
+            if(err) {console.log(err);res.send(500);}
+            ret['styles'] = styles;
+            
+            // get user's followers
+            console.log('profile.js: getting user ' + ret['id'] + '\'s followers');
+            if(!ret['followers_ids']) ret['followers_ids'] = [];
+            getusersfromids(ret['followers_ids'],
+              function(err, followers) {
+                if(err) {console.log(err);res.send(500);}
+                ret['followers'] = followers;
+                
+                // get user's following
+                console.log('profile.js: getting user ' + ret['id'] + '\'s following');
+                if(!ret['following_ids']) ret['following_ids'] = [];
+                getusersfromids(ret['following_ids'],
+                  function(err, following) {
+                    if(err) {console.log(err);res.send(500);}
+                    ret['following'] = following;
+                    
+                    // that's it!
+                    console.log('profile.js: rendering page');
+                    res.render('profile', ret);
+                  });
+              });
+            })
       });
       
     };
