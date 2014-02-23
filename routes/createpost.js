@@ -123,11 +123,16 @@ exports.createnewpost = function(req, res) {
 			  'y': req.body.y,
 			  'retailer': req.body.retailer,
 			  'purchase_link': req.body.purchase_link,
-			  'tags': req.body.tags,
 			  'item_ids': req.body.item_ids,
 			  'img' : ""
 			});
 
+            var tags = req.body.tags;
+            if(!tags) tags = [];
+            for(var i=0;i<tags.length;i++) {
+              tags[i] = tags[i].toLowerCase();
+            }
+            post['tags'] = tags;
 			post['id'] = util.getpostid(post);
 
 			if(post['type'] == 'item') {
