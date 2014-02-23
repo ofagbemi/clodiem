@@ -22,7 +22,6 @@ exports.addlike = function(req, res) {
 		var post = result[0];
 		if(post) {
 		  user['liked_post_ids'].unshift(postid);
-		  user.update({'liked_post_ids': user['liked_post_ids']});
 		  post['likers'].unshift(userid);
 		
 		  var newlikes = post['likes'] + 1;
@@ -31,10 +30,15 @@ exports.addlike = function(req, res) {
 		    {'id':post['id']},
 		    {'likers': post['likers'], 'likes': newlikes},
 		    function(err) {
-		      if(err) console.log(err);res.send(500);
-		      
-		      console.log('dashboard.js: added like to post ' + postid);
-		      res.json(200, {'likes': newlikes});
+		      if(err) {console.log(err);res.send(500)};
+		      // update the user
+		      user
+		        .update({'liked_post_ids': user['liked_post_ids']},
+		        function(err) {
+		          if(err) {console.log(err);res.send(500);}
+		          console.log('dashboard.js: added like to post ' + postid);
+		          res.json(200, {'likes': newlikes});
+		        });
 		  });
 		  
 		} else {
@@ -65,7 +69,6 @@ exports.removelike = function(req, res) {
 		var post = result[0];
 		if(post) {
 		  user['liked_post_ids'].unshift(postid);
-		  user.update({'liked_post_ids': user['liked_post_ids']});
 		  
 		  var newlikes = post['likes'];
 		  var likerindex = post['likers'].indexOf(userid);
@@ -80,9 +83,14 @@ exports.removelike = function(req, res) {
 		    {'likers': post['likers'], 'likes': newlikes},
 		    function(err) {
 		      if(err) console.log(err);res.send(500);
-		      
-		      console.log('dashboard.js: removed like from post ' + postid);
-		      res.json(200, {'likes': newlikes});
+		      // update the user
+		      user
+		        .update({'liked_post_ids': user['liked_post_ids']},
+		        function(err) {
+		          if(err) {console.log(err);res.send(500);}
+		          console.log('dashboard.js: removed like from post ' + postid);
+		          res.json(200, {'likes': newlikes});
+		        });
 		  });
 		  
 		} else {
