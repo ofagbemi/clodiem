@@ -53,8 +53,11 @@ exports.followuser = function(req, res) {
   res.json(ret);
 }
 
-function isfollowing(followerid, followedid) {
-
+function isfollowing(follower, followed) {
+  if(followed && followed['id'] && follower && follower['following_ids'])
+    return util.contains(followed['id'], follower['following_ids']);
+  else return false;
+  /*
   models.User.
         find("id", followerid).
         exec(afterSearch);
@@ -68,6 +71,7 @@ function isfollowing(followerid, followedid) {
             console.log('follow.js: couldn\'t find user ' + followerid);
           }
         }
+        */
 }
 
 exports.isfollowing = isfollowing;

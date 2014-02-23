@@ -52,65 +52,129 @@ exports.view = function(req, res) {
   var ret = null;
   
   // allow to query by username or user id
-  if(req.query.id) ret = data['users'][req.query.id];
-  else if(req.query.username) ret = data['users'][util.getuserid(req.query.username)];
+  // if(req.query.id) ret = data['users'][req.query.id];
+  // else if(req.query.username) ret = data['users'][util.getuserid(req.query.username)];
   
+  /*
   if(!ret) {
     console.log('profile.js: The user \'' + req.query.id + '\' ' +
                 '(username: ' + req.query.username + ') could not be found');
     res.writeHead(404);
     res.end();
-  }
+  }*/
   
-  var logged_in_user = getloggedinuser(req);
+  var ret = {};
+  var logged_in_user_id = getloggedinuser(req);
   
-  if(logged_in_user) {
-    ret['logged_in_user'] = logged_in_user;
-    if(ret['id']) {
-      console.log('profile.js: ' + logged_in_user['id'] + ' is looking at ' + ret['id'] + '\'s profile');
-      ret['isfollowing'] = follow.isfollowing(logged_in_user['id'], ret['id']);
-      console.log('profile.js: ' + logged_in_user['id'] + ' is following? ' + ret['isfollowing']);
-    } else {
-      console.log('no id');
+  models.User
+    .find({"id": req.query.id})
+    .exec(renderprofile)
+  
+  function renderprofile(err, result) {
+    var user = result[0];
+    if(!user) {
+      console.log('profile.js: couldn\'t find user ' + req.query.id);
+      res.writeHead(404);
+      res.send();
     }
-  } else {
-    console.log('profile.js: no user logged in');
-  }
+    
+    // set ret to the found user
+    ret = user;
+    console.log('profile.js: starting render of page for user ' + user['id']);
+    if(logged_in_user_id) {
+      // save some work if the user's looking at their own profile
+      if(logged_in_user_id == user['id']) {
+        ret['logged_in_user'] = user;
+        ret['own_page'] = true;
+        console.log('profile.js: user ' + logged_in_user_id + ' is looking at their own page');
+        renderPage(user, user);
+      } else {
+        // now we'll look for the logged in user
+        models.User
+          .find({'id': logged_in_user_id})
+          .exec(function(err, logged_in_user) {
+            if(err) console.log(err); res.send(500);
+            console.log('profile.js: found logged in user ' + logged_in_user_id);
+            renderPage(user, logged_in_user);
+          });
+      }
+    } else {
+      console.log('profile.js: no logged in user');
+      renderPage(user, null);
+    }
+    
+    function renderPage(pageuser, loggedinuser) {
+      console.log('profile.js: getting page data');
+      if(loggedinuser) {
+        ret['logged_in_user'] = loggedinuser;
+        ret['isfollowing'] = follow.isfollowing(loggedinuser, ret);
+      } else {
+        console.log('profile.js: no user logged in');
+      }
+      
+      ret['posts'] = [];
+      dashboard.getpostsfromids(ret['post_ids'], ret['posts'],
+                                loggedinuser, function() {
+                                
+                                
+                                
+        // get the following and followed users
+        console.log('profile.js: rendering page');
+        res.render('profile', ret);
+      
+      });
+      
+    };
+    
+    /*
+				   if(logged_in_user) {
+					 ret['logged_in_user'] = logged_in_user;
+					 if(ret['id']) {
+					   console.log('profile.js: ' + logged_in_user['id'] + ' is looking at ' + ret['id'] + '\'s profile');
+					   ret['isfollowing'] = follow.isfollowing(logged_in_user['id'], ret['id']);
+					   console.log('profile.js: ' + logged_in_user['id'] + ' is following? ' + ret['isfollowing']);
+					 } else {
+					   console.log('no id');
+					 }
+				   } else {
+					 console.log('profile.js: no user logged in');
+				   }
   
-  // populate posts
-  ret['posts'] = dashboard.getpostsfromids(ret['post_ids'], logged_in_user);
+				   // populate posts
+				   ret['posts'] = dashboard.getpostsfromids(ret['post_ids'], logged_in_user);
 
-  // go from item ids into posts
-  for(var i=0;i<ret['posts'].length;i++) {
-	var post = ret['posts'][i];
-	post['items'] = dashboard.getpostsfromids(post['item_ids']);
-  }
+				   // go from item ids into posts
+				   for(var i=0;i<ret['posts'].length;i++) {
+					 var post = ret['posts'][i];
+					 post['items'] = dashboard.getpostsfromids(post['item_ids']);
+				   }
 
-  // go from style ids into lists of posts
-  ret['styles'] = [];
-  if(ret['style_ids']) {
-	for(var i=0;i<ret['style_ids'].length;i++) {
-	  var style = data['posts'][ret['style_ids'][i]];
-	  style['posts'] = dashboard.getpostsfromids(style['item_ids']);
-	  ret['styles'].push(style); 
+				   // go from style ids into lists of posts
+				   ret['styles'] = [];
+				   if(ret['style_ids']) {
+					 for(var i=0;i<ret['style_ids'].length;i++) {
+					   var style = data['posts'][ret['style_ids'][i]];
+					   style['posts'] = dashboard.getpostsfromids(style['item_ids']);
+					   ret['styles'].push(style); 
 	  
-	}
-  }
+					 }
+				   }
   
-  ret['followers'] = [];
-  if(ret['followers_ids']) {
-    ret['followers'] = getusersfromids(ret['followers_ids']);
-  }
+				   ret['followers'] = [];
+				   if(ret['followers_ids']) {
+					 ret['followers'] = getusersfromids(ret['followers_ids']);
+				   }
   
-  ret['following'] = [];
-  if(ret['following_ids']) {
-    ret['following'] = getusersfromids(ret['following_ids']);
-  }
+				   ret['following'] = [];
+				   if(ret['following_ids']) {
+					 ret['following'] = getusersfromids(ret['following_ids']);
+				   }
   
-  // feed back whether the user is looking at his/her own page
-  if(logged_in_user && logged_in_user['id'] == ret['id']) {
-    ret['own_page'] = true;
-  }
+				   // feed back whether the user is looking at his/her own page
+				   if(logged_in_user && logged_in_user['id'] == ret['id']) {
+					 ret['own_page'] = true;
+				   }
   
-  res.render('profile', ret);
+				   res.render('profile', ret);*/
+  };
 };

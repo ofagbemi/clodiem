@@ -50,17 +50,14 @@ exports.registeruser = function(req, res) {
 		      user.save(afterSave);
 		      function afterSave(err) { // this is a callback
 		          if(err) {console.log(err); res.send(500); }
-		          console.log("user saved");
-		      }
-		      
-
-		    console.log('register.js: registered user ' + userid + ' successfully!');
-			// set this user as the logged in user
-			login.setcurrentuser(req, user['id']);
+		          console.log("register.js: user saved");
+		          console.log('register.js: registered user ' + userid + ' successfully!');
+				  // set this user as the logged in user
+				  login.setcurrentuser(req, user['id']);
 		  
-			res.redirect('/aisle');
+				  res.redirect('/aisle');
+		      }
 		  } else {
-              
 		    console.log('register.js: user with id ' + userid + ' already exists');
 
 		    res.writeHead(403);

@@ -124,15 +124,66 @@ exports.getpostsfromids = getpostsfromids;
 
 /* getpostsfromids
  *
- * Takes in a user object and a list of post ids and
- * returns a list of post objects. If a user is provided,
- * the function will set the user as the post's logged in
- * user and set the liked_post attribute of each liked post
+ * Takes in a user object, a list of post ids, and an empty list
+ * and populates that empty list with post objects. If a user is
+ * provided, the function will set the user as the post's logged
+ * in user and set the liked_post attribute of each liked post
  * to true
  */
-function getpostsfromids(ids, user) {
+function getpostsfromids(ids, retposts, user, callback) {
   var ret = [];
   if(ids) {
+    models.Post.find({
+      'id': {$in: ids}
+    })
+    .sort('-date')
+    .exec(afterSearch);
+  
+    function afterSearch(err, posts) {
+      retposts = posts;
+      if(user) {
+		for(var i=0;i<retposts.length;i++) {
+		  var post = retposts[i];
+		  if(user) {
+			if(util.contains(retposts[i]['id'], user['liked_post_ids'])) {
+			  post['liked_post'] = true;
+			}
+			post['logged_in_user'] = user;
+		  }
+		  
+		  if(post['type'] == 'outfit') {
+			// if this is an outfit, go ahead and fill out
+			// its items
+			post['items'] = [];
+			getpostsfromids(post['item_ids'], post['items']);
+		  }
+		}
+		
+		getpostsfromids(user['style_ids'], user['styles']);
+      }
+	  
+	  if(callback) callback();
+    }
+  }
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /*
+  
+  
+  
+  
+  
     for(var i=0;i<ids.length;i++) {
       models.User.
         find("id", userid).
@@ -144,19 +195,15 @@ function getpostsfromids(ids, user) {
             if(util.contains(post['id'], user['liked_post_ids'])) {
             post['liked_post'] = true;
             }
-          }
-          if(user) {
-          // tack on logged in user
+            // tack on logged in user
             post['logged_in_user'] = user;
             
             // set logged in user's style stuff up
             user['styles'] = getpostsfromids(user['style_ids']);
-          }
-          ret.push(post);
         }
     }
     return ret;
-  }
+  }*/
 };
 
 exports.view = function(req, res) {
