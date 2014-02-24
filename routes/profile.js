@@ -96,10 +96,10 @@ exports.view = function(req, res) {
         // now we'll look for the logged in user
         models.User
           .find({'id': logged_in_user_id})
-          .exec(function(err, logged_in_user) {
-            if(err) console.log(err); res.send(500);
+          .exec(function(err, users) {
+            if(err) {console.log(err); res.send(500);}
             console.log('profile.js: found logged in user ' + logged_in_user_id);
-            renderPage(user, logged_in_user);
+            renderPage(user, users[0]);
           });
       }
     } else {
@@ -156,7 +156,6 @@ exports.view = function(req, res) {
               });
             })
       });
-      
     };
     
     /*
