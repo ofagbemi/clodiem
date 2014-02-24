@@ -23,20 +23,30 @@
             <a style="color:#d55353;" href="/logoutuser?id={{logged_in_user.id}}">Log out</a>
           </div>
           <div class="clear"></div>
-          <div style="margin-bottom:4px;font-size:medium;float:left;">Styles</div>
-          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.style_ids.length}}</div>
+          <a href="/styles">
+            <div style="margin-bottom:4px;font-size:medium;float:left;">Styles</div>
+            <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.style_ids.length}}</div>
+          </a>
           <div class="clear"></div>
-          <div style="margin-bottom:4px;font-size:medium;float:left;">Posts</div>
-          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.post_ids.length}}</div>
+          <a href="/posts">
+			<div style="margin-bottom:4px;font-size:medium;float:left;">Posts</div>
+			<div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.post_ids.length}}</div>
+		  </a>
           <div class="clear"></div>
-          <div style="margin-bottom:4px;font-size:medium;float:left;">Likes</div>
-          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.liked_post_ids.length}}</div>
-          <div class="clear"></div>
-          <div style="margin-bottom:4px;font-size:medium;float:left;">Following</div>
-          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.following_ids.length}}</div>
-          <div class="clear"></div>
-          <div style="margin-bottom:4px;font-size:medium;float:left;">Followers</div>
-          <div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.followers_ids.length}}</div>
+          <a href="/likedposts">
+			<div style="margin-bottom:4px;font-size:medium;float:left;">Likes</div>
+			<div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.liked_post_ids.length}}</div>
+		  </a>
+		  <div class="clear"></div>
+		  <a href="/following">
+			<div style="margin-bottom:4px;font-size:medium;float:left;">Following</div>
+			<div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.following_ids.length}}</div>
+		  </a>
+		  <div class="clear"></div>
+		  <a href="/followers">
+			<div style="margin-bottom:4px;font-size:medium;float:left;">Followers</div>
+			<div style="margin-bottom:4px;font-size:medium;float:right;">{{logged_in_user.followers_ids.length}}</div>
+          </a>
           <div class="clear"></div>
         </div>
         
