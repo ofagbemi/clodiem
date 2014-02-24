@@ -18,6 +18,8 @@
 	  {{/if}}
     </div>
     
+    {{> tutorial}}
+    
     <script src="/js/jquery-1.11.0.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/renderposts.js"></script>
@@ -28,6 +30,7 @@
     <script src="/js/likebuttons.js"></script>
     <script src="/js/comments.js"></script>
     <script src="/js/addtostyle.js"></script>
+    <script src="/js/tutorial.js"></script>
     {{> universalscripts}}
     <script>
       function setSizes() {
@@ -51,7 +54,7 @@
           {{/if}}
         );
         
-        
+        tutorial_setup();
         setlinks();  // call this last!
       }
       $(window).resize(function() {

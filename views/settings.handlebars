@@ -72,6 +72,8 @@
 	  -->
     </div>
     
+    {{> tutorial}}
+    
     <script src="/js/jquery-1.11.0.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/renderposts.js"></script>
@@ -82,6 +84,7 @@
     <script src="/js/likebuttons.js"></script>
     <script src="/js/comments.js"></script>
     <script src="/js/settings.js"></script>
+    <script src="/js/tutorial.js"></script>
     <script>
       function setSizes() {
         rendertopbar(true);
@@ -107,7 +110,7 @@
         settings_setup('{{logged_in_user.id}}');
         {{/if}}
         
-        
+        tutorial_setup();
         setlinks();  // call this last!
       }
       $(window).resize(function() {

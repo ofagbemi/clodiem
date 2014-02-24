@@ -125,6 +125,9 @@
 		</div>
 	  </div>
 	</div>
+	
+	{{> tutorial}}
+	
   </body>
   <script src="/js/jquery-1.11.0.js"></script>
   <script src="/js/renderposts.js"></script>
@@ -137,6 +140,7 @@
   <script src="/js/renderprofile.js"></script>
   <script src="/js/follow.js"></script>
   <script src="/js/addtostyle.js"></script>
+  <script src="/js/tutorial.js"></script>
   <script>
 	function setSizes() {
 	  rendertopbar(true, true);
@@ -159,6 +163,7 @@
           {{/if}}
       );
       
+      tutorial_setup();
       setlinks();  // call this last!
 	}
 	$(window).resize(function() {
