@@ -49,7 +49,6 @@ exports.addlike = function(req, res) {
 	}
   }
 };
-
 exports.removelike = function(req, res) {
   var postid = req.body.postid;
   var userid = req.body.userid;
@@ -120,6 +119,7 @@ exports.removeaisleposts = function(follower, followed) {
 }
 
 exports.getaisleposts = function(req, res) {
+  /*
   var segment_index = req.query.index;
   var num_posts = req.query.num_posts;
   var userid = req.query.userid;
@@ -149,7 +149,7 @@ exports.getaisleposts = function(req, res) {
           } else {
               console.log('dashboard.js: couldn\'t find user ' + userid);
           }
-        }
+        }*/
 };
 
 exports.getpostsfromids = getpostsfromids;
@@ -193,7 +193,7 @@ function getpostsfromids(ids, user, callback) {
 		  console.log('dashboard.js: getting comments ' + post['comment_ids']);
 		  comment.getcommentsfromids(post['comment_ids'],
 		    function(err, comments) {
-		    if(err) {console.log(err);res.send(500);}
+		    if(err) {if(callback) callback(err, null); return;}
 		    post['comments'] = comments;
 			if(post['type'] == 'outfit') {
 			  if(post['item_ids'] && post['item_ids'].length > 0) {
@@ -219,7 +219,6 @@ function getpostsfromids(ids, user, callback) {
 		}
 		
 		var check = setInterval(function() {
-		  console.log('not stopping interval yet');
 		  if(!(l < posts.length)) {
 		    clearInterval(check);
 		    console.log('dashboard.js: finished processing posts. Exiting soon...');
@@ -237,7 +236,40 @@ function getpostsfromids(ids, user, callback) {
 };
 
 exports.view = function(req, res) {
-  var logged_in_user = profile.getloggedinuser(req);
+  var logged_in_user_id = profile.getloggedinuser(req);
+  if(!logged_in_user_id) {
+    console.log('dashboard.js: no logged in user');
+    res.send(404);
+  }
+  
+  models.User
+    .find({'id': logged_in_user_id})
+    .exec(function(err, users) {
+      if(err) {console.log(err); res.send(500);}
+      var logged_in_user = users[0];
+      if(!logged_in_user) {
+        console.log('dashboard.js: couldn\'t find user ' + logged_in_user_id);
+        res.redirect('/aisle');
+      }
+      getpostsfromids(logged_in_user['aisle_post_ids'], logged_in_user,
+        function(err, posts) {
+          var ret = {};
+          ret['posts'] = posts;
+          profile.getusersfromids(
+            logged_in_user['recommended_user_ids'],
+            // find users
+            function(err, users) {
+              if(err) {console.log(err);res.send(500);}
+              logged_in_user['recommended_users'] = users;
+              ret['logged_in_user'] = logged_in_user;
+              
+              console.log('logged in user' + logged_in_user);
+              res.render('dashboard', ret);
+            });
+        });
+    });
+  
+  /*
   if(logged_in_user) {
     var ret = {};
     ret['posts'] = [];
@@ -288,7 +320,7 @@ exports.view = function(req, res) {
   } else {
     // if no one's logged in, redirect to log in page
     res.redirect('/login');
-  }
+  }*/
 };
 
 
