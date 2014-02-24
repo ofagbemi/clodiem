@@ -262,7 +262,14 @@ exports.view = function(req, res) {
 
 };
 exports.landingview = function(req, res) {
+  var logged_in_user_id = profile.getloggedinuser(req);
   var ret = {};
-  res.render('searchlanding', ret);
+  models.User
+    .find({'id': logged_in_user_id})
+    .exec(function(err, result) {
+      if(err) {console.log(err); res.send(500);}
+      ret['logged_in_user'] = result[0];
+      res.render('searchlanding', ret);
+    });
 }
 
