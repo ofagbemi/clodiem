@@ -47,13 +47,13 @@ exports.registeruser = function(req, res) {
 			  
 			models.User
 			  .find({})
-			  .sort('-time')
 			  .limit(4)
+			  .sort('-time')
 			  .exec(function(err, rec_users) {
 			    // add some recommended users
 			    if(err) {console.log(err); res.send(500);}
 			    user['recommended_user_ids'] = [];
-			    for(var i = 0;i<rec_users.length;i++) {
+			    for(var i=0;i<rec_users.length;i++) {
 			      user['recommended_user_ids'].push(rec_users[i]['id']);
 			    }
 			    
