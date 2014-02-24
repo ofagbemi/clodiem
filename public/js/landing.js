@@ -42,12 +42,12 @@ function landing_bindclicklisteners() {
     });
 }
 function hideabout() {
-  $('#cover').hide();
   var about = $('#about');
   about.animate({
     'bottom': -window.innerHeight + 'px'
   }, function() {
       about.hide();
+       $('#cover').hide();
   })
 }
 function showabout() {

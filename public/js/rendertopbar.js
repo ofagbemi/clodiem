@@ -8,6 +8,7 @@ function rendertopbar(withpadding, withbackbutton) {
   var searchbutton = '<a class="search_button" href="#">Search</a>';
   var closesearchbutton = $('<a class="close_search_button" href="#">x</a>')
                             .css('display', 'none');
+  var tutorialbutton = '<a class="tutorial_button" href="#">tutorial</a>'
   
   if(withbackbutton) {
     var link = document.referrer;
@@ -22,7 +23,8 @@ function rendertopbar(withpadding, withbackbutton) {
   
   topbar
     // .append(menubutton)
-    .append(homebutton);
+    .append(homebutton)
+    .append(tutorialbutton);
     //.append(closesearchbutton)
     //.append(searchbutton);
   $('#topbar').remove();

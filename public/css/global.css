@@ -205,21 +205,24 @@ div.separate_header {
                                     url("http://subtlepatterns.com/patterns/sprinkles.png");
   */
 }
-#about {
+#about, #tutorial {
   background: white;
   overflow: auto;
 }
-#about h2 {
+#about h2, #tutorial h2 {
   margin-bottom: 11px;
   padding-bottom: 16px;
   border-bottom: solid 1px rgba(0,0,0,0.14);
 }
-#about h3 {
+#about h3, #tutorial h3 {
   margin-top: 11px;
   margin-bottom: 8px;
 }
 #cover {
   background: rgba(0,0,0,0.4);
+}
+#tutorial p {
+  margin: 8px 0;
 }
 .button_wrap {
   /* background-color: #3d3c3c; */
@@ -322,6 +325,16 @@ div.separate_header {
   line-height: 43px;
   font-weight: 300;
   margin-left: 4px;
+}
+#topbar .tutorial_button {
+  color: transparent;
+  height: 43px;
+  width: 43px;
+  background-image: url('../images/icons/question2/whitequestion2.svg');
+  background-size: 28px 28px;
+  background-repeat: no-repeat;
+  background-position: center;
+  float: right;
 }
 #topbar .search_button, #topbar .close_search_button {
   display: inline-block;
