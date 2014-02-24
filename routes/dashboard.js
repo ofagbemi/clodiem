@@ -30,7 +30,7 @@ exports.addlike = function(req, res) {
 		    {'id':post['id']},
 		    {'likers': post['likers'], 'likes': newlikes},
 		    function(err) {
-		      if(err) {console.log(err);res.send(500)};
+		      if(err) {console.log(err);res.send(500);return;};
 		      // update the user
 		      user
 		        .update({'liked_post_ids': user['liked_post_ids']},
@@ -38,12 +38,14 @@ exports.addlike = function(req, res) {
 		          if(err) {console.log(err);res.send(500);}
 		          console.log('dashboard.js: added like to post ' + postid);
 		          res.json(200, {'likes': newlikes});
+		          return;
 		        });
 		  });
 		  
 		} else {
 		  console.log('dashboard.js: couldn\'t add like to post ' + postid);
 		  res.send(404);
+		  return;
 		}
 	  }
 	}
@@ -81,7 +83,7 @@ exports.removelike = function(req, res) {
 		    {'id':post['id']},
 		    {'likers': post['likers'], 'likes': newlikes},
 		    function(err) {
-		      if(err) console.log(err);res.send(500);
+		      if(err) {console.log(err);res.send(500);return};
 		      // update the user
 		      user
 		        .update({'liked_post_ids': user['liked_post_ids']},
@@ -95,6 +97,7 @@ exports.removelike = function(req, res) {
 		} else {
 		  console.log('dashboard.js: couldn\'t remove like from post ' + postid);
 		  res.send(404);
+		  return;
 		}
 	  }
 	}
@@ -227,7 +230,6 @@ function getpostsfromids(ids, user, callback) {
 		    }
 		  }
 		}, 200);
-		//if(callback) callback(err, posts);
       } else {
         if(callback) callback(err, null);
       }
@@ -240,6 +242,8 @@ exports.view = function(req, res) {
   if(!logged_in_user_id) {
     console.log('dashboard.js: no logged in user');
     res.send(404);
+    res.redirect('/login');
+    return;
   }
   
   models.User
@@ -250,6 +254,7 @@ exports.view = function(req, res) {
       if(!logged_in_user) {
         console.log('dashboard.js: couldn\'t find user ' + logged_in_user_id);
         res.redirect('/aisle');
+        return;
       }
       getpostsfromids(logged_in_user['aisle_post_ids'], logged_in_user,
         function(err, posts) {
@@ -265,62 +270,10 @@ exports.view = function(req, res) {
               
               console.log('logged in user' + logged_in_user);
               res.render('dashboard', ret);
+              return;
             });
         });
     });
-  
-  /*
-  if(logged_in_user) {
-    var ret = {};
-    ret['posts'] = [];
-    
-    // populate ret['posts'] with all of the logged in user's aisle posts
-    if(logged_in_user && logged_in_user['aisle_post_ids']) {
-      ret['posts'] = getpostsfromids(logged_in_user['aisle_post_ids'],
-                                     logged_in_user);
-    } else {
-      logged_in_user['aisle_post_ids'] = [];
-    }
-    
-      // populate each post with the item posts for each of the items
-      // belonging to that post
-    for(var i=0;i<ret['posts'].length;i++) {
-      var post = ret['posts'][i];
-      post['items'] = [];
-      if(post['item_ids']) {
-        post['items'] = getpostsfromids(post['item_ids']);
-      }
-    }
-    
-    // get recommended users
-    //console.log(logged_in_user);
-
-    models.User.find({"id" : logged_in_user}).exec(afterSearch);
-
-    function afterSearch(err, result){
-      //CONVERTED LOGGED_IN_USER
-      var logged_in_user = result[0];
-      logged_in_user['recommended_users'] = [];
-      if(!logged_in_user['recommended_user_ids']) logged_in_user['recommended_user_ids'] = [];
-      for(var i=0;i<logged_in_user['recommended_user_ids'].length;i++) {
-          models.User.
-            find("id", logged_in_user['recommended_user_ids'][i]).
-            exec(afterSearchUser);
-
-            function afterSearchUser(err, result) {
-              var r_user = result[0];
-              logged_in_user['recommended_users'].push(r_user);
-            }
-      }
-      
-      ret['logged_in_user'] = logged_in_user;
-      
-      res.render('dashboard', ret);
-    }
-  } else {
-    // if no one's logged in, redirect to log in page
-    res.redirect('/login');
-  }*/
 };
 
 
