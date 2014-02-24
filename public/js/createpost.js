@@ -62,6 +62,7 @@ function createpost_bindclicklisteners() {
       e.preventDefault();
       var time = (new Date()).toString();
       var price = createpost_gettotalprice(createpost_addeditems);
+      var price_num = createpost_gettotalpricenum(createpost_addeditems);
       var title = $("input[name='post_title']").val();
       if(title == '') {
         alert('You have to give this post a title');
@@ -73,7 +74,7 @@ function createpost_bindclicklisteners() {
       if(img == '') img = null;
       
       createpost_submitpost(createpost_userid, img, time,
-        price, title, tags, createpost_addeditems,
+        price, price_num, title, tags, createpost_addeditems,
         function(response) {
           // upload image on callback
           var postid_input = $('<input style="display:none;" name="postid">');
@@ -105,6 +106,9 @@ function createpost_bindclicklisteners() {
       var retailer = $(".getiteminfo input[name='retailer']").val();
       var purchase_link = $(".getiteminfo input[name='purchase_link']").val();
       var price = $(".getiteminfo input[name='price']").val();
+      
+      var price_num = 0;
+      
       if(price != '') {
         var floatprice = parseFloat(price);
         if(isNaN(floatprice)) {
@@ -113,12 +117,10 @@ function createpost_bindclicklisteners() {
         }
         var denom = $('.getiteminfo select').find(':selected').attr('name');
         price = denom + floatprice;
+        price_num += floatprice;
       }
     
       var time = (new Date()).toString();
-      
-      // var img = '/images/icons/pants2/pants2.svg'; // TODO change this
-      
       
       var img = null;
       
@@ -132,7 +134,7 @@ function createpost_bindclicklisteners() {
       var item_ids = [];
       
       createpost_pushitem(type, createpost_userid, img, time, price,
-                          title, x, y, retailer, purchase_link,
+                          price_num, title, x, y, retailer, purchase_link,
                           tags, item_ids);
       var addeditem = $(createpost_addeditem_partial.replace('{{title}}', title));
 	  addeditem
@@ -240,7 +242,7 @@ function createpost_placemarker(top, left, h, w) {
   marker.show();
 }
 
-function createpost_pushitem(type, userid, img, time, price, title, x, y,
+function createpost_pushitem(type, userid, img, time, price, price_num, title, x, y,
                                retailer, purchase_link, tags, item_ids) {
   var data = {
     'type': type,
@@ -248,6 +250,7 @@ function createpost_pushitem(type, userid, img, time, price, title, x, y,
     'img': img,
     'time': (new Date()).toString(),
     'price': price,
+    'price_num': price_num,
     'title': title,
     'x': x,
     'y': y,
@@ -260,13 +263,14 @@ function createpost_pushitem(type, userid, img, time, price, title, x, y,
   createpost_addeditems.push(data);
 }
 
-function createpost_submitpost(userid, img, time, price, title, tags, items, success) {
+function createpost_submitpost(userid, img, time, price, price_num, title, tags, items, success) {
   var post = {
     'type': 'outfit',
     'userid': createpost_userid,
     'img': img,
     'time': time,
     'price': price,
+    'price_num': price_num,
     'title': title,
     'tags': tags
   };
@@ -318,6 +322,15 @@ function createpost_cleanupmarkitem() {
   $('.placed.button').parent().find('.getiteminfo').hide();
 }
 
+function createpost_gettotalpricenum(items) {
+  if(!items || items.length == 0) return null;
+  var total = 0;
+  for(var i=0;i<items.length;i++) {
+    total += items[i]['price_num'];
+  }
+  return total;
+}
+
 /* createpost_gettotalprice(items)
  * 
  * Takes in a list of items and compiles their prices
@@ -328,7 +341,7 @@ function createpost_gettotalprice(items) {
   
   var pricestr = items[0]['price'];
   for(var i=1;i<items.length;i++) {
-    if(items[i].length < 1) continue;
+    if(items[i]['price'].length < 1) continue;
     pricestr += (' + ' + items[i]['price']);
   }
   return $.trim(pricestr);
