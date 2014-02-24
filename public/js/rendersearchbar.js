@@ -53,8 +53,22 @@ function rendersearchbar(h, barheight, barwidth, boxshadow) {
     .css('width', ($('.search').width() - $('#searchbox_label').width()) + 'px');
     
   $('.searchbutton')
+    .unbind('click')
     .click(function(e) {
       e.preventDefault();
-      $('form.searchform').submit();
+      var options = $('div.search_options').clone();
+      options.hide();
+      
+      $('form.searchform')
+        .append(options)
+        .submit();
+    });
+    
+  $('.search_options_button')
+    .unbind('click')
+    .click(function(e) {
+      e.preventDefault();
+      $('div.search_options')
+        .slideToggle();
     });
 }

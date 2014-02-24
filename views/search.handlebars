@@ -8,6 +8,7 @@
     
     <div class="content">
       <div style="margin-top:2px;margin-bottom:8px;width:100%;" class="searchbutton button"><a>Search</a></div>
+      {{> searchoptions}}
       
       <div class="separate_header">
 	    <img class="corner_icon" style="float:right;" src="/images/icons/search/search.svg">
@@ -56,6 +57,7 @@
 	    renderbottombar(true, 4{{#if logged_in_user}}, '{{logged_in_user.id}}'{{/if}});
 	    
 	    rendersearchbar(($('#topbar').height()/window.innerHeight), 40, $('body').width(),true);
+	    
         $('body')
           .css('margin-top', $('#topbar').height() + $('.searchwrap').height() + 'px');
 	    
