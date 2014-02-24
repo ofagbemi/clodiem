@@ -118,6 +118,7 @@ exports.createnewpost = function(req, res) {
 			  'likers': [],
 			  'time': req.body.time,
 			  'price': req.body.price,
+			  'price_num': req.body.price_num,
 			  'title': req.body.title,
 			  'x': req.body.x,
 			  'y': req.body.y,
