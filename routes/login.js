@@ -28,9 +28,7 @@ function removecurrentuser(req) {
 exports.setcurrentuser = setcurrentuser;
 
 exports.loginuser = function(req, res) {
-  // look for user -- TODO: change this later to generate user id
-    
-     var userid = util.getuserid(req.body.username);
+    var userid = util.getuserid(req.body.username);
         //{"id": userid}
     models.User
     .find({"id" : userid})
