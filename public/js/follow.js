@@ -38,6 +38,10 @@ function follow_bindclicklisteners(logged_in, followerid) {
           .removeClass('toggled')
           .html(button.html().replace('Following', 'Follow'));
       }
+      
+      console.log(response);
+      
+      
     });
   });
 }
