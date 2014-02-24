@@ -10,12 +10,14 @@ $(document).ready(function() {
   renderprofile_closetbindclicklisteners();
   renderprofile_stylesbindclicklisteners();
   
-  adjustheaderwidths();
+  renderprofile_adjustheadersizes();
 });
 
-function adjustheaderwidths() {
+function renderprofile_adjustheadersizes() {
   $('.profile_header_body')
     .css('width', ($('.profile_header').width() - $('.profile_header .profpic').outerWidth(true)) + 'px');
+  $('.profile_header_body .info')
+    .css('margin-bottom', $('.profile_header_body .button_wrap').height() + 'px');
 }
 function renderprofile_clearcloset() {
   $('.items').hide();

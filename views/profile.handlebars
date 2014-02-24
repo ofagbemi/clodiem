@@ -8,24 +8,24 @@
       <img src="{{#if img}}{{img}}{{else}}/images/icons/button/button.svg{{/if}}" class="profpic">
       <div class="profile_header_body">
         <h2>{{username}}</h2>
-        {{#if location}}
-        <p><span style="color:#aaa;">Location</span> {{location}}</p>
-        {{/if}}
-        {{#if description}}
-        <p>{{description}}</p>
-        {{/if}}
-        <div class="clear"></div>
+        <div class="info">
+		  {{#if location}}
+		  <p><span style="color:#aaa;">Location</span> {{location}}</p>
+		  {{/if}}
+		  {{#if description}}
+		  <p>{{description}}</p>
+		  {{/if}}
+		  <div class="clear"></div>
+		</div>
+		<div class="button_wrap" style="position:absolute;bottom:8px;right:8px;">
         {{#if own_page}}
-        <div class="button_wrap">
           <div class="button">
             <a href="/settings">
               <img style="width:12px;margin-top:-5px;" src="/images/icons/user/whiteuser.svg">
               My account
             </a>
           </div>
-        </div>
         {{else}}
-        <div class="button_wrap">
 		  <div followedid="{{id}}" class="follow_button button {{#if isfollowing}}toggled{{/if}}">
 		    <a>
 		      <img style="height: 23px;margin-left:8px;margin-right:2px;"src="/images/icons/follow/whitefollow.svg">
@@ -36,8 +36,8 @@
 		      {{/if}}
 		    </a>
 		  </div>
-	    </div>
 	    {{/if}}
+	    </div>
 	  </div>
       <div class="clear"></div>
     </div>
