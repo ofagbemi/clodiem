@@ -69,7 +69,7 @@ app.get('/register', register.view);
 app.get('/user', profile.view);
 app.get('/search', search.landingview);
 app.get('/searchfor', search.view);
-app.get('/following', following.view);
+app.get('/following', favorites.followingview);
 app.get('/followers', followers.view);
 app.get('/createpost', createpost.view);
 app.get('/settings', settings.view);

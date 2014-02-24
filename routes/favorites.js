@@ -25,7 +25,38 @@ exports.view = function(req, res) {
     res.redirect('/login');
   }
 };
-
+exports.followingview = function(req, res) {
+  var logged_in_user_id = profile.getloggedinuser(req);
+  if(!logged_in_user_id) {
+    console.log('favorites.js: no logged in user');
+    res.redirect('/login');
+  }
+  
+  models.User
+    .find({'id': logged_in_user_id})
+    .exec(function(err, result) {
+      if(err) {console.log(err); res.send(500);}
+      var logged_in_user = result[0];
+      if(!logged_in_user) {
+        console.log('favorites.js: couldn\'t find user ' + logged_in_user_id);
+        res.send(404);
+      }
+      
+      var ret = {};
+      ret['title'] = 'Following';
+      ret['users'] = [];
+      
+      profile.getusersfromids(
+        logged_in_user['following_ids'],
+        function(err, users) {
+          if(err) {console.log(err);res.send(500);}
+          ret['users'] = users;
+          res.render('followingusers', ret);
+        }
+      );
+    
+    });
+};
 exports.stylesview = function(req, res) {
   var logged_in_user_id = profile.getloggedinuser(req);
   
@@ -110,49 +141,6 @@ exports.stylepostsview = function(req, res) {
     console.log('favorites.js: no logged in user');
     res.redirect('/login');
   }
-  
-  /*
-  
-  
-  models.Post.
-		find("id", req.query.id).
-		exec(afterSearchPost);
-			function afterSearchPost(err, result) {
-				if(err) {console.log(err); res.send(500); }
-				var style = result[0];
-				if(logged_in_user && style) {
-					var ret = {};
-					ret['title'] = style['title'];
-					ret['icon'] = '/images/icons/shirt3/shirt3.svg';
-					ret['posts'] = [];
-					
-					// populate ret['posts'] with all of the logged in user's aisle posts
-					if(logged_in_user && logged_in_user['liked_post_ids']) {
-					  ret['posts'] = dashboard.getpostsfromids(
-					                   style['item_ids'],
-					                   logged_in_user);
-					} else {
-					  style['item_ids'] = [];
-					}
-				  
-				    // populate each post with the item posts for each of the items
-				    // belonging to that post
-					for(var i=0;i<ret['posts'].length;i++) {
-					  var post = ret['posts'][i];
-					  post['items'] = [];
-					  if(post['item_ids']) {
-					    post['items'] = dashboard.getpostsfromids(post['item_ids']);
-					  }
-					}
-					ret['logged_in_user'] = logged_in_user;
-					
-					res.render('likedposts', ret);
-				  } else {
-				    // if no one's logged in, redirect to log in page
-				    console.log('favorites.js: no logged in user');
-				    res.redirect('/login');
-				  }
-			}	*/
 };
 exports.likedpostsview = function(req, res) {
   var logged_in_user_id = profile.getloggedinuser(req);
