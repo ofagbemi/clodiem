@@ -29,12 +29,15 @@
   <script type="text/javascript" src="/js/splitbackground.js"></script>
   <script type="text/javascript" src="/js/landing.js"></script>
   <script type="text/javascript" src="/js/login.js"></script>
+  {{> universalscripts}}
   <script>
 	function setSizes() {
 	  splitbackground(0.30, '#3c3d3d');
 	  renderlanding(0.30);
 	  $('body')
 	    .css('margin-top', 0.30 * window.innerHeight + 'px');
+	    
+	  setlinks();
 	}
 	$(window).resize(function() {
 	  setSizes();

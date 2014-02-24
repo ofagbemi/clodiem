@@ -50,11 +50,14 @@
     <script type="text/javascript" src="/js/landing.js"></script>
     <script type="text/javascript" src="/js/rendercontent.js"></script>
     <script type="text/javascript" src="/js/rendersearchbar.js"></script>
+    {{> universalscripts}}
     <script>
       function setSizes() {
         splitbackground(0.30, '#3c3d3d');
         renderlanding(0.30);
         rendersearchbar(0.30);
+        
+        setlinks();
       }
       $(window).resize(function() {
         setSizes();
