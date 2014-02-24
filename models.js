@@ -29,6 +29,7 @@ var PostSchema = new Mongoose.Schema({
     "likes": Number,
     "time": Date,
     "price": String,
+    "price_num": Number,
     "title": String,
     "x": Number,
     "y": Number,

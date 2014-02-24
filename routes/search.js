@@ -6,6 +6,7 @@ var models = require('../models');
 //sort by likes, time, price, (relevance best or multiple)   +   (preference AI)    //after query 
 
 exports.view = function(req, res) {
+
     // get the current logged in user
     logged_in_user_id = profile.getloggedinuser(req);
     console.log('search.js: looking for logged in user');
@@ -69,10 +70,10 @@ exports.view = function(req, res) {
         if(likeMax) likeMaxMongo = {"likes" : {$lte: likeMax} };
 
         var priceMinMongo = {};
-        if(priceMin) priceMinMongo = {"price": {$gte: priceMin} };
+        if(priceMin) priceMinMongo = {"price_num": {$gte: priceMin} };
 
         var priceMaxMongo = {};
-        if(priceMax) priceMaxMongo = {"price": {$lte: priceMax} };
+        if(priceMax) priceMaxMongo = {"price_num": {$lte: priceMax} };
 
         var linkMongo = {};
         if(link) linkMongo = {"purchase_link": {$exists: true} };
@@ -99,7 +100,6 @@ exports.view = function(req, res) {
 		ret['query'] = query;
 		ret['posts'] = []; // tags
 		console.log('search.js: looking for results for query ' + query);
-
 
         models.Post
           .find({$or:
