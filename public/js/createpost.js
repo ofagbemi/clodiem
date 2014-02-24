@@ -11,6 +11,8 @@ var createpost_addeditem_partial = '\
 var createpost_addeditemiconheight = 40;
 var createpost_addeditemiconwidth = 40;
 
+var createpost_uploadedimage = false;
+
 function createpost_redirecttopost(response) {
   window.location.replace('/outfit?id=' + response['postid']);
 }
@@ -33,6 +35,10 @@ function createpost_showpostbutton() {
   $('#post_button')
     .fadeIn(600);
 }
+function createpost_hidepostbutton() {
+  $('#post_button')
+    .fadeOut(600);
+}
 function createpost_show(num) {
   $('.createpost_stepwrap.' + num)
       .fadeIn(600);
@@ -53,7 +59,9 @@ function createpost_bindclicklisteners() {
       if($(this).val() != '') {
         $('.img_upload_wrap').slideDown(600);
       } else {
-        $('.img_upload_wrap').slideUp(600);
+        if(!createpost_uploadedimage) {
+          $('.img_upload_wrap').slideUp(600);
+        }
       }
     });
   $('#post_button')
@@ -155,10 +163,14 @@ function createpost_bindclicklisteners() {
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
+      $('.createpost_skip_additem')
+        .text('or cancel...');
       createpost_addeditemiconheight = $('.createpost_additem img').height();
       createpost_addeditemiconwidth = $('.createpost_additem img').width();
       createpost_hide(3);
       createpost_show(4);
+      createpost_hide(5);
+      createpost_hidepostbutton();
     });
   $('a.img_upload')
     .unbind('click')
@@ -182,6 +194,8 @@ function createpost_bindclicklisteners() {
               .replace(/upload main photo/i,
                        'Upload a different photo')
         );
+        
+        createpost_uploadedimage = true;
         
         $('.marker_field .marker_field_img')
           .attr('src', e.target.result)
@@ -225,6 +239,7 @@ function createpost_bindclicklisteners() {
       createpost_show(5);
       createpost_scrollto(5);
       createpost_showpostbutton();
+      createpost_cleanupmarkitem() 
     });
 }
 
