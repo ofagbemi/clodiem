@@ -216,9 +216,9 @@ exports.createnewpostfromitems = function(req, res) {
 
 				// data['posts'][item['id']] = item;
 
-				item.save(afterSave);
+				item.save(afterItemSave);
 
-				function afterSave(err){
+				function afterItemSave(err){
 					if(err) {console.log(err); res.send(500); }
 		        	console.log("item saved");
 				}
@@ -237,8 +237,8 @@ exports.createnewpostfromitems = function(req, res) {
 
 			//saving
 			
-			post.save(afterSave);
-			function afterSave(err){
+			post.save(afterPostSave);
+			function afterPostSave(err){
 				if(err) {console.log(err); res.send(500); }
 		        console.log("post saved");
 		        user['post_ids'].unshift(post['id']);

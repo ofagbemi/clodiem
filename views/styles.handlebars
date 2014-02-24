@@ -7,30 +7,39 @@
   <body>
     <div class="content">
       <div class="separate_header" >
-		<h2>Styles ({{posts.length}})</h2>
+		<h2>Styles <span style="font-size:x-large">({{posts.length}})</span></h2>
 	  </div>
 	  
-	  {{#each posts}}
-		{{#if item_ids.length}}
-		<a style="color:inherit;" href="/styleposts?id={{id}}">
-		{{/if}}
-	  
-		<div 
-		{{#unless logged_in_user.style_ids.length}}
-		style="background-color: #eee;color: #aaa;"
-		{{/unless}}
-		class="separate_header">
+	  {{#if posts.length}}
+		{{#each posts}}
 		  {{#if item_ids.length}}
-			<img src="/images/icons/forward/darkgreyforward.svg" style="width:18px;margin-top:14px;margin-right:2px;float:right;">
+		  <a style="color:inherit;" href="/styleposts?id={{id}}">
 		  {{/if}}
-		  <h3>{{title}}</h3>
-		  <p>{{item_ids.length}} styles</p>
-		</div>
 	  
-		{{#if item_ids.length}}
-		</a>
-		{{/if}}
-	  {{/each}}
+		  <div 
+		  {{#unless logged_in_user.style_ids.length}}
+		  style="background-color: #eee;color: #aaa;"
+		  {{/unless}}
+		  class="separate_header">
+			{{#if item_ids.length}}
+			  <img src="/images/icons/forward/darkgreyforward.svg" style="width:18px;margin-top:14px;margin-right:2px;float:right;">
+			{{/if}}
+			<h3>{{title}}</h3>
+			<p>{{item_ids.length}} styles</p>
+		  </div>
+	  
+		  {{#if item_ids.length}}
+		  </a>
+		  {{/if}}
+		{{/each}}
+	  {{else}}
+	  <div class="separate_header">
+	    <div>You haven't created any styles yet. You can organize posts into styles so you can look back at them later.</div>
+		<div style="width:100%;text-align:center;margin-top:8px;">
+		  <a class="tutorial_button" href="#">Click here to find out how</a>.
+		</div>
+	  </div>
+	  {{/if}}
 	</div>
     
     {{> tutorial}}
