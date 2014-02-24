@@ -11,7 +11,7 @@ function register_bindclicklisteners() {
       e.preventDefault();
       if(register_checkformvalid()) {
         $('.registerform')
-          .append('<input name="time" value="' + (new Date()).toString() + '" type="text">');
+          .append('<input style="display:none;" name="time" value="' + (new Date()).toString() + '" type="text">');
         $('.registerform').submit();
       } else {
         alert('Please finish filling out the form');

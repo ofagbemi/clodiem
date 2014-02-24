@@ -6,8 +6,8 @@
   
   <body>
     <div class="content">
-		<div style="margin-top:44px;width:100%;" class="searchbutton button"><a>Search</a></div>
-      
+	  <div style="margin-top:2px;width:100%;" class="searchbutton button"><a>Search</a></div>
+      {{> searchoptions}}
     </div>
     
     {{> tutorial}}
@@ -30,6 +30,11 @@
         
         rendertopbar(true);
         renderbottombar(true, 4{{#if logged_in_user}},'{{logged_in_user.id}}'{{/if}});
+        
+        
+        $('body')
+          .css('margin-top', $('#topbar').height() + $('.searchwrap').height() + 'px');
+        
         renderposts({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
         buildmenu(
           {{#if logged_in_user}}
