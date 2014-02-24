@@ -1,15 +1,11 @@
 <div class="user">
   <a class="profpic" href="/user?id={{id}}">
-	<img class="profpic" src="{{img}}">
+	<img class="profpic" src="{{#if img}}{{img}}{{else}}/images/icons/button/button.svg{{/if}}">
   </a>
   <div class="user_body">
     <h4><a class="user_link" href="/user?id={{id}}">{{username}}</a></h4>
-    {{#if location}}
-	<span>Location</span> <span>{{location}}</span>
-	{{/if}}
-	{{#if description}}
-	  <p>{{description}}</p>
-	{{/if}}
+	<span style="color:#aaa;">Location </span> <span>{{#if location}}{{location}}{{else}}Somewhere{{/if}}</span>
+	  <p>{{#if description}}{{description}}{{else}}I haven't written a description yet{{/if}}</p>
   </div>
   <div class="clear"></div>
 </div>
