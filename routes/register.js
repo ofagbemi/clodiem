@@ -41,22 +41,35 @@ exports.registeruser = function(req, res) {
 				"style_ids": [],
 				"following_ids": [],
 				"followers_ids": [],
-				"recommended_user_ids": [util.getuserid('Anna B.'), util.getuserid('Kendrick.')],
-				"liked_post_ids": []
+				"liked_post_ids": [],
+				"time": req.body.time
 			  });
 			  
-			// add user to data
-			//data['users'][user['id']] = user;
-		      user.save(afterSave);
-		      function afterSave(err) { // this is a callback
-		          if(err) {console.log(err); res.send(500); }
-		          console.log("register.js: user saved");
-		          console.log('register.js: registered user ' + userid + ' successfully!');
+			models.User
+			  .find({})
+			  .sort('-time')
+			  .limit(4)
+			  .exec(function(err, rec_users) {
+			    // add some recommended users
+			    if(err) {console.log(err); res.send(500);}
+			    user['recommended_user_ids'] = [];
+			    for(var i = 0;i<rec_users.length;i++) {
+			      user['recommended_user_ids'].push(rec_users[i]['id']);
+			    }
+			    
+			    console.log('register.js: adding recommended users ' + user['recommended_user_ids']);
+				
+				user.save(afterSave);
+				function afterSave(err) { // this is a callback
+				  if(err) {console.log(err); res.send(500); }
+				  console.log("register.js: user saved");
+				  console.log('register.js: registered user ' + userid + ' successfully!');
 				  // set this user as the logged in user
 				  login.setcurrentuser(req, user['id']);
 		  
 				  res.redirect('/aisle');
-		      }
+				}
+			  });
 		  } else {
 		    console.log('register.js: user with id ' + userid + ' already exists');
 

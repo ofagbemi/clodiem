@@ -14,7 +14,8 @@ var UserSchema = new Mongoose.Schema({
     "recommended_user_ids": [String],
     "liked_post_ids": [String],
     "location": String,
-    "description": String
+    "description": String,
+    "time": Date
 });
 
 var PostSchema = new Mongoose.Schema({

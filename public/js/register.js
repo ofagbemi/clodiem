@@ -10,6 +10,8 @@ function register_bindclicklisteners() {
     .click(function(e) {
       e.preventDefault();
       if(register_checkformvalid()) {
+        $('.registerform')
+          .append('<input name="time" value="' + (new Date()).toString() + '" type="text">');
         $('.registerform').submit();
       } else {
         alert('Please finish filling out the form');
