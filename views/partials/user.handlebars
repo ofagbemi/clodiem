@@ -4,8 +4,12 @@
   </a>
   <div class="user_body">
     <h4><a class="user_link" href="/user?id={{id}}">{{username}}</a></h4>
+    {{#if location}}
 	<span>Location</span> <span>{{location}}</span>
-	<p>{{description}}</p>
+	{{/if}}
+	{{#if description}}
+	  <p>{{description}}</p>
+	{{/if}}
   </div>
   <div class="clear"></div>
 </div>
