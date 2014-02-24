@@ -60,6 +60,13 @@ exports.view = function(req, res) {
   var ret = {};
   var logged_in_user_id = getloggedinuser(req);
   
+  if(!logged_in_user_id) {
+    console.log('profile.js: no logged in user');
+    res.redirect('/login');
+    res.end();
+    return;
+  }
+  
   models.User
     .find({"id": req.query.id})
     .exec(renderprofile)
@@ -68,13 +75,14 @@ exports.view = function(req, res) {
     var user = result[0];
     if(!user) {
       console.log('profile.js: couldn\'t find user ' + req.query.id);
-      res.writeHead(404);
-      res.send();
+      res.send(404);
+      res.end();
+      return;
     }
     
     // set ret to the found user
     ret = user;
-    console.log('profile.js: starting render of page for user ' + user['id']);
+    console.log('profile.js: starting render of page for user ' + logged_in_user_id);
     if(logged_in_user_id) {
       // save some work if the user's looking at their own profile
       if(logged_in_user_id == user['id']) {
@@ -111,7 +119,7 @@ exports.view = function(req, res) {
       dashboard.getpostsfromids(ret['post_ids'], loggedinuser,
                                 function(err, posts) {
                                 
-        if(err) {console.log(err);res.send(500);}
+        if(err) {console.log(err);res.send(500);return;}
         
         ret['posts'] = posts;
         
@@ -120,7 +128,7 @@ exports.view = function(req, res) {
         if(!ret['style_ids']) ret['style_ids'] = [];
         dashboard.getpostsfromids(ret['style_ids'], null,
           function(err, styles) {
-            if(err) {console.log(err);res.send(500);}
+            if(err) {console.log(err);res.send(500);return;}
             ret['styles'] = styles;
             
             // get user's followers
@@ -128,7 +136,7 @@ exports.view = function(req, res) {
             if(!ret['followers_ids']) ret['followers_ids'] = [];
             getusersfromids(ret['followers_ids'],
               function(err, followers) {
-                if(err) {console.log(err);res.send(500);}
+                if(err) {console.log(err);res.send(500);return;}
                 ret['followers'] = followers;
                 
                 // get user's following
@@ -136,7 +144,7 @@ exports.view = function(req, res) {
                 if(!ret['following_ids']) ret['following_ids'] = [];
                 getusersfromids(ret['following_ids'],
                   function(err, following) {
-                    if(err) {console.log(err);res.send(500);}
+                    if(err) {console.log(err);res.send(500);return;}
                     ret['following'] = following;
                     
                     // that's it!
