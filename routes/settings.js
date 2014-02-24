@@ -28,13 +28,26 @@ exports.setuser = function(req, res) {
 
   function afterSearch(err, result) { // this is a callback
       if(err) {console.log(err); res.send(500); }
-      if(result[0]){
+      var user = result[0];
+      if(user){
+        /*
         var user = result[0];
         for(var key in req.body.settings) {
           user[key] = req.body.settings[key];
         }
         res.writeHead(200);
         res.end();
+        */
+        models.User.update({'id': user['id']},
+                           req.body.settings,
+                           function(err) {
+                             if(err) {console.log(err);res.send(500);return;}
+                             console.log('settings.js: updated user settings ' + req.body.settings);
+                             res.send(200);
+                             return;
+                           });
+        
+        
       } else {
         console.log('setuser.js: the user with id ' + req.body.userid + ' could not be found');
         res.writeHead(404);
