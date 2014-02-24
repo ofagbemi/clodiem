@@ -15,7 +15,8 @@ exports.view = function(req, res) {
       .exec(function(err, result) {
 
         var ret = {};
-        ret['logged_in_user'] = result[0];
+        var loggedInUser = result[0];
+        ret['logged_in_user'] = loggedInUser;
 
         var query = req.query.q;
         if(!query) {
@@ -42,7 +43,15 @@ exports.view = function(req, res) {
         var style = true;
         var outfit = true;
         var clothing = true; 
-        var isFriend;
+        var isFriend; //this filter applies after search query in a for loop
+
+        //sort settings should be a number value, usage demonstrated belwo
+        var sort;
+
+        //sort usage demonstrated here
+        var sortMongo;
+        if(sort == 1) sortMongo = "-like";
+        else sortMongo = "-time";
 
         //filter values to give to mongo
         var searchTagsMongo = {"never true" : "for or statements only"};
@@ -83,17 +92,17 @@ exports.view = function(req, res) {
 
         //these four im less sure about how to construct
         //i put the next three in an or case because they are mutually exclusive
-        var styleMongo = {};
-        if(style) styleMongo = {"type": "style" };
+        var styleMongo = {"type": { $ne: "style" } };
+        if(style) styleMongo = {};
 
-        var outfitMongo = {"never true" : "for or statements only"};
-        if(outfit) outfitMongo = {"type": "outfit" };
+        var outfitMongo = {"type": { $ne: "outfit" } };;
+        if(outfit) outfitMongo = {};
 
-        var clothingMongo = {"never true" : "for or statements only"};
-        if(clothing) clothingMongo = {"type": "clothing"};
+        var clothingMongo = {"type": { $ne: "item" } };
+        if(clothing) clothingMongo = {};
 
         //maybe filter after
-        var isFriendMongo = {};
+        //var isFriendMongo = {};
         //if(isFriend) isFriendMongo = {"userid": ??? };
 
         
@@ -113,152 +122,25 @@ exports.view = function(req, res) {
           )
           .where(timeMinMongo).where(timeMaxMongo).where(likeMinMongo).where(likeMaxMongo)
           .where(priceMinMongo).where(priceMaxMongo).where(linkMongo).where(photoMongo)
-          //.where({$or:[styleMongo, outfitMongo, clothingMongo]}) //this doesnt work yet, working on syntax
-          .where(isFriendMongo)
-          .sort("-time") //can implement a weighting funciton here
+          .where(styleMongo).where(outfitMongo).where(clothingMongo)
+          .sort(sortMongo) //can implement a weighting funciton here
           .exec(afterFindPosts);
 
  
         function afterFindPosts(err, posts) {
           if(err) {console.log(err);res.send(500);}
+          if(isFriend && loggedInUser){
+              for(var i = posts.length-1; i >= 0; i--) {
+                console.log(posts[i]["userid"]);
+                console.log(loggedInUser["following_ids"]);
+                if(loggedInUser["following_ids"].indexOf(posts[i]["userid"]) < 0) posts.splice(i,1);
+              }
+          }
           ret['posts'] = posts;
           res.render('search', ret);
         }
 
-
-
-        // //POSTS
-        // ret['tags'] = [];
-        // ret['types'] = [];
-        // ret['tagswithusernames'] = [];
-        // ret['title'] = []; 
-        // ret['retailer'] = [];
-        // ret['comments'] = [];
-
-        // //USERS
-        // ret['users'] = []; // usernames
-        // ret['locations'] = [];
-        // ret['descriptions'] = [];
-    
-        // models.Post.
-        //     find({"tags": query.toLowerCase()}).
-        //     exec(afterSearchTags);
-
-        // function afterSearchTags(err, result) {
-        //     if(err) {console.log(err); res.send(500); }
-        //     if(result[0]) {
-        //         console.log(result.length)
-        //         ret['tags'] = result;
-        //     }
-        //     models.Post.
-        //         find({"type": { $regex : new RegExp(req.query.q.toLowerCase(), "i") } }).
-        //         exec(afterSearchTypes);
-        // }
-
-        // function afterSearchTypes(err, result) {
-        //     if(err) {console.log(err); res.send(500); }
-        //     if(result[0]) {
-        //         console.log(result.length)
-        //         ret['types'] = result;
-        //     }
-        //     models.Post.
-        //         find({"username": { $regex : new RegExp(req.query.q.toLowerCase(), "i") } }).
-        //         exec(afterSearchUsername);
-        // }
-
-        // function afterSearchUsername(err, result) {
-        //     if(err) {console.log(err); res.send(500); }
-        //     if(result[0]) {
-        //         console.log(result.length)
-        //         ret['tagswithusernames'] = result;
-        //     }
-        //     models.Post.
-        //         find().
-        //         where({"title": { $regex : new RegExp(req.query.q.toLowerCase(), "i") } }).
-        //         exec(afterSearchTitle);
-        // }
-
-        
-        // function afterSearchTitle(err, result) {
-        //     if(err) {console.log(err); res.send(500); }
-        //     if(result[0]) {
-        //         console.log(result.length)
-        //         ret['title'] = result;
-        //     }
-        //     models.Post.
-        //         find({"retailer": { $regex : new RegExp(req.query.q.toLowerCase(), "i") } }).
-        //         exec(afterSearchRetailer);
-        // }
-
-        
-        // //LAST ONE!!!
-        // function afterSearchRetailer(err, result) {
-        //     if(err) {console.log(err); res.send(500); }
-        //     if(result[0]) {
-        //         console.log(result.length)
-        //         ret['retailer'] = result;
-        //     }
-        //     ret['posts'] = ret['posts'].concat(ret['tags'], ret['types'], ret['tagswithusernames'], 
-        //                     ret['title'], ret['retailer']);
-        //     res.render('search', ret);
-        // }
-
-        // USER SEARCHES
-        // models.User.
-        //     find({"username": { $regex : new RegExp(req.query.q.toLowerCase(), "i") } }).
-        //     exec(afterSearchUsername);
-
-        //     function afterSearchUsername(err, result) {
-        //         if(err) {console.log(err); res.send(500); }
-        //         if(result[0]) {
-        //             console.log(result.length)
-        //             for (var i = 0; i < result.length; i++) {
-        //                 ret['users'].push(result[i]["id"]);
-        //             }
-        //         }
-        //     }
-
-        // models.User.
-        //     find({"location" : { $regex : new RegExp(req.query.q.toLowerCase(), "i") } }).
-        //     exec(afterSearchLocationInUser);
-
-        //     function afterSearchLocationInUser(err, result) {
-        //         if(err) {console.log(err); res.send(500); }
-        //         if(result[0]) {
-        //             console.log(result.length)
-        //             for (var i = 0; i < result.length; i++) {
-        //                 ret['locations'].push(result[i]["id"]);
-        //             }
-        //         }
-        //     }
-
-        // models.User.
-        //     find({"description" : { $regex : new RegExp(req.query.q.toLowerCase(), "i") } }).
-        //     exec(afterSearchDescriptionsInUser);
-
-        //     function afterSearchDescriptionsInUser(err, result) {
-        //         if(err) {console.log(err); res.send(500); }
-        //         if(result[0]) {
-        //             console.log(result.length)
-        //             for (var i = 0; i < result.length; i++) {
-        //                 ret['descriptions'].push(result[i]["id"]);
-        //             }
-        //         }
-        //     }
-
-        
-
-
-
-
-        
-		
-        
-
-
       });
-    
-    
 
 };
 exports.landingview = function(req, res) {
