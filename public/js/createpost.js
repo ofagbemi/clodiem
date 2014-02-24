@@ -328,6 +328,7 @@ function createpost_gettotalprice(items) {
   
   var pricestr = items[0]['price'];
   for(var i=1;i<items.length;i++) {
+    if(items[i].length < 1) continue;
     pricestr += (' + ' + items[i]['price']);
   }
   return $.trim(pricestr);
