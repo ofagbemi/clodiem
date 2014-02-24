@@ -18,7 +18,6 @@ function renderposts(userid) {
   placemarkers();
   renderposts_bindclicklisteners();
   
-  console.log(userid);
   renderposts_loadaisleposts(renderposts_userid);
 }
 // renders comments and posts
