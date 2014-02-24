@@ -83,6 +83,25 @@ exports.loginuser = function(req, res) {
 };
 
 exports.logoutuser = function(req, res) {
+  var user_id = profile.getloggedinuser(req);
+  if(user_id) {
+    models.User
+      .find({'id': user_id})
+      .exec(function(err, result) {
+        if(err) {console.log(err);res.send(500);}
+        if(result[0]) {
+          removecurrentuser(req);
+          res.redirect('/');
+        } else {
+          console.log('login.js: couldn\'t find user with id ' + user_id);
+          res.send(404);
+        }
+      });
+  } else {
+    console.log('login.js: no logged in user');
+    res.redirect('/');
+  }
+  /*
   var logged_in_user = profile.getloggedinuser(req);
   if(logged_in_user && logged_in_user['id'] == req.query.id) {
     console.log('login.js: logging out user ' + logged_in_user['id']);
@@ -93,4 +112,5 @@ exports.logoutuser = function(req, res) {
     res.writeHead(404);
     res.end();
   }
+  */
 }
