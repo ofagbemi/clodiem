@@ -40,7 +40,7 @@ function comments_bindclicklistener(logged_in, username, img) {
       var post_id = $(this).attr('postid');
       var comment_val = $(".comment_box:visible[postid='" + post_id + "']").val();
       if(comment_val) {
-        comments_submitcomment(post_id, username, img, comment_val, function() {
+        comments_submitcomment(post_id, username, img, comment_val, function(response) {
           $(".comment_box:visible[postid='" + post_id + "']").val('');
           if($('.comments').length > 0) {
 			var comment_body = comments_buildcomment(username, img, comment_val);
@@ -52,6 +52,10 @@ function comments_bindclicklistener(logged_in, username, img) {
 		  } else {
 		    alert('Your comment "' + comment_val + '" was posted successfully!');
 		  }
+		  
+		  var num_comments = response['comments'];
+          $('.post[postid="' + post_id + '"] .num_comments').html(num_comments);
+		  
         });
       }
     });

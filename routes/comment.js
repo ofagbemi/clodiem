@@ -29,7 +29,7 @@ exports.addcomment = function(req, res) {
             function(err) {
               if(err) {console.log(err); res.send(500);}
               console.log('comment.js: saved comment successfully');
-              res.send(200);
+              res.json(200, {'comments': post['comment_ids'].length});
             })
       });
     });
@@ -45,5 +45,6 @@ exports.getcommentsfromids = function(ids, callback) {
   
   models.Comment
     .find({'_id': {$in : ids}})
+    .sort('-time')
     .exec(callback);
 }
