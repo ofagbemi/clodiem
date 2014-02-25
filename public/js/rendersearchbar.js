@@ -63,6 +63,13 @@ function rendersearchbar(h, barheight, barwidth, boxshadow) {
         .append(options)
         .submit();
     });
+
+  $('.focus_search')
+    .unbind('click')
+    .click(function(e) {
+      e.preventDefault();
+      $('#searchbox').focus();
+    });
     
   $('.search_options_button')
     .unbind('click')
