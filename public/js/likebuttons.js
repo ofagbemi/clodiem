@@ -10,11 +10,12 @@ function activatelikebuttons(userid) {
       return;
     }
     
+    var postid = $(this).attr('postid');
     if($(this).attr('status') == 'liked') {
-      likebuttons_removelike(userid, $(this).attr('postid'));
+      likebuttons_removelike(userid, postid);
       $(this).attr('status', '');
     } else {
-      likebuttons_addlike(userid, $(this).attr('postid'));
+      likebuttons_addlike(userid, postid);
       $(this).attr('status', 'liked');
     }
 
@@ -30,9 +31,10 @@ function likebuttons_addlike(userid, postid) {
     type: 'POST',
     url: '/addlike',
     data: data,
-    success: likebuttons_adjustpagelikes
+    success: function(response) {
+      likebuttons_adjustpagelikes(response, postid);
+    }
   });
-  console.log('here');
 }
 
 function likebuttons_removelike(userid, postid) {
@@ -44,10 +46,14 @@ function likebuttons_removelike(userid, postid) {
     type: 'POST',
     url: '/removelike',
     data: data,
-    success: likebuttons_adjustpagelikes
+    success: function(response) {
+     likebuttons_adjustpagelikes(response, postid);
+    }
   });
 }
 
-function likebuttons_adjustpagelikes(response) {
+function likebuttons_adjustpagelikes(response, postid) {
   var num_likes = parseInt(response['likes']);
+  $('.post[postid="' + postid + '"] .num_likes')
+    .html(num_likes)
 }
