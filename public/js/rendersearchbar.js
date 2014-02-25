@@ -56,11 +56,18 @@ function rendersearchbar(h, barheight, barwidth, boxshadow) {
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
+      $('form.searchform').submit();
+    });
+    
+  $('form.searchform')
+    .submit(function(e) {
+      e.preventDefault();
       var options = $('div.search_options').clone();
       options.hide();
       
       $('form.searchform')
         .append(options)
+        .unbind('submit')
         .submit();
     });
 
