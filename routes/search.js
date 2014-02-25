@@ -24,29 +24,50 @@ exports.view = function(req, res) {
         }
         query = query.toLowerCase();
 
+        ret['searchTags'] = req.query.searchTags;
+        ret['searchTitle'] = req.query.searchTitle;
+        ret['searchRetailers'] = req.query.searchRetailers;
+        ret['photo'] = req.query.photo;
+        ret['style'] = req.query.style;
+        ret['outfit'] = req.query.outfit;
+        ret['clothing'] = req.query.clothing;
+        
+        ret['timeMin'] = req.query.timeMin;
+        ret['timeMax'] = req.query.timeMax;
+        ret['likeMin'] = req.query.likeMin;
+        ret['likeMax'] = req.query.likeMax;
+        
+        ret['show_options'] = (
+          ret['searchTags'] || ret['searchTitle'] || ret['searchRetailers'] ||
+          ret['photo'] || ret['style'] || ret['outfit'] || ret['clothing'] ||
+          ret['timeMin'] || ret['timeMax'] || ret['likeMin'] || ret['likeMax']
+        );
+
         //filters values from req
         //fields to serach
-        var searchTags = true;
-        var searchTitle = true;
-        var searchRetailer = true;
-        var searchPostingProfile = true;
+        var searchTags = req.query.searchTags;
+        var searchTitle = req.query.searchTitle;
+        var searchRetailer = req.query.searchRetailers;
+        var searchPostingProfile = true; //any people
         //number filters
-        var timeMin;
-        var timeMax;
-        var likeMin;
-        var likeMax;
+        var timeMin = req.query.timeMin;
+        var timeMax = req.query.timeMax;
+        var likeMin = req.query.likeMin;
+        var likeMax = req.query.likeMax;
         var priceMin;
         var priceMax;
         //boolean filters
-        var link;
-        var photo;
-        var style = true;
-        var outfit = true;
-        var clothing = true; 
-        var isFriend; //this filter applies after search query in a for loop
+        var link; //retailer link
+        var photo = req.query.photo;
+        var style = req.query.style;
+        var outfit = req.query.outfit;
+        var clothing = req.query.clothing; 
+        var isFriend; //people i follow
 
         //sort settings should be a number value, usage demonstrated belwo
-        var sort;
+        var sort; //some value
+
+        console.log(likeMin + " " + likeMax);
 
         //sort usage demonstrated here
         var sortMongo;
@@ -55,13 +76,13 @@ exports.view = function(req, res) {
 
         //filter values to give to mongo
         var searchTagsMongo = {"never true" : "for or statements only"};
-        if(true) searchTagsMongo = {'tags': query};
+        if(searchTags) searchTagsMongo = {'tags': query};
 
         var searchTitleMongo = {"never true" : "for or statements only"};
-        if(true) searchTitleMongo = {'title': new RegExp(query, 'i')};
+        if(searchTitle) searchTitleMongo = {'title': new RegExp(query, 'i')};
 
         var searchRetailerMongo = {"never true" : "for or statements only"};
-        if(true) searchRetailerMongo = {"retailer": new RegExp(query, 'i')};
+        if(searchRetailer) searchRetailerMongo = {"retailer": new RegExp(query, 'i')};
 
         var searchPostingProfileMongo = {"never true" : "for or statements only"};
         if(true) searchPostingProfileMongo = {"username": new RegExp(query, 'i')};
@@ -92,37 +113,18 @@ exports.view = function(req, res) {
 
         //these four im less sure about how to construct
         //i put the next three in an or case because they are mutually exclusive
+        //weird syntax, low priority change: figure out cleaner code
         var styleMongo = {"type": { $ne: "style" } };
         if(style) styleMongo = {};
+        else console.log("NO STYLE");
 
         var outfitMongo = {"type": { $ne: "outfit" } };;
         if(outfit) outfitMongo = {};
+        else console.log("NO OUTFIT");
 
         var clothingMongo = {"type": { $ne: "item" } };
         if(clothing) clothingMongo = {};
-
-        //maybe filter after
-        //var isFriendMongo = {};
-        //if(isFriend) isFriendMongo = {"userid": ??? };
-
-        ret['searchTags'] = req.query.searchTags;
-        ret['searchTitle'] = req.query.searchTitle;
-        ret['searchRetailers'] = req.query.searchRetailers;
-        ret['photo'] = req.query.photo;
-        ret['style'] = req.query.style;
-        ret['outfit'] = req.query.outfit;
-        ret['clothing'] = req.query.clothing;
-        
-        ret['timeMin'] = req.query.timeMin;
-        ret['timeMax'] = req.query.timeMax;
-        ret['likeMin'] = req.query.likeMin;
-        ret['likeMax'] = req.query.likeMax;
-        
-        ret['show_options'] = (
-          ret['searchTags'] || ret['searchTitle'] || ret['searchRetailers'] ||
-          ret['photo'] || ret['style'] || ret['outfit'] || ret['clothing'] ||
-          ret['timeMin'] || ret['timeMax'] || ret['likeMin'] || ret['likeMax']
-        );
+        else console.log("NO ITEMS");
         
 		ret['query'] = query;
 		ret['queryAsTyped'] = req.query.q;
@@ -139,9 +141,12 @@ exports.view = function(req, res) {
                ]
              }
           )
-          .where(timeMinMongo).where(timeMaxMongo).where(likeMinMongo).where(likeMaxMongo)
-          .where(priceMinMongo).where(priceMaxMongo).where(linkMongo).where(photoMongo)
-          .where(styleMongo).where(outfitMongo).where(clothingMongo)
+          .where(timeMinMongo).where(timeMaxMongo)
+          .where(likeMaxMongo).where(likeMinMongo)
+          .where(priceMinMongo).where(priceMaxMongo)
+          .where(linkMongo)
+          .where(photoMongo)
+          .where({$and: [styleMongo, outfitMongo, clothingMongo]})
           .sort(sortMongo) //can implement a weighting funciton here
           .exec(afterFindPosts);
 
@@ -150,8 +155,8 @@ exports.view = function(req, res) {
           if(err) {console.log(err);res.send(500);}
           if(isFriend && loggedInUser){
               for(var i = posts.length-1; i >= 0; i--) {
-                console.log(posts[i]["userid"]);
-                console.log(loggedInUser["following_ids"]);
+                console.log(posts[i]["type"]);
+                //console.log(loggedInUser["following_ids"]);
                 if(loggedInUser["following_ids"].indexOf(posts[i]["userid"]) < 0) posts.splice(i,1);
               }
           }
