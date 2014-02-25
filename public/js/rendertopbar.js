@@ -3,8 +3,7 @@ function rendertopbar(withpadding, withbackbutton) {
   var html = '<div id="topbar" style="width: ' + winwidth + 'px"></div>';
   var topbar = $(html);
   
-  var menubutton = '<a class="menu_button" href="#">Menu</a>';
-  var homebutton = '<a class="home_button" href="/aisle">Clodiem</a>';
+  var homebutton = '<a class="home_button" href="#">Clodiem</a>';
   var searchbutton = '<a class="search_button" href="#">Search</a>';
   var closesearchbutton = $('<a class="close_search_button" href="#">x</a>')
                             .css('display', 'none');
@@ -22,7 +21,6 @@ function rendertopbar(withpadding, withbackbutton) {
   }
   
   topbar
-    // .append(menubutton)
     .append(homebutton)
     .append(tutorialbutton);
     //.append(closesearchbutton)
