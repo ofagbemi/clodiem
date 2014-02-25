@@ -115,11 +115,13 @@ exports.view = function(req, res) {
         
         ret['timeMin'] = req.query.timeMin;
         ret['timeMax'] = req.query.timeMax;
+        ret['likeMin'] = req.query.likeMin;
+        ret['likeMax'] = req.query.likeMax;
         
         ret['show_options'] = (
           ret['searchTags'] || ret['searchTitle'] || ret['searchRetailers'] ||
           ret['photo'] || ret['style'] || ret['outfit'] || ret['clothing'] ||
-          ret['timeMin'] || ret['timeMax']
+          ret['timeMin'] || ret['timeMax'] || ret['likeMin'] || ret['likeMax']
         );
         
 		ret['query'] = query;
