@@ -1,5 +1,5 @@
 <h4 style="margin-top:11px;margin-bottom:11px;text-align:center;"><a class="search_options_button" href="#">Search options</a></h4>
-<div class="search_options separate_header" style="display:none;">
+<div class="search_options separate_header" style="{{#unless show_options}}display:none;{{/unless}}">
   <input type="checkbox" value="true" name="searchTags" {{#if searchTags}}checked{{/if}}> Search tags
   <input type="checkbox" value="true" name="searchTitle" {{#if searchTitle}}checked{{/if}}> Search titles
   <input type="checkbox" value="true" name="searchRetailers" {{#if searchRetailers}}checked{{/if}}> Search retailers

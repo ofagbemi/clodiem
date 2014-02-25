@@ -105,6 +105,22 @@ exports.view = function(req, res) {
         //var isFriendMongo = {};
         //if(isFriend) isFriendMongo = {"userid": ??? };
 
+        ret['searchTags'] = req.query.searchTags;
+        ret['searchTitle'] = req.query.searchTitle;
+        ret['searchRetailers'] = req.query.searchRetailers;
+        ret['photo'] = req.query.photo;
+        ret['style'] = req.query.style;
+        ret['outfit'] = req.query.outfit;
+        ret['clothing'] = req.query.clothing;
+        
+        ret['timeMin'] = req.query.timeMin;
+        ret['timeMax'] = req.query.timeMax;
+        
+        ret['show_options'] = (
+          ret['searchTags'] || ret['searchTitle'] || ret['searchRetailers'] ||
+          ret['photo'] || ret['style'] || ret['outfit'] || ret['clothing'] ||
+          ret['timeMin'] || ret['timeMax']
+        );
         
 		ret['query'] = query;
 		ret['posts'] = []; // tags
