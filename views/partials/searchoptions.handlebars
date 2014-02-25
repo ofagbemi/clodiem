@@ -1,15 +1,15 @@
 <h4 style="margin-top:11px;margin-bottom:11px;text-align:center;"><a class="search_options_button" href="#">Search options</a></h4>
 <div class="search_options separate_header" style="display:none;">
-  <input type="checkbox" value="true" name="searchTags"> Search tags
-  <input type="checkbox" value="true" name="searchTitle"> Search titles
-  <input type="checkbox" value="true" name="searchRetailers"> Search retailers
+  <input type="checkbox" value="true" name="searchTags" {{#if searchTags}}checked{{/if}}> Search tags
+  <input type="checkbox" value="true" name="searchTitle" {{#if searchTitle}}checked{{/if}}> Search titles
+  <input type="checkbox" value="true" name="searchRetailers" {{#if searchRetailers}}checked{{/if}}> Search retailers
   
-  <input type="checkbox" value="true" name="photo">Search posts with photos
-  <input type="checkbox" value="true" name="style">Search styles
-  <input type="checkbox" value="true" name="outfit">Search outfits
-  <input type="checkbox" value="true" name="clothing">Search items
+  <input type="checkbox" value="true" name="photo" {{#if photo}}checked{{/if}}>Search posts with photos
+  <input type="checkbox" value="true" name="style" {{#if style}}checked{{/if}}>Search styles
+  <input type="checkbox" value="true" name="outfit" {{#if outfit}}checked{{/if}}>Search outfits
+  <input type="checkbox" value="true" name="clothing" {{#if clothing}}checked{{/if}}>Search items
   
   <div>
-    From <input name="timeMin" type="date"> to <input name="timeMax" type="date">
+    From <input name="timeMin" type="date" value="{{#if timeMin}}{{timeMin}}{{/if}}"> to <input name="timeMax" type="date" value="{{#if timeMax}}{{timeMax}}{{/if}}">
   </div>
 </div>
