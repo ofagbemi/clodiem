@@ -125,7 +125,7 @@ exports.createnewpost = function(req, res) {
 			  'retailer': req.body.retailer,
 			  'purchase_link': req.body.purchase_link,
 			  'item_ids': req.body.item_ids,
-			  'img' : ""
+			  'img' : req.body.img
 			});
 
             var tags = req.body.tags;
@@ -139,7 +139,7 @@ exports.createnewpost = function(req, res) {
 			if(post['type'] == 'item') {
 			  post['item_ids'].push(post['id']);
 			}
-						
+			
 			console.log(post);			
 			console.log('createpost.js: created post with id ' + post['id']);
 
@@ -157,17 +157,17 @@ exports.createnewpost = function(req, res) {
 				  console.log('createpost.js: unsupported post type ' + post['type']);
 				}
 				
-				models.User
-				  .update({'id': user['id']},
-				    {'style_ids': user['style_ids'],
-				     'post_ids': user['post_ids']},
-				    function(err) {
-				      if(err) {console.log(err);res.send(500);}
-				      console.log('createpost.js: updated user ' + user['id']);
-					  // return with id of item added
-					  var ret = {'postid': post['id']};
-					  res.json(ret);
-				    });
+				  models.User
+					.update({'id': user['id']},
+					  {'style_ids': user['style_ids'],
+					   'post_ids': user['post_ids']},
+					  function(err) {
+						if(err) {console.log(err);res.send(500);}
+						console.log('createpost.js: updated user ' + user['id']);
+						// return with id of item added
+						var ret = {'postid': post['id']};
+						res.json(ret);
+					  });
 			}
 		} else {
 		  console.log('createpost.js: couldn\'t find user with id ' + req.body.userid);
