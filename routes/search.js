@@ -125,6 +125,7 @@ exports.view = function(req, res) {
         );
         
 		ret['query'] = query;
+		ret['queryAsTyped'] = req.query.q;
 		ret['posts'] = []; // tags
 		console.log('search.js: looking for results for query ' + query);
 

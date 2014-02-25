@@ -58,6 +58,8 @@
 	    
 	    rendersearchbar(($('#topbar').height()/window.innerHeight), 40, $('body').width(),true);
 	    
+	    $('#searchbox').val('{{queryAsTyped}}');
+	    
         $('body')
           .css('margin-top', $('#topbar').height() + $('.searchwrap').height() + 'px');
 	    
