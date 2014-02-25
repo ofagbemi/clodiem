@@ -201,7 +201,7 @@ function getpostsfromids(ids, user, callback) {
 			if(post['type'] == 'outfit') {
 			  if(post['item_ids'] && post['item_ids'].length > 0) {
 				console.log('dashboard.js: getting post items ' + post['item_ids'].length);
-				getpostsfromids(post['item_ids'], null,
+				getpostsfromids(post['item_ids'], user,
 				  function(err, items) {
 					if(err) {
 					  // quit
@@ -211,11 +211,26 @@ function getpostsfromids(ids, user, callback) {
 					post['items'] = items;
 					l++;
 				});
-				l++;
 			  } else {
 				l++;
 			  }
-			} else {
+			} else if(post['type'] == 'style') {
+			  if(post['item_ids'] && post['item_ids'].length > 0) {
+			    console.log('dashboard.js: getting style items ' + post['item_ids'].length);
+			    getpostsfromids(post['item_ids'], user, 
+			      function(err, outfits) {
+			        if(err) {
+			          callback(err, null);
+			          return;
+			        }
+			        post['posts'] = outfits;
+			        l++;
+			      });
+			  } else {
+			    l++;
+			  }
+			}
+			else {
 			  l++;
 			}
 		  });
