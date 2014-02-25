@@ -70,13 +70,14 @@
 		    {{#if styles.length}}
 		      <h3 class="style_header">Styles ({{styles.length}})</h3>
 			  {{#each styles}}
-			    <div class="item_wrapper">
+			    <div class="item_wrapper" style="margin-right:4px;float:left;">
 			      <a class="item_wrapper_link" title="{{title}}" href="#">
 				    <img src="{{img}}">
 				    <div class="item_label">{{title}}</div>
 				  </a>
 			    </div>
 			  {{/each}}
+			  <div class="clear"></div>
 			{{else}}
 			  <span>{{username}} hasn't created any styles yet</span>
 			{{/if}}

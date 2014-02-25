@@ -75,11 +75,12 @@ function renderprofile_stylesbindclicklisteners() {
     .click(function(e) {
 	  e.preventDefault();
 	  renderprofile_clearcloset();
-	  $('.styles_button').parent()
+	  $('.styles_button')
 		.addClass('active')
 		.removeClass('inactive');
 	  var title = $(this).attr('title');
 	
+	  $('.style_posts').hide();
 	  $(".style_posts[title='" + title + "']").show();
 	  displays['style_contents'].show();
 	  // call this to make sure that the markers are rendered properly, since
