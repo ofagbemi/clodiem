@@ -165,8 +165,20 @@ exports.getpostsfromids = getpostsfromids;
  * in user and set the liked_post attribute of each liked post
  * to true
  */
-function getpostsfromids(ids, user, callback) {
-  if(ids) {
+function getpostsfromids(_ids, user, callback, fromobj, key) {
+  var ids = null;
+  if(fromobj) {
+    if(!_ids[key]) _ids[key] = [];
+    ids = _ids[key];
+  } else {
+    ids = _ids;
+  }
+
+  if(!ids) {
+    console.log('dashboard.js: no ids');
+    callback('no ids', null, _ids);
+    return;
+  } else {
     console.log('dashboard.js: getting posts with id\'s [' + ids + ']');
     console.log('dashboard.js: DB ready state ' + models.Post.db.readyState);
     models.Post.find({
@@ -184,7 +196,8 @@ function getpostsfromids(ids, user, callback) {
       if(posts) {
         console.log('dashboard.js: found requested posts');
         var l = 0;
-		for(var i=0;i<posts.length;i++) {
+		for(var index=0;index<posts.length;index++) {
+		  var i = index;  // since i is used in callback functions
 		  var post = posts[i];
 		  if(user) {
 			if(util.contains(post['id'], user['liked_post_ids'])) {
@@ -193,16 +206,20 @@ function getpostsfromids(ids, user, callback) {
 			post['logged_in_user'] = user;
 		  }
 		  
-		  console.log('dashboard.js: getting comments ' + post['comment_ids']);
-		  comment.getcommentsfromids(post['comment_ids'],
-		    function(err, comments) {
-		    if(err) {if(callback) callback(err, null); return;}
+		  comment.getcommentsfromids(
+		    post,
+		    function(err, comments, cpost) {
+		    if(err) {if(callback) {callback(err, null);} return;}
+		    
+		    console.log(posts[i]);
+		    console.log('comments: ' + comments);
 		    post['comments'] = comments;
-			if(post['type'] == 'outfit') {
-			  if(post['item_ids'] && post['item_ids'].length > 0) {
+		    
+			if(cpost['type'] == 'outfit') {
+			  if(post['item_ids'] && cpost['item_ids'].length > 0) {
 				console.log('dashboard.js: getting post items ' + post['item_ids'].length);
-				getpostsfromids(post['item_ids'], user,
-				  function(err, items) {
+				getpostsfromids(cpost, user,
+				  function(err, items, opost) {
 					if(err) {
 					  // quit
 					  callback(err, null);
@@ -210,22 +227,23 @@ function getpostsfromids(ids, user, callback) {
 					}
 					post['items'] = items;
 					l++;
-				});
+				}, true, 'item_ids');
 			  } else {
 				l++;
 			  }
-			} else if(post['type'] == 'style') {
-			  if(post['item_ids'] && post['item_ids'].length > 0) {
+			} else if(cpost['type'] == 'style') {
+			  // if(post['item_ids'] && post['item_ids'].length > 0) {
+			  if(true) {
 			    console.log('dashboard.js: getting style items ' + post['item_ids'].length);
-			    getpostsfromids(post['item_ids'], user, 
-			      function(err, outfits) {
+			    getpostsfromids(cpost, user, 
+			      function(err, outfits, spost) {
 			        if(err) {
 			          callback(err, null);
 			          return;
 			        }
-			        post['posts'] = outfits;
+			        spost['posts'] = outfits;
 			        l++;
-			      });
+			      }, true, 'item_ids');
 			  } else {
 			    l++;
 			  }
@@ -233,15 +251,17 @@ function getpostsfromids(ids, user, callback) {
 			else {
 			  l++;
 			}
-		  });
+		  }, true, 'comment_ids');
 		}
-		
 		var check = setInterval(function() {
-		  if(!(l < posts.length)) {
+		  console.log(posts.length);
+		  console.log(l);
+		  if(l == posts.length) {
 		    clearInterval(check);
 		    console.log('dashboard.js: finished processing posts. Exiting soon...');
 		    if(callback){
-		      callback(err, posts);
+		      console.log('dashboard.js: found posts [' + posts + ']');
+		      callback(err, posts, _ids);
 		    }
 		  }
 		}, 200);
