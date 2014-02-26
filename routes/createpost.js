@@ -267,6 +267,42 @@ exports.createnewpostfromitems = function(req, res) {
 
 
 exports.addtopostitems = function(req, res) {
+  models.Post
+    .find({'id': req.body.id})
+    .exec(function(err, posts) {
+      if(err) {console.log(err);res.send(500);return;}
+      var post = posts[0];
+      if(post) {
+        if(!post['item_ids']) post['item_ids'] = [];
+		if(req.body.item_ids) {
+		  console.log('createpost.js: adding ' + req.body.item_ids + ' to ' +
+		    post['item_ids']
+		  );
+		  post['item_ids'] = req.body.item_ids.concat(post['item_ids']);
+		}
+		if(req.body.img) {
+		  post['img'] = req.body.img;
+		}
+		
+		models.Post
+		  .update({'id': post['id']},
+		          {'item_ids': post['item_ids'], 'img': post['img']},
+		          function(err) {
+		            if(err) {console.log(err);res.send(500);return;}
+		            console.log('createpost.js: item_ids is now [' + post['item_ids'] + ']');
+		            res.send(200);
+		            return;
+		          });
+      
+      } else {
+        console.log('createpost.js: couldn\'t find post with id ' + req.body.id);
+        res.send(404);
+        return;
+      }
+    });
+    
+  
+/*
   var post = data['posts'][req.body.id];
   if(post) {
     if(!post['item_ids']) post['item_ids'] = [];
@@ -282,5 +318,5 @@ exports.addtopostitems = function(req, res) {
     console.log('createpost.js: couldn\'t find post with id ' + req.body.id);
     res.writeHead(404);
     res.end();
-  }
+  }*/
 }
