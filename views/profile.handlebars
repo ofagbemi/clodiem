@@ -70,7 +70,7 @@
 		    {{#if styles.length}}
 		      <h3 class="style_header">Styles ({{styles.length}})</h3>
 			  {{#each styles}}
-			    <div class="item_wrapper" style="margin-right:4px;float:left;">
+			    <div class="item_wrapper" style="margin-right:4px;margin-bottom:4px;float:left;">
 			      <a class="item_wrapper_link" title="{{title}}" href="#">
 				    <img src="{{img}}">
 				    <div class="item_label">{{title}}</div>
@@ -85,9 +85,9 @@
         <div class="style_contents items" style="display:none;">
 		  {{#each styles}}
 			<div class="style_posts" title="{{title}}" style="display:none;">
-			  <h3 class="style_header">{{title}} ({{posts.length}})</h3>
-			  {{#if posts.length}}
-				{{#each posts}}
+			  <h3 class="style_header">{{title}} ({{this.posts.length}})</h3>
+			  {{#if this.posts.length}}
+				{{#each this.posts}}
 				  {{> post}}
 				{{/each}}
 			  {{else}}
