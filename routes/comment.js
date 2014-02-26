@@ -35,7 +35,15 @@ exports.addcomment = function(req, res) {
     });
 };
 
-exports.getcommentsfromids = function(ids, callback) {
+exports.getcommentsfromids = function(_ids, callback, fromobj) {
+  var ids = null;
+  if(fromobj) {
+    if(!_ids['comment_ids']) _ids['comment_ids'] = [];
+    ids = _ids['comment_ids'];
+  } else {
+    ids = _ids;
+  }
+
   if(!ids) {
     if(callback) {
       callback('comment.js: no ids', []);
@@ -46,5 +54,7 @@ exports.getcommentsfromids = function(ids, callback) {
   models.Comment
     .find({'_id': {$in : ids}})
     .sort('-time')
-    .exec(callback);
+    .exec(function(err, comments) {
+      callback(err, comments, _ids);
+    });
 }
