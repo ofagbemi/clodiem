@@ -103,6 +103,9 @@ function validateform_showusernamevalid(response) {
     validateform_showvalid('username');
     invalid_message.slideUp();
   } else {
+    if(response['message']) {
+      invalid_message.find('p').html(response['message']);
+    }
     invalid_message.slideDown();
   }
 }

@@ -443,6 +443,10 @@ div.separate_header {
   padding: 11px;
 }
 
+.validate .message{
+  margin-bottom: 8px;
+}
+
 /* profile stuff */
 .profile_header {
   background: white;
