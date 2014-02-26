@@ -27,11 +27,15 @@ function removecurrentuser(req) {
 
 exports.setcurrentuser = setcurrentuser;
 
+function escapeusername(username) {
+  return username;
+}
+
 exports.loginuser = function(req, res) {
-    var userid = util.getuserid(req.body.username);
-        //{"id": userid}
+    var username = escapeusername(req.body.username);
+    
     models.User
-    .find({"id" : userid})
+    .find({"username" : new RegExp('^' + username + '$', 'i')})
     .exec(afterSearch)
     
     function afterSearch(err, result) { // this is a callback
@@ -39,6 +43,7 @@ exports.loginuser = function(req, res) {
         if(result[0]){
             console.log(result[0]["username"]);
             var user = result[0];
+            var userid = user['id'];
             
             // check password
             if(passwordHash.verify(req.body.password, user['password'])) {
