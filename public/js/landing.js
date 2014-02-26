@@ -9,10 +9,9 @@ function renderlanding(paddingtop) {
 	.css('left', (winwidth - $('.button_wrap').width())/2 + 'px');
 	
   $('.button.explore')
-    .css('width', $('.button_wrap').width() + 'px')
     .css('position', 'absolute')
-    .css('top', winheight * 0.5 + 8 + $('.button_wrap').height() + 'px')
-    .css('left', (winwidth - $('.button.explore').width())/2 + 'px');
+    .css('top', winheight * 0.5 + 'px')
+    .css('left', ((winwidth - $('.button.explore').width())/2 - 11) + 'px');
     
   $('#about')
     .css('margin-top', winheight + 'px');
