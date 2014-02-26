@@ -208,6 +208,7 @@ exports.createnewpostfromitems = function(req, res) {
 				item['likes'] = 0;
 				item['likers'] = [];
 				item['id'] = util.getpostid(item);
+				item['username'] = username;
 				if(item['type'] == 'item') {
 				  if(!item['item_ids']) item['item_ids'] = [];
 				  post['item_ids'].push(item['id']);
