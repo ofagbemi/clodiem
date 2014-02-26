@@ -15,13 +15,37 @@ function getloggedinuser(req) {
 
 exports.getloggedinuser = getloggedinuser;
 
+function usernamevalid(username) {
+  if(username) return true;
+}
+
 exports.usernametaken = function(req, res) {
-  var ret = {'exists': false};
+  var ret = {'exists': true};
+  /*
   if(data['users'][util.getuserid(req.query.username)]) {
     console.log('profile.js: username ' + req.query.username + ' (or username with same hash) found');
     ret['exists'] = true;
+  }*/
+  
+  if(!usernamevalid(req.query.username)) {
+    ret['exists'] = true;
+    ret['message'] = 'The username \'' + req.query.username + '\' is invalid';
+    res.json(ret);
+    return;
   }
-  res.json(ret);
+  
+  models.User
+    .find({'username': new RegExp('^' + req.query.username + '$', 'i')})
+    .exec(function(err, result) {
+      if(err) {console.log(err);res.send(500);return;}
+      if(result.length > 0) {
+        ret['exists'] = true;
+        ret['message'] = 'Sorry, but that username\'s already been taken';
+      }
+      else ret['exists'] = false;
+      
+      res.json(200, ret);
+    });
 }
 
 // takes in a list of ids and passes a list of
