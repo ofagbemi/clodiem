@@ -11,7 +11,7 @@ function renderlanding(paddingtop) {
   $('.button.explore')
     .css('position', 'absolute')
     .css('top', winheight * 0.5 + 'px')
-    .css('left', ((winwidth - $('.button.explore').width())/2 - 11) + 'px');
+    .css('left', ((winwidth - $('.button.explore').width())/2 - 10) + 'px');
     
   $('#about')
     .css('margin-top', winheight + 'px');
@@ -40,7 +40,7 @@ function landing_bindclicklisteners() {
       e.preventDefault();
       $('body')
         .animate({
-          scrollTop: $('#about').offset().top - 40 + 'px'
+          scrollTop: $('#about').offset().top + 'px'
         });
       // showabout();
     });
