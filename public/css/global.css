@@ -668,9 +668,11 @@ div.separate_header {
   top: 8px;
   right: 8px;
 }
-.post_stage .item_stage .header,
-.post_stage .add_post_to_style_stage .header {
+.post_stage .item_stage .header {
   margin-bottom: 11px;
+  margin-right: 24px; /* keep out of the way of the close button */
+}
+.post_stage .add_post_to_style_stage .header {
   margin-right: 24px; /* keep out of the way of the close button */
 }
 .post_stage .add_post_to_style_stage .header{
@@ -681,7 +683,9 @@ div.separate_header {
   position: absolute;
   left: 0;
   width: 100%;
-  padding: 11px;
+  padding: 20px 11px;
+  background: rgba(255, 255, 255, 0.36);
+  box-shadow: 0 0 2px rgba(0,0,0,0.4);
 }
 .post_stage .add_post_to_style_stage .choose h3 a{
   font-weight: 300;
