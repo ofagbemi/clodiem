@@ -1,4 +1,4 @@
-function rendertopbar(withpadding, withbackbutton) {
+function rendertopbar(withpadding, withbackbutton, nohelp) {
   var winwidth = window.innerWidth;
   var html = '<div id="topbar" style="width: ' + winwidth + 'px"></div>';
   var topbar = $(html);
@@ -21,8 +21,12 @@ function rendertopbar(withpadding, withbackbutton) {
   }
   
   topbar
-    .append(homebutton)
-    .append(tutorialbutton);
+    .append(homebutton);
+    
+  if(!nohelp) {
+    topbar
+      .append(tutorialbutton);
+  }
     //.append(closesearchbutton)
     //.append(searchbutton);
   $('#topbar').remove();

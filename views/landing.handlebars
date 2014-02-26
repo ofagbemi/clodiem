@@ -4,7 +4,36 @@
     {{> head}}
   </head>
   <body>
+    <div style="position: absolute;
+top: 0;
+left: 0;
+background-image: url('http://thekey.xpn.org/aatk/files/2013/02/20130211_Toro_y_Moi_Studio_Session_003.jpg');
+height: 568px;
+width: 100%;
+background-position: 42% 10%;"></div>
+
+
+
+    <div class="landing center" style="position: absolute;z-index: 12;text-align: center;">
+      <div style="padding: 25px 43px;">
+		<h1 style="color: white;font-weight: 100;font-size: 55px;text-shadow: 0 1px 1px rgba(0,0,0,.4);">
+		  Clodiem
+		</h1>
+	  </div>
+    </div>
+    <div class="button explore" style="background:rgba(0,0,0,0.4);border-radius:80px;position:absolute;z-index: 12;">
+      <a href="#">
+        <div style="padding:8px;text-align:center;">
+        <img class="bouncing" style="width:18px;height:18px;" src="/images/icons/down_arrow/down_arrow.svg">
+        </div>
+      </a>
+    </div>
     
+    <div style="width:100%;position:absolute;bottom:90px;">
+      <div style="border-radius:4px;padding:11px;background:rgba(0,0,0,0.6);margin-top:12px;margin-left:20px;display:inline-block;float:left;font-size:x-large;text-shadow:1px 1px 1px rgba(0,0,0,0.4);"><a style="color:white" href="/login">Log In</a></div>
+      <div style="border-radius:4px;padding:11px;background:rgba(0,0,0,0.6);margin-top:12px;margin-right:20px;display:inline-block;float:right;font-size:x-large;text-shadow:1px 1px 1px rgba(0,0,0,0.4);"><a style="color:white" href="/register">Sign Up</a></div>
+    </div>
+    <!--
     <div class="content_wrap landing">
 	  <div class="content centered">
 	    <span style="text-transform: lowercase;"><a href="/">c l o d i e m</a></span>
@@ -22,27 +51,42 @@
         <img class="bouncing" style="width:13px;margin-left:4px;" src="/images/icons/down_arrow/down_arrow.svg">
     </a>
     </div>
-    
+    -->
     <div id="cover" style="display:none;"></div>
-    <div id="about" style="border:dotted 1px #eee;display:none;" class="side top bottom padded wrap">
-      <a class="close_button" style="position:fixed;right:8px;top:8px;"></a>
-      <div style="padding:20px;background:white;">
-		<div>
-		  <h2><a href="/register">Clodiem is the newest way to share your fashion with the world</a></h2>
-	  
-		  <h3>Get noticed</h3>
-		  <div style="text-align:center;margin: 11px 0">
-			<img class="corner_icon" src="/images/icons/shirt3/shirt3.svg">
-			<img style="margin:0px 11px;" class="corner_icon" src="/images/icons/black_heart/black_heart.svg">
-			<img style="width:19px;" src="/images/icons/comment/comment.svg">
-		  </div>
-		  <p>Publish your outfits, categorize them and others' outfits into styles, and share what you love with the world.</p>
-		  <h3>Get inspired</h3>
-		  <p>Clodiem boasts a giant collection of styles and outfits posted by its users from all around the world. Go ahead and browse for a while.</p>
-		  <h3>Interact</h3>
-		  <p>Build a following of like-minded style seekers or follow other users and get updated on their latest looks.</p>
+    
+    
+    
+    <div id="about">
+	  <div style="/* border: dotted 1px #eee; */
+background: rgb(116, 98, 98);
+border-top: solid 3px rgb(0,0,0);
+border-bottom: solid 1px rgb(0,0,0);
+/* border-bottom: solid 8px rgb(139, 179, 216); */
+border-left: none;
+border-right: none;
+}" class="side top bottom padded wrap">
+		<div style="padding:20px;">
+		  <div>
+			<h2 style="border-bottom:solid 1px white;"><a style="font-weight:100;color:white" href="/register">Clodiem is the newest way to share your fashion with the world</a></h2>
+	      </div>
+	    </div>
+	  </div>
+	  <div style="border:dotted 1px #eee;" class="side top bottom padded wrap">
+	    <div style="padding:20px;background:white;">
+			<h3>Get noticed</h3>
+			<div class="icons" style="text-align:center;">
+			  <img class="corner_icon" src="/images/icons/shirt3/shirt3.svg">
+			  <img style="margin:0px 11px;" class="corner_icon" src="/images/icons/black_heart/black_heart.svg">
+			  <img style="width:19px;" src="/images/icons/comment/comment.svg">
+			</div>
+			<p>Publish your outfits, categorize them and others' outfits into styles, and share what you love with the world.</p>
+			<h3>Get inspired</h3>
+			<p>Clodiem boasts a giant collection of styles and outfits posted by its users from all around the world. Go ahead and browse for a while.</p>
+			<h3>Interact</h3>
+			<p>Build a following of like-minded style seekers or follow other users and get updated on their latest looks.</p>
 		  
-		  <h3 style="text-align:center;"><a href="/register">Get started today!</a><h3>
+			<h3 style="text-align:center;"><a href="/register">Get started today!</a><h3>
+		  </div>
 		</div>
 	  </div>
     </div>
@@ -52,12 +96,23 @@
     <script type="text/javascript" src="/js/landing.js"></script>
     <script type="text/javascript" src="/js/rendercontent.js"></script>
     <script type="text/javascript" src="/js/rendersearchbar.js"></script>
+    <script type="text/javascript" src="/js/rendertopbar.js"></script>
     {{> universalscripts}}
     <script>
       function setSizes() {
-        splitbackground(0.30, '#3c3d3d');
+        rendersearchbar();
+        
+        $('.searchwrap')
+          .css('position', 'absolute')
+          .css('bottom', window.innerHeight + 'px');
+        
+        $('.landing.center')
+          .css('top', (window.innerHeight * 0.2) + 'px')
+          .css('left', ((window.innerWidth/2) - ($('.landing.center').width()/2)) + 'px')
+       
+        
+        // splitbackground(0.30, '#3c3d3d');
         renderlanding(0.30);
-        rendersearchbar(0.30);
         
         setlinks();
       }

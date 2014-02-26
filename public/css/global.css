@@ -215,8 +215,10 @@ div.separate_header {
   border-bottom: solid 1px rgba(0,0,0,0.14);
 }
 #about h3, #tutorial h3 {
-  margin-top: 11px;
-  margin-bottom: 8px;
+  margin: 18px 0;
+}
+#about .icons {
+  margin: 22px 0;
 }
 #cover {
   background: rgba(0,0,0,0.4);

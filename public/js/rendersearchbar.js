@@ -8,7 +8,6 @@ function rendersearchbar(h, barheight, barwidth, boxshadow) {
   if(!height) height = 40;
   if(!width) width = winwidth;
   
-  
   var wrap = $('<div class="searchwrap"></div>');
   var form = $('<form class="searchform" method="get" action="searchfor"><div class="search"></div></form>');
   $(wrap).append(form);

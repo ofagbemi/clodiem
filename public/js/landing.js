@@ -1,17 +1,23 @@
 function renderlanding(paddingtop) {
   var winwidth = window.innerWidth;
   var winheight = window.innerHeight;
+  
   var logoconst = 4;  // to show edges on hanger logo
   $('.button_wrap')
     .css('position', 'absolute')
     .css('top', winheight * 0.5 + 'px')
 	.css('left', (winwidth - $('.button_wrap').width())/2 + 'px');
+	
   $('.button.explore')
     .css('width', $('.button_wrap').width() + 'px')
     .css('position', 'absolute')
     .css('top', winheight * 0.5 + 8 + $('.button_wrap').height() + 'px')
     .css('left', (winwidth - $('.button.explore').width())/2 + 'px');
     
+  $('#about')
+    .css('margin-top', winheight + 'px');
+
+
   var middlestripheight = 28;
   //var contentTop = winheight * paddingtop - $('.content_wrap').height()/2 - middlestripheight/2;
   var contentTop = winheight * paddingtop - $('.content_wrap').height() - 1;//- $('.content_wrap').height();
@@ -21,8 +27,10 @@ function renderlanding(paddingtop) {
     .css('max-width', '400px')
     .css('top', contentTop + 'px')
     .css('left', (winwidth - $('.content_wrap').width())/2 + 'px');
-    /* .css('border-bottom', 'solid 1px #ccc'); */
+    
 
+
+  
   landing_bindclicklisteners();
 };
 
@@ -31,14 +39,18 @@ function landing_bindclicklisteners() {
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
-      showabout();
+      $('body')
+        .animate({
+          scrollTop: $('#about').offset().top - 40 + 'px'
+        });
+      // showabout();
     });
     
   $('#about .close_button')
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
-      hideabout();
+      // hideabout();
     });
 }
 function hideabout() {
