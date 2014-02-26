@@ -1,23 +1,45 @@
 <h4 style="margin-top:11px;margin-bottom:11px;text-align:center;"><a class="search_options_button" href="#">Search options</a></h4>
 <div class="search_options separate_header" style="{{#unless show_options}}display:none;{{/unless}}">
-  <input type="checkbox" value="true" name="searchTags" {{#if searchTags}}checked{{/if}}> Search tags
-  <input type="checkbox" value="true" name="searchTitle" {{#if searchTitle}}checked{{/if}}> Search titles
-  <input type="checkbox" value="true" name="searchRetailers" {{#if searchRetailers}}checked{{/if}}> Search retailers
-  <input type="checkbox" value="true" name="isFriend" {{#if isFriend}}checked{{/if}}>Search following
-  
-  <input type="checkbox" value="true" name="link" {{#if photo}}checked{{/if}}>Search posts with buy links
-  <input type="checkbox" value="true" name="photo" {{#if photo}}checked{{/if}}>Search posts with photos
-  <input type="checkbox" value="true" name="style" {{#if style}}checked{{/if}}>Search styles
-  <input type="checkbox" value="true" name="outfit" {{#if outfit}}checked{{/if}}>Search outfits
-  <input type="checkbox" value="true" name="clothing" {{#if clothing}}checked{{/if}}>Search items
   
   <div>
-    From <input name="timeMin" type="date" value="{{#if timeMin}}{{timeMin}}{{/if}}"> to <input name="timeMax" type="date" value="{{#if timeMax}}{{timeMax}}{{/if}}">
+  <b>Content Searched:</b> <br>
+  <input type="checkbox" value="true" name="searchTags" {{#if searchTags}}checked{{/if}}> Tags
+  <input type="checkbox" value="true" name="searchTitle" {{#if searchTitle}}checked{{/if}}> Titles
+  <input type="checkbox" value="true" name="searchRetailers" {{#if searchRetailers}}checked{{/if}}> Retailers
+  <input type="checkbox" value="true" name="searchUsers" {{#if searchUsers}}checked{{/if}}> Profiles
   </div>
+
+  <br>
+
   <div>
-    At least <input name="likeMin" type="number" value="{{#if likeMin}}{{likeMin}}{{/if}}"> likes
+  <b>Only Search Posts With:</b> <br>
+  <input type="checkbox" value="true" name="link" {{#if link}}checked{{/if}}> Purchase Links
+  <input type="checkbox" value="true" name="photo" {{#if photo}}checked{{/if}}> Photos
+  <input type="checkbox" value="true" name="onlyFollows" {{#if onlyFollows}}checked{{/if}}> Followed Profiles
   </div>
+
+  <br>
+  <b>Limit:</b> <br>
+  <div align="right">
+    Dates from <input name="timeMin" type="date" value="{{#if timeMin}}{{timeMin}}{{/if}}"><br>
+    to <input name="timeMax" type="date" value="{{#if timeMax}}{{timeMax}}{{/if}}">
+  </div>
+  <div align="right">
+    Price from $<input name="priceMin" type="number" value="{{#if priceMin}}{{priceMin}}{{/if}}"><br>
+    to $<input name="priceMax" type="number" value="{{#if priceMax}}{{priceMax}}{{/if}}"> 
+  </div>
+  <div align="right">
+    Popularity from <input name="likeMin" type="number" value="{{#if likeMin}}{{likeMin}}{{/if}}"> likes<br>
+    to <input name="likeMax" type="number" value="{{#if likeMax}}{{likeMax}}{{/if}}"> likes
+  </div>
+
+  <br>
+  
   <div>
-    At most <input name="likeMax" type="number" value="{{#if likeMax}}{{likeMax}}{{/if}}"> likes
+  <b>Show These Types of Posts:</b> <br>
+  <input type="checkbox" value="true" name="style" {{#if style}}checked{{/if}}> Styles
+  <input type="checkbox" value="true" name="outfit" {{#if outfit}}checked{{/if}}> Outfits  
+  <input type="checkbox" value="true" name="clothing" {{#if clothing}}checked{{/if}}> Items
   </div>
+
 </div>

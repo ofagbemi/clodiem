@@ -24,10 +24,16 @@ exports.view = function(req, res) {
         }
         query = query.toLowerCase();
 
+        
         ret['searchTags'] = req.query.searchTags;
         ret['searchTitle'] = req.query.searchTitle;
         ret['searchRetailers'] = req.query.searchRetailers;
+        ret['searchUsers'] = req.query.searchUsers; //NEW
+
         ret['photo'] = req.query.photo;
+        ret['link'] = req.query.link; //NEW
+        if(logged_in_user_id) ret['onlyFollows'] = req.query.onlyFollows; //NEW
+
         ret['style'] = req.query.style;
         ret['outfit'] = req.query.outfit;
         ret['clothing'] = req.query.clothing;
@@ -36,6 +42,8 @@ exports.view = function(req, res) {
         ret['timeMax'] = req.query.timeMax;
         ret['likeMin'] = req.query.likeMin;
         ret['likeMax'] = req.query.likeMax;
+        ret['priceMin'] = req.query.priceMin; //NEW
+        ret['priceMax'] = req.query.priceMax; //NEW
         
         ret['show_options'] = (
           ret['searchTags'] || ret['searchTitle'] || ret['searchRetailers'] ||
@@ -44,25 +52,27 @@ exports.view = function(req, res) {
         );
 
         //filters values from req
-        //fields to serach
+        //fields to search
         var searchTags = req.query.searchTags;
         var searchTitle = req.query.searchTitle;
         var searchRetailer = req.query.searchRetailers;
-        var searchPostingProfile = true; //any people
+        var searchPostingProfile = req.query.searchUsers; //any people
         //number filters
         var timeMin = req.query.timeMin;
         var timeMax = req.query.timeMax;
         var likeMin = req.query.likeMin;
         var likeMax = req.query.likeMax;
-        var priceMin;
-        var priceMax;
+        var priceMin = req.query.priceMin;
+        var priceMax = req.query.priceMax;
         //boolean filters
-        var link; //retailer link
+        var link = req.query.link; //retailer link
         var photo = req.query.photo;
+        var isFriend = req.query.onlyFollows;
+        //type filters
         var style = req.query.style;
         var outfit = req.query.outfit;
         var clothing = req.query.clothing; 
-        var isFriend; //people i follow
+        
 
         //sort settings should be a number value, usage demonstrated belwo
         var sort; //some value
@@ -85,7 +95,7 @@ exports.view = function(req, res) {
         if(searchRetailer) searchRetailerMongo = {"retailer": new RegExp(query, 'i')};
 
         var searchPostingProfileMongo = {"never true" : "for or statements only"};
-        if(true) searchPostingProfileMongo = {"username": new RegExp(query, 'i')};
+        if(searchPostingProfile) searchPostingProfileMongo = {"username": new RegExp(query, 'i')};
 
         var timeMinMongo = {};
         if(timeMin) timeMinMongo = {"time" : {$gte: timeMin} };
@@ -153,10 +163,11 @@ exports.view = function(req, res) {
  
         function afterFindPosts(err, posts) {
           if(err) {console.log(err);res.send(500);}
+          for(var i = posts.length-1; i >= 0; i--) {
+                console.log("username test " + posts[i]["username"]);
+              }
           if(isFriend && loggedInUser){
               for(var i = posts.length-1; i >= 0; i--) {
-                console.log(posts[i]["type"]);
-                //console.log(loggedInUser["following_ids"]);
                 if(loggedInUser["following_ids"].indexOf(posts[i]["userid"]) < 0) posts.splice(i,1);
               }
           }
@@ -170,6 +181,16 @@ exports.view = function(req, res) {
 exports.landingview = function(req, res) {
   var logged_in_user_id = profile.getloggedinuser(req);
   var ret = {};
+  //default settings
+  ret['searchTags'] = true;
+  ret['searchTitle'] = true;
+  ret['searchRetailers'] = true;
+  ret['searchUsers'] = true;
+
+  ret['style'] = true;
+  ret['outfit'] = true;
+  ret['clothing'] = true;
+
   models.User
     .find({'id': logged_in_user_id})
     .exec(function(err, result) {
