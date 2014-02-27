@@ -60,9 +60,6 @@ function uploadimage(image, success) {
 	} else {
 	  var upload_name = generateimageuploadname(name);
 
-	  // var newPath = __dirname + '/../uploads/' + upload_name;
-	  
-	  
 	  var dbimg = new models.Image;
 	  dbimg.image.data = data;
 	  dbimg.image.contentType = 'image';
@@ -74,16 +71,7 @@ function uploadimage(image, success) {
 	    if(success)
 	      success('/uploads/' + upload_name);
 	  });
-	  
-	  
-	  /*
-	  fs.writeFile(newPath, data, function(err) {
-	    console.log('createpost.js: file available as ' + upload_name);
-	    if(success)
-	      success('/uploads/' +  upload_name);
-	  });*/
 	}
-  
   });
 }
 
@@ -99,17 +87,31 @@ exports.uploadimageandaddtopost = function(req, res) {
 	var post = result[0];
 	console.log("test upload " + post);
 	if(post) {
-		  uploadimage(
-			  req.files.img, 
-			  function(url) {
-				  models.Post.update({'id' : post['id']}, {'img': url}, afterUpdating);
-
-					  function afterUpdating(err) {
-						  if (err) {console.log(err); res.send(500);}
-						  res.redirect('/outfit?id=' + post['id']);
-					  }
-
-			  });
+	  uploadimage(
+		req.files.img, 
+		function(url) {
+		  if(post['type'] == 'outfit') {
+		    console.log('createpost.js: changing image for item [' + post['item_ids'] + ']');
+		    models.Post
+		      .update(
+		        {'id': {$in: post['item_ids']}},
+		        {'img': url}
+		      )
+		      .exec(function(err) {
+		        updatePost();
+		      });
+		  } else {
+		    updatePost();
+		  }
+		  
+		  function updatePost() {
+			models.Post.update({'id' : post['id']}, {'img': url}, afterUpdating);
+			  function afterUpdating(err) {
+				if (err) {console.log(err); res.send(500);}
+				res.redirect('/outfit?id=' + post['id']);
+			}
+		  }
+		});
 	  } else {
 		  res.writeHead(404);
 		  res.end();
