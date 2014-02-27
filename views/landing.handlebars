@@ -4,7 +4,7 @@
     {{> head}}
   </head>
   <body>
-    <div style="position: absolute;top: 0;left: 0;background-image: url('/images/background/toro.jpg');height: 568px;width: 100%;background-position: 42% 10%;"></div>
+    <div class="splash_bkg" style="position: absolute;top: 0;left: 0;background-image: url('/images/background/toro.jpg');background-position:43% 10%;background-size:auto 108%;"></div>
 
 
 
@@ -110,6 +110,10 @@ border-right: none;
         
         // splitbackground(0.30, '#3c3d3d');
         renderlanding(0.30);
+        
+        $('.splash_bkg')
+          .css('height', window.innerHeight + 'px')
+          .css('width', '100%');
         
         setlinks();
       }
