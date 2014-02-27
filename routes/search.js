@@ -84,25 +84,25 @@ exports.view = function(req, res) {
 
         //ret['mostPopular'] = true;
         if(sort === "mostRecent") {
-          //ret['mostRecent'] = true;
-          sortMongo = "-time";
+          ret['mostRecent'] = true;
+          sortMongo = {time : -1};
         } else if(sort === "mostPopular") {
-          //ret['mostPopular'] = true;
-          sortMongo = "-likes";
+          ret['mostPopular'] = true;
+          sortMongo = {likes : -1, time : -1};
         } else if(sort === "mostExpensive") {
-          //ret['mostExpensive'] = true;
-          sortMongo = "-price";
-          priceFilter = {"price": {$exists: true} };
+          ret['mostExpensive'] = true;
+          sortMongo = {price_num : -1, time : -1};
+          priceFilter = {"price_num": {$exists: true} };
         } else if(sort === "leastRecent") {
-          //ret['leastRecent'] = true;
-          sortMongo = "time";
+          ret['leastRecent'] = true;
+          sortMongo = {time : 1};
         } else if(sort === "leastPopular") {
-          //ret['leastPopular'] = true;
-         sortMongo = "likes";
+          ret['leastPopular'] = true;
+         sortMongo = {likes : 1, time : -1};
         } else if(sort === "leastExpensive") {
-          //ret['leastExpensive'] = true;
-          sortMongo = "price";
-          priceFilter = {"price": {$exists: true} };
+          ret['leastExpensive'] = true;
+          sortMongo = {price_num : 1, time : -1};
+          priceFilter = {"price_num": {$exists: true} };
         } 
         
 
@@ -183,6 +183,9 @@ exports.view = function(req, res) {
  
         function afterFindPosts(err, posts) {
           if(err) {console.log(err);res.send(500);}
+          // for(var i = posts.length-1; i >= 0; i--) {
+          //       console.log("price " + posts[i]["price"] + " " + posts[i]["price_num"]);
+          //     }
           if(isFriend && loggedInUser){
               for(var i = posts.length-1; i >= 0; i--) {
                 if(loggedInUser["following_ids"].indexOf(posts[i]["userid"]) < 0) posts.splice(i,1);
