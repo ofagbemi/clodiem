@@ -106,9 +106,6 @@ exports.uploadimageandaddtopost = function(req, res) {
 
 					  function afterUpdating(err) {
 						  if (err) {console.log(err); res.send(500);}
-						  console.log("im working " + "url: " + url);
-						  //BAD CHECKING, DOESNT WORK
-						  //console.log('createpost.js: ' + post['img'] + ' added to post ' + post['id']);
 						  res.redirect('/outfit?id=' + post['id']);
 					  }
 
