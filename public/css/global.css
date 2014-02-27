@@ -162,6 +162,50 @@ div.separate_header {
   animation-timing-function: linear;
   -webkit-animation-timing-function: linear;
 }
+
+@-webkit-keyframes border_color_change {
+  33% {
+    border-color: #6ec5ff;
+  } 66% {
+    border-color: rgb(245, 255, 0);
+  } 0%,100% {
+    border-color: rgb(240, 40, 40);
+  }
+}
+@-moz-keyframes border_color_change {
+  33% {
+    border-color: #6ec5ff;
+  } 66% {
+    border-color: rgb(245, 255, 0);
+  } 0%,100% {
+    border-color: rgb(240, 40, 40);
+  }
+}
+@-o-keyframes border_color_change {
+  33% {
+    border-color: #6ec5ff;
+  } 66% {
+    border-color: rgb(245, 255, 0);
+  } 0%,100% {
+    border-color: rgb(240, 40, 40);
+  }
+}
+@keyframes border_color_change {
+  33% {
+    border-color: #6ec5ff;
+  } 66% {
+    border-color: rgb(245, 255, 0);
+  } 0%,100% {
+    border-color: rgb(240, 40, 40);
+  }
+}
+.border_color_changing {
+  -webkit-animation: border_color_change 4.0s infinite;
+  -moz-animation: border_color_change 4.0s infinite;
+  -o-animation: border_color_change 4.0s infinite;
+  animation: border_color_change 4.0s infinite;
+}
+
 /* General */
 .corner_icon {
   width: 23px;
