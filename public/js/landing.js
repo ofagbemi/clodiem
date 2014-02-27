@@ -14,7 +14,8 @@ function renderlanding(paddingtop) {
     .css('left', ((winwidth - $('.button.explore').width())/2 - 10) + 'px');
     
   $('#about')
-    .css('margin-top', winheight + 'px');
+    .css('margin-top', winheight + 'px')
+    .css('min-height', winheight + 'px');
 
 
   var middlestripheight = 28;

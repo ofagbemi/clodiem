@@ -253,6 +253,18 @@ div.separate_header {
   background: white;
   overflow: auto;
 }
+#about .header {
+  /* border: dotted 1px #eee; */
+  background: #746262;
+  /* background: #50769e; */
+  text-align:center;
+  /* border-top: solid 3px rgb(0,0,0); */
+  /* border-bottom: solid 1px rgb(0,0,0); */
+  /* border-bottom: solid 8px rgb(139, 179, 216); */
+  border-left: none;
+  border-right: none;
+  box-shadow: 0 0 4px rgba(0,0,0,0.4);
+}
 #about h2, #tutorial h2 {
   margin-bottom: 11px;
   padding-bottom: 16px;
