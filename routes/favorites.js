@@ -233,6 +233,61 @@ exports.stylepostsview = function(req, res) {
     return;
   }
 };
+exports.recommendedusersview = function(req, res) {
+  var logged_in_user_id = profile.getloggedinuser(req);
+  if(!logged_in_user_id) {
+    console.log('favorites.js: no logged in user');
+    res.redirect('/login');
+    return;
+  }
+  
+  models.User
+    .find({'id': logged_in_user_id})
+    .exec(function(err, result) {
+      if(err) {console.log(err); res.send(500);return;}
+      var logged_in_user = result[0];
+      if(!logged_in_user) {
+        console.log('favorites.js couldn\'t find find logged in user ' + logged_in_user_id);
+        res.send(404);
+        return;
+      }
+      
+      ret = {};
+      ret['logged_in_user'] = logged_in_user;
+      ret['title'] = 'Recommended Users';
+      ret['icon'] = '/images/icons/dialog/dialog.svg';
+      
+      ret['user_posts'] = [];
+      
+      profile.getusersfromids(
+        ret['recommended_users_ids'],
+        function(err, users) {
+          // get first post from each recommended user
+          for(var i=0;i<users.length;i++) {
+            var user = users[i];
+            ret['user_posts'].push({'user': user});
+          }
+          
+          // build list of posts to use
+          var postlist = [];
+          for(var i=0;i<ret['user_posts'].length;i++) {
+            postlist.push(ret['user_posts'][i]['user']['post_ids'][0]);
+          }
+          
+          dashboard.getpostsfromids(postlist, logged_in_user,
+            function(err, posts) {
+              if(err) {console.log(err);res.send(500);return;}
+              for(var i=0;i<ret['user_posts'].length;i++) {
+                ret['user_posts'][i]['posts'] = [posts[i]];
+              }
+              
+              res.render('user_posts', ret);
+              return;
+          });
+          
+        });
+    });
+};
 exports.likedpostsview = function(req, res) {
   var logged_in_user_id = profile.getloggedinuser(req);
   if(logged_in_user_id) {

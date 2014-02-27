@@ -81,6 +81,7 @@ app.get('/styles', favorites.stylesview);
 app.get('/styleposts', favorites.stylepostsview);
 app.get('/posts', favorites.postsview);
 app.get('/followers', favorites.followersview);
+app.get('/recommendedusers', favorites.recommendedusersview);
 
 app.post('/loginuser', login.loginuser);
 app.post('/registeruser', register.registeruser);

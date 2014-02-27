@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    {{> head}}
+  </head>
+  
+  <body>
+    <div class="content">
+      <div class="separate_header" >
+        <img class="corner_icon" style="margin-top:8px;float:right" src="{{icon}}">
+		<h2>{{title}} <span style="font-size:x-large">({{posts.length}})</span></h2>
+	  </div>
+	  {{#each user_posts}}
+	    {{> user this.user}}
+	      
+	    {{#each this.posts}}
+	      {{>post}}
+	      
+	    {{/each}}
+	  
+	  
+	  
+	  
+	  {{/each}}
+	  <!--
+      {{#if posts.length}}
+        <div class="posts">
+		  {{> postlist}}
+		  {{> loadmorepostsbutton}}
+		</div>
+	  {{/if}}
+	  
+	  -->
+    </div>
+    
+    {{> tutorial}}
+    
+    <script src="/js/jquery-1.11.0.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/renderposts.js"></script>
+    <script src="/js/rendertopbar.js"></script>
+    <script src="/js/rendersearchbar.js"></script>
+    <script src="/js/splitbackground.js"></script>
+    <script src="/js/rendermenu.js"></script>
+    <script src="/js/likebuttons.js"></script>
+    <script src="/js/comments.js"></script>
+    <script src="/js/addtostyle.js"></script>
+    <script src="/js/tutorial.js"></script>
+    {{> universalscripts}}
+    <script>
+      function setSizes() {
+        rendertopbar(true, true);
+        renderbottombar(true, 0{{#if logged_in_user}},'{{logged_in_user.id}}'{{/if}});
+        renderposts({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
+        buildmenu(
+          {{#if logged_in_user}}
+            true, '{{logged_in_user.id}}', '{{logged_in_user.img}}'
+          {{else}}
+            false
+          {{/if}}
+        );
+        rendercomments(
+          {{#if logged_in_user}}
+            true,
+            '{{logged_in_user.username}}',
+            '{{logged_in_user.img}}'
+          {{else}}
+            false
+          {{/if}}
+        );
+        
+        tutorial_setup();
+        setlinks();  // call this last!
+      }
+      $(window).resize(function() {
+         setSizes();
+       });
+      $(document).ready(function() {
+        setSizes();
+        activatelikebuttons({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
+        addtostyle({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}})
+      });
+      $(window).load(function() {
+        setSizes();
+      });
+    </script>
+  </body>
+
+</html>
