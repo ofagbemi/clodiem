@@ -307,11 +307,18 @@ exports.view = function(req, res) {
             function(err, users) {
               if(err) {console.log(err);res.send(500);}
               logged_in_user['recommended_users'] = users;
-              ret['logged_in_user'] = logged_in_user;
               
-              console.log('logged in user' + logged_in_user);
-              res.render('dashboard', ret);
-              return;
+              getpostsfromids(logged_in_user['style_ids'], logged_in_user,
+                function(err, styles) {
+                  if(err) {console.log(err);res.send(500);return;}
+                  logged_in_user['styles'] = styles;
+				  ret['logged_in_user'] = logged_in_user;
+			  
+				  console.log('logged in user' + logged_in_user);
+				  res.render('dashboard', ret);
+				  return;
+              
+              });
             });
         });
     });

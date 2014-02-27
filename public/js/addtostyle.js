@@ -135,21 +135,25 @@ function addtostyle_bindclicklisteners(userid) {
       
       var close = $(this).parents('.add_post_to_style_stage').find('.close_button');
       
-      var data = {
-		'id': postid,
-		'item_ids': ids,
-		'img': img
-      };
+      for(var i=0;i<ids.length;i++) {
+        // send request for each style id
+		var data = {
+		  'id': ids[i],
+		  'item_ids': [postid],
+		  'img': img
+		};
   
-	  $.ajax({
-		type: 'POST',
-		url: '/addtopostitems',
-		data: data,
-		success: function(response) {
-		  addtostyle_addedtoexistingstyle(response);
-		  close.trigger('click');
-		}
-	  });
+		$.ajax({
+		  type: 'POST',
+		  url: '/addtopostitems',
+		  data: data,
+		  success: function(response) {
+			addtostyle_addedtoexistingstyle(response);
+			close.trigger('click');
+		  }
+		});
+	  
+	  }
       
     });
 };

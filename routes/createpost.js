@@ -304,7 +304,7 @@ exports.addtopostitems = function(req, res) {
         if(!post['item_ids']) post['item_ids'] = [];
 		if(req.body.item_ids) {
 		  console.log('createpost.js: adding ' + req.body.item_ids + ' to ' +
-		    post['item_ids']
+		    post['id']
 		  );
 		  post['item_ids'] = req.body.item_ids.concat(post['item_ids']);
 		}
@@ -313,14 +313,15 @@ exports.addtopostitems = function(req, res) {
 		}
 		
 		models.Post
-		  .update({'id': post['id']},
-		          {'item_ids': post['item_ids'], 'img': post['img']},
-		          function(err) {
-		            if(err) {console.log(err);res.send(500);return;}
-		            console.log('createpost.js: item_ids is now [' + post['item_ids'] + ']');
-		            res.send(200);
-		            return;
-		          });
+		  .update(
+		    {'id': post['id']},
+		    {'item_ids': post['item_ids'], 'img': post['img']},
+		      function(err) {
+		        if(err) {console.log(err);res.send(500);return;}
+		          console.log('createpost.js: item_ids is now [' + post['item_ids'] + ']');
+		          res.send(200);
+		          return;
+		        });
       
       } else {
         console.log('createpost.js: couldn\'t find post with id ' + req.body.id);
