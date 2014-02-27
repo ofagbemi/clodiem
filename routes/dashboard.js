@@ -181,6 +181,11 @@ function getpostsfromids(_ids, user, callback, fromobj, key) {
   } else {
     console.log('dashboard.js: getting posts with id\'s [' + ids + ']');
     console.log('dashboard.js: DB ready state ' + models.Post.db.readyState);
+    
+    for(var i=0;i<ids.length;i++) {
+      if(!ids[i]) ids[i] = 0;
+    }
+    
     models.Post.find({
       'id': {$in: ids}
     })
@@ -199,6 +204,7 @@ function getpostsfromids(_ids, user, callback, fromobj, key) {
 		for(var index=0;index<posts.length;index++) {
 		  var i = index;  // since i is used in callback functions
 		  var post = posts[i];
+		  if(!post) continue;
 		  if(user) {
 			if(util.contains(post['id'], user['liked_post_ids'])) {
 			  post['liked_post'] = true;

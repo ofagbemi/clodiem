@@ -15,7 +15,9 @@
 	    {{> user this.user}}
 	    </div>
 	    {{#each this.posts}}
-	      {{>post}}
+	      {{#if this}}
+	        {{>post}}
+	      {{/if}}
 	    {{/each}}
 	  {{/each}}
     </div>
