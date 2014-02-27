@@ -61,7 +61,7 @@ function rendersearchbar(h, barheight, barwidth, boxshadow) {
   $('form.searchform')
     .submit(function(e) {
       e.preventDefault();
-      var options = $('div.search_options').clone();
+      var options = $('div.search_options');
       options.hide();
       
       $('form.searchform')
