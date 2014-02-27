@@ -695,6 +695,11 @@ div.separate_header {
   /* border: solid 2px rgba(245, 255, 0, 0.9); */
   border: solid 2px #6ec5ff;
 }
+.post_stage .marker.focused, .marker.focused {
+  height: 34px;
+  width: 34px;
+  border: solid 2px rgb(245,255,0);
+}
 .post_stage .item_stage,
 .post_stage .add_post_to_style_stage {
   width: 100%;
