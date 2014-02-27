@@ -45,11 +45,7 @@ exports.view = function(req, res) {
         ret['priceMin'] = req.query.priceMin; //NEW
         ret['priceMax'] = req.query.priceMax; //NEW
         
-        ret['show_options'] = (
-          ret['searchTags'] || ret['searchTitle'] || ret['searchRetailers'] ||
-          ret['photo'] || ret['style'] || ret['outfit'] || ret['clothing'] ||
-          ret['timeMin'] || ret['timeMax'] || ret['likeMin'] || ret['likeMax']
-        );
+        ret['show_options'] = false;
 
         //filters values from req
         //fields to search
