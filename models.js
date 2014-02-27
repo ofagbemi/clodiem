@@ -41,6 +41,7 @@ var PostSchema = new Mongoose.Schema({
 
 var CommentSchema = new Mongoose.Schema({
   'username': String,
+  'userid': String,
   'time': Date,
   'comment': String,
   'postid': String,

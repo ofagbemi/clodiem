@@ -12,6 +12,7 @@ exports.addcomment = function(req, res) {
       }
       
       var comment = new models.Comment({
+        'userid': req.body.userid,
         'postid': req.body.postid,
 		'username': req.body.username,
 		'comment': req.body.comment,

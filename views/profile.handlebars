@@ -5,7 +5,9 @@
   </head>
   <body>
     <div class="profile_header">
-      <img src="{{#if img}}{{img}}{{else}}/images/icons/button/button.svg{{/if}}" class="profpic">
+      <div class="profpic">
+        <img src="{{#if img}}{{img}}{{else}}/images/icons/button/button.svg{{/if}}">
+      </div>
       <div class="profile_header_body">
         <h2>{{username}}</h2>
         <div class="info">
@@ -161,7 +163,7 @@
         );
 	  rendercomments(
           {{#if logged_in_user}}
-            true,
+            '{{logged_in_user.id}}',
             '{{logged_in_user.username}}',
             '{{logged_in_user.img}}'
           {{else}}

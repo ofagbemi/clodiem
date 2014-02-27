@@ -462,6 +462,10 @@ div.separate_header {
   height: 100px;
   float: left;
   margin-right: 11px;
+  overflow: hidden;
+}
+.profile_header .profpic img {
+  max-height: 100px;
 }
 .profile_header .profile_header_body {
   display: inline-block;
