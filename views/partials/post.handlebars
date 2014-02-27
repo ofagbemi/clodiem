@@ -27,10 +27,21 @@
   
     {{> add_post_to_style_stage}}
   
-	{{#each items}}
-	  <a class="marker" x="{{x}}" y="{{y}}" title="{{title}}">{{@index}}</a>
-	  {{> item_stage}}
-	{{/each}}
+    {{#if items}}
+	  {{#each items}}
+		<a class="marker" x="{{x}}" y="{{y}}" title="{{title}}">{{@index}}</a>
+		{{> item_stage}}
+	  {{/each}}
+	{{else}}
+	  {{#if x}}
+	  {{#if y}}
+	  <!--if this is an item-->
+	  <a class="marker focused" x="{{x}}" y="{{y}}" title="{{title}}"></a>
+	  {{/if}}
+	  {{/if}}
+	{{/if}}
+	
+	
 	{{#if img}}
 	<a href="/outfit?id={{id}}"><img class="post_img" src="{{img}}"></a>
 	{{else}}
