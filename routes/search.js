@@ -72,17 +72,39 @@ exports.view = function(req, res) {
         var style = req.query.style;
         var outfit = req.query.outfit;
         var clothing = req.query.clothing; 
+        //other filters
+        var priceFilter = {};
+
+        //sort settings should be a number value, usage demonstrated below
         
-
-        //sort settings should be a number value, usage demonstrated belwo
-        var sort; //some value
-
-        console.log(likeMin + " " + likeMax);
-
-        //sort usage demonstrated here
+        var sort = req.query.sortOptions;
         var sortMongo;
-        if(sort == 1) sortMongo = "-like";
-        else sortMongo = "-time";
+
+        console.log("SORT TESTING " + req.query.sortOptions);
+
+        //ret['mostPopular'] = true;
+        if(sort === "mostRecent") {
+          //ret['mostRecent'] = true;
+          sortMongo = "-time";
+        } else if(sort === "mostPopular") {
+          //ret['mostPopular'] = true;
+          sortMongo = "-likes";
+        } else if(sort === "mostExpensive") {
+          //ret['mostExpensive'] = true;
+          sortMongo = "-price";
+          priceFilter = {"price": {$exists: true} };
+        } else if(sort === "leastRecent") {
+          //ret['leastRecent'] = true;
+          sortMongo = "time";
+        } else if(sort === "leastPopular") {
+          //ret['leastPopular'] = true;
+         sortMongo = "likes";
+        } else if(sort === "leastExpensive") {
+          //ret['leastExpensive'] = true;
+          sortMongo = "price";
+          priceFilter = {"price": {$exists: true} };
+        } 
+        
 
         //filter values to give to mongo
         var searchTagsMongo = {"never true" : "for or statements only"};
@@ -126,15 +148,12 @@ exports.view = function(req, res) {
         //weird syntax, low priority change: figure out cleaner code
         var styleMongo = {"type": { $ne: "style" } };
         if(style) styleMongo = {};
-        else console.log("NO STYLE");
 
         var outfitMongo = {"type": { $ne: "outfit" } };;
         if(outfit) outfitMongo = {};
-        else console.log("NO OUTFIT");
 
         var clothingMongo = {"type": { $ne: "item" } };
         if(clothing) clothingMongo = {};
-        else console.log("NO ITEMS");
         
 		ret['query'] = query;
 		ret['queryAsTyped'] = req.query.q;
@@ -157,15 +176,13 @@ exports.view = function(req, res) {
           .where(linkMongo)
           .where(photoMongo)
           .where({$and: [styleMongo, outfitMongo, clothingMongo]})
+          .where(priceFilter)
           .sort(sortMongo) //can implement a weighting funciton here
           .exec(afterFindPosts);
 
  
         function afterFindPosts(err, posts) {
           if(err) {console.log(err);res.send(500);}
-          for(var i = posts.length-1; i >= 0; i--) {
-                console.log("username test " + posts[i]["username"]);
-              }
           if(isFriend && loggedInUser){
               for(var i = posts.length-1; i >= 0; i--) {
                 if(loggedInUser["following_ids"].indexOf(posts[i]["userid"]) < 0) posts.splice(i,1);
@@ -190,6 +207,8 @@ exports.landingview = function(req, res) {
   ret['style'] = true;
   ret['outfit'] = true;
   ret['clothing'] = true;
+
+  ret['mostRecent'] = true;
 
   models.User
     .find({'id': logged_in_user_id})

@@ -2,7 +2,7 @@
 <div class="search_options separate_header" style="{{#unless show_options}}display:none;{{/unless}}">
   
   <div>
-  <b>Content Searched:</b> <br>
+  <label>Content Searched:</label> <br>
   <input type="checkbox" value="true" name="searchTags" {{#if searchTags}}checked{{/if}}> Tags
   <input type="checkbox" value="true" name="searchTitle" {{#if searchTitle}}checked{{/if}}> Titles
   <input type="checkbox" value="true" name="searchRetailers" {{#if searchRetailers}}checked{{/if}}> Retailers
@@ -12,14 +12,14 @@
   <br>
 
   <div>
-  <b>Only Search Posts With:</b> <br>
+  <label>Only Search Posts With:</label> <br>
   <input type="checkbox" value="true" name="link" {{#if link}}checked{{/if}}> Purchase Links
   <input type="checkbox" value="true" name="photo" {{#if photo}}checked{{/if}}> Photos
   <input type="checkbox" value="true" name="onlyFollows" {{#if onlyFollows}}checked{{/if}}> Followed Profiles
   </div>
 
   <br>
-  <b>Limit:</b> <br>
+  <label>Limit:</label> <br>
   <div align="right">
     Dates from <input name="timeMin" type="date" value="{{#if timeMin}}{{timeMin}}{{/if}}"><br>
     to <input name="timeMax" type="date" value="{{#if timeMax}}{{timeMax}}{{/if}}">
@@ -36,10 +36,22 @@
   <br>
   
   <div>
-  <b>Show These Types of Posts:</b> <br>
+  <label>Show These Types of Posts:</label> <br>
   <input type="checkbox" value="true" name="style" {{#if style}}checked{{/if}}> Styles
   <input type="checkbox" value="true" name="outfit" {{#if outfit}}checked{{/if}}> Outfits  
   <input type="checkbox" value="true" name="clothing" {{#if clothing}}checked{{/if}}> Items
   </div>
+
+  <br>
+
+  <label>Sort by:</label>
+  <select name = "sortOptions">    
+    <option value="mostRecent" {{#if mostRecent}}selected{{/if}}>Most Recent</option>
+    <option value="mostPopular" {{#if mostPopular}}selected="selected"{{/if}}>Most Popular</option>
+    <option value="mostExpensive" {{#if mostExpensive}}selected="selected"{{/if}}>Most Expensive</option>  
+    <option value="leastRecent" {{#if leastRecent}}selected="selected"{{/if}}>Least Recent</option>
+    <option value="leastPopular" {{#if leastPopular}}selected="selected"{{/if}}>Least Popular</option>
+    <option value="leastExpensive" {{#if leastExpensive}}selected="selected"{{/if}}>Least Expensive</option>
+  </select>
 
 </div>
