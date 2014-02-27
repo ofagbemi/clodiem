@@ -648,7 +648,8 @@ div.separate_header {
   display: block;
   opacity: 0.7;
   z-index: 4;
-  border: solid 2px rgba(245, 255, 0, 0.9);
+  /* border: solid 2px rgba(245, 255, 0, 0.9); */
+  border: solid 2px #6ec5ff;
 }
 .post_stage .item_stage,
 .post_stage .add_post_to_style_stage {

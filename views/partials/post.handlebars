@@ -28,7 +28,7 @@
     {{> add_post_to_style_stage}}
   
 	{{#each items}}
-	  <a class="marker" x="{{x}}" y="{{y}}" title="{{title}}"></a>
+	  <a class="marker" x="{{x}}" y="{{y}}" title="{{title}}">{{@index}}</a>
 	  {{> item_stage}}
 	{{/each}}
 	{{#if img}}
