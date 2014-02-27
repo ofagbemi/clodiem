@@ -23,9 +23,20 @@ exports.view = function(req, res) {
 
 exports.uploads = function(req, res) {
   var file = req.params.file;
-  var img = fs.readFileSync(__dirname + '/../uploads/' + file);
-  res.writeHead(200, {'Content-Type': 'image'});
-  res.end(img, 'binary');
+  
+  models.Image
+    .find({'name': file})
+    .exec(function(err, images) {
+      console.log(images);
+      var image = images[0];
+      if(image) {
+		res.writeHead(200, {'Content-Type': image.image.contentType});
+		res.end(image.image.data, 'binary');
+      } else {
+        res.send(404);
+        return;
+      }
+    });
 }
 
 function generateimageuploadname(imgname) {
@@ -49,12 +60,28 @@ function uploadimage(image, success) {
 	} else {
 	  var upload_name = generateimageuploadname(name);
 
-	  var newPath = __dirname + '/../uploads/' + upload_name;
+	  // var newPath = __dirname + '/../uploads/' + upload_name;
+	  
+	  
+	  var dbimg = new models.Image;
+	  dbimg.image.data = data;
+	  dbimg.image.contentType = 'image';
+	  dbimg.name = upload_name;
+	  
+	  dbimg.save(function(err, dbimg) {
+	    if(err) {console.log(err);return;}
+	    console.log('createpost.js: file available as ' + upload_name);
+	    if(success)
+	      success('/uploads/' + upload_name);
+	  });
+	  
+	  
+	  /*
 	  fs.writeFile(newPath, data, function(err) {
 	    console.log('createpost.js: file available as ' + upload_name);
 	    if(success)
 	      success('/uploads/' +  upload_name);
-	  });
+	  });*/
 	}
   
   });

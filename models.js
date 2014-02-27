@@ -47,7 +47,13 @@ var CommentSchema = new Mongoose.Schema({
   'img': String
 });
 
+var ImageSchema = new Mongoose.Schema({
+  'image': {data: Buffer, contentType: String},
+  'name': String
+});
+
 exports.User = Mongoose.model('User', UserSchema);
 exports.Post = Mongoose.model('Post', PostSchema);
 exports.Comment = Mongoose.model('Comment', CommentSchema);
+exports.Image = Mongoose.model('Image', ImageSchema);
 
