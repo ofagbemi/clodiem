@@ -80,7 +80,7 @@
           <img src="/images/icons/forward/darkgreyforward.svg" style="width:18px;margin-top:14px;margin-right:2px;float:right;">
         {{/if}}
         <h3>Following</h3>
-        <p>Following {{logged_in_user.following_ids.length}} users</p>
+        <p>You are following {{logged_in_user.following_ids.length}} users</p>
       </div>
       {{#if logged_in_user.following_ids.length}}
       </a>
@@ -100,6 +100,24 @@
         <p>{{logged_in_user.followers_ids.length}} users are following you</p>
       </div>
       {{#if logged_in_user.followers_ids.length}}
+      </a>
+      {{/if}}
+      
+      {{#if logged_in_user.recommended_user_ids.length}}
+      <a style="color:inherit;" href="/recommendedusers">
+      {{/if}}
+      <div 
+      {{#unless logged_in_user.recommended_user_ids.length}}
+      style="background-color: #eee;color: #aaa;"
+      {{/unless}}
+      class="separate_header">
+        {{#if logged_in_user.recommended_user_ids.length}}
+          <img src="/images/icons/forward/darkgreyforward.svg" style="width:18px;margin-top:14px;margin-right:2px;float:right;">
+        {{/if}}
+        <h3>Recommended Users</h3>
+        <p>Some users we think you'd be into</p>
+      </div>
+      {{#if logged_in_user.recommended_user_ids.length}}
       </a>
       {{/if}}
     </div>

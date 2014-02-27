@@ -8,29 +8,16 @@
     <div class="content">
       <div class="separate_header" >
         <img class="corner_icon" style="margin-top:8px;float:right" src="{{icon}}">
-		<h2>{{title}} <span style="font-size:x-large">({{posts.length}})</span></h2>
+		<h2>{{title}}</h2>
 	  </div>
 	  {{#each user_posts}}
+	    <div class="user_list separate_header">
 	    {{> user this.user}}
-	      
+	    </div>
 	    {{#each this.posts}}
 	      {{>post}}
-	      
 	    {{/each}}
-	  
-	  
-	  
-	  
 	  {{/each}}
-	  <!--
-      {{#if posts.length}}
-        <div class="posts">
-		  {{> postlist}}
-		  {{> loadmorepostsbutton}}
-		</div>
-	  {{/if}}
-	  
-	  -->
     </div>
     
     {{> tutorial}}

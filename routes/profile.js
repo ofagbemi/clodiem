@@ -64,6 +64,8 @@ function getusersfromids(ids, callback) {
       }
       if(callback) callback(err, users);
     }
+  } else {
+    callback('no ids', []);
   }
 };
 

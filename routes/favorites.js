@@ -259,21 +259,27 @@ exports.recommendedusersview = function(req, res) {
       
       ret['user_posts'] = [];
       
+      
+      console.log('favorites.js: getting recommended users ' +
+                  ret['logged_in_user']['recommended_user_ids']);
       profile.getusersfromids(
-        ret['recommended_users_ids'],
+        ret['logged_in_user']['recommended_user_ids'],
         function(err, users) {
           // get first post from each recommended user
+          console.log('favorites.js: building user_posts list');
           for(var i=0;i<users.length;i++) {
             var user = users[i];
             ret['user_posts'].push({'user': user});
           }
           
+          console.log('favorites.js: building post id list');
           // build list of posts to use
           var postlist = [];
           for(var i=0;i<ret['user_posts'].length;i++) {
             postlist.push(ret['user_posts'][i]['user']['post_ids'][0]);
           }
           
+          console.log('favorites.js: getting posts from ids [' + postlist + ']');
           dashboard.getpostsfromids(postlist, logged_in_user,
             function(err, posts) {
               if(err) {console.log(err);res.send(500);return;}
@@ -281,6 +287,7 @@ exports.recommendedusersview = function(req, res) {
                 ret['user_posts'][i]['posts'] = [posts[i]];
               }
               
+              console.log('favorites.js: rendering recommended users');
               res.render('user_posts', ret);
               return;
           });
