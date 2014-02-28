@@ -53,8 +53,17 @@ var ImageSchema = new Mongoose.Schema({
   'name': String
 });
 
+var TagSchema = new Mongoose.Schema({
+  'tag': String,
+  'number': Number,
+  'last_post_time': Date,
+  'last_post_id': String,
+  'last_post_image': String
+});
+
 exports.User = Mongoose.model('User', UserSchema);
 exports.Post = Mongoose.model('Post', PostSchema);
 exports.Comment = Mongoose.model('Comment', CommentSchema);
 exports.Image = Mongoose.model('Image', ImageSchema);
+exports.Tag = Mongoose.model('Tag', TagSchema);
 
