@@ -43,6 +43,7 @@ exports.view = function(req, res) {
         ret['likeMax'] = req.query.likeMax;
         ret['priceMin'] = req.query.priceMin; //NEW
         ret['priceMax'] = req.query.priceMax; //NEW
+        ret['hideHeader'] = req.query.hideHeader;
         
         ret['show_options'] = false;
 
