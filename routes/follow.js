@@ -57,19 +57,21 @@ exports.followuser = function(req, res) {
         
           // update users
           models.User
-            .update({'id': follower['id']},
-                    {'following_ids': follower['following_ids'], 'aisle_post_ids': follower['aisle_post_ids']},
+            .update(
+              {'id': follower['id']},
+              {'following_ids': follower['following_ids'], 'aisle_post_ids': follower['aisle_post_ids']},
+              function(err) {
+                if(err) {console.log(err);res.send(500);}
+                models.User
+                  .update(
+                    {'id': followed['id']},
+                    {'followers_ids': followed['followers_ids']},
                     function(err) {
                       if(err) {console.log(err);res.send(500);}
-                      models.User
-                        .update({'id': followed['id']},
-                                {'followed_ids': followed['followers_ids']},
-                                function(err) {
-                                  if(err) {console.log(err);res.send(500);}
-                                    console.log('follow.js: set follow successfully!');
-                                    res.json(200, ret);
-                        });
-                    });
+                      console.log('follow.js: set follow successfully!');
+                      res.json(200, ret);
+                });
+            });
         });
     
     }
