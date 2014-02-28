@@ -28,11 +28,18 @@
             How about checking out some of these users?</p>
           </div>
           <div class="separate_header">
+            <div class="tag_list">
+              {{#each popular_tags}}
+                {{> tag}}
+              {{/each}}
+            </div>
+            <!--
             <div class="user_list">
 			  {{#each logged_in_user.recommended_users}}
 				{{> user}}
 			  {{/each}}
 			</div>
+			-->
 		  </div>
 	  {{/if}}
     </div>

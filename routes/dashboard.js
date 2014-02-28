@@ -312,12 +312,25 @@ exports.view = function(req, res) {
                 function(err, styles) {
                   if(err) {console.log(err);res.send(500);return;}
                   logged_in_user['styles'] = styles;
-				  ret['logged_in_user'] = logged_in_user;
-			  
-				  console.log('logged in user' + logged_in_user);
-				  res.render('dashboard', ret);
-				  return;
-              
+                  
+                  // get popular tags
+                  models.Tag
+                    .find({})
+                    .sort('-number')
+                    .limit(8)
+                    .exec(function(err, popular_tags) {
+                      if(err) {console.log(err);res.send(500);return;}
+                      
+                      ret['popular_tags'] = popular_tags;
+                      console.log('dashboard.js: sending popular tags ' + ret['popular_tags']);
+                      
+                      ret['logged_in_user'] = logged_in_user;
+				      console.log('logged in user' + logged_in_user);
+				      res.render('dashboard', ret);
+				      return;
+                    
+                    
+                    });
               });
             });
         });
