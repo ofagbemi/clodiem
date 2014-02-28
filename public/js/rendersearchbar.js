@@ -84,4 +84,13 @@ function rendersearchbar(h, barheight, barwidth, boxshadow) {
       $('div.search_options')
         .slideToggle();
     });
+    
+  $('div.search_options input')
+    .on('change', function(e) {
+      var customSearchInput = $('div.search_options').find('#customSearchInput');
+      if(customSearchInput.length == 0) {
+        customSearchInput = $('<input id="customSearchInput" style="display:none" name="customSearch" value="true">');
+        $('div.search_options').append(customSearchInput);
+      }
+    });
 }

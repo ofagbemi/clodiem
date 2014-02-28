@@ -24,7 +24,6 @@ exports.view = function(req, res) {
         }
         query = query.toLowerCase();
 
-        
         ret['searchTags'] = req.query.searchTags;
         ret['searchTitle'] = req.query.searchTitle;
         ret['searchRetailers'] = req.query.searchRetailers;
@@ -47,6 +46,36 @@ exports.view = function(req, res) {
         
         ret['show_options'] = false;
 
+        if(!req.query.customSearch) {
+          setdefaultsearch(ret);
+        } else {
+          ret['customSearch'] = true;
+        }
+
+
+        //filters values from req
+        //fields to search
+        var searchTags = ret['searchTags'];
+        var searchTitle = ret['searchTitle'];
+        var searchRetailer = ret['searchRetailers'];
+        var searchPostingProfile = req.query.searchUsers; //any people
+        //number filters
+        var timeMin = ret['timeMin'];
+        var timeMax = ret['timeMax'];
+        var likeMin = ret['likeMin'];
+        var likeMax = ret['likeMax'];
+        var priceMin = ret['priceMin'];
+        var priceMax = ret['priceMax'];
+        //boolean filters
+        var link = ret['link']; //retailer link
+        var photo = ret['photo'];
+        var isFriend = ret['onlyFollows'];
+        //type filters
+        var style = ret['style'];
+        var outfit = ret['outfit'];
+        var clothing = ret['clothing']; 
+        
+        /*
         //filters values from req
         //fields to search
         var searchTags = req.query.searchTags;
@@ -68,6 +97,7 @@ exports.view = function(req, res) {
         var style = req.query.style;
         var outfit = req.query.outfit;
         var clothing = req.query.clothing; 
+        */
         //other filters
         var priceFilter = {};
 
@@ -194,9 +224,8 @@ exports.view = function(req, res) {
       });
 
 };
-exports.landingview = function(req, res) {
-  var logged_in_user_id = profile.getloggedinuser(req);
-  var ret = {};
+
+function setdefaultsearch(ret) {
   //default settings
   ret['searchTags'] = true;
   ret['searchTitle'] = true;
@@ -208,6 +237,16 @@ exports.landingview = function(req, res) {
   ret['clothing'] = true;
 
   ret['mostRecent'] = true;
+}
+
+exports.landingview = function(req, res) {
+  var logged_in_user_id = profile.getloggedinuser(req);
+  var ret = {};
+  if(!req.query.customSearch) {
+	setdefaultsearch(ret);
+  } else {
+	ret['customSearch'] = true;
+  }
 
   models.User
     .find({'id': logged_in_user_id})
