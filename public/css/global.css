@@ -592,6 +592,9 @@ div.separate_header {
   background: black;
   color: white;
 }
+.profile_stats .display.active h3 {
+  color: white;
+}
 .profile_stats .display.active p {
   color: white;
 }
