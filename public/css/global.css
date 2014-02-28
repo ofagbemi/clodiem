@@ -206,6 +206,43 @@ div.separate_header {
   animation: border_color_change 4.0s infinite;
 }
 
+@-webkit-keyframes move_bkg_vertical {
+  0%,100% {
+    background-position: 50% top;
+  } 50% {
+    background-position: 50% bottom;
+  }
+}
+@-moz-keyframes move_bkg_vertical {
+  0%,100% {
+    background-position: 50% top;
+  } 50% {
+    background-position: 50% bottom;
+  }
+}
+@-o-keyframes move_bkg_vertical {
+  0%,100% {
+    background-position: 50% top;
+  } 50% {
+    background-position: 50% bottom;
+  }
+}
+@keyframes move_bkg_vertical {
+  0%,100% {
+    background-position: 50% top;
+  } 50% {
+    background-position: 50% bottom;
+  }
+}
+
+
+.vertical_moving_bkg {
+  -webkit-animation: move_bkg_vertical 30.0s infinite;
+  -moz-animation: move_bkg_vertical 30.0s infinite;
+  -o-animation: move_bkg_vertical 30.0s infinite;
+  animation: move_bkg_vertical 30.0s infinite;
+}
+
 /* General */
 .corner_icon {
   width: 23px;
