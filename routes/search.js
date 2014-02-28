@@ -1,5 +1,6 @@
 var profile = require('./profile.js');
 var models = require('../models');
+var dashboard = require('../routes/dashboard.js')
 
 
 //needs to search based on query needs to omit redundancies
@@ -210,20 +211,25 @@ exports.view = function(req, res) {
  
         function afterFindPosts(err, posts) {
           if(err) {console.log(err);res.send(500);}
-          // for(var i = posts.length-1; i >= 0; i--) {
-          //       console.log("price " + posts[i]["price"] + " " + posts[i]["price_num"]);
-          //     }
+          
           if(isFriend && loggedInUser){
               for(var i = posts.length-1; i >= 0; i--) {
                 if(loggedInUser["following_ids"].indexOf(posts[i]["userid"]) < 0) posts.splice(i,1);
               }
           }
-          ret['posts'] = posts;
-          res.render('search', ret);
+          postIDs = [];
+          for(var i = 0; i < posts.length; i++) {
+            postIDs.push(posts[i]["id"]);
+          }
+          dashboard.getpostsfromids(postIDs, loggedInUser, afterFunctionFun);
+          
+          function afterFunctionFun(err, posts){
+            ret['posts'] = posts;
+            res.render('search', ret);
+            return;
+          }
         }
-
-      });
-
+    });
 };
 
 function setdefaultsearch(ret) {
