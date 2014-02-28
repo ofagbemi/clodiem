@@ -42,9 +42,15 @@ function createpost_hidepostbutton() {
 function createpost_show(num) {
   $('.createpost_stepwrap.' + num)
       .fadeIn(600);
+  if(num == 4) {
+    $('.photo_stage').slideUp();
+  }
 };
 function createpost_hide(num) {
   $('.createpost_stepwrap.' + num).fadeOut(600);
+  if(num == 4) {
+    $('.photo_stage').slideDown();
+  }
 }
 function createpost_scrollto(num) {
   $('html, body').animate({
