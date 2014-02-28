@@ -108,6 +108,11 @@ exports.uploadimageandaddtopost = function(req, res) {
 			models.Post.update({'id' : post['id']}, {'img': url}, afterUpdating);
 			  function afterUpdating(err) {
 				if (err) {console.log(err); res.send(500);}
+				
+				// update the tags
+				console.log('createpost.js: updating post tag image with ' + url);
+		        savetags(post['tags'].slice(), post['id'], post['time'], new String(url));
+				
 				res.redirect('/outfit?id=' + post['id']);
 			}
 		  }
@@ -118,6 +123,69 @@ exports.uploadimageandaddtopost = function(req, res) {
 	  }
   }
 }
+
+function savetag(tag, postid, posttime, image) {
+  var upload_image = image;
+  if(!upload_image) {
+    upload_image = '';
+  }
+  
+  console.log('createpost.js: tag upload image is ' + upload_image);
+
+
+  models.Tag
+    .find({'tag': tag})
+    .exec(function(err, tags) {
+      var foundtag = tags[0];
+      if(foundtag) {
+        // update this tag
+        models.Tag
+          .update(
+            {'_id': foundtag['_id']},
+            {'number': foundtag['number'] + 1,
+             'last_post_time': posttime,
+             'last_post_id': postid,
+             'last_post_image': (upload_image == '') ? foundtag['last_post_image'] : upload_image
+            },
+            function(err) {
+              if(err) {
+                console.log(err);
+                console.log('couldn\'t update tag ' + tag);
+                return;
+              }
+              console.log('createpost.js: updated tag ' + tag);
+              return;
+            });
+      } else {
+        // save a new tag
+        var newtag = new models.Tag({
+          'tag': tag,
+          'number': 1,
+          'last_post_time': posttime,
+          'last_post_id': postid,
+          'last_post_image': upload_image
+        });
+        newtag.save(function(err) {
+          if(err){
+            console.log(err);
+            console.log('createpost.js: couldn\'t save tag ' + tag);
+            return;
+          }
+          console.log('createpost.js: saved tag ' + tag);
+          return;
+        });
+      }
+    
+    });
+};
+
+function savetags(tags, postid, posttime, postimage) {
+  if(tags) {
+    for(var i=0;i<tags.length;i++) {
+      savetag(tags[i], postid, posttime, postimage);
+    }
+  }
+};
 
 exports.createnewpost = function(req, res) {
 	models.User.
@@ -160,7 +228,12 @@ exports.createnewpost = function(req, res) {
               tags[i] = tags[i].toLowerCase();
             }
             post['tags'] = tags;
+            
 			post['id'] = util.getpostid(post);
+			
+			
+			// save tags elsewhere, don't need them for return
+            savetags(tags.slice(), post['id'], post['time']);
 
 			if(post['type'] == 'item') {
 			  post['item_ids'].push(post['id']);
@@ -239,6 +312,10 @@ exports.createnewpostfromitems = function(req, res) {
 				  if(!item['item_ids']) item['item_ids'] = [];
 				  post['item_ids'].push(item['id']);
 				}
+				
+				savetags(item['tags'].slice(), item['id'], item['time']);
+				
+				
 				// add the item
 				item_ids.push(item['id']);
 
@@ -257,6 +334,8 @@ exports.createnewpostfromitems = function(req, res) {
 			
 			post['item_ids'] = item_ids;
 			post['id'] = util.getpostid(post)
+			
+			savetags(post['tags'].slice(), post['id'], post['time']);
 			
 			// add the post to posts and add the post id to the posting user's
 			// list of post ids
