@@ -21,25 +21,35 @@
           <div class="separate_header" >
             <h2 style="margin-bottom:8px;">Hey!</h2>
             <h4 style="margin-bottom:8px;">Your aisle's empty!</h4>
+            <p style="margin-bottom:8px;">
+              To get some more posts on your aisle, you'll have to follow some users.
+            </p>
             <p>
+            {{#if popular_tags}}
+            How about checking out some of the posts in these tags?
+            {{else}}
             {{#unless logged_in_user.following_ids.length}}
             It doesn't look like you're following anyone. 
             {{/unless}}
             How about checking out some of these users?</p>
+            {{/if}}
           </div>
           <div class="separate_header">
+            {{#if popular_tags}}
+            <img class="corner_icon" style="margin-top:6px;margin-right:2px;float:right" src="/images/icons/tags/tags.svg">
+            <h2 style="margin-bottom:11px;">Popular tags</h2>
             <div class="tag_list">
               {{#each popular_tags}}
                 {{> tag}}
               {{/each}}
             </div>
-            <!--
+            {{else}}
             <div class="user_list">
 			  {{#each logged_in_user.recommended_users}}
 				{{> user}}
 			  {{/each}}
 			</div>
-			-->
+			{{/if}}
 		  </div>
 	  {{/if}}
     </div>

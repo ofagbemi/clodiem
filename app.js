@@ -62,6 +62,7 @@ if ('development' == app.get('env')) {
 app.get('/uploads/:file', createpost.uploads);
 app.get('/', landing.view);
 app.get('/aisle', dashboard.view);
+app.get('/tagsaisle', dashboard.tagsview);
 app.get('/outfit', outfit.view);
 app.get('/login', login.view);
 app.get('/logoutuser', login.logoutuser);

@@ -313,6 +313,52 @@ exports.view = function(req, res) {
                   if(err) {console.log(err);res.send(500);return;}
                   logged_in_user['styles'] = styles;
                   
+				  ret['logged_in_user'] = logged_in_user;
+				  console.log('logged in user' + logged_in_user);
+				  res.render('dashboard', ret);
+				  return;
+                    
+              });
+            });
+        });
+    });
+};
+
+exports.tagsview = function(req, res) {
+  var logged_in_user_id = profile.getloggedinuser(req);
+  if(!logged_in_user_id) {
+    console.log('dashboard.js: no logged in user');
+    res.send(404);
+    res.redirect('/login');
+    return;
+  }
+  
+  models.User
+    .find({'id': logged_in_user_id})
+    .exec(function(err, users) {
+      if(err) {console.log(err); res.send(500);}
+      var logged_in_user = users[0];
+      if(!logged_in_user) {
+        console.log('dashboard.js: couldn\'t find user ' + logged_in_user_id);
+        res.redirect('/aisle');
+        return;
+      }
+      getpostsfromids(logged_in_user['aisle_post_ids'], logged_in_user,
+        function(err, posts) {
+          var ret = {};
+          ret['posts'] = posts;
+          profile.getusersfromids(
+            logged_in_user['recommended_user_ids'],
+            // find users
+            function(err, users) {
+              if(err) {console.log(err);res.send(500);}
+              logged_in_user['recommended_users'] = users;
+              
+              getpostsfromids(logged_in_user['style_ids'], logged_in_user,
+                function(err, styles) {
+                  if(err) {console.log(err);res.send(500);return;}
+                  logged_in_user['styles'] = styles;
+                  
                   // get popular tags
                   models.Tag
                     .find({})
@@ -336,7 +382,6 @@ exports.view = function(req, res) {
         });
     });
 };
-
 
 
 

@@ -1064,6 +1064,22 @@ div.separate_header {
   float: left;
 }
 
+/* tags */
+.tag .tag_footer {
+  padding: 8px;
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255,255,255,0.96);
+  border-top: solid 1px rgb(111, 111, 111);
+}
+.tag .tag_footer h2,h3 {
+  color: #333;
+  font-size: large;
+}
+
 /* menu */
 #menu {
   position: fixed;
