@@ -219,11 +219,11 @@ function getpostsfromids(_ids, user, callback, fromobj, key) {
 		    
 		    console.log(posts[i]);
 		    console.log('comments: ' + comments);
-		    post['comments'] = comments;
+		    cpost['comments'] = comments;
 		    
 			if(cpost['type'] == 'outfit') {
-			  if(post['item_ids'] && cpost['item_ids'].length > 0) {
-				console.log('dashboard.js: getting post items ' + post['item_ids'].length);
+			  if(cpost['item_ids'] && cpost['item_ids'].length > 0) {
+				console.log('dashboard.js: getting post items ' + cpost['item_ids'].length);
 				getpostsfromids(cpost, user,
 				  function(err, items, opost) {
 					if(err) {
@@ -231,16 +231,15 @@ function getpostsfromids(_ids, user, callback, fromobj, key) {
 					  callback(err, null);
 					  return;
 					}
-					post['items'] = items;
+					opost['items'] = items;
 					l++;
 				}, true, 'item_ids');
 			  } else {
 				l++;
 			  }
 			} else if(cpost['type'] == 'style') {
-			  // if(post['item_ids'] && post['item_ids'].length > 0) {
-			  if(true) {
-			    console.log('dashboard.js: getting style items ' + post['item_ids'].length);
+			  if(cpost['item_ids'] && cpost['item_ids'].length > 0) {
+			    console.log('dashboard.js: getting style items ' + cpost['item_ids'].length);
 			    getpostsfromids(cpost, user, 
 			      function(err, outfits, spost) {
 			        if(err) {
