@@ -52,11 +52,11 @@
 		<h3>{{following.length}}</h3>
 		<p>Following</p>
 	  </div>
-	  <div class="display posts_button">
+	  <div class="display active posts_button">
 		<h3>{{posts.length}}</h3>
 		<p>Posts</p>
 	  </div>
-	  <div class="display active styles_button">
+	  <div class="display styles_button">
 		<h3>{{styles.length}}</h3>
 		<p>Styles</p>
 	  </div>
@@ -68,7 +68,7 @@
 		<div class="closet_inner">
 		  <h3>{{username}}'s Closet</h3>
 		  
-		  <div class="items styles">
+		  <div class="items styles" style="display:none;">
 		    {{#if styles.length}}
 		      <h3 class="style_header">Styles ({{styles.length}})</h3>
 			  {{#each styles}}
@@ -98,7 +98,7 @@
 			</div>
 		  {{/each}}
 		</div>
-		<div class="items posts" style="display:none;">
+		<div class="items posts">
 		  {{#if posts.length}}
 		    <h3 class="style_header">Posts ({{posts.length}})</h3>
 		    {{> postlist}}
