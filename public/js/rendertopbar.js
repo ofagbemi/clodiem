@@ -1,9 +1,9 @@
-function rendertopbar(withpadding, withbackbutton, nohelp) {
+function rendertopbar(withpadding, withbackbutton, nohelp, title) {
   var winwidth = window.innerWidth;
   var html = '<div id="topbar" style="width: ' + winwidth + 'px"></div>';
   var topbar = $(html);
   
-  var homebutton = '<a class="home_button" href="#">Clodiem</a>';
+  var homebutton = $('<a class="home_button" href="#">Clodiem</a>');
   var searchbutton = '<a class="search_button" href="#">Search</a>';
   var closesearchbutton = $('<a class="close_search_button" href="#">x</a>')
                             .css('display', 'none');
@@ -18,6 +18,10 @@ function rendertopbar(withpadding, withbackbutton, nohelp) {
 	var backbutton = $('<a class="back_button">back</a>');
 	backbutton.attr('onclick', 'window.history.back()');
 	topbar.append(backbutton);
+  }
+  
+  if(title) {
+    homebutton.text(title);
   }
   
   topbar
@@ -56,11 +60,11 @@ function renderbottombar(withpadding, active, userid) {
   var html = '<div id="bottombar" style="width: ' + winwidth + 'px"></div>';
   var bottombar = $(html);
   
-  var likesbutton = $('<a class="favorites_button" href="/favorites">favs</a>');
-  var homebutton = $('<a class="home_button" href="/aisle">home</a>');
-  var createpostbutton = $('<a class="create_post_button" href="/createpost">create</a>');
-  var profilebutton = $('<a class="profile_button" href="/user?id=' + userid + '">me</a>');
-  var searchbutton = $('<a class="search_button" href="/search">search</a>');
+  var likesbutton = $('<a class="favorites_button" href="/favorites"><div class="icon"></div><div>favs</div></a>');
+  var homebutton = $('<a class="home_button" href="/aisle"><div class="icon"></div><div>aisle</div></a>');
+  var createpostbutton = $('<a class="create_post_button" href="/createpost"><div class="icon"></div><div>create</div></a>');
+  var profilebutton = $('<a class="profile_button" href="/user?id=' + userid + '"><div class="icon"></div><div>me</div></a>');
+  var searchbutton = $('<a class="search_button" href="/search"><div class="icon"></div><div>search</div></a>');
   
   var buttons = [likesbutton, homebutton, createpostbutton,
                  profilebutton, searchbutton];
