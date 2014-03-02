@@ -442,7 +442,7 @@ div.separate_header {
   float: left;
 }
 #topbar .home_button {
-  color: black;
+  color: rgb(62, 89, 136);
   font-size: 32px;
   line-height: 50px;
   font-weight: 400;
