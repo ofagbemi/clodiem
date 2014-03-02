@@ -408,7 +408,7 @@ div.separate_header {
   stroke-width: 0.3px;
 }
 #topbar, #topbar_back {
-  height: 43px;
+  height: 50px;
   z-index: 11;
   position: fixed;
   top: 0;
@@ -420,8 +420,8 @@ div.separate_header {
 }
 #topbar .back_button {
   display: inline-block;
-  height: 43px;
-  width: 43px;
+  height: 50px;
+  width: 50px;
   background-image: url('../images/icons/back/back.svg');
   background-size: 16px 16px;
   background-position: center;
@@ -432,8 +432,8 @@ div.separate_header {
 }
 #topbar .menu_button {
   display: inline-block;
-  height: 43px;
-  width: 43px;
+  height: 50px;
+  width: 50px;
   background-image: url('../images/icons/menu/whitemenu.svg');
   background-size: 28px 22px;
   background-position: center;
@@ -443,15 +443,15 @@ div.separate_header {
 }
 #topbar .home_button {
   color: black;
-  font-size: 30px;
-  line-height: 43px;
-  font-weight: 300;
+  font-size: 32px;
+  line-height: 50px;
+  font-weight: 400;
   margin-left: 4px;
 }
 #topbar .tutorial_button {
   color: transparent;
-  height: 43px;
-  width: 43px;
+  height: 50px;
+  width: 50px;
   background-image: url('../images/icons/question2/question2.svg');
   background-size: 24px 24px;
   background-repeat: no-repeat;
@@ -461,8 +461,8 @@ div.separate_header {
 }
 #topbar .search_button, #topbar .close_search_button {
   display: inline-block;
-  height: 43px;
-  width: 43px;
+  height: 50px;
+  width: 50px;
   background-image: url('../images/icons/search/whitesearch.svg');
   background-size: 28px 28px;
   background-position: center;

@@ -21,7 +21,7 @@ function rendertopbar(withpadding, withbackbutton, nohelp, title) {
   }
   
   if(title) {
-    homebutton.text(title);
+    homebutton.html(title);
   }
   
   topbar
