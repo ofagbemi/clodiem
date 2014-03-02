@@ -6,10 +6,11 @@
   
   <body>
     <div class="content">
+      <!--
       <div style="text-align:center;" class="separate_header" >
 		<img src="images/icons/black_heart/red_heart.svg" style="width:48px;">
 	  </div>
-	  
+	  -->
 	  {{#if logged_in_user.style_ids.length}}
 	  <a style="color:inherit;" href="/styles">
 	  {{/if}}
@@ -139,7 +140,8 @@
     {{> universalscripts}}
     <script>
       function setSizes() {
-        rendertopbar(true);
+        rendertopbar(true, false, false, '<img src="images/icons/black_heart/red_heart.svg" style="margin-top:-6px;height:32px;">');
+        // rendertopbar(true, false, false, 'Favorites');
         renderbottombar(true, 0{{#if logged_in_user}},'{{logged_in_user.id}}'{{/if}});
         renderposts({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
         buildmenu(
