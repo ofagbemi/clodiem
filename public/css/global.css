@@ -294,7 +294,8 @@ div.separate_header {
   /* border: dotted 1px #eee; */
   /* background: #746262; */
   /* background: #50769e; */
-  background: #b92727;
+  /* background: #b92727; */
+  background: #3e5988;
   text-align:center;
   /* border-top: solid 3px rgb(0,0,0); */
   /* border-bottom: solid 1px rgb(0,0,0); */
@@ -442,7 +443,7 @@ div.separate_header {
   float: left;
 }
 #topbar .home_button {
-  color: rgb(62, 89, 136);
+  color: #3e5988;
   font-size: 32px;
   line-height: 50px;
   font-weight: 400;
