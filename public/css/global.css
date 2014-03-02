@@ -375,8 +375,28 @@ div.separate_header {
 
 .follow_button {
   border-radius: 2px;
+  background: #e5ecf0;
 }
-
+.follow_button a{
+  color: black;
+  font-weight: 400;
+}
+.follow_button.toggled a{
+  color: white;
+}
+.follow_button .icon {
+  display: inline-block;
+  height: 23px;
+  width:11px;
+  vertical-align: middle;
+  margin-left: 8px;
+  margin-right: 2px;
+  background-image: url('/images/icons/follow/follow.svg');
+  background-size: 100% 100%;
+}
+.follow_button.toggled .icon {
+  background-image: url('/images/icons/follow/whitefollow.svg');
+}
 .centered {
   text-align: center;
 }
@@ -599,7 +619,6 @@ div.separate_header {
   margin-right: 11px;
   overflow: hidden;
   padding: 8px;
-  border: solid 1px orange;
 }
 .profile_header .profpic img {
   width: 100%;
@@ -728,7 +747,7 @@ div.separate_header {
   padding: 4px 0px;
   /* text-transform: lowercase; */
   font-weight: 400;
-  letter-spacing: 3px;
+  font-family: 'Verdana'
 }
 .post {
   background: white;
