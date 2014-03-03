@@ -53,11 +53,11 @@
 		<p>Following</p>
 	  </div>
 	  <div class="display active posts_button">
-		<h3>{{posts.length}}</h3>
+		<h3>{{post_ids.length}}</h3>
 		<p>Posts</p>
 	  </div>
 	  <div class="display styles_button">
-		<h3>{{styles.length}}</h3>
+		<h3>{{style_ids.length}}</h3>
 		<p>Styles</p>
 	  </div>
 	  <div class="clear"></div>
@@ -153,7 +153,7 @@
 	function setSizes() {
 	  rendertopbar(true{{#unless own_page}}, true{{else}}, false{{/unless}}, false, '{{username}}');
 	  renderbottombar(true, {{#if own_page}}3{{else}}1{{/if}}{{#if logged_in_user}}, '{{logged_in_user.id}}'{{/if}});
-	  renderposts({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
+	  renderposts({{#if logged_in_user}}'{{logged_in_user.id}}', 'post_ids'{{/if}});
 	  buildmenu(
           {{#if logged_in_user}}
             true, '{{logged_in_user.id}}', '{{logged_in_user.img}}'
