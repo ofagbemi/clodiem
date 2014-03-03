@@ -286,6 +286,11 @@ div.separate_header {
                                     url("http://subtlepatterns.com/patterns/sprinkles.png");
   */
 }
+
+.profpic img {
+  width: 100%;
+}
+
 #about, #tutorial {
   background: white;
   overflow: auto;
@@ -620,9 +625,12 @@ div.separate_header {
   margin-right: 11px;
   overflow: hidden;
   padding: 8px;
+  border-radius: 2px;
 }
 .profile_header .profpic img {
-  width: 100%;
+  width: 160%;
+  margin-left: -30%;
+  margin-top: -20%;
 }
 .profile_header .profile_header_body {
   display: inline-block;

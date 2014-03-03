@@ -1,5 +1,6 @@
 var profile = require('./profile.js');
 var models = require('../models');
+var createpost = require('./createpost.js');
 
 exports.view = function(req, res) {
   var ret = {};
@@ -22,6 +23,7 @@ exports.view = function(req, res) {
 
 exports.setuser = function(req, res) {
 
+  console.log(req);
   models.User
     .find({"id" : req.body.userid})
     .exec(afterSearch)
@@ -30,24 +32,40 @@ exports.setuser = function(req, res) {
       if(err) {console.log(err); res.send(500); }
       var user = result[0];
       if(user){
-        /*
-        var user = result[0];
-        for(var key in req.body.settings) {
-          user[key] = req.body.settings[key];
+      
+        var settings = req.body;
+        if(!settings) settings = {};
+        console.log('settings.js: using settings ' + settings);
+        
+        if(req.files && req.files.img) {
+		  createpost.uploadimage(
+			req.files.img,
+			function(url) {
+			  settings['img'] = url;
+			
+			  models.User
+				.update(
+				  {'id': user['id']},
+				  settings,
+				  function(err) {
+					if(err) {console.log(err);res.send(500);return;}
+					console.log('settings.js: updated user settings ' + settings);
+					res.redirect('/user?id=' + user['id']);
+					return;
+				  });
+		  });
+        } else {
+          models.User
+			.update(
+			  {'id': user['id']},
+			  settings,
+			  function(err) {
+				if(err) {console.log(err);res.send(500);return;}
+				console.log('settings.js: updated user settings ' + settings);
+				res.redirect('/user?id=' + user['id']);
+				return;
+			  });
         }
-        res.writeHead(200);
-        res.end();
-        */
-        models.User.update({'id': user['id']},
-                           req.body.settings,
-                           function(err) {
-                             if(err) {console.log(err);res.send(500);return;}
-                             console.log('settings.js: updated user settings ' + req.body.settings);
-                             res.send(200);
-                             return;
-                           });
-        
-        
       } else {
         console.log('setuser.js: the user with id ' + req.body.userid + ' could not be found');
         res.writeHead(404);

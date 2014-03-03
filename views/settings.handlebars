@@ -54,16 +54,37 @@
           <img class="spinning corner_icon" style="float:right;" src="/images/icons/gear/gear.svg">
           <h3 style="margin-top:19px;margin-bottom:19px;margin-left:4px;">Account settings</h3>
         </div>
-		<form class="settings_form">
+		<form class="settings_form" method="post" action="/setuser" enctype="multipart/form-data">
+		  <input style="display:none;" type="text" value="{{logged_in_user.id}}" name="userid">
 		  <div>
 			<input value="{{logged_in_user.location}}" class="padded" type="text" name="location" placeholder="Location">
 		  </div>
 		  <div>
 			<textarea name="description" placeholder="Tell us a bit about yourself...">{{logged_in_user.description}}</textarea>
 		  </div>
-		  <div>
-			<input value="{{logged_in_user.img}}" class="padded" type="text" name="img" placeholder="Profile picture (URL)">
+		  
+		  <div style="position:relative;margin-bottom:8px;padding:4px 0px;border-bottom:solid 1px rgba(0,0,0,0.15);">
+			<!--input for profile picture-->
+			<input class="img_upload" name="img" style="display:none;" type="file" accept="image/*" capture>
+			<div class="profpic" style="border-radius:80px;padding-bottom:4px;float:left;width:44%;">
+			  <img src="{{#if logged_in_user.img}}{{logged_in_user.img}}{{else}}/images/icons/button/button.svg{{/if}}">
+			</div>
+			<div class="change_profile_picture follow_button button" style="width:50%;position:absolute;bottom:8px;right:0px;">
+			  <a class="img_upload" href="#">Change your profile picture</a>
+			</div>
+			<div class="clear"></div>
 		  </div>
+		  
+		  <!--
+		  <div style="text-align:center;">
+		    <div style="display:inline-block;margin-right:8px;">
+		      <input style="width:auto;display:inline-block;" checked type="radio" name="img_from" value="file"> From phone
+		    </div>
+		    <div style="display:inline-block;">
+		      <input style="width:auto;display:inline-block;" type="radio" name="img_from" value="url"> From url
+		    </div>
+		  </div>
+		  -->
 		  <div>
 			<input class="padded" type="password" placeholder="Password">
 		  </div>
