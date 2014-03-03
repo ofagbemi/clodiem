@@ -36,14 +36,14 @@ exports.addlike = function(req, res) {
 		        .update({'liked_post_ids': user['liked_post_ids']},
 		        function(err) {
 		          if(err) {console.log(err);res.send(500);}
-		          console.log('dashboard.js: added like to post ' + postid);
+		          //console.log('dashboard.js: added like to post ' + postid);
 		          res.json(200, {'likes': newlikes});
 		          return;
 		        });
 		  });
 		  
 		} else {
-		  console.log('dashboard.js: couldn\'t add like to post ' + postid);
+		  //console.log('dashboard.js: couldn\'t add like to post ' + postid);
 		  res.send(404);
 		  return;
 		}
@@ -89,13 +89,13 @@ exports.removelike = function(req, res) {
 		        .update({'liked_post_ids': user['liked_post_ids']},
 		        function(err) {
 		          if(err) {console.log(err);res.send(500);}
-		          console.log('dashboard.js: removed like from post ' + postid);
+		          //console.log('dashboard.js: removed like from post ' + postid);
 		          res.json(200, {'likes': newlikes});
 		        });
 		  });
 		  
 		} else {
-		  console.log('dashboard.js: couldn\'t remove like from post ' + postid);
+		  //console.log('dashboard.js: couldn\'t remove like from post ' + postid);
 		  res.send(404);
 		  return;
 		}
@@ -105,16 +105,16 @@ exports.removelike = function(req, res) {
 };
 
 exports.addaislepostsfromlist = function(user, post_ids) {
-  console.log('dashboard.js: adding ' + post_ids + ' to aisle posts');
+  //console.log('dashboard.js: adding ' + post_ids + ' to aisle posts');
   user['aisle_post_ids'] = post_ids.concat(user['aisle_post_ids']);
 }
 exports.addaisleposts = function(follower, followed) {
-  console.log('dashboard.js: adding ' + followed['post_ids'] + ' to aisle posts');
+  // console.log('dashboard.js: adding ' + followed['post_ids'] + ' to aisle posts');
   follower['aisle_post_ids'] = followed['post_ids'].concat(follower['aisle_post_ids']);
 }
 exports.removeaisleposts = function(follower, followed) {
-  console.log('dashboard.js: removing ' + followed['id'] + '\'s aisle posts');
-  console.log(follower['aisle_post_ids']);
+  // console.log('dashboard.js: removing ' + followed['id'] + '\'s aisle posts');
+  // console.log(follower['aisle_post_ids']);
   follower['aisle_post_ids'] = 
     follower['aisle_post_ids'].filter(function(elem) {
       return !(util.contains(elem, followed['post_ids']));
@@ -128,8 +128,8 @@ exports.getaisleposts = function(req, res) {
   var key = req.query.key;
   var ret = {};
   
-  console.log('dashboard.js: userid ' + userid);
-  console.log('dashboard.js: key ' + key);
+  // console.log('dashboard.js: userid ' + userid);
+  // console.log('dashboard.js: key ' + key);
   
   models.User
     .find({'id': userid})
@@ -139,9 +139,9 @@ exports.getaisleposts = function(req, res) {
         var index = segment_index * num_posts;
         var post_ids = user[key];
         
-        console.log('dashboard.js: looking through ' + post_ids + ' from index ' +
-                    index + ' for ' + num_posts + ' posts');
-        console.log('user: ' + user);
+        // console.log('dashboard.js: looking through ' + post_ids + ' from index ' +
+        //             index + ' for ' + num_posts + ' posts');
+        // console.log('user: ' + user);
         ret['posts'] = [];
         if(post_ids && index < post_ids.length) {
           // slice will just grab the rest of the posts if index goes over
@@ -154,17 +154,17 @@ exports.getaisleposts = function(req, res) {
               ret['posts'] = posts;
               if(index + num_posts < post_ids.length) ret['more_posts'] = true;
               
-              console.log('dashboard.js: sending back ' + ret['posts']);
+              // console.log('dashboard.js: sending back ' + ret['posts']);
               res.render('partials/postlist', ret);
               return;
             });
         } else {
-          console.log('dashboard.js: no posts left');
+          // console.log('dashboard.js: no posts left');
           res.send(200, {'no_more_posts': true});
           return;
         }
       } else {
-        console.log('dashboard.js: couldn\'t find user ' + userid);
+        // console.log('dashboard.js: couldn\'t find user ' + userid);
         res.send(404);
         return;
       }
@@ -222,12 +222,12 @@ function getpostsfromids(_ids, user, callback, fromobj, key) {
   }
 
   if(!ids) {
-    console.log('dashboard.js: no ids');
+    // console.log('dashboard.js: no ids');
     callback('no ids', null, _ids);
     return;
   } else {
-    console.log('dashboard.js: getting posts with id\'s [' + ids + ']');
-    console.log('dashboard.js: DB ready state ' + models.Post.db.readyState);
+    // console.log('dashboard.js: getting posts with id\'s [' + ids + ']');
+    // console.log('dashboard.js: DB ready state ' + models.Post.db.readyState);
     
     for(var i=0;i<ids.length;i++) {
       if(!ids[i]) ids[i] = 0;
@@ -246,7 +246,7 @@ function getpostsfromids(_ids, user, callback, fromobj, key) {
       }
       
       if(posts) {
-        console.log('dashboard.js: found requested posts');
+        // console.log('dashboard.js: found requested posts');
         var l = 0;
 		for(var index=0;index<posts.length;index++) {
 		  var i = index;  // since i is used in callback functions
@@ -264,13 +264,13 @@ function getpostsfromids(_ids, user, callback, fromobj, key) {
 		    function(err, comments, cpost) {
 		    if(err) {if(callback) {callback(err, null);} return;}
 		    
-		    console.log(posts[i]);
-		    console.log('comments: ' + comments);
+		    // console.log(posts[i]);
+		    // console.log('comments: ' + comments);
 		    cpost['comments'] = comments;
 		    
 			if(cpost['type'] == 'outfit') {
 			  if(cpost['item_ids'] && cpost['item_ids'].length > 0) {
-				console.log('dashboard.js: getting post items ' + cpost['item_ids'].length);
+				// console.log('dashboard.js: getting post items ' + cpost['item_ids'].length);
 				getpostsfromids(cpost, user,
 				  function(err, items, opost) {
 					if(err) {
@@ -286,7 +286,7 @@ function getpostsfromids(_ids, user, callback, fromobj, key) {
 			  }
 			} else if(cpost['type'] == 'style') {
 			  if(cpost['item_ids'] && cpost['item_ids'].length > 0) {
-			    console.log('dashboard.js: getting style items ' + cpost['item_ids'].length);
+			    // console.log('dashboard.js: getting style items ' + cpost['item_ids'].length);
 			    getpostsfromids(cpost, user, 
 			      function(err, outfits, spost) {
 			        if(err) {
@@ -306,13 +306,13 @@ function getpostsfromids(_ids, user, callback, fromobj, key) {
 		  }, true, 'comment_ids');
 		}
 		var check = setInterval(function() {
-		  console.log(posts.length);
-		  console.log(l);
+		  // console.log(posts.length);
+		  // console.log(l);
 		  if(l == posts.length) {
 		    clearInterval(check);
-		    console.log('dashboard.js: finished processing posts. Exiting soon...');
+		    // console.log('dashboard.js: finished processing posts. Exiting soon...');
 		    if(callback){
-		      console.log('dashboard.js: found posts [' + posts + ']');
+		      // console.log('dashboard.js: found posts [' + posts + ']');
 		      callback(err, posts, _ids);
 		    }
 		  }
@@ -327,7 +327,7 @@ function getpostsfromids(_ids, user, callback, fromobj, key) {
 exports.view = function(req, res) {
   var logged_in_user_id = profile.getloggedinuser(req);
   if(!logged_in_user_id) {
-    console.log('dashboard.js: no logged in user');
+    // console.log('dashboard.js: no logged in user');
     res.send(404);
     res.redirect('/login');
     return;
@@ -339,7 +339,7 @@ exports.view = function(req, res) {
       if(err) {console.log(err); res.send(500);}
       var logged_in_user = users[0];
       if(!logged_in_user) {
-        console.log('dashboard.js: couldn\'t find user ' + logged_in_user_id);
+        // console.log('dashboard.js: couldn\'t find user ' + logged_in_user_id);
         res.redirect('/aisle');
         return;
       }
@@ -360,7 +360,7 @@ exports.view = function(req, res) {
                   logged_in_user['styles'] = styles;
                   
 				  ret['logged_in_user'] = logged_in_user;
-				  console.log('logged in user' + logged_in_user);
+				  // console.log('logged in user' + logged_in_user);
 				  res.render('dashboard', ret);
 				  return;
                     
@@ -373,7 +373,7 @@ exports.view = function(req, res) {
 exports.tagsview = function(req, res) {
   var logged_in_user_id = profile.getloggedinuser(req);
   if(!logged_in_user_id) {
-    console.log('dashboard.js: no logged in user');
+    // console.log('dashboard.js: no logged in user');
     res.send(404);
     res.redirect('/login');
     return;
@@ -385,7 +385,7 @@ exports.tagsview = function(req, res) {
       if(err) {console.log(err); res.send(500);}
       var logged_in_user = users[0];
       if(!logged_in_user) {
-        console.log('dashboard.js: couldn\'t find user ' + logged_in_user_id);
+        // console.log('dashboard.js: couldn\'t find user ' + logged_in_user_id);
         res.redirect('/aisle');
         return;
       }
@@ -414,10 +414,10 @@ exports.tagsview = function(req, res) {
                       if(err) {console.log(err);res.send(500);return;}
                       
                       ret['popular_tags'] = popular_tags;
-                      console.log('dashboard.js: sending popular tags ' + ret['popular_tags']);
+                      // console.log('dashboard.js: sending popular tags ' + ret['popular_tags']);
                       
                       ret['logged_in_user'] = logged_in_user;
-				      console.log('logged in user' + logged_in_user);
+				      // console.log('logged in user' + logged_in_user);
 				      res.render('dashboard', ret);
 				      return;
                     

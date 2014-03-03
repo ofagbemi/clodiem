@@ -7,7 +7,7 @@ exports.addcomment = function(req, res) {
       if(err) {console.log(err);res.send(500);}
       var post = result[0];
       if(!post) {
-        console.log('comment.js: post ' + req.body.postid + ' not found');
+        //console.log('comment.js: post ' + req.body.postid + ' not found');
         res.send(404);
       }
       
@@ -29,7 +29,7 @@ exports.addcomment = function(req, res) {
           .update({'id': post['id']}, {'comment_ids': post['comment_ids']},
             function(err) {
               if(err) {console.log(err); res.send(500);}
-              console.log('comment.js: saved comment successfully');
+              //console.log('comment.js: saved comment successfully');
               res.json(200, {'comments': post['comment_ids'].length});
             })
       });

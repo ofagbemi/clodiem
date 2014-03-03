@@ -46,6 +46,7 @@
 
   <label>Sort by:</label> 
   <select name = "sortOptions">    
+    <option value="yourLikes" {{#if yourLikes}}selected{{/if}}>Your Likes</option>
     <option value="mostRecent" {{#if mostRecent}}selected{{/if}}>Most Recent</option>
     <option value="mostPopular" {{#if mostPopular}}selected{{/if}}>Most Popular</option>
     <option value="mostExpensive" {{#if mostExpensive}}selected{{/if}}>Most Expensive</option>  
