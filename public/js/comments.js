@@ -38,9 +38,13 @@ function comments_bindclicklistener(logged_in_id, username, img) {
         comments_not_logged_in();
         return;
       }
+      
       var post_id = $(this).attr('postid');
       var comment_val = $(".comment_box:visible[postid='" + post_id + "']").val();
       if(comment_val) {
+        // analytics
+        ga('send', 'event', 'post', 'comment', 'postid ' + post_id);
+        
         comments_submitcomment(logged_in_id, post_id, username, img, comment_val, function(response) {
           $(".comment_box:visible[postid='" + post_id + "']").val('');
           if($('.comments').length > 0) {

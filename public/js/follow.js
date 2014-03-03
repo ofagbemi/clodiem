@@ -28,12 +28,17 @@ function follow_bindclicklisteners(logged_in, followerid) {
       return;
     }
     var button = $(this);
-    follow_submitfollow(followerid, $(this).attr('followedid'), function(response) {
+    var followedid = $(this).attr('followedid');
+    follow_submitfollow(followerid, followedid, function(response) {
       if(response['follow']) {
+        // analytics
+        ga('send', 'event', 'user', 'follow', 'user ' + followerid + ' followed ' + followedid);
         button
           .addClass('toggled')
           .html(button.html().replace('Follow', 'Following'));
       } else {
+        // analytics
+        ga('send', 'event', 'user', 'unfollow', 'user ' + followerid + ' unfollowed ' + followedid);
         button
           .removeClass('toggled')
           .html(button.html().replace('Following', 'Follow'));

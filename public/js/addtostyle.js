@@ -40,6 +40,7 @@ function addtostyle_bindclicklisteners(userid) {
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
+      
       var postid = $(this).attr('postid');
       var input = $(this)
         .parent()
@@ -52,6 +53,9 @@ function addtostyle_bindclicklisteners(userid) {
         alert('You have to give the style a name to create it');
         return;
       }
+      
+      // analytics
+      ga('send', 'event', 'post', 'add to new style', 'postid ' + postid);
       
       var img = $(this).parents('.post_stage').find('.post_img').attr('src');
       
@@ -130,6 +134,9 @@ function addtostyle_bindclicklisteners(userid) {
         alert('You have to choose a style');
         return;
       }
+      
+      // analytics
+      ga('send', 'event', 'post', 'add to existing style', 'postid ' + postid);
       
       var img = $(this).parents('.post_stage').find('.post_img').attr('src');
       

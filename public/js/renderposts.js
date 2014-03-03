@@ -33,10 +33,20 @@ function renderpost(userid) {
 }
 // bind click listeners
 function renderposts_bindclicklisteners() {
+  $('.user_attribution a')
+    .click(function(e) {
+      // analytics
+      var username = $(this).text();
+      ga('send', 'event', 'user', 'click', 'user ' + username);
+    });
   $('.marker')
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
+      
+      // analytics
+      ga('send', 'event', 'post', 'item click');
+      
       var title = $(this).attr('title');
       var item_stage = $(this).parent().find(".item_stage[title='" + title + "']");
       item_stage.fadeIn(200);
