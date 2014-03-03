@@ -640,29 +640,34 @@ div.separate_header {
 }
 .profile_stats {
   /* background: #7fa4c5; */
-  background: #F1F1F1;
+  /* background: #F1F1F1; */
+  background-color: white;
   width: 100%;
-  border-bottom: solid 1px rgba(0,0,0,0.10);
+  /*border-bottom: solid 1px rgba(0,0,0,0.10);*/
 }
 .profile_stats .display {
   float: right;
   padding: 11px;
   background: white;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.04);
-  border-bottom: solid 1px rgba(0,0,0,0.15);
+  /* box-shadow: 1px 1px 3px rgba(0,0,0,0.04); */
+  border-bottom: solid 5px rgba(0,0,0,0.15);
+  /* border-bottom: solid 5px #edeff3; /* same as body color */
+  width: 25%;
 }
 .profile_stats .display.active {
-  background: black;
-  color: white;
+  /* background: black; */
+  /* color: white; */
+  border-bottom: solid 5px #314a5e;
+  transition: border 0.5s;
 }
 .profile_stats .display.active h3 {
-  color: white;
+  /* color: white; */
 }
 .profile_stats .display.active p {
-  color: white;
+  /* color: white; */
 }
 .profile_stats .clear {
-  margin-bottom: -8px;
+  /* margin-bottom: -8px; */
 }
 .profile_stats .display h3 {
   font-size: large;
