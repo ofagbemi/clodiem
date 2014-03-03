@@ -1,6 +1,8 @@
 var sha1 = require('sha1');
 var querystring = require('querystring');
 
+exports.numpostsonpage = 4;
+
 exports.sha1 = function(str) {
   return sha1(str);
 };

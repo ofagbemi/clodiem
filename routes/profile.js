@@ -142,7 +142,7 @@ exports.view = function(req, res) {
       
       ret['posts'] = [];
       console.log('profile.js: getting user ' + ret['id'] + '\'s posts');
-      dashboard.getpostsfromids(ret['post_ids'], loggedinuser,
+      dashboard.getpostsfromids(ret['post_ids'].slice(0,util.numpostsonpage), loggedinuser,
                                 function(err, posts) {
                                 
         if(err) {console.log(err);res.send(500);return;}

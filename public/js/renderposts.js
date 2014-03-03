@@ -1,6 +1,7 @@
 var winwidth = window.innerWidth;
-var renderposts_aislepostindex = 0;
+var renderposts_aislepostindex = 1;
 var renderposts_userid;
+var renderposts_key;
 
 function placemarkers() {
   $('.post_stage .marker').each(function() {
@@ -12,13 +13,14 @@ function placemarkers() {
 function alignposts() {
 
 }
-function renderposts(userid) {
+function renderposts(userid, key) {
   renderposts_userid = userid;
+  renderposts_key = key;
   alignposts();
   placemarkers();
   renderposts_bindclicklisteners();
   
-  renderposts_loadaisleposts(renderposts_userid);
+  if(!key) {$('.load_more_posts_button').hide();}
 }
 // renders comments and posts
 function renderpost(userid) {
@@ -73,7 +75,7 @@ function renderposts_bindclicklisteners() {
     .click(function() {
       $(this).parent().fadeOut();
     });
-  $('.load_more_posts_button')
+  $('.load_more_posts_button a')
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
@@ -82,21 +84,33 @@ function renderposts_bindclicklisteners() {
 }
 
 function renderposts_loadaisleposts(userid) {
-  renderposts_aislepostindex++;
-  var data = {
-    'num_posts': 4,
-    'index': renderposts_aislepostindex,
-    'userid': userid
-  };
+  if(renderposts_key) {
+	var data = {
+	  'num_posts': 4,
+	  'index': renderposts_aislepostindex,
+	  'userid': userid,
+	  'key': renderposts_key
+	};
   
-  $.ajax({
-    type: 'GET',
-    url: '/getaisleposts',
-    data: data,
-    success: renderposts_rendernewaisleposts
-  });
+	$.ajax({
+	  type: 'GET',
+	  url: '/getaisleposts',
+	  data: data,
+	  success: renderposts_rendernewaisleposts
+	});
+  }
 }
 
 function renderposts_rendernewaisleposts(response) {
-  $(response).insertBefore('.load_more_posts_button');
+  if(response['no_more_posts']) {
+    $('.load_more_posts_button').html('No more posts');
+  } else {
+    $(response)
+      .hide()
+      .insertBefore('.load_more_posts_button')
+      .slideDown(function() {
+        placemarkers();
+      });;
+    renderposts_aislepostindex++;
+  }
 }

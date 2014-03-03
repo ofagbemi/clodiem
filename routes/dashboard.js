@@ -122,6 +122,53 @@ exports.removeaisleposts = function(follower, followed) {
 }
 
 exports.getaisleposts = function(req, res) {
+  var segment_index = req.query.index;
+  var num_posts = req.query.num_posts || util.numpostsonpage;
+  var userid = req.query.userid;
+  var key = req.query.key;
+  var ret = {};
+  
+  console.log('dashboard.js: userid ' + userid);
+  console.log('dashboard.js: key ' + key);
+  
+  models.User
+    .find({'id': userid})
+    .exec(function(err, users) {
+      var user = users[0];
+      if(user) {
+        var index = segment_index * num_posts;
+        var post_ids = user[key];
+        
+        console.log('dashboard.js: looking through ' + post_ids + ' from index ' +
+                    index + ' for ' + num_posts + ' posts');
+        console.log('user: ' + user);
+        ret['posts'] = [];
+        if(post_ids && index < post_ids.length) {
+          // slice will just grab the rest of the posts if index goes over
+          // the number of aisle_posts
+          getpostsfromids(
+            post_ids.slice(index, index + num_posts),
+            user,
+            function(err, posts) {
+              if(err) {console.log(err);return;}
+              ret['posts'] = posts;
+              if(index + num_posts < post_ids.length) ret['more_posts'] = true;
+              
+              console.log('dashboard.js: sending back ' + ret['posts']);
+              res.render('partials/postlist', ret);
+              return;
+            });
+        } else {
+          console.log('dashboard.js: no posts left');
+          res.send(200, {'no_more_posts': true});
+          return;
+        }
+      } else {
+        console.log('dashboard.js: couldn\'t find user ' + userid);
+        res.send(404);
+        return;
+      }
+    });
   /*
   var segment_index = req.query.index;
   var num_posts = req.query.num_posts;
@@ -296,7 +343,7 @@ exports.view = function(req, res) {
         res.redirect('/aisle');
         return;
       }
-      getpostsfromids(logged_in_user['aisle_post_ids'], logged_in_user,
+      getpostsfromids(logged_in_user['aisle_post_ids'].slice(0,util.numpostsonpage), logged_in_user,
         function(err, posts) {
           var ret = {};
           ret['posts'] = posts;
