@@ -33,7 +33,7 @@ function renderpost(userid) {
 }
 // bind click listeners
 function renderposts_bindclicklisteners() {
-  $('.user_attribution a')
+  $('.user_attribution a, .user_link')
     .click(function(e) {
       // analytics
       var username = $(this).text();
