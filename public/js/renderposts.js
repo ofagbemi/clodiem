@@ -33,6 +33,22 @@ function renderpost(userid) {
 }
 // bind click listeners
 function renderposts_bindclicklisteners() {
+  /*
+  $('.shopping_mode_button')
+    .unbind('click')
+    .click(function(e) {
+      e.preventDefault();
+      
+      if($(this).hasClass('active')) {
+        $('.post').slideDown();
+        $(this).removeClass('active');
+      } else {
+        $('.post').slideUp();
+        $('.purchase_link').parents('.post').slideDown();
+        $(this).addClass('active');
+      }
+    });
+    */
   $('.user_attribution a, .user_link')
     .click(function(e) {
       // analytics
