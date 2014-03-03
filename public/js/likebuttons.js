@@ -13,7 +13,7 @@ function activatelikebuttons(userid) {
     var postid = $(this).attr('postid');
     if($(this).attr('status') == 'liked') {
       // analytics
-      ga('send', 'event', 'post', 'unlike', 'unliked post ' + postid);
+      // ga('send', 'event', 'post', 'unlike', 'unliked post ' + postid);
       likebuttons_removelike(userid, postid);
       $(this).attr('status', '');
     } else {
