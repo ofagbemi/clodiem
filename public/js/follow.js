@@ -38,7 +38,7 @@ function follow_bindclicklisteners(logged_in, followerid) {
           .html(button.html().replace('Follow', 'Following'));
       } else {
         // analytics
-        // ga('send', 'event', 'user', 'unfollow', 'user ' + followerid + ' unfollowed ' + followedid);
+        ga('send', 'event', 'user', 'unfollow', 'user ' + followerid + ' unfollowed ' + followedid);
         button
           .removeClass('toggled')
           .html(button.html().replace('Following', 'Follow'));
