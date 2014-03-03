@@ -8,8 +8,8 @@ var createpost_addeditem_partial = '\
   <div style="color:black;display:inline-block;width:100%;text-align:center;">{{title}}</div>\
 </a>'
 
-var createpost_addeditemiconheight = 40;
-var createpost_addeditemiconwidth = 40;
+// var createpost_addeditemiconheight = 40;
+// var createpost_addeditemiconwidth = 40;
 
 var createpost_uploadedimage = false;
 
@@ -151,10 +151,11 @@ function createpost_bindclicklisteners() {
                           price_num, title, x, y, retailer, purchase_link,
                           tags, item_ids);
       var addeditem = $(createpost_addeditem_partial.replace('{{title}}', title));
-	  addeditem
+	  
+	  /*addeditem
 		.find('img')
 		  .css('height', createpost_addeditemiconheight + 'px')
-		  .css('width', createpost_addeditemiconwidth + 'px');
+		  .css('width', createpost_addeditemiconwidth + 'px');*/
 	  
 	  $('.createpost_additem').parent().prepend(addeditem);
 	  createpost_hide(4);

@@ -1052,6 +1052,7 @@ div.separate_header {
   margin-bottom: 8px;
   border-radius: 4px;
   background: black;
+  height: 125px;
   /*
   background: white;
   border: dotted 1px rgba(0,0,0,0.15);
