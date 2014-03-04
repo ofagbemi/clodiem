@@ -8,7 +8,6 @@ function register_bindclicklisteners() {
   $('#register_button')
     .unbind('click')
     .click(function(e) {
-      e.preventDefault();
       $('.registerform').submit();
     });
     

@@ -15,7 +15,7 @@
         <form class="loginform" method="post" action="/loginuser">
           <input {{#if username}}value="{{username}}" {{/if}}class="padded login" name="username" placeholder="Username" type="text">
           <input class="padded login" name="password" placeholder="Password" type="password">
-          <input type="submit" style="position:absolute;top:-200px;">
+          <input type="submit" v="y" style="position:absolute;top:-200px;">
         </form>
         {{#if message}}<div class="login_message error">{{message}}</div>{{/if}}
         <div id="login_button" class="button big"><a href="/aisle">Log in</a></div>
