@@ -387,4 +387,3 @@ exports.landingview = function(req, res) {
       res.render('searchlanding', ret);
     });
 }
-
