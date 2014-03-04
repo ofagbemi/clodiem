@@ -8,6 +8,24 @@ var dashboard = require('../routes/dashboard.js')
 
 exports.view = function(req, res) {
 
+
+    models.Post.find().exec(function(err, result){
+
+        //removing duplicate items if an outfit contains them
+        for(var i = 0; i < result.length; i++) {
+          if(result[i]["type"] == "outfit") {
+            var items = result[i]["item_ids"];
+            for(var j = 0; j < items.length; j++){
+              models.Post.find({"id" : items[j]})
+              .update({'image' : result[i]['image']})
+              .exec(function(err, result){
+                console.log("DONE");
+              });
+            }
+          }
+        }
+    });
+
     //set to true to disable algorithm
     turnOffLikeAlgorithm = false;
 
@@ -227,7 +245,7 @@ exports.view = function(req, res) {
             postIDs.push(posts[i]["id"]);
           }
 
-          //removing duplicates if outfit appears
+          //removing duplicate itmes if an outfit contains them
           for(var i = posts.length-1; i >= 0; i--) {
             if(posts[i]["type"] == "outfit") {
               var items = posts[i]["item_ids"];
