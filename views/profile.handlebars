@@ -6,7 +6,7 @@
   <body>
     <div class="profile_header">
       <div class="profpic">
-        <img src="{{#if img}}{{img}}{{else}}/images/icons/button/button.svg{{/if}}">
+        <img src={{#if img}}"{{img}}"{{else}}"/images/icons/button/button.svg" class="default"{{/if}}>
       </div>
       <div class="profile_header_body">
         <h2>{{username}}</h2>

@@ -287,8 +287,10 @@ div.separate_header {
   */
 }
 
-.profpic img {
+.user a.profpic img.default, .profile_header .profpic img.default,
+.post_comment .profpic img.default {
   width: 100%;
+  margin: 0;
 }
 
 #about, #tutorial {
@@ -733,10 +735,14 @@ div.separate_header {
 .user a.profpic {
   float: left;
   margin-right: 8px;
-}
-.user img.profpic {
   width: 64px;
   height: 64px;
+  overflow: hidden;
+}
+.user a.profpic img {
+  width: 160%;
+  margin-left: -30%;
+  margin-top: -20%;
 }
 .user .user_body {
   float: left;
@@ -1025,7 +1031,15 @@ div.separate_header {
   margin-right: 4px;
   width: 36px;
   height: 36px;
+  overflow: hidden;
 }
+
+.post_comment .profpic img {
+  width: 160%;
+  margin-left: -30%;
+  margin-top: -20%;
+}
+
 .post_comment .comment_body {
   float: left;
 }

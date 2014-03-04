@@ -1,6 +1,6 @@
 <div class="user">
   <a class="profpic" href="/user?id={{id}}">
-	<img class="profpic" src="{{#if img}}{{img}}{{else}}/images/icons/button/button.svg{{/if}}">
+	<img src={{#if img}}"{{img}}"{{else}}"/images/icons/button/button.svg" class="default"{{/if}}>
   </a>
   <div class="user_body">
     <h4><a class="user_link" href="/user?id={{id}}">{{username}}</a></h4>

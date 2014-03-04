@@ -1,6 +1,6 @@
 <div class="post_comment">
-  <a href="/user?id={{userid}}">
-	<img class="profpic" src="{{img}}">
+  <a class="profpic" href="/user?id={{userid}}">
+	<img src={{#if img}}"{{img}}"{{else}}"/images/icons/button/button.svg" class="default"{{/if}}>
   </a>
   <div class="comment_body">
 	<a class="user_attribution" href="/user?id={{userid}}">{{username}}</a>

@@ -20,7 +20,7 @@ function comments_buildcomment(userid, username, img, comment) {
     comment_partial
       .replace(/{{userid}}/g, userid)
       .replace(/{{username}}/g, username)
-      .replace(/{{img}}/g, img)
+      .replace(/{{img}}/g, img || '/images/icons/button/button.svg')
       .replace(/{{time}}/g, 'now')
       .replace(/{{comment}}/g, comment)
     );
