@@ -227,26 +227,28 @@ exports.view = function(req, res) {
             postIDs.push(posts[i]["id"]);
           }
 
-          if(loggedInUser) likesAlgorithm(loggedInUser, posts);
-          else afterFindPosts2(posts);
 
-          function afterFindPosts2(posts) {
-
-            if((!sort || sort === "yourLikess") && !turnOffLikeAlgorithm 
-                && loggedInUser && (loggedInUser["liked_post_ids"])) {
-              posts.sort(function(a,b){return b["algorithm"] - a["algorithm"]});
-              console.log("SORTING BY ALGORITHM");
-            }
-
-            dashboard.getpostsfromids(postIDs, loggedInUser, afterGetPostsFromIds, null, null, sortMongo);
-            
-            function afterGetPostsFromIds(err, posts){
-              ret['posts'] = posts;
-              res.render('search', ret);
-              return;
-            }
-          }
-
+          dashboard.getpostsfromids(postIDs, loggedInUser, afterGetPostsFromIds, null, null, sortMongo);
+		  function afterGetPostsFromIds(err, posts){
+		    if(err) {console.log(err);res.send(500);return;}
+			if(loggedInUser) likesAlgorithm(loggedInUser, posts);
+			else afterFindPosts2(posts);
+		  }
+		  
+		  function afterFindPosts2(_posts) {
+			if((!sort || sort === "yourLikes") && !turnOffLikeAlgorithm 
+				&& loggedInUser && (loggedInUser["liked_post_ids"])) {
+				
+				console.log(_posts);
+				
+			  _posts.sort(function(a,b){return b["algorithm"] - a["algorithm"]});
+			  console.log("SORTING BY ALGORITHM " + _posts);
+			}
+			
+			ret['posts'] = _posts;
+			res.render('search', ret);
+			return;
+		  }
 
           //ALGORITHM  STARTS
 
@@ -260,7 +262,6 @@ exports.view = function(req, res) {
             for (var i = 0; i < followed.length; i++) {
               followedQuery.push({"id" : followed[i]});
             }
-
             models.User.find({$or: followedQuery}).exec(afterFollowers);
 
             function afterFollowers(err, result){
