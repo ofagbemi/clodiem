@@ -142,7 +142,7 @@ function createpost_bindclicklisteners() {
       var x = $('.marker').attr('x');
       var y = $('.marker').attr('y');
       
-      var tags = createpost_parsetags($(this).parent().find('.tagbox').val());
+      var tags = createpost_parsetags(''); // createpost_parsetags($(this).parent().find('.tagbox').val());
       
       var type = "item";
       var item_ids = [];
