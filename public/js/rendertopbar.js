@@ -61,7 +61,7 @@ function renderbottombar(withpadding, active, userid) {
   var bottombar = $(html);
   
   var likesbutton = $('<a class="favorites_button" href="/favorites"><div class="icon"></div><div>favs</div></a>');
-  var homebutton = $('<a class="home_button" href="/aisle"><div class="icon"></div><div>aisle</div></a>');
+  var homebutton = $('<a class="home_button" href="/aisle"><div class="icon"></div><div>feed</div></a>');
   var createpostbutton = $('<a class="create_post_button" href="/createpost"><div class="icon"></div><div>create</div></a>');
   var profilebutton = $('<a class="profile_button" href="/user?id=' + userid + '"><div class="icon"></div><div>me</div></a>');
   var searchbutton = $('<a class="search_button" href="/search"><div class="icon"></div><div>search</div></a>');
