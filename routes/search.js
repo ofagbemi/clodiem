@@ -216,7 +216,7 @@ exports.view = function(req, res) {
  
         function afterFindPosts(err, posts) {
           if(err) {console.log(err);res.send(500);}
-          
+
           if(isFriend && loggedInUser){
               for(var i = posts.length-1; i >= 0; i--) {
                 if(loggedInUser["following_ids"].indexOf(posts[i]["userid"]) < 0) posts.splice(i,1);
@@ -225,6 +225,19 @@ exports.view = function(req, res) {
           postIDs = [];
           for(var i = 0; i < posts.length; i++) {
             postIDs.push(posts[i]["id"]);
+          }
+
+          //removing duplicates if outfit appears
+          for(var i = posts.length-1; i >= 0; i--) {
+            if(posts[i]["type"] == "outfit") {
+              var items = posts[i]["item_ids"];
+              for(var j = 0; j < items.length; j++){
+                var indexOfItem = postIDs.indexOf(items[j]);
+                if(indexOfItem > 0) {
+                  postIDs.splice(indexOfItem, 1);
+                }
+              }
+            }
           }
 
           dashboard.getpostsfromids(postIDs, loggedInUser, afterGetPostsFromIds);
@@ -242,7 +255,6 @@ exports.view = function(req, res) {
                 posts.sort(function(a,b){return b["algorithm"] - a["algorithm"]});
                 console.log("SORTING BY ALGORITHM");
               }  
-
               ret['posts'] = posts;
               res.render('search', ret);
               return;
