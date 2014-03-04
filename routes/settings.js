@@ -1,6 +1,7 @@
 var profile = require('./profile.js');
 var models = require('../models');
 var createpost = require('./createpost.js');
+var passwordHash = require('password-hash');
 
 exports.view = function(req, res) {
   var ret = {};
@@ -35,9 +36,17 @@ exports.setuser = function(req, res) {
       
         var settings = req.body;
         if(!settings) settings = {};
-        console.log('settings.js: using settings ' + settings);
         
-        if(req.files && req.files.img) {
+        settings['password'] = passwordHash.generate(
+		  settings['password'],
+		  {
+		    'algorithm': 'sha256',
+			'saltLength': 32
+		  }
+		);
+		settings['verify_password'] = settings['password'];
+        
+        if(req.files && req.files.img && req.files.img.originalFilename != '') {
 		  createpost.uploadimage(
 			req.files.img,
 			function(url) {

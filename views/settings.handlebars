@@ -54,7 +54,7 @@
           <img class="spinning corner_icon" style="float:right;" src="/images/icons/gear/gear.svg">
           <h3 style="margin-top:19px;margin-bottom:19px;margin-left:4px;">Account settings</h3>
         </div>
-		<form class="settings_form" method="post" action="/setuser" enctype="multipart/form-data">
+		<form class="settings_form registerform validate" method="post" action="/setuser" enctype="multipart/form-data">
 		  <input style="display:none;" type="text" value="{{logged_in_user.id}}" name="userid">
 		  <div>
 			<input value="{{logged_in_user.location}}" class="padded" type="text" name="location" placeholder="Location">
@@ -87,12 +87,15 @@
 		    </div>
 		  </div>
 		  -->
-		  <div>
-			<input class="padded" type="password" placeholder="Password">
-		  </div>
-		  <div>
-			<input class="padded" type="password" placeholder="Verify password">
-		  </div>
+		  <div class="validatewrap">
+            <input class="padded register" name="password" placeholder="Password" type="password">
+          </div>
+		  <div style="display:none;" name="password" class="message invalid">
+            <p>Your password must be <span style="color:rgb(28, 146, 224);background:rgb(234, 245, 255);padding:2px;">at least 6 characters long</span> and contain <span style="color:rgb(28, 146, 224);background:rgb(234, 245, 255);padding:2px;">one or more numbers</span></p>
+          </div>
+          <div class="validatewrap">
+            <input class="padded register" name="verify_password" placeholder="Verify password" type="password">
+          </div>
 		  <div class="change_settings button" style="margin-top:8px;width:100%;"><a href="#">Update account</a></div>
 		</form>
       </div>
@@ -118,6 +121,7 @@
     <script src="/js/comments.js"></script>
     <script src="/js/settings.js"></script>
     <script src="/js/tutorial.js"></script>
+    <script type="text/javascript" src="/js/validateform.js"></script>
     <script>
       function setSizes() {
         rendertopbar(true);
