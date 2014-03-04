@@ -70,7 +70,7 @@ exports.view = function(req, res) {
         ret['show_options'] = false;
 
         if(!req.query.customSearch) {
-          setdefaultsearch(ret);
+          setdefaultsearch(ret, loggedInUser);
         } else {
           ret['customSearch'] = true;
         }
@@ -369,7 +369,7 @@ exports.view = function(req, res) {
 
 
 
-function setdefaultsearch(ret) {
+function setdefaultsearch(ret, likes) {
   //default settings
   ret['searchTags'] = true;
   ret['searchTitle'] = true;
@@ -380,14 +380,15 @@ function setdefaultsearch(ret) {
   ret['outfit'] = true;
   ret['clothing'] = true;
 
-  ret['mostRecent'] = true;
+  if(likes) ret['yourLikes'] = true;
+  else ret['mostRecent'] = true;
 }
 
 exports.landingview = function(req, res) {
   var logged_in_user_id = profile.getloggedinuser(req);
   var ret = {};
   if(!req.query.customSearch) {
-   setdefaultsearch(ret);
+   setdefaultsearch(ret, false);
   } else {
    ret['customSearch'] = true;
   }
