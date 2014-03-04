@@ -67,7 +67,9 @@
 			<!--input for profile picture-->
 			<input class="img_upload" name="img" style="display:none;" type="file" accept="image/*" capture>
 			<div class="profpic" style="border-radius:80px;padding-bottom:4px;float:left;width:44%;">
-			  <img src="{{#if logged_in_user.img}}{{logged_in_user.img}}{{else}}/images/icons/button/button.svg{{/if}}">
+			  <a class="img_upload" href="#">
+			    <img src="{{#if logged_in_user.img}}{{logged_in_user.img}}{{else}}/images/icons/button/button.svg{{/if}}">
+			  </a>
 			</div>
 			<div class="change_profile_picture follow_button button" style="width:50%;position:absolute;bottom:8px;right:0px;">
 			  <a class="img_upload" href="#">Change your profile picture</a>
