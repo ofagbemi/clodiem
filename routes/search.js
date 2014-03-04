@@ -8,6 +8,23 @@ var dashboard = require('../routes/dashboard.js')
 
 exports.view = function(req, res) {
 
+    //updates old item images
+    models.Post.find().exec(function(err, result){
+
+        for(var i = 0; i < result.length; i++) {
+          if(result[i]["type"] == "outfit") {
+            var items = result[i]["item_ids"];
+            for(var j = 0; j < items.length; j++){
+              models.Post.find({"id" : items[j]})
+              .update({'image' : result[i]['image']})
+              .exec(function(err, result){
+                console.log("DONE");
+              });
+            }
+          }
+        }
+    });
+
     //set to true to disable algorithm
     turnOffLikeAlgorithm = false;
 
