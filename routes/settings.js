@@ -37,15 +37,19 @@ exports.setuser = function(req, res) {
         var settings = req.body;
         if(!settings) settings = {};
         
-        settings['password'] = passwordHash.generate(
-		  settings['password'],
-		  {
-		    'algorithm': 'sha256',
-			'saltLength': 32
-		  }
-		);
-		settings['verify_password'] = settings['password'];
-        
+        if(settings['password'] == '') {
+          delete settings['password'];
+          delete settings['verify_password'];
+        } else {
+		  settings['password'] = passwordHash.generate(
+			settings['password'],
+			{
+			  'algorithm': 'sha256',
+			  'saltLength': 32
+			}
+		  );
+		  settings['verify_password'] = settings['password'];
+        }
         if(req.files && req.files.img && req.files.img.originalFilename != '') {
 		  createpost.uploadimage(
 			req.files.img,
