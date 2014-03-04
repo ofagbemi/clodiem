@@ -349,8 +349,9 @@ exports.createnewpostfromitems = function(req, res) {
 				if(err) {console.log(err); res.send(500); }
 		        // console.log("post saved");
 		        user['post_ids'].unshift(post['id']);
+		        user['aisle_post_ids'].unshift(post['id']);
 		        
-		        models.User.update({'id': user['id']}, {'post_ids': user['post_ids']},
+		        models.User.update({'id': user['id']}, {'post_ids': user['post_ids'], 'aisle_post_ids': user['aisle_post_ids']},
 		          function(err) {
 		            if(err) {console.log(err);res.send(500);}
 		            // console.log("post number 2" + post);
