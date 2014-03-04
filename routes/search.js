@@ -69,7 +69,7 @@ exports.view = function(req, res) {
         ret['show_options'] = false;
 
         if(!req.query.customSearch) {
-          setdefaultsearch(ret);
+          setdefaultsearch(ret, loggedInUser);
         } else {
           ret['customSearch'] = true;
         }
@@ -244,28 +244,40 @@ exports.view = function(req, res) {
             postIDs.push(posts[i]["id"]);
           }
 
+          //removing duplicate itmes if an outfit contains them
+          for(var i = posts.length-1; i >= 0; i--) {
+            if(posts[i]["type"] == "outfit") {
+              var items = posts[i]["item_ids"];
+              for(var j = 0; j < items.length; j++){
+                var indexOfItem = postIDs.indexOf(items[j]);
+                if(indexOfItem > 0) {
+                  postIDs.splice(indexOfItem, 1);
+                }
+              }
+            }
+          }
 
           dashboard.getpostsfromids(postIDs, loggedInUser, afterGetPostsFromIds, null, null, sortMongo);
-		  function afterGetPostsFromIds(err, posts){
-		    if(err) {console.log(err);res.send(500);return;}
-			if(loggedInUser) likesAlgorithm(loggedInUser, posts);
-			else afterFindPosts2(posts);
-		  }
-		  
-		  function afterFindPosts2(_posts) {
-			if((!sort || sort === "yourLikes") && !turnOffLikeAlgorithm 
-				&& loggedInUser && (loggedInUser["liked_post_ids"])) {
-				
-				// console.log(_posts);
-				
-			  _posts.sort(function(a,b){return b["algorithm"] - a["algorithm"]});
-			  // console.log("SORTING BY ALGORITHM " + _posts);
-			}
-			
-			ret['posts'] = _posts;
-			res.render('search', ret);
-			return;
-		  }
+    		  function afterGetPostsFromIds(err, posts){
+    		    if(err) {console.log(err);res.send(500);return;}
+      			if(loggedInUser) likesAlgorithm(loggedInUser, posts);
+      			else afterFindPosts2(posts);
+      		  }
+      		  
+      		  function afterFindPosts2(_posts) {
+      			if((!sort || sort === "yourLikes") && !turnOffLikeAlgorithm 
+      				&& loggedInUser && (loggedInUser["liked_post_ids"])) {
+      				
+      				// console.log(_posts);
+      				
+      			  _posts.sort(function(a,b){return b["algorithm"] - a["algorithm"]});
+      			  // console.log("SORTING BY ALGORITHM " + _posts);
+      			}
+      			
+      			ret['posts'] = _posts;
+      			res.render('search', ret);
+      			return;
+    		  }
 
           //ALGORITHM  STARTS
 
@@ -366,7 +378,7 @@ exports.view = function(req, res) {
 
 
 
-function setdefaultsearch(ret) {
+function setdefaultsearch(ret, likes) {
   //default settings
   ret['searchTags'] = true;
   ret['searchTitle'] = true;
@@ -377,16 +389,17 @@ function setdefaultsearch(ret) {
   ret['outfit'] = true;
   ret['clothing'] = true;
 
-  ret['yourLikes'] = true;
+  if(likes) ret['yourLikes'] = true;
+  else ret['mostRecent'] = true;
 }
 
 exports.landingview = function(req, res) {
   var logged_in_user_id = profile.getloggedinuser(req);
   var ret = {};
   if(!req.query.customSearch) {
-	 setdefaultsearch(ret);
+   setdefaultsearch(ret, false);
   } else {
-	 ret['customSearch'] = true;
+   ret['customSearch'] = true;
   }
 
   models.User
@@ -396,10 +409,10 @@ exports.landingview = function(req, res) {
       if(err) {console.log(err); res.send(500);}
       ret['logged_in_user'] = result[0];
       if(result[0]) {
-        ret['yourLikes'] = false;
+        ret['yourLikes'] = true;
         ret['mostRecent'] = false;
       } else {
-        // console.log("NOT LOGGED IN")
+        console.log("NOT LOGGED IN")
       }
       res.render('searchlanding', ret);
     });
