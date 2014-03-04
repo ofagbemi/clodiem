@@ -5,7 +5,7 @@ var models = require('../models');
 exports.followuser = function(req, res) {
   // prevent user from following themselves
   if(req.body.followeruserid == req.body.follweduserid) {
-    console.log('follow.js: user ' + req.body.follweruserid + ' tried to follow him/herself');
+    // console.log('follow.js: user ' + req.body.follweruserid + ' tried to follow him/herself');
     res.writeHead(403);
     res.end();
     return;
@@ -19,7 +19,7 @@ exports.followuser = function(req, res) {
       if(err) {console.log(err);res.send(500);}
       var follower = result[0];
       if(!follower) {
-        console.log('follow.js: couldn\'t find user ' + req.body.followeruserid);
+        // console.log('follow.js: couldn\'t find user ' + req.body.followeruserid);
         res.send(404);
       }
       models.User
@@ -28,7 +28,7 @@ exports.followuser = function(req, res) {
           if(err) {console.log(err);res.send(500);}
           var followed = users[0];
           if(!followed) {
-            console.log('follow.js: couldn\'t find user ' + req.body.followeduserid);
+            // console.log('follow.js: couldn\'t find user ' + req.body.followeduserid);
             res.send(404);
           }
           
@@ -38,8 +38,8 @@ exports.followuser = function(req, res) {
             followed['followers_ids'].unshift(follower['id']);
 			follower['following_ids'].unshift(followed['id']);
 			ret['follow'] = true;
-			console.log('follow.js: ' + follower['id'] + ' is following ' + followed['id']);
-			console.log('follow.js: ' + follower['id'] + ' is now following ' + follower['following_ids'].length + ' users');
+			// console.log('follow.js: ' + follower['id'] + ' is following ' + followed['id']);
+			// console.log('follow.js: ' + follower['id'] + ' is now following ' + follower['following_ids'].length + ' users');
             
             dashboard.addaisleposts(follower, followed);
           } else {
@@ -50,7 +50,7 @@ exports.followuser = function(req, res) {
             var index2 = follower['following_ids'].indexOf(req.body.followeduserid);
 			if(index2 > -1) follower['following_ids'].splice(index2, 1);
 			ret['follow'] = false;
-			console.log('follow.js: ' + req.body.followeruserid + ' is not following ' + req.body.followeduserid);
+			// console.log('follow.js: ' + req.body.followeruserid + ' is not following ' + req.body.followeduserid);
 		   
 			dashboard.removeaisleposts(follower, followed);
           }
@@ -68,7 +68,7 @@ exports.followuser = function(req, res) {
                     {'followers_ids': followed['followers_ids']},
                     function(err) {
                       if(err) {console.log(err);res.send(500);}
-                      console.log('follow.js: set follow successfully!');
+                      // console.log('follow.js: set follow successfully!');
                       res.json(200, ret);
                 });
             });

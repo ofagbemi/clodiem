@@ -32,11 +32,11 @@ exports.view = function(req, res) {
         function sendoutfit() {
 		  var post = posts[0];
 		  if(!post){
-			console.log('outfit.js: couldn\'t find any posts with id ' + req.query.id);
+			// console.log('outfit.js: couldn\'t find any posts with id ' + req.query.id);
 			res.send(404);
 		  }
 		
-		  console.log('outfit.js: got outfit ' + post['id']);
+		  // console.log('outfit.js: got outfit ' + post['id']);
 		  ret['posts'] = [post];
 		  if(loggedinuser) ret['logged_in_user'] = loggedinuser;
 		  res.render('outfit', ret);

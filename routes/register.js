@@ -57,13 +57,13 @@ exports.registeruser = function(req, res) {
 			      user['recommended_user_ids'].push(rec_users[i]['id']);
 			    }
 			    
-			    console.log('register.js: adding recommended users ' + user['recommended_user_ids']);
+			    // console.log('register.js: adding recommended users ' + user['recommended_user_ids']);
 				
 				user.save(afterSave);
 				function afterSave(err) { // this is a callback
 				  if(err) {console.log(err); res.send(500); }
-				  console.log("register.js: user saved");
-				  console.log('register.js: registered user ' + userid + ' successfully!');
+				  // console.log("register.js: user saved");
+				  // console.log('register.js: registered user ' + userid + ' successfully!');
 				  // set this user as the logged in user
 				  login.setcurrentuser(req, user['id']);
 		  
@@ -71,7 +71,7 @@ exports.registeruser = function(req, res) {
 				}
 			  });
 		  } else {
-		    console.log('register.js: user with id ' + userid + ' already exists');
+		    // console.log('register.js: user with id ' + userid + ' already exists');
 
 		    res.writeHead(403);
 		    res.end();

@@ -13,7 +13,7 @@ exports.view = function(req, res) {
         if(err) {console.log(err);res.send(500);return;}
         var user = result[0];
         if(user) {
-          console.log('favorites.js: found user ' + user['id']);
+          // console.log('favorites.js: found user ' + user['id']);
           dashboard.getpostsfromids(
             user['post_ids'],
             user,
@@ -24,12 +24,12 @@ exports.view = function(req, res) {
               return;
           });
         } else {
-          console.log('favorites.js: couldn\'t find user ' + user_id);
+          // console.log('favorites.js: couldn\'t find user ' + user_id);
           res.send(404);
         }
       });
   } else {
-    console.log('favorites.js: no logged in user');
+    // console.log('favorites.js: no logged in user');
     res.redirect('/login');
     return;
   }
@@ -37,7 +37,7 @@ exports.view = function(req, res) {
 exports.followersview = function(req, res) {
   var logged_in_user_id = profile.getloggedinuser(req);
   if(!logged_in_user_id) {
-    console.log('favorites.js: no logged in user');
+    // console.log('favorites.js: no logged in user');
     res.redirect('/login');
     return;
   }
@@ -48,7 +48,7 @@ exports.followersview = function(req, res) {
       if(err) {console.log(err); res.send(500);}
       var logged_in_user = result[0];
       if(!logged_in_user) {
-        console.log('favorites.js: couldn\'t find user ' + logged_in_user_id);
+        // console.log('favorites.js: couldn\'t find user ' + logged_in_user_id);
         res.send(404);
       }
       
@@ -71,7 +71,7 @@ exports.followersview = function(req, res) {
 exports.followingview = function(req, res) {
   var logged_in_user_id = profile.getloggedinuser(req);
   if(!logged_in_user_id) {
-    console.log('favorites.js: no logged in user');
+    // console.log('favorites.js: no logged in user');
     res.redirect('/login');
     return;
   }
@@ -82,7 +82,7 @@ exports.followingview = function(req, res) {
       if(err) {console.log(err); res.send(500);return;}
       var logged_in_user = result[0];
       if(!logged_in_user) {
-        console.log('favorites.js: couldn\'t find user ' + logged_in_user_id);
+        // console.log('favorites.js: couldn\'t find user ' + logged_in_user_id);
         res.send(404);
         return;
       }
@@ -112,7 +112,7 @@ exports.postsview = function(req, res) {
         if(err) {console.log(err); res.send(500);return;}
         var logged_in_user = result[0];
         if(!logged_in_user) {
-          console.log('favorites.js: couldn\'t find logged in user ' + logged_in_user_id);
+          // console.log('favorites.js: couldn\'t find logged in user ' + logged_in_user_id);
           res.send(404);
           return;
         }
@@ -150,7 +150,7 @@ exports.stylesview = function(req, res) {
         if(err) {console.log(err);res.send(500);}
         var logged_in_user = result[0];
         if(!logged_in_user) {
-          console.log('favorites.js: couldn\'t find user ' + logged_in_user_id);
+          // console.log('favorites.js: couldn\'t find user ' + logged_in_user_id);
           res.send(404);
           return;
         }
@@ -171,7 +171,7 @@ exports.stylesview = function(req, res) {
         );
       });
   } else {
-    console.log('favorites.js: no logged in user');
+    // console.log('favorites.js: no logged in user');
     res.send(404);
     return;
   }
@@ -179,7 +179,7 @@ exports.stylesview = function(req, res) {
 exports.stylepostsview = function(req, res) {
   var styleid = req.query.id;
   if(!styleid) {
-    console.log('favorites.js: no style id provided');
+    // console.log('favorites.js: no style id provided');
     res.send(404);
     return;
   }
@@ -192,7 +192,7 @@ exports.stylepostsview = function(req, res) {
 		if(err) {console.log(err); res.send(500);}
 		var user = users[0];
 		if(!user) {
-		  console.log('favorites.js: couldn\'t find user ' + logged_in_user_id);
+		  // console.log('favorites.js: couldn\'t find user ' + logged_in_user_id);
 		  res.send(404);
 		  return;
 		}
@@ -204,7 +204,7 @@ exports.stylepostsview = function(req, res) {
 		    if(err) {console.log(err); res.send(500)}
 		    var style = styles[0];
 		    if(!style) {
-		      console.log('favorites.js: couldn\'t find style with id ' + styleid);
+		      // console.log('favorites.js: couldn\'t find style with id ' + styleid);
 		      res.send(404);
 		      return;
 		    }
@@ -228,7 +228,7 @@ exports.stylepostsview = function(req, res) {
 		  });
 	  });
   } else {
-    console.log('favorites.js: no logged in user');
+    // console.log('favorites.js: no logged in user');
     res.redirect('/login');
     return;
   }
@@ -236,7 +236,7 @@ exports.stylepostsview = function(req, res) {
 exports.recommendedusersview = function(req, res) {
   var logged_in_user_id = profile.getloggedinuser(req);
   if(!logged_in_user_id) {
-    console.log('favorites.js: no logged in user');
+    // console.log('favorites.js: no logged in user');
     res.redirect('/login');
     return;
   }
@@ -247,7 +247,7 @@ exports.recommendedusersview = function(req, res) {
       if(err) {console.log(err); res.send(500);return;}
       var logged_in_user = result[0];
       if(!logged_in_user) {
-        console.log('favorites.js couldn\'t find find logged in user ' + logged_in_user_id);
+        // console.log('favorites.js couldn\'t find find logged in user ' + logged_in_user_id);
         res.send(404);
         return;
       }
@@ -260,26 +260,26 @@ exports.recommendedusersview = function(req, res) {
       ret['user_posts'] = [];
       
       
-      console.log('favorites.js: getting recommended users ' +
-                  ret['logged_in_user']['recommended_user_ids']);
+      // console.log('favorites.js: getting recommended users ' +
+                  // ret['logged_in_user']['recommended_user_ids']);
       profile.getusersfromids(
         ret['logged_in_user']['recommended_user_ids'],
         function(err, users) {
           // get first post from each recommended user
-          console.log('favorites.js: building user_posts list');
+          // console.log('favorites.js: building user_posts list');
           for(var i=0;i<users.length;i++) {
             var user = users[i];
             ret['user_posts'].push({'user': user});
           }
           
-          console.log('favorites.js: building post id list');
+          // console.log('favorites.js: building post id list');
           // build list of posts to use
           var postlist = [];
           for(var i=0;i<ret['user_posts'].length;i++) {
             postlist.push(ret['user_posts'][i]['user']['post_ids'][0]);
           }
           
-          console.log('favorites.js: getting posts from ids [' + postlist + ']');
+          // console.log('favorites.js: getting posts from ids [' + postlist + ']');
           dashboard.getpostsfromids(postlist, logged_in_user,
             function(err, posts) {
               if(err) {console.log(err);res.send(500);return;}
@@ -287,7 +287,7 @@ exports.recommendedusersview = function(req, res) {
                 ret['user_posts'][i]['posts'] = [posts[i]];
               }
               
-              console.log('favorites.js: rendering recommended users');
+              // console.log('favorites.js: rendering recommended users');
               res.render('user_posts', ret);
               return;
           });
@@ -304,7 +304,7 @@ exports.likedpostsview = function(req, res) {
         if(err) {console.log(err); res.send(500);return;}
         var logged_in_user = result[0];
         if(!logged_in_user) {
-          console.log('favorites.js: couldn\'t find logged in user ' + logged_in_user_id);
+          // console.log('favorites.js: couldn\'t find logged in user ' + logged_in_user_id);
           res.send(404);
           return;
         }

@@ -27,7 +27,7 @@ exports.uploads = function(req, res) {
   models.Image
     .find({'name': file})
     .exec(function(err, images) {
-      console.log(images);
+      // console.log(images);
       var image = images[0];
       if(image) {
 		res.writeHead(200, {'Content-Type': image.image.contentType});
@@ -51,12 +51,12 @@ exports.uploadimage = uploadimage;
 // uploads image req.files.(image member) and passes
 // the url to the callback function success
 function uploadimage(image, success) {
-  console.log('createpost.js: starting image upload');
+  // console.log('createpost.js: starting image upload');
   fs.readFile(image.path, function(err, data) {
 	var name = image.name
-	console.log('createpost.js: uploading file ' + name);
+	// console.log('createpost.js: uploading file ' + name);
 	if(!name) {
-	  console.log('error');
+	  // console.log('error');
 	} else {
 	  var upload_name = generateimageuploadname(name);
 
@@ -67,7 +67,7 @@ function uploadimage(image, success) {
 	  
 	  dbimg.save(function(err, dbimg) {
 	    if(err) {console.log(err);return;}
-	    console.log('createpost.js: file available as ' + upload_name);
+	    // console.log('createpost.js: file available as ' + upload_name);
 	    if(success)
 	      success('/uploads/' + upload_name);
 	  });
@@ -82,16 +82,16 @@ exports.uploadimageandaddtopost = function(req, res) {
   models.Post
 	.find({"id": req.body.postid}).exec(afterSearch1);
 
-  console.log("test id image " + req.body.postid);
+  // console.log("test id image " + req.body.postid);
   function afterSearch1(err, result) {
 	var post = result[0];
-	console.log("test upload " + post);
+	// console.log("test upload " + post);
 	if(post) {
 	  uploadimage(
 		req.files.img, 
 		function(url) {
 		  if(post['type'] == 'outfit') {
-		    console.log('createpost.js: changing image for item [' + post['item_ids'] + ']');
+		    // console.log('createpost.js: changing image for item [' + post['item_ids'] + ']');
 		    models.Post
 		      .update(
 		        {'id': {$in: post['item_ids']}},
@@ -110,7 +110,7 @@ exports.uploadimageandaddtopost = function(req, res) {
 				if (err) {console.log(err); res.send(500);}
 				
 				// update the tags
-				console.log('createpost.js: updating post tag image with ' + url);
+				// console.log('createpost.js: updating post tag image with ' + url);
 		        savetags(post['tags'].slice(), post['id'], post['time'], new String(url));
 				
 				res.redirect('/outfit?id=' + post['id']);
@@ -130,7 +130,7 @@ function savetag(tag, postid, posttime, image) {
     upload_image = '';
   }
   
-  console.log('createpost.js: tag upload image is ' + upload_image);
+  // console.log('createpost.js: tag upload image is ' + upload_image);
 
 
   models.Tag
@@ -149,11 +149,11 @@ function savetag(tag, postid, posttime, image) {
             },
             function(err) {
               if(err) {
-                console.log(err);
-                console.log('couldn\'t update tag ' + tag);
+                // console.log(err);
+                // console.log('couldn\'t update tag ' + tag);
                 return;
               }
-              console.log('createpost.js: updated tag ' + tag);
+              // console.log('createpost.js: updated tag ' + tag);
               return;
             });
       } else {
@@ -167,11 +167,11 @@ function savetag(tag, postid, posttime, image) {
         });
         newtag.save(function(err) {
           if(err){
-            console.log(err);
-            console.log('createpost.js: couldn\'t save tag ' + tag);
+            // console.log(err);
+            // console.log('createpost.js: couldn\'t save tag ' + tag);
             return;
           }
-          console.log('createpost.js: saved tag ' + tag);
+          // console.log('createpost.js: saved tag ' + tag);
           return;
         });
       }
@@ -239,8 +239,8 @@ exports.createnewpost = function(req, res) {
 			  post['item_ids'].push(post['id']);
 			}
 			
-			console.log(post);			
-			console.log('createpost.js: created post with id ' + post['id']);
+			// console.log(post);			
+			// console.log('createpost.js: created post with id ' + post['id']);
 
 			post.save(afterSaving);
 			function afterSaving(err) {
@@ -253,7 +253,7 @@ exports.createnewpost = function(req, res) {
 				if(post['type'] == 'style') {
 				  user['style_ids'].unshift(post['id']);
 				} else {
-				  console.log('createpost.js: unsupported post type ' + post['type']);
+				  // console.log('createpost.js: unsupported post type ' + post['type']);
 				}
 				
 				  models.User
@@ -262,14 +262,14 @@ exports.createnewpost = function(req, res) {
 					   'post_ids': user['post_ids']},
 					  function(err) {
 						if(err) {console.log(err);res.send(500);}
-						console.log('createpost.js: updated user ' + user['id']);
+						// console.log('createpost.js: updated user ' + user['id']);
 						// return with id of item added
 						var ret = {'postid': post['id']};
 						res.json(ret);
 					  });
 			}
 		} else {
-		  console.log('createpost.js: couldn\'t find user with id ' + req.body.userid);
+		  // console.log('createpost.js: couldn\'t find user with id ' + req.body.userid);
 		  res.writeHead(404);
 		  res.end();
 		}
@@ -277,11 +277,11 @@ exports.createnewpost = function(req, res) {
 }
 
 exports.createnewpostfromitems = function(req, res) {
-    console.log(req.body.userid);
+    // console.log(req.body.userid);
     models.User.find({"id" : req.body.userid}).exec(afterSearch);
     function afterSearch(err, result) {
     	if(err) {console.log(err); res.send(500); }
-    	console.log("create new post: " + req.body.userid);
+    	// console.log("create new post: " + req.body.userid);
     	if(result[0]) {
     		var user = result[0];
     		var username = result[0]["username"];
@@ -325,10 +325,10 @@ exports.createnewpostfromitems = function(req, res) {
 
 				function afterItemSave(err){
 					if(err) {console.log(err); res.send(500); }
-		        	console.log("item saved");
+		        	// console.log("item saved");
 				}
 
-				console.log('createpost.js: created item with id ' + item['id']);
+				// console.log('createpost.js: created item with id ' + item['id']);
 			  }
 			}
 			
@@ -347,16 +347,16 @@ exports.createnewpostfromitems = function(req, res) {
 			post.save(afterPostSave);
 			function afterPostSave(err){
 				if(err) {console.log(err); res.send(500); }
-		        console.log("post saved");
+		        // console.log("post saved");
 		        user['post_ids'].unshift(post['id']);
 		        
 		        models.User.update({'id': user['id']}, {'post_ids': user['post_ids']},
 		          function(err) {
 		            if(err) {console.log(err);res.send(500);}
-		            console.log("post number 2" + post);
+		            // console.log("post number 2" + post);
 
-					console.log('createpost.js: created post with id ' + post['id']);
-					console.log('createpost.js: post ' + post['id'] + ' has ' + post['item_ids'].length + ' items');
+					// console.log('createpost.js: created post with id ' + post['id']);
+					// console.log('createpost.js: post ' + post['id'] + ' has ' + post['item_ids'].length + ' items');
 				
 					// return with id of item added
 					res.json(200, {'postid': post['id']});
@@ -364,7 +364,7 @@ exports.createnewpostfromitems = function(req, res) {
 			}
 
 		} else {
-		  console.log('createpost.js: couldn\'t find user with id 2' + req.body.userid);
+		  // console.log('createpost.js: couldn\'t find user with id 2' + req.body.userid);
 		  res.writeHead(404);
 		  res.end();
 		}
@@ -381,9 +381,9 @@ exports.addtopostitems = function(req, res) {
       if(post) {
         if(!post['item_ids']) post['item_ids'] = [];
 		if(req.body.item_ids) {
-		  console.log('createpost.js: adding ' + req.body.item_ids + ' to ' +
-		    post['id']
-		  );
+		  // console.log('createpost.js: adding ' + req.body.item_ids + ' to ' +
+		    // post['id']
+		  // );
 		  post['item_ids'] = req.body.item_ids.concat(post['item_ids']);
 		}
 		if(req.body.img) {
@@ -396,13 +396,13 @@ exports.addtopostitems = function(req, res) {
 		    {'item_ids': post['item_ids'], 'img': post['img']},
 		      function(err) {
 		        if(err) {console.log(err);res.send(500);return;}
-		          console.log('createpost.js: item_ids is now [' + post['item_ids'] + ']');
+		          // console.log('createpost.js: item_ids is now [' + post['item_ids'] + ']');
 		          res.send(200);
 		          return;
 		        });
       
       } else {
-        console.log('createpost.js: couldn\'t find post with id ' + req.body.id);
+        // console.log('createpost.js: couldn\'t find post with id ' + req.body.id);
         res.send(404);
         return;
       }

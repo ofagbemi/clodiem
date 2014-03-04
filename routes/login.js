@@ -13,14 +13,14 @@ exports.view = function(req, res) {
 };
 
 function setcurrentuser(req, userid) {
-  console.log('login.js: setting current user to ' + userid);
+  // console.log('login.js: setting current user to ' + userid);
   req.session.userid = userid;
 
   // data['logged_in_user'] = data['users'][userid];
 }
 
 function removecurrentuser(req) {
-  console.log('login.js: setting current user to null');
+  // console.log('login.js: setting current user to null');
   req.session.userid = null;
   // data['logged_in_user'] = null;
 }
@@ -41,13 +41,13 @@ exports.loginuser = function(req, res) {
     function afterSearch(err, result) { // this is a callback
         if(err) {console.log(err); res.send(500); }
         if(result[0]){
-            console.log(result[0]["username"]);
+            // console.log(result[0]["username"]);
             var user = result[0];
             var userid = user['id'];
             
             // check password
             if(passwordHash.verify(req.body.password, user['password'])) {
-                console.log('login.js: logging in user ' + userid);
+                // console.log('login.js: logging in user ' + userid);
                 setcurrentuser(req, userid);
                 res.redirect('/aisle');
             } else {
@@ -56,7 +56,7 @@ exports.loginuser = function(req, res) {
                 res.render('login', ret);
             }
         } else {
-            console.log('login.js: login failed! User ' + userid + ' could not be found');
+            // console.log('login.js: login failed! User ' + userid + ' could not be found');
             var ret = {'message': 'The username "' + req.body.username + '" could not be found',
                 'username': req.body.username};
             res.render('login', ret);
@@ -96,12 +96,12 @@ exports.logoutuser = function(req, res) {
           removecurrentuser(req);
           res.redirect('/');
         } else {
-          console.log('login.js: couldn\'t find user with id ' + user_id);
+          // console.log('login.js: couldn\'t find user with id ' + user_id);
           res.send(404);
         }
       });
   } else {
-    console.log('login.js: no logged in user');
+    // console.log('login.js: no logged in user');
     res.redirect('/');
   }
   /*

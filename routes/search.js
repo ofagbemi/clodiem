@@ -13,7 +13,7 @@ exports.view = function(req, res) {
 
     // get the current logged in user
     logged_in_user_id = profile.getloggedinuser(req);
-    console.log('search.js: looking for logged in user');
+    // console.log('search.js: looking for logged in user');
     models.User
       .find({'id': logged_in_user_id})
       .exec(function(err, result) {
@@ -111,7 +111,7 @@ exports.view = function(req, res) {
         var sort = req.query.sortOptions;
         var sortMongo;
 
-        console.log("SORT TESTING " + req.query.sortOptions);
+        // console.log("SORT TESTING " + req.query.sortOptions);
 
         //ret['mostPopular'] = true;
         if(sort === "yourLikes"){
@@ -191,7 +191,7 @@ exports.view = function(req, res) {
 		ret['query'] = query;
 		ret['queryAsTyped'] = req.query.q;
 		ret['posts'] = []; // tags
-		console.log('search.js: looking for results for query ' + query);
+		// console.log('search.js: looking for results for query ' + query);
 
         models.Post
           .find({$or:
@@ -239,10 +239,10 @@ exports.view = function(req, res) {
 			if((!sort || sort === "yourLikes") && !turnOffLikeAlgorithm 
 				&& loggedInUser && (loggedInUser["liked_post_ids"])) {
 				
-				console.log(_posts);
+				// console.log(_posts);
 				
 			  _posts.sort(function(a,b){return b["algorithm"] - a["algorithm"]});
-			  console.log("SORTING BY ALGORITHM " + _posts);
+			  // console.log("SORTING BY ALGORITHM " + _posts);
 			}
 			
 			ret['posts'] = _posts;
@@ -375,14 +375,14 @@ exports.landingview = function(req, res) {
   models.User
     .find({'id': logged_in_user_id})
     .exec(function(err, result) {
-      console.log("NOT LOGGED IN 2")
+      // console.log("NOT LOGGED IN 2")
       if(err) {console.log(err); res.send(500);}
       ret['logged_in_user'] = result[0];
       if(result[0]) {
         ret['yourLikes'] = false;
         ret['mostRecent'] = false;
       } else {
-        console.log("NOT LOGGED IN")
+        // console.log("NOT LOGGED IN")
       }
       res.render('searchlanding', ret);
     });

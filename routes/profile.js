@@ -87,7 +87,7 @@ exports.view = function(req, res) {
   var logged_in_user_id = getloggedinuser(req);
   
   if(!logged_in_user_id) {
-    console.log('profile.js: no logged in user');
+    // console.log('profile.js: no logged in user');
     res.redirect('/login');
     res.end();
     return;
@@ -100,7 +100,7 @@ exports.view = function(req, res) {
   function renderprofile(err, result) {
     var user = result[0];
     if(!user) {
-      console.log('profile.js: couldn\'t find user ' + req.query.id);
+      // console.log('profile.js: couldn\'t find user ' + req.query.id);
       res.send(404);
       res.end();
       return;
@@ -108,13 +108,13 @@ exports.view = function(req, res) {
     
     // set ret to the found user
     ret = user;
-    console.log('profile.js: starting render of page for user ' + logged_in_user_id);
+    // console.log('profile.js: starting render of page for user ' + logged_in_user_id);
     if(logged_in_user_id) {
       // save some work if the user's looking at their own profile
       if(logged_in_user_id == user['id']) {
         ret['logged_in_user'] = user;
         ret['own_page'] = true;
-        console.log('profile.js: user ' + logged_in_user_id + ' is looking at their own page');
+        // console.log('profile.js: user ' + logged_in_user_id + ' is looking at their own page');
         renderPage(user, user);
       } else {
         // now we'll look for the logged in user
@@ -122,26 +122,26 @@ exports.view = function(req, res) {
           .find({'id': logged_in_user_id})
           .exec(function(err, users) {
             if(err) {console.log(err); res.send(500);}
-            console.log('profile.js: found logged in user ' + logged_in_user_id);
+            // console.log('profile.js: found logged in user ' + logged_in_user_id);
             renderPage(user, users[0]);
           });
       }
     } else {
-      console.log('profile.js: no logged in user');
+      // console.log('profile.js: no logged in user');
       renderPage(user, null);
     }
     
     function renderPage(pageuser, loggedinuser) {
-      console.log('profile.js: getting page data');
+      // console.log('profile.js: getting page data');
       if(loggedinuser) {
         ret['logged_in_user'] = loggedinuser;
         ret['isfollowing'] = follow.isfollowing(loggedinuser, ret);
       } else {
-        console.log('profile.js: no user logged in');
+        // console.log('profile.js: no user logged in');
       }
       
       ret['posts'] = [];
-      console.log('profile.js: getting user ' + ret['id'] + '\'s posts');
+      // console.log('profile.js: getting user ' + ret['id'] + '\'s posts');
       dashboard.getpostsfromids(ret['post_ids'].slice(0,util.numpostsonpage), loggedinuser,
                                 function(err, posts) {
                                 
@@ -150,7 +150,7 @@ exports.view = function(req, res) {
         ret['posts'] = posts;
         
         // get user's styles
-        console.log('profile.js: getting user ' + ret['id'] + '\'s styles');
+        // console.log('profile.js: getting user ' + ret['id'] + '\'s styles');
         if(!ret['style_ids']) ret['style_ids'] = [];
         dashboard.getpostsfromids(ret['style_ids'], null,
           function(err, styles) {
@@ -158,7 +158,7 @@ exports.view = function(req, res) {
             ret['styles'] = styles;
             
             // get user's followers
-            console.log('profile.js: getting user ' + ret['id'] + '\'s followers');
+            // console.log('profile.js: getting user ' + ret['id'] + '\'s followers');
             if(!ret['followers_ids']) ret['followers_ids'] = [];
             getusersfromids(ret['followers_ids'],
               function(err, followers) {
@@ -166,7 +166,7 @@ exports.view = function(req, res) {
                 ret['followers'] = followers;
                 
                 // get user's following
-                console.log('profile.js: getting user ' + ret['id'] + '\'s following');
+                // console.log('profile.js: getting user ' + ret['id'] + '\'s following');
                 if(!ret['following_ids']) ret['following_ids'] = [];
                 getusersfromids(ret['following_ids'],
                   function(err, following) {
@@ -174,7 +174,7 @@ exports.view = function(req, res) {
                     ret['following'] = following;
                     
                     // that's it!
-                    console.log('profile.js: rendering page ' + ret['id']);
+                    // console.log('profile.js: rendering page ' + ret['id']);
                     res.render('profile', ret);
                   });
               });

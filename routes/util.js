@@ -15,7 +15,7 @@ exports.getuserid = function(username) {
 exports.contains = function(item, list) {
   for(var i=0;i<list.length;i++) {
     if(item == list[i]) {
-      console.log('util.js: found ' + list[i] + ' in ' + list);
+      // console.log('util.js: found ' + list[i] + ' in ' + list);
       return true;
     }
   }

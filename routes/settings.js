@@ -24,7 +24,7 @@ exports.view = function(req, res) {
 
 exports.setuser = function(req, res) {
 
-  console.log(req);
+  // console.log(req);
   models.User
     .find({"id" : req.body.userid})
     .exec(afterSearch)
@@ -62,7 +62,7 @@ exports.setuser = function(req, res) {
 				  settings,
 				  function(err) {
 					if(err) {console.log(err);res.send(500);return;}
-					console.log('settings.js: updated user settings ' + settings);
+					// console.log('settings.js: updated user settings ' + settings);
 					res.redirect('/user?id=' + user['id']);
 					return;
 				  });
@@ -74,13 +74,13 @@ exports.setuser = function(req, res) {
 			  settings,
 			  function(err) {
 				if(err) {console.log(err);res.send(500);return;}
-				console.log('settings.js: updated user settings ' + settings);
+				// console.log('settings.js: updated user settings ' + settings);
 				res.redirect('/user?id=' + user['id']);
 				return;
 			  });
         }
       } else {
-        console.log('setuser.js: the user with id ' + req.body.userid + ' could not be found');
+        // console.log('setuser.js: the user with id ' + req.body.userid + ' could not be found');
         res.writeHead(404);
         res.end();
       }
