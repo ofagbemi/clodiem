@@ -188,10 +188,10 @@ exports.view = function(req, res) {
         var clothingMongo = {"type": { $ne: "item" } };
         if(clothing) clothingMongo = {};
         
-		ret['query'] = query;
-		ret['queryAsTyped'] = req.query.q;
-		ret['posts'] = []; // tags
-		console.log('search.js: looking for results for query ' + query);
+    ret['query'] = query;
+    ret['queryAsTyped'] = req.query.q;
+    ret['posts'] = []; // tags
+    console.log('search.js: looking for results for query ' + query);
 
         models.Post
           .find({$or:
@@ -227,122 +227,113 @@ exports.view = function(req, res) {
             postIDs.push(posts[i]["id"]);
           }
 
-          if(loggedInUser) likesAlgorithm(loggedInUser, posts);
-          else afterFindPosts2(posts);
+          dashboard.getpostsfromids(postIDs, loggedInUser, afterGetPostsFromIds);
 
-          function afterFindPosts2(posts) {
+          function afterGetPostsFromIds(err, posts){
+            if((!sort || sort === "yourLikes") && !turnOffLikeAlgorithm 
+                  && loggedInUser && (loggedInUser["liked_post_ids"])) {
+                   likesAlgorithm(loggedInUser, posts);
+            } else afterFindPosts2(posts);
 
-            if((!sort || sort === "yourLikess") && !turnOffLikeAlgorithm 
-                && loggedInUser && (loggedInUser["liked_post_ids"])) {
-              posts.sort(function(a,b){return b["algorithm"] - a["algorithm"]});
-              console.log("SORTING BY ALGORITHM");
-            }
+            function afterFindPosts2(posts) {
 
-            dashboard.getpostsfromids(postIDs, loggedInUser, afterGetPostsFromIds);
-            
-            function afterGetPostsFromIds(err, posts){
+              if((!sort || sort === "yourLikes") && !turnOffLikeAlgorithm 
+                  && loggedInUser && (loggedInUser["liked_post_ids"])) {
+                posts.sort(function(a,b){return b["algorithm"] - a["algorithm"]});
+                console.log("SORTING BY ALGORITHM");
+              }  
+
               ret['posts'] = posts;
               res.render('search', ret);
               return;
             }
-          }
 
+            //ALGORITHM  STARTS
 
-          //ALGORITHM  STARTS
-
-          function likesAlgorithm(user, posts){
-            for(var i = 0; i < posts.length; i++){
-              posts[i]["algorithm"] = 0;
-            }
-
-            var followed = user["following_ids"];
-            var followedQuery = [];
-            for (var i = 0; i < followed.length; i++) {
-              followedQuery.push({"id" : followed[i]});
-            }
-
-            models.User.find({$or: followedQuery}).exec(afterFollowers);
-
-            function afterFollowers(err, result){
-              var followLikesAndPosts = [];
-              if(result){
-                for(var i = 0; i < result.length; i++) {
-                  followLikesAndPosts = followLikesAndPosts.concat(result[i]['post_ids']);
-                  followLikesAndPosts = followLikesAndPosts.concat(result[i]['liked_post_ids']);
-                }
-                var map = {};
-                for(var i = 0; i < followLikesAndPosts.length; i++){
-                  if(map[followLikesAndPosts[i]]) 
-                    map[followLikesAndPosts[i]] =  map[followLikesAndPosts[i]] + 1;
-                  else map[followLikesAndPosts[i]] = 1;
-                }
-              
-                for(var i = 0; i < posts.length; i++){
-                  if(map[ posts[i]["id"] ]) {
-                    posts[i]["algorithm"] = map[posts[i]["id"]] + posts[i]["algorithm"];
-                  }
-                }
+            function likesAlgorithm(user, posts){
+              for(var i = 0; i < posts.length; i++){
+                posts[i]["algorithm"] = 0;
               }
 
-              var liked = user["liked_post_ids"];
-              var likedQuery = [];
-              for (var i = 0; i < liked.length; i++){
-                likedQuery.push({"id" : liked[i]});
+              var followed = user["following_ids"];
+              var followedQuery = [];
+              for (var i = 0; i < followed.length; i++) {
+                followedQuery.push({"id" : followed[i]});
               }
 
-              models.Post.find({$or: likedQuery}).exec(afterLiked);
+              models.User.find({$or: followedQuery}).exec(afterFollowers);
 
-              function afterLiked(err, result){
-                likersQuery = [];
-                if(result) {
-                  var likers = [];
+              function afterFollowers(err, result){
+                var followLikesAndPosts = [];
+                if(result){
                   for(var i = 0; i < result.length; i++) {
-                    likers = likers.concat(result[i]['likers']);
+                    followLikesAndPosts = followLikesAndPosts.concat(result[i]['post_ids']);
+                    followLikesAndPosts = followLikesAndPosts.concat(result[i]['liked_post_ids']);
                   }
-                  
-                  for(var i = 0; i < likers.length; i++) {
-                    likersQuery.push({"id" : likers[i]});
+                  var map = {};
+                  for(var i = 0; i < followLikesAndPosts.length; i++){
+                    if(map[followLikesAndPosts[i]]) 
+                      map[followLikesAndPosts[i]] =  map[followLikesAndPosts[i]] + 1;
+                    else map[followLikesAndPosts[i]] = 1;
                   }
-                }
-
-                models.User.find({$or: likersQuery}).exec(afterLikers);
-
-                function afterLikers(err, result){
-                  var likedPosts = [];
-                  if(result){
-                    for(var i = 0; i < result.length; i++) {
-                      likedPosts = likedPosts.concat(result[i]['liked_post_ids']);
-                    }
-
-                    var map = {};
-                    for(var i = 0; i < likedPosts.length; i++){
-                      if(map[followLikesAndPosts[i]]) 
-                        map[followLikesAndPosts[i]] =  map[followLikesAndPosts[i]] + 1;
-                      else map[followLikesAndPosts[i]] = 1;
-                    }
-                    for(var i = 0; i < posts.length; i++){
-                      if(map[ posts[i]["id"] ]) {
-                        posts[i]["algorithm"] = map[posts[i]["id"]] + posts[i]["algorithm"];
-                      }
-                    }
-
-                  }
-                  afterFindPosts2(posts);
                 
+                  for(var i = 0; i < posts.length; i++){
+                    if(map[ posts[i]["id"] ]) {
+                      posts[i]["algorithm"] = map[posts[i]["id"]] + posts[i]["algorithm"];
+                    }
+                  }
                 }
-              }
+
+                var liked = user["liked_post_ids"];
+                var likedQuery = [];
+                for (var i = 0; i < liked.length; i++){
+                  likedQuery.push({"id" : liked[i]});
+                }
+
+                models.Post.find({$or: likedQuery}).exec(afterLiked);
+
+                function afterLiked(err, result){
+                  likersQuery = [];
+                  if(result) {
+                    var likers = [];
+                    for(var i = 0; i < result.length; i++) {
+                      likers = likers.concat(result[i]['likers']);
+                    }
+                    
+                    for(var i = 0; i < likers.length; i++) {
+                      likersQuery.push({"id" : likers[i]});
+                    }
+                  }
+
+                  models.User.find({$or: likersQuery}).exec(afterLikers);
+
+                  function afterLikers(err, result){
+                    var likedPosts = [];
+                    if(result){
+                      for(var i = 0; i < result.length; i++) {
+                        likedPosts = likedPosts.concat(result[i]['liked_post_ids']);
+                      }
+                      var map = {};
+                      for(var i = 0; i < likedPosts.length; i++){
+                        if(map[followLikesAndPosts[i]]) 
+                          map[followLikesAndPosts[i]] =  map[followLikesAndPosts[i]] + 1;
+                        else map[followLikesAndPosts[i]] = 1;
+                      }
+                      for(var i = 0; i < posts.length; i++){
+                        if(map[ posts[i]["id"] ]) {
+                          posts[i]["algorithm"] = map[posts[i]["id"]] + posts[i]["algorithm"];
+                        }
+                      }
+
+                    }
+                    afterFindPosts2(posts);                 
+                  }
+                }
+              }         
             }
-            
+            //ALGORITHM  ENDS
           }
-
-          //ALGORITHM  ENDS
         }
-
-        
-
-
-        
-
     });
 };
 
@@ -366,9 +357,9 @@ exports.landingview = function(req, res) {
   var logged_in_user_id = profile.getloggedinuser(req);
   var ret = {};
   if(!req.query.customSearch) {
-	 setdefaultsearch(ret);
+   setdefaultsearch(ret);
   } else {
-	 ret['customSearch'] = true;
+   ret['customSearch'] = true;
   }
 
   models.User
@@ -378,7 +369,7 @@ exports.landingview = function(req, res) {
       if(err) {console.log(err); res.send(500);}
       ret['logged_in_user'] = result[0];
       if(result[0]) {
-        ret['yourLikes'] = false;
+        ret['yourLikes'] = true;
         ret['mostRecent'] = false;
       } else {
         console.log("NOT LOGGED IN")
@@ -386,4 +377,3 @@ exports.landingview = function(req, res) {
       res.render('searchlanding', ret);
     });
 }
-
