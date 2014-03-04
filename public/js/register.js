@@ -9,10 +9,18 @@ function register_bindclicklisteners() {
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
+      $('.registerform').submit();
+    });
+    
+  $('.registerform')
+    .submit(function(e) {
+      e.preventDefault();
       if(register_checkformvalid()) {
         $('.registerform')
           .append('<input style="display:none;" name="time" value="' + (new Date()).toString() + '" type="text">');
-        $('.registerform').submit();
+        $('.registerform')
+          .unbind('submit')
+          .submit();
       } else {
         alert('Please finish filling out the form');
       }

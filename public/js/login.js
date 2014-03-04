@@ -11,9 +11,15 @@ function login_bindclicklisteners() {
   $('#login_button')
     .unbind('click')
     .click(function(e) {
+      $('.loginform').submit();
+    });
+  $('.loginform')
+    .submit(function(e) {
       e.preventDefault();
       if(login_checkformvalid()) {
-        $('.loginform').submit();
+        $('.loginform')
+        .unbind('submit')
+        .submit();
       } else {
         alert('Don\'t forget to fill everything in!');
       }
