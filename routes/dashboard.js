@@ -69,8 +69,6 @@ exports.removelike = function(req, res) {
 	  function afterSearchPost(err, result) {
 		var post = result[0];
 		if(post) {
-		  user['liked_post_ids'].unshift(postid);
-		  
 		  var index = user['liked_post_ids'].indexOf(postid);
 		  if(index > -1) {
 		    user['liked_post_ids'].splice(index, 1);
