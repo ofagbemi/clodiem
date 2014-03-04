@@ -210,7 +210,7 @@ exports.view = function(req, res) {
           .where(photoMongo)
           .where({$and: [styleMongo, outfitMongo, clothingMongo]})
           .where(priceFilter)
-          .sort(sortMongo) 
+          // .sort(sortMongo) 
           .exec(afterFindPosts);
 
  
