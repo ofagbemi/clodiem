@@ -57,6 +57,7 @@ function rendertopbar(withpadding, withbackbutton, nohelp, title) {
 
 function renderbottombar(withpadding, active, userid) {
   var winwidth = window.innerWidth;
+  var winheight = window.innerHeight;
   var html = '<div id="bottombar" style="width: ' + winwidth + 'px"></div>';
   var bottombar = $(html);
   
@@ -85,6 +86,10 @@ function renderbottombar(withpadding, active, userid) {
   $('body')
     .append(bottombar)
     .css('margin-bottom', $('#bottombar').height() + 'px');
+
+  $('#bottombar')
+    .css('position', 'fixed')
+    .css('top', (winheight - $('#bottombar').height()) + 'px');
     
   var bottombar_back = $('<div id="bottombar_back"></div>')
     .css('z-index', '-1')
@@ -92,6 +97,10 @@ function renderbottombar(withpadding, active, userid) {
     
   $('#bottombar_back').remove();
   $('body').append(bottombar_back);
+  
+  $('#bottombar_back')
+    .css('position', 'fixed')
+    .css('top', (winheight - $('#bottombar_back').height()) + 'px');
     
   if(withpadding) {
     $('.content')
