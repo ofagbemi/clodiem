@@ -350,7 +350,7 @@ function setdefaultsearch(ret) {
   ret['outfit'] = true;
   ret['clothing'] = true;
 
-  ret['yourLikes'] = true;
+  ret['mostRecent'] = true;
 }
 
 exports.landingview = function(req, res) {
@@ -365,7 +365,7 @@ exports.landingview = function(req, res) {
   models.User
     .find({'id': logged_in_user_id})
     .exec(function(err, result) {
-      console.log("NOT LOGGED IN 2")
+      // console.log("NOT LOGGED IN 2")
       if(err) {console.log(err); res.send(500);}
       ret['logged_in_user'] = result[0];
       if(result[0]) {
