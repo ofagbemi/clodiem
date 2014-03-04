@@ -46,7 +46,7 @@
     {{> universalscripts}}
     <script>
       function setSizes() {
-        rendertopbar(true, true);
+        rendertopbar(true, true, false, {{#each posts}}'{{title}}'{{/each}});
 	    renderbottombar(true, {{#if own_page}}3{{else}}1{{/if}}{{#if logged_in_user}}, '{{logged_in_user.id}}'{{/if}});
         renderpost();
         rendercomments(
