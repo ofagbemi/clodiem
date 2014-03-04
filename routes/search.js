@@ -238,7 +238,7 @@ exports.view = function(req, res) {
               console.log("SORTING BY ALGORITHM");
             }
 
-            dashboard.getpostsfromids(postIDs, loggedInUser, afterGetPostsFromIds);
+            dashboard.getpostsfromids(postIDs, loggedInUser, afterGetPostsFromIds, null, null, sortMongo);
             
             function afterGetPostsFromIds(err, posts){
               ret['posts'] = posts;

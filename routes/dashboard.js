@@ -71,11 +71,20 @@ exports.removelike = function(req, res) {
 		if(post) {
 		  user['liked_post_ids'].unshift(postid);
 		  
+		  var index = user['liked_post_ids'].indexOf(postid);
+		  if(index > -1) {
+		    user['liked_post_ids'].splice(index, 1);
+		  } else {
+		    console.log('dashboard.js: couldn\'t find post ' + postid + ' in user ' + user['id'] + '\'s likes');
+		    return;
+		  }
+		  
 		  var newlikes = post['likes'];
 		  var likerindex = post['likers'].indexOf(userid);
 		  if(likerindex > -1){
 		    newlikes--;
 		    if(newlikes < 0) newlikes = 0;
+		    
 		    post['likers'].splice(likerindex, 1);
 		  }
 		
@@ -85,13 +94,15 @@ exports.removelike = function(req, res) {
 		    function(err) {
 		      if(err) {console.log(err);res.send(500);return};
 		      // update the user
-		      user
-		        .update({'liked_post_ids': user['liked_post_ids']},
-		        function(err) {
-		          if(err) {console.log(err);res.send(500);}
-		          //console.log('dashboard.js: removed like from post ' + postid);
-		          res.json(200, {'likes': newlikes});
-		        });
+		      models.User
+		        .update(
+		          {'id': user['id']},
+		          {'liked_post_ids': user['liked_post_ids']},
+				  function(err) {
+					if(err) {console.log(err);res.send(500);}
+					//console.log('dashboard.js: removed like from post ' + postid);
+					res.json(200, {'likes': newlikes});
+				  });
 		  });
 		  
 		} else {
@@ -212,7 +223,7 @@ exports.getpostsfromids = getpostsfromids;
  * in user and set the liked_post attribute of each liked post
  * to true
  */
-function getpostsfromids(_ids, user, callback, fromobj, key) {
+function getpostsfromids(_ids, user, callback, fromobj, key, _sort) {
   var ids = null;
   if(fromobj) {
     if(!_ids[key]) _ids[key] = [];
@@ -233,12 +244,15 @@ function getpostsfromids(_ids, user, callback, fromobj, key) {
       if(!ids[i]) ids[i] = 0;
     }
     
-    models.Post.find({
-      'id': {$in: ids}
-    })
-    .sort('-time')
-    .exec(afterSearch);
-  
+    var sort = _sort;
+    if(!sort) sort = '-time';
+    
+	models.Post.find({
+	  'id': {$in: ids}
+	})
+	.sort(sort)
+	.exec(afterSearch);
+    
     function afterSearch(err, posts) {
       if(err) {
         callback(err, null);
@@ -254,6 +268,7 @@ function getpostsfromids(_ids, user, callback, fromobj, key) {
 		  if(!post) continue;
 		  if(user) {
 			if(util.contains(post['id'], user['liked_post_ids'])) {
+			  console.log('likes!' + user['liked_post_ids']);
 			  post['liked_post'] = true;
 			}
 			post['logged_in_user'] = user;
