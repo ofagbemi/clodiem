@@ -6,12 +6,11 @@
   
   <body>
     <div class="content">
+      <!--
       <div class="separate_header" >
-        <!--
-        <img class="corner_icon" style="float:right" src="/images/icons/shopping_bag/shopping_bag.svg">
-        -->
-		<h2>Aisle</h2>
+		<h2>Feed</h2>
 	  </div>
+	  -->
       {{#if posts.length}}
         <div class="posts">
 		  {{> postlist}}
@@ -20,9 +19,9 @@
       {{else}}
           <div class="separate_header" >
             <h2 style="margin-bottom:8px;">Hey!</h2>
-            <h4 style="margin-bottom:8px;">Your aisle's empty!</h4>
+            <h4 style="margin-bottom:8px;">Your feed's empty!</h4>
             <p style="margin-bottom:8px;">
-              To get some more posts on your aisle, you'll have to follow some users.
+              To get some more posts on your feed, you'll have to follow some users.
             </p>
             <p>
             {{#if popular_tags}}
