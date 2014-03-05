@@ -351,6 +351,9 @@ exports.createnewpostfromitems = function(req, res) {
 		        user['post_ids'].unshift(post['id']);
 		        user['aisle_post_ids'].unshift(post['id']);
 		        
+		        // don't bother with a callback
+		        addpostidtousersaisles(post['id'], user['followers_ids']);
+		        
 		        models.User.update({'id': user['id']}, {'post_ids': user['post_ids'], 'aisle_post_ids': user['aisle_post_ids']},
 		          function(err) {
 		            if(err) {console.log(err);res.send(500);}
@@ -372,6 +375,43 @@ exports.createnewpostfromitems = function(req, res) {
     }
 }
 
+function addpostidtousersaisles(postid, userids, callback) {
+  if(!postid) {
+    console.log('createpost.js: no post id');
+    if(callback) callback('createpost.js::addpostidtousersaisles: no post id');
+    return;
+  }
+  if(!userids) {
+    console.log('createpost.js: no user ids');
+    if(callback) callback('createpost.js::addpostidtousersaisles: no user ids');
+    return;
+  }
+  if(userids.length == 0) {
+    console.log('createpost.js: no users');
+    if(callback) callback();
+    return;
+  }
+  models.User
+    .find({'id': {$in: userids}})
+    .exec(function(err, users) {
+      if(err) { console.log(err);callback(err);return;}
+      for(var i=0;i<users.length;i++) {
+        users[i]['aisle_post_ids'].unshift(postid);
+        
+        // just update whenever
+        models.User
+          .update(
+            {'id': users[i]['id']},
+            {'aisle_post_ids': users[i]['aisle_post_ids']},
+            function(err) {console.log(err);}
+          );
+      }
+      
+      // call the callback right after execution
+      if(callback) callback();
+    
+    });
+}
 
 exports.addtopostitems = function(req, res) {
   models.Post
@@ -408,23 +448,4 @@ exports.addtopostitems = function(req, res) {
         return;
       }
     });
-    
-  
-/*
-  var post = data['posts'][req.body.id];
-  if(post) {
-    if(!post['item_ids']) post['item_ids'] = [];
-    if(req.body.items) {
-      post['item_ids'] = post['item_ids'].concat(req.body.item_ids);
-    }
-    if(req.body.img) {
-      post['img'] = req.body.img;
-    }
-    res.writeHead(200);
-    res.end();
-  } else {
-    console.log('createpost.js: couldn\'t find post with id ' + req.body.id);
-    res.writeHead(404);
-    res.end();
-  }*/
 }
