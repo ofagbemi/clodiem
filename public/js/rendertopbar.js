@@ -66,7 +66,7 @@ function renderbottombar(withpadding, active, userid) {
   
   var ratio = winwidth/winheight;
   
-  if(ratio > 0.5 && ratio < 1.5) return;
+  if(ratio > 0.75 && ratio < 1.5) return;
   
   var html = '<div id="bottombar" style="width: ' + winwidth + 'px"></div>';
   var bottombar = $(html);
