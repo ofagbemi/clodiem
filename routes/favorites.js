@@ -288,7 +288,14 @@ exports.recommendedusersview = function(req, res) {
             function(err, posts) {
               if(err) {console.log(err);res.send(500);return;}
               for(var i=0;i<ret['user_posts'].length;i++) {
-                ret['user_posts'][i]['posts'] = [posts[i]];
+                ret['user_posts'][i]['posts'] = [];
+                var u = ret['user_posts'][i]['user'];
+                
+                for(var j=0;j<posts.length;j++) {
+                  if(posts[j]['username'] == u['username']) {
+                    ret['user_posts'][i]['posts'].push(posts[j]);
+                  }
+                }
               }
               
               // console.log('favorites.js: rendering recommended users');
