@@ -11,14 +11,19 @@
 		<h2>{{title}}</h2>
 	  </div>
 	  {{#each user_posts}}
-	    <div class="user_list separate_header">
+	    <div class="user_post user_list separate_header">
 	    {{> user this.user}}
+	    {{#if this.posts.length}}
+		  {{#each this.posts}}
+			{{#if this}}
+			  {{>post}}
+			{{/if}}
+		  {{/each}}
+	    {{else}}
+	      <div style="padding:11px;text-align:center;"><h4>{{this.user.username}} hasn't made any posts</h4></div>
+	    {{/if}}
+	    
 	    </div>
-	    {{#each this.posts}}
-	      {{#if this}}
-	        {{>post}}
-	      {{/if}}
-	    {{/each}}
 	  {{/each}}
     </div>
     
