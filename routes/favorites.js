@@ -53,6 +53,7 @@ exports.followersview = function(req, res) {
       }
       
       var ret = {};
+      ret['logged_in_user'] = logged_in_user;
       ret['title'] = 'Followers';
       ret['users'] = [];
       
@@ -63,7 +64,7 @@ exports.followersview = function(req, res) {
           ret['users'] = users;
           res.render('followingusers', ret);
           return;
-        }
+        }, logged_in_user
       );
     
     });
@@ -88,6 +89,7 @@ exports.followingview = function(req, res) {
       }
       
       var ret = {};
+      ret['logged_in_user'] = logged_in_user;
       ret['title'] = 'Following';
       ret['users'] = [];
       
@@ -98,7 +100,7 @@ exports.followingview = function(req, res) {
           ret['users'] = users;
           res.render('followingusers', ret);
           return;
-        }
+        }, logged_in_user
       );
     
     });
@@ -156,6 +158,7 @@ exports.stylesview = function(req, res) {
         }
         
         var ret = {};
+        ret['logged_in_user'] = logged_in_user;
         ret['title'] = 'Styles';
         ret['posts'] = [];
         
@@ -211,6 +214,7 @@ exports.stylepostsview = function(req, res) {
 		    
 		    // find posts
 		    var ret = {};
+		    ret['logged_in_user'] = user;
 		    ret['title'] = style['title'];
 			ret['icon'] = '/images/icons/shirt3/shirt3.svg';
 			ret['logged_in_user'] = user;
@@ -292,7 +296,7 @@ exports.recommendedusersview = function(req, res) {
               return;
           });
           
-        });
+        }, logged_in_user);
     });
 };
 exports.likedpostsview = function(req, res) {

@@ -5,7 +5,13 @@
   <div class="user_body">
     <h4><a class="user_link" href="/user?id={{id}}">{{username}}</a></h4>
 	<span style="color:#aaa;">Location </span> <span>{{#if location}}{{location}}{{else}}Somewhere{{/if}}</span>
-	  <p>{{#if description}}{{description}}{{else}}I haven't written a description yet{{/if}}</p>
+	<p>{{#if description}}{{description}}{{else}}I haven't written a description yet{{/if}}</p>
   </div>
+  <div style="float:right;" followedid="{{id}}" class="follow_button button {{#if isfollowing}}toggled{{/if}}">
+	  <a>
+	    {{#if isfollowing}}-{{else}}+{{/if}}
+		<div class="icon" style="margin-left:2px;"></div>
+	  </a>
+	</div>
   <div class="clear"></div>
 </div>

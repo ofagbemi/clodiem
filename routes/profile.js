@@ -51,7 +51,7 @@ exports.usernametaken = function(req, res) {
 // takes in a list of ids and passes a list of
 // the user objects that correspond to the given
 // ids to the callback
-function getusersfromids(ids, callback) {
+function getusersfromids(ids, callback, logged_in_user) {
   if(ids) {
     models.User.find({
       'id': {$in: ids}
@@ -62,6 +62,14 @@ function getusersfromids(ids, callback) {
       if(err) {
         if(callback) callback(err, null);
       }
+      
+      if(logged_in_user) {
+        // set the isfollowing field
+        for(var i=0;i<users.length;i++) {
+          users[i]['isfollowing'] = follow.isfollowing(logged_in_user, users[i]);
+        }
+      }
+      
       if(callback) callback(err, users);
     }
   } else {
@@ -176,8 +184,8 @@ exports.view = function(req, res) {
                     // that's it!
                     // console.log('profile.js: rendering page ' + ret['id']);
                     res.render('profile', ret);
-                  });
-              });
+                  }, loggedinuser);
+              }, loggedinuser);
             })
       });
     };

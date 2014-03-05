@@ -35,13 +35,13 @@ function follow_bindclicklisteners(logged_in, followerid) {
         ga('send', 'event', 'user', 'follow', 'user ' + followerid + ' followed ' + followedid);
         button
           .addClass('toggled')
-          .html(button.html().replace('Follow', 'Following'));
+          .html(button.html().replace('Follow', 'Following').replace('+', '-'));
       } else {
         // analytics
         ga('send', 'event', 'user', 'unfollow', 'user ' + followerid + ' unfollowed ' + followedid);
         button
           .removeClass('toggled')
-          .html(button.html().replace('Following', 'Follow'));
+          .html(button.html().replace('Following', 'Follow').replace('-', '+'));
       }
       
       console.log(response);
