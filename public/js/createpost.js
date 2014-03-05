@@ -74,14 +74,18 @@ function createpost_bindclicklisteners() {
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
-      var time = (new Date()).toString();
-      var price = createpost_gettotalprice(createpost_addeditems);
-      var price_num = createpost_gettotalpricenum(createpost_addeditems);
       var title = $("input[name='post_title']").val();
       if(title == '') {
         alert('You have to give this post a title');
         return;
       }
+      
+      $(this).unbind('click');
+      
+      
+      var time = (new Date()).toString();
+      var price = createpost_gettotalprice(createpost_addeditems);
+      var price_num = createpost_gettotalpricenum(createpost_addeditems);
       var tags = createpost_parsetags($('.tagbox.posttagbox').val());
       
       var img = $("input[name='img_from_url']").val();
