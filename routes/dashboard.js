@@ -136,7 +136,7 @@ exports.addaisleposts = function(follower, followed, callback) {
       if(err) {console.log(err);if(callback){callback(err);}return;}
       
       // sort based on post times
-      console.log(follower['aisle_post_ids']);
+      // console.log(follower['aisle_post_ids']);
       follower['aisle_post_ids'].sort(
         function(a, b) {
           var a_obj = null;
@@ -147,12 +147,9 @@ exports.addaisleposts = function(follower, followed, callback) {
             if(a_obj && b_obj) break;
           }
           return b_obj['time'] - a_obj['time'];
-      });  
+      });
       
-        
-      console.log(follower['aisle_post_ids']);
-      
-      
+      // console.log(follower['aisle_post_ids']);
       if(callback) callback();
     });
 }
