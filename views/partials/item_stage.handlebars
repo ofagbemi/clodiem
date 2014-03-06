@@ -13,7 +13,7 @@
 		 · <span>{{time}}</span>
 	  </div>
 	  {{#if retailer}}
-	  <h3>Sold by <span class="retailer">{{retailer}}</span></h3>
+	  <h3>Sold by <a href="/searchfor?q={{retailer}}&searchRetailers=true&timeMin=&timeMax=&priceMin=&priceMax=&likeMin=&likeMax=&style=true&outfit=true&clothing=true&sortOptions=yourLikes&customSearch=true" class="retailer">{{retailer}}</a></h3>
 	  {{/if}}
 	  {{#if price}}
 	  <span class="price">{{price}}</span>
