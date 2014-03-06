@@ -48,7 +48,7 @@ exports.registeruser = function(req, res) {
 			models.User
 			  .find({})
 			  .limit(4)
-			  .sort('-time')
+			  .sort('-followers_ids.length')
 			  .exec(function(err, rec_users) {
 			    // add some recommended users
 			    if(err) {console.log(err); res.send(500);}
