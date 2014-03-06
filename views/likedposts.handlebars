@@ -6,10 +6,12 @@
   
   <body>
     <div class="content">
+      <!--
       <div class="separate_header" >
         <img class="corner_icon" style="margin-top:8px;float:right" src="{{icon}}">
 		<h2>{{title}} <span style="font-size:x-large">({{posts.length}})</span></h2>
 	  </div>
+	  -->
       {{#if posts.length}}
         <div class="posts">
 		  {{> postlist}}
@@ -34,7 +36,7 @@
     {{> universalscripts}}
     <script>
       function setSizes() {
-        rendertopbar(true, true);
+        rendertopbar(true, true,null{{#if title}},'{{title}} <span style="font-size:x-large">({{posts.length}})</span>'{{/if}});
         renderbottombar(true, 0{{#if logged_in_user}},'{{logged_in_user.id}}'{{/if}});
         renderposts({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
         buildmenu(
