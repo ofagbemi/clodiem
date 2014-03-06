@@ -752,7 +752,7 @@ div.separate_header {
 }
 .user .user_body {
   float: left;
-  max-width: 55%;
+  /* max-width: 55%; */
 }
 .user .user_body .user_link {
   color: #333333;

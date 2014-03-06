@@ -1,9 +1,15 @@
 function activatefollowbuttons(logged_in, followerid) {
   follow_bindclicklisteners(logged_in, followerid);
+  follow_adjustfollowbuttonposition();
 }
 
 function follow_not_logged_in() {
   alert('You have to log in to do that');
+}
+
+function follow_adjustfollowbuttonposition() {
+  $('.user_body')
+    .css('max-width', ($('.user').width() - ($('.profpic').outerWidth(true) + $('.follow_button').outerWidth(true))) + 'px');
 }
 
 function follow_submitfollow(followerid, followedid, success) {
