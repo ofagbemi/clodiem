@@ -196,6 +196,17 @@ function createpost_bindclicklisteners() {
       var filereader = new FileReader();
       filereader.readAsDataURL(js_input.files[0]);
       filereader.onload = function(e) {
+        /*$('.marker_field_img').load(
+          function(e) {
+		  var stepwrap = $('.createpost_stepwrap.4');
+		  console.log(stepwrap);
+		  var imgheight = $('.photo_stage .stage_image').height();
+		  alert('hi ' + stepwrap.height() + ' ' + imgheight);
+		  if(stepwrap.height() < imgheight) {
+			stepwrap.css('min-height', (stepwrap.height() + imgheight) + 'px');
+          }
+        });*/
+      
         $('.photo_stage .stage_image')
           .attr('src', e.target.result)
           .show();
@@ -206,13 +217,14 @@ function createpost_bindclicklisteners() {
                        'Upload a different photo')
         );
         
+        
         createpost_uploadedimage = true;
         
         $('.marker_field .marker_field_img')
           .attr('src', e.target.result)
           .load(function() {
             $('.marker_field')
-              .css('height', $('.photo_stage .stage_image').height() + 'px');
+              .css('height', $('.marker_field .marker_field_img').height() + 'px');
               // slightly hacky, get height from image loaded above
           });
         
