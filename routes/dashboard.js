@@ -117,9 +117,44 @@ exports.addaislepostsfromlist = function(user, post_ids) {
   //console.log('dashboard.js: adding ' + post_ids + ' to aisle posts');
   user['aisle_post_ids'] = post_ids.concat(user['aisle_post_ids']);
 }
-exports.addaisleposts = function(follower, followed) {
+exports.addaisleposts = function(follower, followed, callback) {
   // console.log('dashboard.js: adding ' + followed['post_ids'] + ' to aisle posts');
   follower['aisle_post_ids'] = followed['post_ids'].concat(follower['aisle_post_ids']);
+  
+  // remove duplicates
+  var checked = [];
+  for(var i=0;i<follower['aisle_post_ids'].length;i++) {
+    var id = follower['aisle_post_ids'][i];
+    var index = checked.indexOf(id);
+    if(id != -1) follower['aisle_post_ids'].slice(index, 1);
+    else checked.push(id);
+  }
+  
+  models.Post
+    .find({'id': {$in: follower['aisle_post_ids']}})
+    .exec(function(err, posts) {
+      if(err) {console.log(err);if(callback){callback(err);}return;}
+      
+      // sort based on post times
+      console.log(follower['aisle_post_ids']);
+      follower['aisle_post_ids'].sort(
+        function(a, b) {
+          var a_obj = null;
+          var b_obj = null;
+          for(var i=0;i<posts.length;i++) {
+            if(posts[i]['id'] == a) a_obj = posts[i];
+            if(posts[i]['id'] == b) b_obj = posts[i];
+            if(a_obj && b_obj) break;
+          }
+          return b_obj['time'] - a_obj['time'];
+      });  
+      
+        
+      console.log(follower['aisle_post_ids']);
+      
+      
+      if(callback) callback();
+    });
 }
 exports.removeaisleposts = function(follower, followed) {
   // console.log('dashboard.js: removing ' + followed['id'] + '\'s aisle posts');
@@ -379,7 +414,7 @@ exports.view = function(req, res) {
                     
               });
             }, logged_in_user);
-        });
+        }, null, null, '-time');
     });
 };
 
@@ -438,7 +473,7 @@ exports.tagsview = function(req, res) {
                     });
               });
             });
-        });
+        }, null, null, '-time');
     });
 };
 

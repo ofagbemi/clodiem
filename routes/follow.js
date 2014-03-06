@@ -41,7 +41,7 @@ exports.followuser = function(req, res) {
 			// console.log('follow.js: ' + follower['id'] + ' is following ' + followed['id']);
 			// console.log('follow.js: ' + follower['id'] + ' is now following ' + follower['following_ids'].length + ' users');
             
-            dashboard.addaisleposts(follower, followed);
+            dashboard.addaisleposts(follower, followed, updateUsers);
           } else {
             // if already following, unfollow
             var index = followed['followers_ids'].indexOf(req.body.followeruserid);
@@ -53,29 +53,30 @@ exports.followuser = function(req, res) {
 			// console.log('follow.js: ' + req.body.followeruserid + ' is not following ' + req.body.followeduserid);
 		   
 			dashboard.removeaisleposts(follower, followed);
+			updateUsers();
           }
         
           // update users
-          models.User
-            .update(
-              {'id': follower['id']},
-              {'following_ids': follower['following_ids'], 'aisle_post_ids': follower['aisle_post_ids']},
-              function(err) {
-                if(err) {console.log(err);res.send(500);}
-                models.User
-                  .update(
-                    {'id': followed['id']},
-                    {'followers_ids': followed['followers_ids']},
-                    function(err) {
-                      if(err) {console.log(err);res.send(500);}
-                      // console.log('follow.js: set follow successfully!');
-                      res.json(200, ret);
-                });
-            });
+          function updateUsers() {
+			models.User
+			  .update(
+				{'id': follower['id']},
+				{'following_ids': follower['following_ids'], 'aisle_post_ids': follower['aisle_post_ids']},
+				function(err) {
+				  if(err) {console.log(err);res.send(500);}
+				  models.User
+					.update(
+					  {'id': followed['id']},
+					  {'followers_ids': followed['followers_ids']},
+					  function(err) {
+						if(err) {console.log(err);res.send(500);}
+						// console.log('follow.js: set follow successfully!');
+						res.json(200, ret);
+				  });
+			  });
+		  }
         });
-    
     }
-
 }
 
 function isfollowing(follower, followed) {
