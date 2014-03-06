@@ -210,8 +210,8 @@ function createpost_bindclicklisteners() {
         $('.photo_stage .stage_image')
           .attr('src', e.target.result)
           .show();
-        $('a.img_upload').html(
-          $('a.img_upload')
+        $('a.img_upload.replace').html(
+          $('a.img_upload.replace')
             .html()
               .replace(/upload main photo/i,
                        'Upload a different photo')
