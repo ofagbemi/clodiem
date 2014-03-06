@@ -104,6 +104,18 @@
       </a>
       {{/if}}
       
+      <a style="color:inherit;" href="/populartags">
+      <div 
+      {{#unless logged_in_user.recommended_user_ids.length}}
+      style="background-color: #eee;color: #aaa;"
+      {{/unless}}
+      class="separate_header">
+        <img src="/images/icons/forward/darkgreyforward.svg" style="width:18px;margin-top:14px;margin-right:2px;float:right;">
+        <h3>Popular Tags</h3>
+        <p>These tags are trending now</p>
+      </div>
+      </a>
+      
       {{#if logged_in_user.recommended_user_ids.length}}
       <a style="color:inherit;" href="/recommendedusers">
       {{/if}}

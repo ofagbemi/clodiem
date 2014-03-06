@@ -306,6 +306,36 @@ exports.recommendedusersview = function(req, res) {
         }, logged_in_user);
     });
 };
+exports.populartags = function(req, res) {
+  var logged_in_user_id = profile.getloggedinuser(req);
+  
+  var ret = {};
+  models.User
+    .find({'id': logged_in_user_id})
+    .exec(function(err, users) {
+      if(err) {console.log(err); res.send(500);}
+      var logged_in_user = users[0];
+      
+      // get popular tags
+	  models.Tag
+		.find({})
+		.sort('-number')
+		.limit(11)
+		.exec(function(err, popular_tags) {
+		  if(err) {console.log(err);res.send(500);return;}
+		  
+		  ret['popular_tags'] = popular_tags;
+		  // console.log('dashboard.js: sending popular tags ' + ret['popular_tags']);
+		  
+		  ret['logged_in_user'] = logged_in_user;
+		  // console.log('logged in user' + logged_in_user);
+		  res.render('popular_tags', ret);
+		  return;
+		
+		
+		});
+    });
+}
 exports.likedpostsview = function(req, res) {
   var logged_in_user_id = profile.getloggedinuser(req);
   if(logged_in_user_id) {

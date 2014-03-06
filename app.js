@@ -80,6 +80,7 @@ app.get('/posts', favorites.postsview);
 app.get('/following', favorites.followingview);
 app.get('/followers', favorites.followersview);
 app.get('/recommendedusers', favorites.recommendedusersview);
+app.get('/populartags', favorites.populartags);
 
 app.post('/loginuser', login.loginuser);
 app.post('/registeruser', register.registeruser);
