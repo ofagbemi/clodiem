@@ -434,7 +434,7 @@ exports.tagsview = function(req, res) {
         res.redirect('/aisle');
         return;
       }
-      getpostsfromids(logged_in_user['aisle_post_ids'], logged_in_user,
+      getpostsfromids(logged_in_user['aisle_post_ids'].slice(0,util.numpostsonpage), logged_in_user,
         function(err, posts) {
           var ret = {};
           ret['posts'] = posts;
