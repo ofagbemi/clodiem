@@ -1,9 +1,9 @@
-
 var login = require('./login.js');
 var util = require('./util.js');
 var passwordHash = require('password-hash');
 var profile = require('./profile.js');
 var models = require('../models');
+var nodemailer = require('nodemailer');
 
 exports.view = function(req, res) {
   if(profile.getloggedinuser(req)) {
@@ -12,6 +12,43 @@ exports.view = function(req, res) {
     res.render('register', {});
   }
 };
+
+function sendmail(user) {
+  var transport = nodemailer.createTransport('SMTP',{
+    service: 'Gmail',
+    auth: {
+      user: 'clodiemteam',
+      pass: 'clodiemteam1234'
+    }
+  });
+  
+  var email_html = '\
+  <div style="width:640px;">\
+	<div style="width:100%;text-align:center;">\
+	  <h1 style="margin-bottom:0;font-weight:200;font-family:\'Helvetica Neue\',\'Helvetica\',sans-serif;">\
+		Clodiem\
+	  </h1>\
+	</div>\
+	<div style="background:#fff;width:100%;box-sizing:border-box;padding:14px;">\
+	  <div style="border-radius:4px;padding:14px;box-sizing:border-box;width:100%;font-size:14px;font-family:\'Helvetica Neue\',\'Helvetica\',sans-serif;">\
+		<div style="margin-bottom:11px;">Hi, ' + user['username'] + '!</div><div>Thanks for signing up! We hope you enjoy your stay!</div>\
+	  </div>\
+	</div>\
+  </div>'
+  
+  var mail_options = {
+    from: 'us@clodiem.com',
+    to: user['email'],
+    subject: 'Thanks for joining Clodiem!',
+    text: 'Hi, ' + user['username'] + '!\n\nThanks for signing up! We hope you enjoy your stay!',
+    html: email_html
+  };
+  
+  transport.sendMail(mail_options, function(err, response) {
+    if(err) {console.log(err);return}
+    // console.log('register.js: sent message ' + response.message);
+  });
+}
 
 exports.registeruser = function(req, res) {
   var userid = util.getuserid(req.body.username);
@@ -67,6 +104,7 @@ exports.registeruser = function(req, res) {
 				  // set this user as the logged in user
 				  login.setcurrentuser(req, user['id']);
 		  
+		          sendmail(user);
 				  res.redirect('/aisle');
 				}
 			  });
