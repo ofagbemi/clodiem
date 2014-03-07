@@ -112,5 +112,6 @@ function renderposts_rendernewaisleposts(response) {
         placemarkers();
       });;
     renderposts_aislepostindex++;
+    setlinks(); // call to disable new href's
   }
 }
