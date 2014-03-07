@@ -275,8 +275,16 @@ exports.view = function(req, res) {
       			}
       			
       			ret['posts'] = _posts;
-      			res.render('search', ret);
-      			return;
+      			
+      			if(ret['logged_in_user']) {
+      			  dashboard.getpostsfromids(ret['logged_in_user']['style_ids'], ret['logged_in_user'],
+      			    function(err, styles) {
+      			      if(err) {console.log(err);res.send(500);return;}
+      			      ret['logged_in_user']['styles'] = styles;
+      			      res.render('search', ret);
+      			      return;
+      			    });
+      			}
     		  }
 
           //ALGORITHM  STARTS
