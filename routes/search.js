@@ -284,6 +284,9 @@ exports.view = function(req, res) {
       			      res.render('search', ret);
       			      return;
       			    });
+      			} else {
+      			  res.render('search', ret);
+      			  return;
       			}
     		  }
 
