@@ -95,9 +95,11 @@ exports.uploadimageandaddtopost = function(req, res) {
 		    models.Post
 		      .update(
 		        {'id': {$in: post['item_ids']}},
-		        {'img': url}
+		        {'img': url},
+		        {multi: true}
 		      )
-		      .exec(function(err) {
+		      .exec(function(err, num) {
+		        // console.log('createpost.js: updated ' + num + ' of ' + post['item_ids'].length + ' items');
 		        updatePost();
 		      });
 		  } else {
