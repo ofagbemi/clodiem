@@ -883,9 +883,12 @@ div.separate_header {
   background: rgba(255, 255, 255, 0.36);
   box-shadow: 0 0 2px rgba(0,0,0,0.4);
 }
+.post_stage .add_post_to_style_stage .choose h3 {
+  font-size: inherit;
+}
 .post_stage .add_post_to_style_stage .choose h3 a{
   font-weight: 300;
-  font-size: x-large;
+  font-size: small;
   color: white;
 }
 .post_stage .add_post_to_style_stage .choose .option {
