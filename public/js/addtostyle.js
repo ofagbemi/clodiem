@@ -6,6 +6,10 @@ function addtostyle(userid) {
   addtostyle_bindclicklisteners(userid);
 }
 
+function addtostyle_clear_style_stage() {
+  
+}
+
 function addtostyle_bindclicklisteners(userid) {
   $('.add_to_style_button')
     .unbind('click')
@@ -25,6 +29,8 @@ function addtostyle_bindclicklisteners(userid) {
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
+      var cancel = $(this).parents('.add_post_to_style_stage').find('.cancel');
+      cancel.trigger('click');
       $(this).parent().fadeOut();
     });
   $('.option.add_to_new_style')
@@ -60,6 +66,7 @@ function addtostyle_bindclicklisteners(userid) {
       var img = $(this).parents('.post_stage').find('.post_img').attr('src');
       
       var close = $(this).parents('.add_post_to_style_stage').find('.close_button');
+      var cancel = $(this).parents('.add_post_to_style_stage').find('.cancel');
       
       var data = {
 		'userid': userid,
@@ -77,6 +84,7 @@ function addtostyle_bindclicklisteners(userid) {
 		success: function(response) {
 		  addtostyle_createdfromnewstyle(response);
 		  input.val('');
+		  cancel.trigger('click');
 		  close.trigger('click');
 		}
 	  });
@@ -87,6 +95,7 @@ function addtostyle_bindclicklisteners(userid) {
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
+      $(this).parents('.add_post_to_style_stage').find('input[type="text"]').val('');
       $('form.add_to_new_style_form').slideUp();
       $('.option.add_to_existing_style')
         .slideDown();
@@ -106,6 +115,7 @@ function addtostyle_bindclicklisteners(userid) {
     .unbind('click')
     .click(function(e) {
       e.preventDefault();
+      $(this).parents('.add_post_to_style_stage').find('input[type="checkbox"]').removeAttr('checked');
       $('form.add_to_existing_style_form').slideUp();
       $('.option.add_to_new_style')
         .slideDown();
@@ -156,6 +166,7 @@ function addtostyle_bindclicklisteners(userid) {
 		  data: data,
 		  success: function(response) {
 			addtostyle_addedtoexistingstyle(response);
+			cancel.trigger('click');
 			close.trigger('click');
 		  }
 		});
