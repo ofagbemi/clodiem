@@ -159,7 +159,7 @@ exports.stylesview = function(req, res) {
         
         var ret = {};
         ret['logged_in_user'] = logged_in_user;
-        ret['title'] = 'Styles';
+        ret['title'] = 'Collections';
         ret['posts'] = [];
         
         dashboard.getpostsfromids(

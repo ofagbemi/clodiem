@@ -50,7 +50,7 @@ function addtostyle_bindclicklisteners(userid) {
       var name = input.val();
       
       if(name.length < 1) {
-        alert('You have to give the style a name to create it');
+        alert('You have to give the collection a name to create it');
         return;
       }
       
@@ -131,7 +131,7 @@ function addtostyle_bindclicklisteners(userid) {
       }
       
       if(ids.length < 1) {
-        alert('You have to choose a style');
+        alert('You have to choose a collection');
         return;
       }
       
@@ -166,7 +166,7 @@ function addtostyle_bindclicklisteners(userid) {
 };
 
 function addtostyle_createdfromnewstyle(response) {
-  alert('Created new style successfully');
+  // alert('Created new collection successfully');
 }
 function addtostyle_addedtoexistingstyle(response) {
   //

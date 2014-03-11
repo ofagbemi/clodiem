@@ -58,7 +58,7 @@
 	  </div>
 	  <div class="display styles_button">
 		<h3>{{style_ids.length}}</h3>
-		<p>Styles</p>
+		<p>Collections</p>
 	  </div>
 	  <div class="clear"></div>
 	</div>
@@ -70,7 +70,7 @@
 		  
 		  <div class="items styles" style="display:none;">
 		    {{#if styles.length}}
-		      <h3 class="style_header">Styles ({{styles.length}})</h3>
+		      <h3 class="style_header">Collections ({{styles.length}})</h3>
 			  {{#each styles}}
 			    <div class="item_wrapper" style="margin-right:4px;margin-bottom:4px;float:left;">
 			      <a class="item_wrapper_link" title="{{title}}" href="#">
@@ -81,7 +81,7 @@
 			  {{/each}}
 			  <div class="clear"></div>
 			{{else}}
-			  <span>{{username}} hasn't created any styles yet</span>
+			  <span>{{username}} hasn't created any collections yet</span>
 			{{/if}}
 		  </div>
         <div class="style_contents items" style="display:none;">
@@ -93,7 +93,7 @@
 				  {{> post}}
 				{{/each}}
 			  {{else}}
-				<span>{{username}} hasn't put anything in this style yet</span>
+				<span>{{username}} hasn't put anything in this collection yet</span>
 			 {{/if}}
 			</div>
 		  {{/each}}
