@@ -36,18 +36,23 @@ function follow_bindclicklisteners(logged_in, followerid) {
     var button = $(this);
     var followedid = $(this).attr('followedid');
     follow_submitfollow(followerid, followedid, function(response) {
+      var num_followers = $('.display.followers_button h3');
       if(response['follow']) {
         // analytics
-        ga('send', 'event', 'user', 'follow', 'user ' + followerid + ' followed ' + followedid);
+        // ga('send', 'event', 'user', 'follow', 'user ' + followerid + ' followed ' + followedid);
         button
           .addClass('toggled')
           .html(button.html().replace('Follow', 'Unfollow').replace('+', '-'));
+          
+        num_followers.text(parseInt(num_followers.text()) + 1);
       } else {
         // analytics
-        ga('send', 'event', 'user', 'unfollow', 'user ' + followerid + ' unfollowed ' + followedid);
+        // ga('send', 'event', 'user', 'unfollow', 'user ' + followerid + ' unfollowed ' + followedid);
         button
           .removeClass('toggled')
           .html(button.html().replace('Unfollow', 'Follow').replace('-', '+'));
+          
+        num_followers.text(parseInt(num_followers.text()) - 1);
       }
       
       console.log(response);

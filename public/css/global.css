@@ -379,7 +379,7 @@ div.separate_header {
     color: black;
   }
   .button.toggled {
-    background-color: #1d6bce;
+    background-color: #314a5e;
   }
 
 .follow_button {
@@ -686,7 +686,7 @@ div.separate_header {
 }
 .profile_stats .display p {
   color: #888;
-  font-size: smaller;
+  font-size: 9px;
   text-transform: uppercase;
 }
 .closet .closet_inner {
