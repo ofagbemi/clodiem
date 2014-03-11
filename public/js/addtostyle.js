@@ -167,6 +167,10 @@ function addtostyle_bindclicklisteners(userid) {
 
 function addtostyle_createdfromnewstyle(response) {
   // alert('Created new collection successfully');
+  var div = '<div><input style="float:left;" type="checkbox" name="{{id}}"> <h4>{{title}}</h4></div>'
+  div = $(div.replace('{{id}}', response['postid']).replace('{{title}}', response['title']));
+  
+  $('.styles_list').append(div);
 }
 function addtostyle_addedtoexistingstyle(response) {
   //

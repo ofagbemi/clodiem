@@ -265,8 +265,8 @@ exports.createnewpost = function(req, res) {
 					  function(err) {
 						if(err) {console.log(err);res.send(500);}
 						// console.log('createpost.js: updated user ' + user['id']);
-						// return with id of item added
-						var ret = {'postid': post['id']};
+						// return with id of post added
+						var ret = {'postid': post['id'], 'title': post['title']};
 						res.json(ret);
 					  });
 			}

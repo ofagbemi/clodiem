@@ -18,7 +18,7 @@
 			
 			
 			<form style="display:none;background:white;padding:22px;border:solid 1px rgba(0,0,0,0.15);" class="add_to_existing_style_form" {{#if logged_in_user}}userid="{{logged_in_user.id}}" {{/if}} method="post">
-			 <div style="width:100%;">
+			 <div class="styles_list" style="width:100%;">
 			  {{#each logged_in_user.styles}}
 				<div><input style="float:left;" type="checkbox" name="{{id}}"> <h4>{{title}}</h4></div>
 			  {{/each}}
