@@ -57,6 +57,7 @@ function renderprofile_closetbindclicklisteners() {
 		.addClass('active')
 		.removeClass('inactive');
 	  displays['followers'].show();
+	  follow_adjustfollowbuttonposition();
 	});
   $('.following_button')
     .unbind('click')
@@ -67,6 +68,7 @@ function renderprofile_closetbindclicklisteners() {
 		.addClass('active')
 		.removeClass('inactive');
 	  displays['following'].show();
+	  follow_adjustfollowbuttonposition();
 	});
 }
 function renderprofile_stylesbindclicklisteners() {
