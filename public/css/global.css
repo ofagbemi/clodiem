@@ -828,7 +828,7 @@ div.separate_header {
   text-align: center;
   line-height: 24px;
   border-radius: 28px;
-  background: black;
+  background: rgba(0,0,0,0.94);
   color: white;
   position: absolute;
   display: block;
@@ -836,11 +836,17 @@ div.separate_header {
   z-index: 4;
   /* border: solid 2px rgba(245, 255, 0, 0.9); */
   border: solid 2px #6ec5ff;
+  box-shadow: 0 0 20px #6ec5ff;
+  -webkit-box-shadow: 0 0 20px #6ec5ff;
+  color: #6ec5ff;
 }
 .post_stage .marker.focused, .marker.focused {
   height: 34px;
   width: 34px;
   border: solid 2px rgb(245,255,0);
+  box-shadow: 0 0 20px rgb(245,255,0);
+  -webkit-box-shadow: 0 0 20px rgb(245,255,0);
+  color: rgb(245,255,0);
 }
 .post_stage .item_stage,
 .post_stage .add_post_to_style_stage {
