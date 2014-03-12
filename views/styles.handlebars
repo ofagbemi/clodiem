@@ -10,14 +10,23 @@
 		<h2>Collections <span style="font-size:x-large">({{posts.length}})</span></h2>
 	  </div>
 	  
+	  <a class="create_empty_style_button" postid="">
+		<div class="separate_header" style="width:100%;color:white;background:black;">
+		  <img src="/images/icons/plus/whiteplus.svg" style="width:18px;margin-top:5px;margin-right:8px;float:left;">
+		  <h3>Create a Collection</h3>
+		</div>
+	  </a>
+	  
+	  {{> new_style_stage}}
+	  
 	  {{#if posts.length}}
 		{{#each posts}}
 		  {{#if item_ids.length}}
 		  <a style="color:inherit;" href="/styleposts?id={{id}}">
 		  {{/if}}
-	  
+
 		  <div 
-		  {{#unless logged_in_user.style_ids.length}}
+		  {{#unless this.item_ids.length}}
 		  style="background-color: #eee;color: #aaa;"
 		  {{/unless}}
 		  class="separate_header">
@@ -27,7 +36,7 @@
 			<h3>{{title}}</h3>
 			<p>{{item_ids.length}} posts</p>
 		  </div>
-	  
+
 		  {{#if item_ids.length}}
 		  </a>
 		  {{/if}}
@@ -36,7 +45,7 @@
 	  <div class="separate_header">
 	    <div>You haven't created any collections yet. You can organize posts into collections so you can look back at them later.</div>
 		<div style="width:100%;text-align:center;margin-top:8px;">
-		  <a class="tutorial_button" href="#">Click here to find out how</a>.
+		  <a class="tutorial_button" href="#">Click here to find out more about colections</a>.
 		</div>
 	  </div>
 	  {{/if}}

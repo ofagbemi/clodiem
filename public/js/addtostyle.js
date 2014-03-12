@@ -1,3 +1,11 @@
+var addtostyle_style_html = '\
+  <div \
+  style="background-color: #eee;color: #aaa;"\
+  class="separate_header">\
+	<h3>{{title}}</h3>\
+	<p>0 posts</p>\
+  </div>'
+
 function addtostyle_not_logged_in() {
   alert('You have to log in to do that');
 };
@@ -10,7 +18,60 @@ function addtostyle_clear_style_stage() {
   
 }
 
+function addtostyle_createstyle(userid, item_ids, title, time, img, callback) {
+  var data = {
+	'userid': userid,
+	'type': 'style',
+	'item_ids': item_ids,
+	'title': title,
+	'time': (new Date()).toString(),
+	'img': img
+  };
+
+  $.ajax({
+	type: 'POST',
+	url: '/createnewpost',
+	data: data,
+	success: function(response) {
+	  callback(response);
+	}
+  });
+}
+
 function addtostyle_bindclicklisteners(userid) {
+  $('.create_empty_style_button')
+    .unbind('click')
+    .click(function(e) {
+      $('.create_empty_style_stage')
+        .slideDown();
+    });
+
+  $('.create_empty_style_stage .close_button')
+    .unbind('click')
+    .click(function(e) {
+      $(this).find('input[type="text"]').val('');
+      $(this).parent().slideUp();
+    });
+    
+  $('.create_empty_style_stage .submit')
+    .unbind('click')
+    .click(function(e) {
+      var title = $('input[name="style_name"]').val();
+      if(title.length < 1) {
+        alert('You have to give the collection a name to create it');
+        return;
+      }
+      var close = $('.create_empty_style_stage .close_button');
+      addtostyle_createstyle(userid, [], title, (new Date()).toString(), null,
+        function(response) {
+          close.trigger('click');
+          var style_div = $(addtostyle_style_html.replace('{{title}}', response['title']));
+          style_div.hide();
+          $('.create_empty_style_stage').after(style_div);
+          style_div.slideDown();
+        });
+    });
+
   $('.add_to_style_button')
     .unbind('click')
     .click(function(e) {
@@ -25,7 +86,7 @@ function addtostyle_bindclicklisteners(userid) {
         .fadeIn();
       
     });
-  $('.post_stage .add_post_to_style_stage .close_button')
+  $('.add_post_to_style_stage .close_button')
     .unbind('click')
     .click(function(e) {
       e.preventDefault();

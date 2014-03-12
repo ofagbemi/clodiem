@@ -11,25 +11,16 @@
 		<img src="images/icons/black_heart/red_heart.svg" style="width:48px;">
 	  </div>
 	  -->
-	  {{#if logged_in_user.style_ids.length}}
 	  <a style="color:inherit;" href="/styles">
-	  {{/if}}
 	  
       <div 
-      {{#unless logged_in_user.style_ids.length}}
-      style="background-color: #eee;color: #aaa;"
-      {{/unless}}
       class="separate_header">
-        {{#if logged_in_user.style_ids.length}}
           <img src="/images/icons/forward/darkgreyforward.svg" style="width:18px;margin-top:14px;margin-right:2px;float:right;">
-        {{/if}}
         <h3>Collections</h3>
         <p>{{logged_in_user.style_ids.length}} collections</p>
       </div>
       
-      {{#if logged_in_user.style_ids.length}}
 	  </a>
-	  {{/if}}
 	  
 	  {{#if logged_in_user.posts.length}}
 	  <a style="color:inherit;" href="/posts">
