@@ -247,6 +247,25 @@ div.separate_header {
 .corner_icon {
   width: 23px;
 }
+.notification {
+  color: white !important;
+  font-weight: 500;
+  width: 18px;
+  line-height: 18px;
+  background-color: #33729C;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.messaging_button .icon, .inbox_button .icon {
+  width: 23px;
+  height: 23px;
+  background-image: url('/images/icons/envelope/whiteenvelope.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+}
+
 .inline-block {
   display: inline-block;
 }

@@ -27,7 +27,7 @@
     <script>
       function setSizes() {
         rendertopbar(true);
-        renderbottombar(true, 4{{#if logged_in_user}},'{{logged_in_user.id}}'{{/if}});
+        renderbottombar(true, 4{{#if logged_in_user}},'{{logged_in_user.id}}', '{{logged_in_user.new_messages}}'{{/if}});
         
         rendersearchbar(($('#topbar').height()/window.innerHeight), 40, $('body').width(),true);
         

@@ -138,7 +138,7 @@ function viewmessages(req, res) {
           ret['messages'] = messages;
           ret['logged_in_user'] = logged_in_user;
           
-          models.User.update({'id': logged_in_user['id']}, {'new_message': false},
+          models.User.update({'id': logged_in_user['id']}, {'new_messages': 0},
             function(err) {
               // console.log('no new message for user');
               

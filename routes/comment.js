@@ -22,16 +22,14 @@ exports.sendmessage = function(req, res) {
       
       message.save(function(err) {
         if(err) {console.log(err);res.send(500);}
-        console.log(message);
-        
-        console.log(user['message_ids']);
+        if(!user['message_ids']) user['message_ids'] = [];
         user['message_ids'].unshift(message['_id']);
-        
-        console.log(user['message_ids']);
+        if(!user['new_messages']) user['new_messages'] = 0;
+        user['new_messages'] += 1;
         models.User
           .update(
             {'id': user['id']},
-            {'new_message':true, 'message_ids': user['message_ids']},
+            {'new_messages': user['new_messages'], 'message_ids': user['message_ids']},
             function(err) {
               if(err) {console.log(err);res.send(500);}
               res.json(200, {'message': req.body.message});

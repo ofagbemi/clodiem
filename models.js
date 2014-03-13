@@ -17,7 +17,7 @@ var UserSchema = new Mongoose.Schema({
     "description": String,
     "time": Date,
     'message_ids': [String],
-    'new_message': Boolean
+    'new_messages': Number
 });
 
 var PostSchema = new Mongoose.Schema({

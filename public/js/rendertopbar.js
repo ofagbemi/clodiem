@@ -60,7 +60,7 @@ function rendertopbar(withpadding, withbackbutton, nohelp, title) {
   bindclicklisteners();
 }
 
-function renderbottombar(withpadding, active, userid) {
+function renderbottombar(withpadding, active, userid, messages) {
   var winwidth = window.innerWidth;
   var winheight = window.innerHeight;
   
@@ -74,7 +74,7 @@ function renderbottombar(withpadding, active, userid) {
   var likesbutton = $('<a class="favorites_button" href="/favorites"><div class="icon"></div><div>favs</div></a>');
   var homebutton = $('<a class="home_button" href="/aisle"><div class="icon"></div><div>feed</div></a>');
   var createpostbutton = $('<a class="create_post_button" href="/createpost"><div class="icon"></div><div>create</div></a>');
-  var profilebutton = $('<a class="profile_button" href="/user?id=' + userid + '"><div class="icon"></div><div>me</div></a>');
+  var profilebutton = $('<a style="position:relative;" class="profile_button" href="/user?id=' + userid + '"><div class="icon"></div><div>me</div></a>');
   var searchbutton = $('<a class="search_button" href="/search"><div class="icon"></div><div>search</div></a>');
   
   var buttons = [likesbutton, homebutton, createpostbutton,
@@ -115,6 +115,14 @@ function renderbottombar(withpadding, active, userid) {
   if(withpadding) {
     $('.content')
       .css('margin-bottom', $('#bottombar').height() + 'px');
+  }
+  
+  var num_messages = parseInt(messages);
+  
+  if(num_messages && num_messages > 0) {
+    var notification = $('<div class="notification">' + num_messages + '</div>');
+    notification.css({'position':'absolute','top': '1px', 'right': '18%'});
+    profilebutton.append(notification);
   }
 }
   
