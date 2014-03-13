@@ -16,7 +16,7 @@ function messaging(touserid, fromuserid, tousername, fromusername, fromuserimg) 
 }
 
 function messaging_aftersendmessage() {
-
+  alert('Your message was sent successfully');
 }
 
 function messaging_bindclicklisteners() {
