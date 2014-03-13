@@ -11,7 +11,7 @@
       </div>
       <div class="profile_header_body">
         <h2>{{username}}</h2>
-        <div class="info">
+        <div class="info" style="padding-bottom: 8px;">
 		  {{#if location}}
 		  <p><span style="color:#aaa;">Location</span> {{location}}</p>
 		  {{/if}}
@@ -25,7 +25,7 @@
           <div class="button inbox_button" style="position:relative">
             <a href="/messages">
               <img src="/images/icons/envelope/whiteenvelope.svg" style="height:17px;width:17px;">
-              <!--Inbox-->{{#if logged_in_user.new_messages}}({{logged_in_user.new_messages}}){{/if}}
+              Inbox{{#if logged_in_user.new_messages}}({{logged_in_user.new_messages}}){{/if}}
             </a>
           </div>
           <div class="button">
@@ -38,13 +38,13 @@
           <div class="button messaging_button">
             <a>
               <img src="/images/icons/envelope/whiteenvelope.svg" style="height:17px;width:17px;">
-              <!--Send message-->
+              Message
             </a>
             {{> send_message}}
           </div>
 		  <div followedid="{{id}}" class="follow_button button {{#if isfollowing}}toggled{{/if}}">
 		    <a>
-		      <div class="icon"></div>
+		      <div class="icon" style="height:17px;"></div>
 		      {{#if isfollowing}}
 		      Unfollow
 		      {{else}}
