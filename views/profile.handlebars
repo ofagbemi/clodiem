@@ -25,7 +25,7 @@
           <div class="button inbox_button" style="position:relative">
             <a href="/messages">
               <img src="/images/icons/envelope/whiteenvelope.svg" style="height:17px;width:17px;">
-              Inbox{{#if logged_in_user.new_messages}} ({{logged_in_user.new_messages}}){{/if}}
+              <!--Inbox-->{{#if logged_in_user.new_messages}}({{logged_in_user.new_messages}}){{/if}}
             </a>
           </div>
           <div class="button">
@@ -38,7 +38,7 @@
           <div class="button messaging_button">
             <a>
               <img src="/images/icons/envelope/whiteenvelope.svg" style="height:17px;width:17px;">
-              Send message
+              <!--Send message-->
             </a>
             {{> send_message}}
           </div>
