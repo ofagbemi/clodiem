@@ -79,7 +79,9 @@ exports.registeruser = function(req, res) {
 				"following_ids": [],
 				"followers_ids": [],
 				"liked_post_ids": [],
-				"time": req.body.time
+				"time": req.body.time,
+				'message_ids': [],
+				'new_message': false
 			  });
 			  
 			models.User

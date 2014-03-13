@@ -15,7 +15,9 @@ var UserSchema = new Mongoose.Schema({
     "liked_post_ids": [String],
     "location": String,
     "description": String,
-    "time": Date
+    "time": Date,
+    'message_ids': [String],
+    'new_message': Boolean
 });
 
 var PostSchema = new Mongoose.Schema({
@@ -48,6 +50,16 @@ var CommentSchema = new Mongoose.Schema({
   'img': String
 });
 
+var MessageSchema = new Mongoose.Schema({
+  'touserid': String,
+  'fromuserid': String,
+  'tousername': String,
+  'fromusername': String,
+  'fromimg': String,
+  'time': Date,
+  'message': String
+});
+
 var ImageSchema = new Mongoose.Schema({
   'image': {data: Buffer, contentType: String},
   'name': String
@@ -64,6 +76,7 @@ var TagSchema = new Mongoose.Schema({
 exports.User = Mongoose.model('User', UserSchema);
 exports.Post = Mongoose.model('Post', PostSchema);
 exports.Comment = Mongoose.model('Comment', CommentSchema);
+exports.Message = Mongoose.model('Message', MessageSchema);
 exports.Image = Mongoose.model('Image', ImageSchema);
 exports.Tag = Mongoose.model('Tag', TagSchema);
 

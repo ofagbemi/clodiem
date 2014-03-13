@@ -688,6 +688,7 @@ div.separate_header {
   color: #888;
   font-size: 9px;
   text-transform: uppercase;
+  margin-top: 4px;
 }
 .closet .closet_inner {
   padding:11px;
@@ -1014,8 +1015,8 @@ div.separate_header {
 }
 .close_button {
   display: inline-block;
-  height: 24px;
-  width: 24px;
+  height: 24px !important;
+  width: 24px !important;
   background-image: url('../images/icons/close/close.svg');
   background-size: contain;
   background-repeat: no-repeat;

@@ -81,10 +81,12 @@ app.get('/following', favorites.followingview);
 app.get('/followers', favorites.followersview);
 app.get('/recommendedusers', favorites.recommendedusersview);
 app.get('/populartags', favorites.populartags);
+app.get('/messages', profile.viewmessages);
 
 app.post('/loginuser', login.loginuser);
 app.post('/registeruser', register.registeruser);
 app.post('/addcomment', comment.addcomment);
+app.post('/sendmessage', comment.sendmessage);
 app.post('/followuser', follow.followuser);
 app.post('/createnewpost', createpost.createnewpost);
 app.post('/createnewpostfromitems', createpost.createnewpostfromitems);

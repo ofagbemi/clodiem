@@ -1,0 +1,16 @@
+<div class="message separate_header">
+  <div class="user">
+	<a class="profpic" href="/user?id={{fromuserid}}">
+	  <img src={{#if img}}"{{img}}"{{else}}"/images/icons/button/button.svg" class="default"{{/if}}>
+	</a>
+	<div class="user_body" style="width:100%;">
+	  <h4><a style="font-weight:600;" class="user_link" href="/user?id={{fromuserid}}">{{fromusername}}</a> said</h4>
+	  <p style="padding:8px;background-color:#f9f9f9;border:solid 1px rgba(0,0,0,0.15);margin-top:8px;width:100%;padding:8px;">{{message}}</p>
+	</div>
+	<div class="button messaging_button" style="margin-top:8px;float:right;">
+	  <a>Reply</a>
+	  {{> send_message}}
+	</div>
+	<div class="clear"></div>
+  </div>
+</div>

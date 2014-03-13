@@ -90,6 +90,69 @@ exports.getusersfromids = getusersfromids;
  *    etc...
  * }
  */
+
+function viewmessages(req, res) {
+  var logged_in_user_id = getloggedinuser(req);
+  var ret = {};
+  
+  if(!logged_in_user_id) {
+    // console.log('profile.js: no logged in user');
+    res.redirect('/login');
+    res.end();
+    return;
+  }
+  
+  models.User
+    .find({'id': logged_in_user_id})
+    .exec(function(err, users) {
+      if(err) {console.log(err);res.send(500);return;}
+      var logged_in_user = users[0];
+      if(!logged_in_user) {res.send(404);}
+      
+      console.log(logged_in_user['message_ids']);
+      
+      models.Message
+        .find({'_id': {$in: logged_in_user['message_ids']}})
+        .sort('-time')
+        .exec(function(err, messages) {
+          if(err) {console.log(err);res.send(500);return;}
+          /*var user_messages = [];
+          for(var i=0;i<messages.length;i++) {
+            user_messages[i] = {
+              'user': {
+                  'img': messages[i]['fromimg'],
+                  'username': messages[i]['fromusername'],
+                  'id': messages[i]['fromuserid']
+                },
+              'message': messages[i]['message']
+            };
+          }
+          
+          ret['user_messages'] = user_messages;
+          ret['logged_in_user'] = logged_in_user;
+          */
+          
+          for(var i=0;i<messages.length;i++) {
+            messages[i]['logged_in_user'] = logged_in_user;
+          }
+          ret['messages'] = messages;
+          ret['logged_in_user'] = logged_in_user;
+          
+          models.User.update({'id': logged_in_user['id']}, {'new_message': false},
+            function(err) {
+              // console.log('no new message for user');
+              
+          });
+          
+          res.render('messages', ret);
+        
+        });
+    });
+  
+}
+
+exports.viewmessages = viewmessages;
+
 exports.view = function(req, res) {
   var ret = {};
   var logged_in_user_id = getloggedinuser(req);

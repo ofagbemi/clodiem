@@ -1,5 +1,47 @@
 var models = require('../models');
 
+exports.sendmessage = function(req, res) {
+  models.User
+    .find({'id': req.body.touserid})
+    .exec(function(err, result) {
+      if(err) {console.log(err);res.send(500);}
+      var user = result[0];
+      if(!user) {
+        res.send(404);
+      }
+      
+      var message = new models.Message({
+        'touserid': req.body.touserid,
+		'fromuserid': req.body.fromuserid,
+		'tousername': req.body.tousername,
+		'fromusername': req.body.fromusername,
+		'fromimg': req.body.fromimg,
+		'time': req.body.time,
+		'message': req.body.message
+      });
+      
+      message.save(function(err) {
+        if(err) {console.log(err);res.send(500);}
+        console.log(message);
+        
+        console.log(user['message_ids']);
+        user['message_ids'].unshift(message['_id']);
+        
+        console.log(user['message_ids']);
+        models.User
+          .update(
+            {'id': user['id']},
+            {'new_message':true, 'message_ids': user['message_ids']},
+            function(err) {
+              if(err) {console.log(err);res.send(500);}
+              res.json(200, {'message': req.body.message});
+            });
+      
+      });
+    
+    });
+}
+
 exports.addcomment = function(req, res) {
   models.Post
     .find({'id': req.body.postid})

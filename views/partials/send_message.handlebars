@@ -1,0 +1,15 @@
+<div class="messaging_stage separate_header" style="border:dotted 1px #eee;display:none;" class="side top bottom padded wrap">
+  <a class="close_button" style="float:right;"></a>
+  <div style="padding:11px;">
+    <h3 style="text-align:left">Send a message to {{#if fromusername}}{{fromusername}}{{else}}{{username}}{{/if}}</h3>
+    <textarea style="margin-top:11px;width:100%;min-height:110px;" placeholder="Type your message here..."></textarea>
+    <div style="margin-top:11px;width:100%;" class="button send_message"
+    
+    touserid="{{#if fromuserid}}{{fromuserid}}{{else}}{{id}}{{/if}}"
+	fromuserid="{{#if logged_in_user}}{{logged_in_user.id}}{{else}}{{touserid}}{{/if}}"
+	tousername="{{#if fromusername}}{{fromusername}}{{else}}{{username}}{{/if}}"
+	fromusername="{{#if logged_in_user}}{{logged_in_user.username}}{{else}}{{tousername}}{{/if}}"
+	fromuserimg="{{#if logged_in_user}}{{logged_in_user.img}}{{/if}}"
+    ><a>Send</a></div>
+  </div>
+</div>
