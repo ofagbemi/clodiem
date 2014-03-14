@@ -227,7 +227,6 @@ function addtostyle_bindclicklisteners(userid) {
 		  data: data,
 		  success: function(response) {
 			addtostyle_addedtoexistingstyle(response);
-			cancel.trigger('click');
 			close.trigger('click');
 		  }
 		});
