@@ -200,7 +200,8 @@
 		true, '{{logged_in_user.id}}'
 		{{else}}
 		false
-		{{/if}} 
+		{{/if}},
+		{{own_page}}
 	  );
 	  addtostyle({{#if logged_in_user}}'{{logged_in_user.id}}'{{/if}});
 	  messaging();

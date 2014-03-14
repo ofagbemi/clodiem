@@ -1,5 +1,5 @@
-function activatefollowbuttons(logged_in, followerid) {
-  follow_bindclicklisteners(logged_in, followerid);
+function activatefollowbuttons(logged_in, followerid, ownpage) {
+  follow_bindclicklisteners(logged_in, followerid, ownpage);
   follow_adjustfollowbuttonposition();
 }
 
@@ -26,7 +26,7 @@ function follow_submitfollow(followerid, followedid, success) {
   });
 }
 
-function follow_bindclicklisteners(logged_in, followerid) {
+function follow_bindclicklisteners(logged_in, followerid, ownpage) {
   $('.follow_button').click(function(e) {
     e.preventDefault();
     if(!logged_in) {
@@ -52,7 +52,7 @@ function follow_bindclicklisteners(logged_in, followerid) {
           .removeClass('toggled')
           .html(button.html().replace('Unfollow', 'Follow').replace('-', '+'));
         
-        if(logged_in != followerid) // if not doing it from own page!
+        if(!ownpage) // if not doing it from own page!
           num_followers.text(parseInt(num_followers.text()) - 1);
       }
       
