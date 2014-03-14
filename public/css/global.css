@@ -903,10 +903,10 @@ div.separate_header {
 }
 .post_stage .add_post_to_style_stage .choose {
   position: absolute;
-  left: 0;
-  width: 100%;
+  left: 2%;
+  width: 96%;
   padding: 20px 11px;
-  background: rgba(255, 255, 255, 0.36);
+  background: rgba(255, 255, 255, 0.84);
   box-shadow: 0 0 2px rgba(0,0,0,0.4);
 }
 .post_stage .add_post_to_style_stage .choose h3 {
@@ -1005,9 +1005,10 @@ div.separate_header {
   float: right;
 }
 .post_interact .add_to_style_button {
-  background-image: url('../images/icons/shirt3/shirt3.svg');
+  background-image: url('../images/icons/dresser/dresser.svg');
   background-size: 23px 23px;
-  background-position-y: 5px;
+  background-position-y: 7px;
+  cursor: pointer;
 }
 .post_interact .comment_show_button {
   background-image: url('../images/icons/comment/comment.svg');
