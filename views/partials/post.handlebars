@@ -5,7 +5,7 @@
   <div class="post_header">
 	<h2 class="title"><a href="/outfit?id={{id}}">{{title}}</a></h2>
 	<div class="sub">
-	  <span class="user_attribution">by <a href="/user?id={{userid}}">{{username}}</a></span>
+	  <span class="user_attribution">by <a style="font-size:medium" href="/user?id={{userid}}">{{username}}</a></span>
 	  <span>//</span>
 	  <span class="post_stats">
 		<a style="color:inherit;font-size:inherit;"href="/outfit?id={{id}}">
@@ -44,7 +44,7 @@
 	
 	
 	{{#if img}}
-	<a href="/outfit?id={{id}}"><img class="post_img" src="{{img}}"></a>
+	<a><img class="post_img" src="{{img}}"></a>
 	{{else}}
 	<div class="post_img" style="padding:40px;">
 	  <img style="width:100%;" src="/images/icons/pants2/pants2.svg">
