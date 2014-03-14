@@ -320,7 +320,7 @@ exports.populartags = function(req, res) {
 	  models.Tag
 		.find({})
 		.sort('-number')
-		.limit(11)
+		.limit(7)
 		.exec(function(err, popular_tags) {
 		  if(err) {console.log(err);res.send(500);return;}
 		  
