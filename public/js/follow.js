@@ -51,8 +51,9 @@ function follow_bindclicklisteners(logged_in, followerid) {
         button
           .removeClass('toggled')
           .html(button.html().replace('Unfollow', 'Follow').replace('-', '+'));
-          
-        num_followers.text(parseInt(num_followers.text()) - 1);
+        
+        if(logged_in != followerid) // if not doing it from own page!
+          num_followers.text(parseInt(num_followers.text()) - 1);
       }
       
       console.log(response);
