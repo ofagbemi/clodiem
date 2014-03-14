@@ -5,14 +5,14 @@ function rendertopbar(withpadding, withbackbutton, nohelp, title) {
   
   var homebutton = $('' +
     '<div style="text-overflow:ellipsis;overflow: hidden;white-space:nowrap;max-width:' + (winwidth * 0.75) + 'px;display:inline-block;">' +
-    '<a class="home_button" href="#">Clodiem</a>' +
+    '<a class="home_button">Clodiem</a>' +
     '</div>'
   );
   
-  var searchbutton = '<a class="search_button" href="#">Search</a>';
-  var closesearchbutton = $('<a class="close_search_button" href="#">x</a>')
+  var searchbutton = '<a class="search_button">Search</a>';
+  var closesearchbutton = $('<a class="close_search_button">x</a>')
                             .css('display', 'none');
-  var tutorialbutton = '<a class="tutorial_button" href="#">tutorial</a>'
+  var tutorialbutton = '<a class="tutorial_button">tutorial</a>'
   
   if(withbackbutton) {
     var link = document.referrer;
